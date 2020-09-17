@@ -1,0 +1,10 @@
+CXX_STD = CXX11
+
+PKG_CPPFLAGS=-DCGAL_HEADER_ONLY @cflags@
+
+PKG_LIBS = @libs@ $(@SYS@_LIBS)
+
+all: clean
+
+clean:
+	rm -f $(SHLIB) $(OBJECTS)
