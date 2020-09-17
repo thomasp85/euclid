@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 configure.log
+src/*.o
+src/*.so
