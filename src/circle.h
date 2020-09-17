@@ -10,9 +10,11 @@ class circle2 : public geo_vector<Circle_2, 2> {
 public:
   const Primitive geo_type = CIRCLE;
 
-  circle2(cpp11::doubles x, cpp11::doubles y, cpp11::doubles r) {
+  ~circle2(){}
+
+  circle2(cpp11::doubles x, cpp11::doubles y, cpp11::doubles r) : geo_vector(){
     _storage.reserve(x.size());
-    for (size_t i = 0; i < x.size(); ++i) {
+    for (R_xlen_t i = 0; i < x.size(); ++i) {
       _storage.emplace_back(Point_2(x[i], y[i]), r[i] * r[i]);
     }
   }
