@@ -11,13 +11,29 @@ extern "C" SEXP _euclid_create_circle_2(SEXP x, SEXP y, SEXP r) {
     return cpp11::as_sexp(create_circle_2(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(y), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(r)));
   END_CPP11
 }
+// circle.cpp
+cpp11::writable::doubles_matrix circle_2_to_matrix(cpp11::external_pointer<circle2> circles);
+extern "C" SEXP _euclid_circle_2_to_matrix(SEXP circles) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(circle_2_to_matrix(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<circle2>>>(circles)));
+  END_CPP11
+}
+// geometry_common.cpp
+cpp11::writable::doubles_matrix circle_2_to_matrix(cpp11::external_pointer<geometry_vector_base> geometries);
+extern "C" SEXP _euclid_circle_2_to_matrix(SEXP geometries) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(circle_2_to_matrix(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries)));
+  END_CPP11
+}
 
 extern "C" {
 /* .Call calls */
+extern SEXP _euclid_circle_2_to_matrix(SEXP);
 extern SEXP _euclid_create_circle_2(SEXP, SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_euclid_create_circle_2", (DL_FUNC) &_euclid_create_circle_2, 3},
+    {"_euclid_circle_2_to_matrix", (DL_FUNC) &_euclid_circle_2_to_matrix, 1},
+    {"_euclid_create_circle_2",    (DL_FUNC) &_euclid_create_circle_2,    3},
     {NULL, NULL, 0}
 };
 }

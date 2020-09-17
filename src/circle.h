@@ -4,15 +4,15 @@
 #include <cpp11/doubles.hpp>
 #include <cpp11/matrix.hpp>
 #include "cgal_types.h"
-#include "geo_vector.h"
+#include "geometry_vector.h"
 
-class circle2 : public geo_vector<Circle_2, 2> {
+class circle2 : public geometry_vector<Circle_2, 2> {
 public:
   const Primitive geo_type = CIRCLE;
 
-  ~circle2(){}
+  ~circle2() = default;
 
-  circle2(cpp11::doubles x, cpp11::doubles y, cpp11::doubles r) : geo_vector(){
+  circle2(cpp11::doubles x, cpp11::doubles y, cpp11::doubles r) : geometry_vector(){
     _storage.reserve(x.size());
     for (R_xlen_t i = 0; i < x.size(); ++i) {
       _storage.emplace_back(Point_2(x[i], y[i]), r[i] * r[i]);

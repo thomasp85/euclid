@@ -3,3 +3,11 @@
 create_circle_2 <- function(x, y, r) {
   .Call("_euclid_create_circle_2", x, y, r)
 }
+
+circle_2_to_matrix <- function(circles) {
+  .Call("_euclid_circle_2_to_matrix", circles)
+}
+
+circle_2_to_matrix <- function(geometries) {
+  .Call("_euclid_circle_2_to_matrix", geometries)
+}
