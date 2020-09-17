@@ -35,7 +35,7 @@ public:
   geo_vector() {}
   geo_vector(std::vector<T> content) : _storage(content) {}
 
-  virtual ~geo_vector() {};
+  virtual ~geo_vector() = default;
 
   size_t size() const { return _storage.size(); }
   T operator[](size_t i) const { return _storage[i]; }
