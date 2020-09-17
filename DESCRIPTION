@@ -1,0 +1,27 @@
+Package: euclid
+Title: Exact Computation Geometry Framework Based on 'CGAL'
+Version: 0.0.0.9000
+Authors@R: 
+    c(person(given = "Thomas Lin",
+             family = "Pedersen",
+             role = c("aut", "cre"),
+             email = "thomasp85@gmail.com", 
+             comment = c(ORCID = "0000-0002-5147-4711")))
+Description: Provides a rich framework for doing computation geometry by 
+    interfacing with the 'CGAL' library. The 'euclid' package provides new 
+    vector types for standard geometric objects and supports exact computations
+    on them.
+License: MIT + file LICENSE
+Encoding: UTF-8
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.1
+LinkingTo: 
+    cpp11,
+    cgal4h,
+    BH
+SystemRequirements: C++11
+Imports: 
+    cpp11,
+    cgal4h,
+    BH
