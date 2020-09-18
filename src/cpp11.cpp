@@ -26,6 +26,20 @@ extern "C" SEXP _euclid_geometry_dimension(SEXP geometries) {
   END_CPP11
 }
 // geometry_common.cpp
+cpp11::external_pointer<geometry_vector_base> geometry_subset(cpp11::external_pointer<geometry_vector_base> geometries, cpp11::integers index);
+extern "C" SEXP _euclid_geometry_subset(SEXP geometries, SEXP index) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_subset(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(index)));
+  END_CPP11
+}
+// geometry_common.cpp
+cpp11::external_pointer<geometry_vector_base> geometry_copy(cpp11::external_pointer<geometry_vector_base> geometries);
+extern "C" SEXP _euclid_geometry_copy(SEXP geometries) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_copy(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries)));
+  END_CPP11
+}
+// geometry_common.cpp
 cpp11::writable::doubles_matrix geometry_to_matrix(cpp11::external_pointer<geometry_vector_base> geometries);
 extern "C" SEXP _euclid_geometry_to_matrix(SEXP geometries) {
   BEGIN_CPP11
@@ -80,24 +94,28 @@ extern "C" {
 extern SEXP _euclid_create_circle_2(SEXP, SEXP, SEXP);
 extern SEXP _euclid_create_point_2(SEXP, SEXP);
 extern SEXP _euclid_create_point_3(SEXP, SEXP, SEXP);
+extern SEXP _euclid_geometry_copy(SEXP);
 extern SEXP _euclid_geometry_dimension(SEXP);
 extern SEXP _euclid_geometry_format(SEXP);
 extern SEXP _euclid_geometry_is_degenerate(SEXP);
 extern SEXP _euclid_geometry_is_equal(SEXP, SEXP);
 extern SEXP _euclid_geometry_is_not_equal(SEXP, SEXP);
 extern SEXP _euclid_geometry_length(SEXP);
+extern SEXP _euclid_geometry_subset(SEXP, SEXP);
 extern SEXP _euclid_geometry_to_matrix(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"_euclid_create_circle_2",        (DL_FUNC) &_euclid_create_circle_2,        3},
     {"_euclid_create_point_2",         (DL_FUNC) &_euclid_create_point_2,         2},
     {"_euclid_create_point_3",         (DL_FUNC) &_euclid_create_point_3,         3},
+    {"_euclid_geometry_copy",          (DL_FUNC) &_euclid_geometry_copy,          1},
     {"_euclid_geometry_dimension",     (DL_FUNC) &_euclid_geometry_dimension,     1},
     {"_euclid_geometry_format",        (DL_FUNC) &_euclid_geometry_format,        1},
     {"_euclid_geometry_is_degenerate", (DL_FUNC) &_euclid_geometry_is_degenerate, 1},
     {"_euclid_geometry_is_equal",      (DL_FUNC) &_euclid_geometry_is_equal,      2},
     {"_euclid_geometry_is_not_equal",  (DL_FUNC) &_euclid_geometry_is_not_equal,  2},
     {"_euclid_geometry_length",        (DL_FUNC) &_euclid_geometry_length,        1},
+    {"_euclid_geometry_subset",        (DL_FUNC) &_euclid_geometry_subset,        2},
     {"_euclid_geometry_to_matrix",     (DL_FUNC) &_euclid_geometry_to_matrix,     1},
     {NULL, NULL, 0}
 };

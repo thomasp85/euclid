@@ -17,15 +17,15 @@ int geometry_dimension(cpp11::external_pointer<geometry_vector_base> geometries)
   return geometries->dimensions();
 }
 
-//[[cpp11::register]]
-//cpp11::external_pointer<geometry_vector_base> geometry_subset(cpp11::external_pointer<geometry_vector_base> geometries, cpp11::integers index) {
-//  return geometries->subset(index);
-//}
-//
-//[[cpp11::register]]
-//cpp11::external_pointer<geometry_vector_base> geometry_copy(cpp11::external_pointer<geometry_vector_base> geometries) {
-//  return geometries->copy();
-//}
+[[cpp11::register]]
+cpp11::external_pointer<geometry_vector_base> geometry_subset(cpp11::external_pointer<geometry_vector_base> geometries, cpp11::integers index) {
+  return geometries->subset(index);
+}
+
+[[cpp11::register]]
+cpp11::external_pointer<geometry_vector_base> geometry_copy(cpp11::external_pointer<geometry_vector_base> geometries) {
+  return geometries->copy();
+}
 
 [[cpp11::register]]
 cpp11::writable::doubles_matrix geometry_to_matrix(cpp11::external_pointer<geometry_vector_base> geometries) {

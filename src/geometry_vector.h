@@ -48,8 +48,8 @@ public:
   virtual cpp11::writable::strings dim_names() const = 0;
 
   // Subsetting etc
-  //virtual cpp11::external_pointer<geometry_vector_base> subset(cpp11::integers index) const = 0;
-  //virtual cpp11::external_pointer<geometry_vector_base> copy() const = 0;
+  virtual cpp11::external_pointer<geometry_vector_base> subset(cpp11::integers index) const = 0;
+  virtual cpp11::external_pointer<geometry_vector_base> copy() const = 0;
 
   // Predicates
   virtual cpp11::writable::logicals is_degenerate() const = 0;
@@ -128,26 +128,27 @@ public:
 
   size_t size() const { return _storage.size(); }
   T operator[](size_t i) const { return _storage[i]; }
+  void clear() { _storage.clear(); }
+  void push_back(T element) { _storage.push_back(element); }
   size_t dimensions() const {
     return dim;
   };
 
   // Subsetting
+  virtual geometry_vector_base* new_from_vector(std::vector<T> vec) const = 0;
   cpp11::external_pointer<geometry_vector_base> subset(cpp11::integers index) const {
     std::vector<T> new_storage;
-    new_storage.reserve(index.size());
+    new_storage.reserve(size());
     for (R_xlen_t i = 0; i < index.size(); ++i) {
       new_storage.push_back(_storage[index[i]]);
     }
-    geometry_vector<T, dim> *subsetted_vec(new geometry_vector<T, dim>(new_storage));
-    return {subsetted_vec};
+    return {new_from_vector(new_storage)};
   }
   cpp11::external_pointer<geometry_vector_base> copy() const {
     std::vector<T> new_storage;
     new_storage.reserve(size());
     new_storage.insert(new_storage.begin(), _storage.begin(), _storage.end());
-    geometry_vector<T, dim> *copied_vec(new geometry_vector<T, dim>(new_storage));
-    return {copied_vec};
+    return {new_from_vector(new_storage)};
   }
 
   // Predicates

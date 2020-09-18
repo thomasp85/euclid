@@ -12,6 +12,14 @@ geometry_dimension <- function(geometries) {
   .Call("_euclid_geometry_dimension", geometries)
 }
 
+geometry_subset <- function(geometries, index) {
+  .Call("_euclid_geometry_subset", geometries, index)
+}
+
+geometry_copy <- function(geometries) {
+  .Call("_euclid_geometry_copy", geometries)
+}
+
 geometry_to_matrix <- function(geometries) {
   .Call("_euclid_geometry_to_matrix", geometries)
 }

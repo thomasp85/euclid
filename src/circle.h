@@ -12,12 +12,22 @@ public:
 
   ~circle2() = default;
 
+  circle2() : geometry_vector() {}
   circle2(cpp11::doubles x, cpp11::doubles y, cpp11::doubles r) : geometry_vector(){
     _storage.reserve(x.size());
     for (R_xlen_t i = 0; i < x.size(); ++i) {
       _storage.emplace_back(Point_2(x[i], y[i]), r[i] * r[i]);
     }
   }
+
+  geometry_vector_base* new_from_vector(std::vector<Circle_2> vec) const {
+    circle2* copy = new circle2();
+
+    copy->_storage.swap(vec);
+
+    return copy;
+  }
+
   cpp11::writable::strings dim_names() const {
     return {"x0", "y0", "r"};
   }
