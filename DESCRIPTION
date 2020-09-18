@@ -24,6 +24,7 @@ SystemRequirements: C++11
 Imports: 
     cpp11,
     cgal4h,
-    BH
+    BH,
+    rlang
 URL: https://github.com/thomasp85/euclid
 BugReports: https://github.com/thomasp85/euclid/issues

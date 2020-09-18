@@ -11,29 +11,94 @@ extern "C" SEXP _euclid_create_circle_2(SEXP x, SEXP y, SEXP r) {
     return cpp11::as_sexp(create_circle_2(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(y), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(r)));
   END_CPP11
 }
-// circle.cpp
-cpp11::writable::doubles_matrix circle_2_to_matrix(cpp11::external_pointer<circle2> circles);
-extern "C" SEXP _euclid_circle_2_to_matrix(SEXP circles) {
+// geometry_common.cpp
+int geometry_length(cpp11::external_pointer<geometry_vector_base> geometries);
+extern "C" SEXP _euclid_geometry_length(SEXP geometries) {
   BEGIN_CPP11
-    return cpp11::as_sexp(circle_2_to_matrix(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<circle2>>>(circles)));
+    return cpp11::as_sexp(geometry_length(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries)));
   END_CPP11
 }
 // geometry_common.cpp
-cpp11::writable::doubles_matrix circle_2_to_matrix(cpp11::external_pointer<geometry_vector_base> geometries);
-extern "C" SEXP _euclid_circle_2_to_matrix(SEXP geometries) {
+int geometry_dimension(cpp11::external_pointer<geometry_vector_base> geometries);
+extern "C" SEXP _euclid_geometry_dimension(SEXP geometries) {
   BEGIN_CPP11
-    return cpp11::as_sexp(circle_2_to_matrix(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries)));
+    return cpp11::as_sexp(geometry_dimension(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries)));
+  END_CPP11
+}
+// geometry_common.cpp
+cpp11::writable::doubles_matrix geometry_to_matrix(cpp11::external_pointer<geometry_vector_base> geometries);
+extern "C" SEXP _euclid_geometry_to_matrix(SEXP geometries) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_to_matrix(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries)));
+  END_CPP11
+}
+// geometry_common.cpp
+cpp11::writable::strings geometry_format(cpp11::external_pointer<geometry_vector_base> geometries);
+extern "C" SEXP _euclid_geometry_format(SEXP geometries) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_format(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries)));
+  END_CPP11
+}
+// geometry_common.cpp
+cpp11::writable::logicals geometry_is_equal(cpp11::external_pointer<geometry_vector_base> geometries1, cpp11::external_pointer<geometry_vector_base> geometries2);
+extern "C" SEXP _euclid_geometry_is_equal(SEXP geometries1, SEXP geometries2) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_is_equal(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries1), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries2)));
+  END_CPP11
+}
+// geometry_common.cpp
+cpp11::writable::logicals geometry_is_not_equal(cpp11::external_pointer<geometry_vector_base> geometries1, cpp11::external_pointer<geometry_vector_base> geometries2);
+extern "C" SEXP _euclid_geometry_is_not_equal(SEXP geometries1, SEXP geometries2) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_is_not_equal(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries1), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries2)));
+  END_CPP11
+}
+// geometry_common.cpp
+cpp11::writable::logicals geometry_is_degenerate(cpp11::external_pointer<geometry_vector_base> geometries);
+extern "C" SEXP _euclid_geometry_is_degenerate(SEXP geometries) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_is_degenerate(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries)));
+  END_CPP11
+}
+// point.cpp
+cpp11::external_pointer<point2> create_point_2(cpp11::doubles x, cpp11::doubles y);
+extern "C" SEXP _euclid_create_point_2(SEXP x, SEXP y) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_2(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(y)));
+  END_CPP11
+}
+// point.cpp
+cpp11::external_pointer<point3> create_point_3(cpp11::doubles x, cpp11::doubles y, cpp11::doubles z);
+extern "C" SEXP _euclid_create_point_3(SEXP x, SEXP y, SEXP z) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_3(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(y), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(z)));
   END_CPP11
 }
 
 extern "C" {
 /* .Call calls */
-extern SEXP _euclid_circle_2_to_matrix(SEXP);
 extern SEXP _euclid_create_circle_2(SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_point_2(SEXP, SEXP);
+extern SEXP _euclid_create_point_3(SEXP, SEXP, SEXP);
+extern SEXP _euclid_geometry_dimension(SEXP);
+extern SEXP _euclid_geometry_format(SEXP);
+extern SEXP _euclid_geometry_is_degenerate(SEXP);
+extern SEXP _euclid_geometry_is_equal(SEXP, SEXP);
+extern SEXP _euclid_geometry_is_not_equal(SEXP, SEXP);
+extern SEXP _euclid_geometry_length(SEXP);
+extern SEXP _euclid_geometry_to_matrix(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_euclid_circle_2_to_matrix", (DL_FUNC) &_euclid_circle_2_to_matrix, 1},
-    {"_euclid_create_circle_2",    (DL_FUNC) &_euclid_create_circle_2,    3},
+    {"_euclid_create_circle_2",        (DL_FUNC) &_euclid_create_circle_2,        3},
+    {"_euclid_create_point_2",         (DL_FUNC) &_euclid_create_point_2,         2},
+    {"_euclid_create_point_3",         (DL_FUNC) &_euclid_create_point_3,         3},
+    {"_euclid_geometry_dimension",     (DL_FUNC) &_euclid_geometry_dimension,     1},
+    {"_euclid_geometry_format",        (DL_FUNC) &_euclid_geometry_format,        1},
+    {"_euclid_geometry_is_degenerate", (DL_FUNC) &_euclid_geometry_is_degenerate, 1},
+    {"_euclid_geometry_is_equal",      (DL_FUNC) &_euclid_geometry_is_equal,      2},
+    {"_euclid_geometry_is_not_equal",  (DL_FUNC) &_euclid_geometry_is_not_equal,  2},
+    {"_euclid_geometry_length",        (DL_FUNC) &_euclid_geometry_length,        1},
+    {"_euclid_geometry_to_matrix",     (DL_FUNC) &_euclid_geometry_to_matrix,     1},
     {NULL, NULL, 0}
 };
 }

@@ -1,12 +1,16 @@
 #pragma once
 
 #include <vector>
+#include <typeinfo>
 #include <cpp11/logicals.hpp>
 #include <cpp11/matrix.hpp>
 #include <cpp11/strings.hpp>
 #include <cpp11/list.hpp>
+#include <cpp11/external_pointer.hpp>
+#include <cpp11/integers.hpp>
 
 enum Primitive {
+  VIRTUAL,
   CIRCLE,
   DIRECTION,
   ISOCUBE,
@@ -25,11 +29,14 @@ enum Primitive {
 
 class geometry_vector_base {
 public:
+  const Primitive geometry_type = VIRTUAL;
+
   geometry_vector_base() {}
   virtual ~geometry_vector_base() = default;
 
   // Conversion
   virtual cpp11::writable::doubles_matrix as_numeric() const = 0;
+  virtual cpp11::writable::strings format() const = 0;
 
   // Equality
   virtual cpp11::writable::logicals operator==(const geometry_vector_base& other) const = 0;
@@ -39,6 +46,10 @@ public:
   virtual size_t size() const = 0;
   virtual size_t dimensions() const = 0;
   virtual cpp11::writable::strings dim_names() const = 0;
+
+  // Subsetting etc
+  //virtual cpp11::external_pointer<geometry_vector_base> subset(cpp11::integers index) const = 0;
+  //virtual cpp11::external_pointer<geometry_vector_base> copy() const = 0;
 
   // Predicates
   virtual cpp11::writable::logicals is_degenerate() const = 0;
@@ -50,10 +61,11 @@ protected:
   std::vector<T> _storage;
 
 public:
-  const Primitive geometry_type = POINT;
-
   geometry_vector() {}
-  geometry_vector(std::vector<T> content) : _storage(content) {}
+  // Construct without element copy - BEWARE!
+  geometry_vector(std::vector<T> content) {
+    _storage.swap(content);
+  }
   geometry_vector(const geometry_vector& copy) : _storage(copy.storage) {}
   geometry_vector& operator=(const geometry_vector& copy) const {
     _storage.clear();
@@ -61,36 +73,54 @@ public:
   }
   ~geometry_vector() = default;
 
-  cpp11::writable::logicals operator==(const geometry_vector& other) const {
-    if (other.size() != 1 || other.size() != size()) {
+  cpp11::writable::logicals operator==(const geometry_vector_base& other) const {
+    if (other.size() != 1 && other.size() != size()) {
       cpp11::stop("Incompatible vector sizes");
     }
     cpp11::writable::logicals result(size());
-    if (other.size() == 1) {
-      T geom = other[0];
+
+    if (typeid(*this) != typeid(other)) {
       for (size_t i = 0; i < size(); ++i) {
-        result[i] = _storage[i] == geom;
+        result[i] = (Rboolean) false;
+        return result;
+      }
+    }
+
+    const geometry_vector<T, dim>* other_recast = dynamic_cast< const geometry_vector<T, dim>* >(&other);
+    if (other.size() == 1) {
+      T geom = (*other_recast)[0];
+      for (size_t i = 0; i < size(); ++i) {
+        result[i] = (Rboolean) (_storage[i] == geom);
       }
     } else {
       for (size_t i = 0; i < size(); ++i) {
-        result[i] = _storage[i] == other[i];
+        result[i] = (Rboolean) (_storage[i] == (*other_recast)[i]);
       }
     }
     return result;
   }
-  cpp11::writable::logicals operator!=(const geometry_vector& other) const {
-    if (other.size() != 1 || other.size() != size()) {
+  cpp11::writable::logicals operator!=(const geometry_vector_base& other) const {
+    if (other.size() != 1 && other.size() != size()) {
       cpp11::stop("Incompatible vector sizes");
     }
     cpp11::writable::logicals result(size());
-    if (other.size() == 1) {
-      T geom = other[0];
+
+    if (typeid(*this) != typeid(other)) {
       for (size_t i = 0; i < size(); ++i) {
-        result[i] = _storage[i] != geom;
+        result[i] = (Rboolean) true;
+        return result;
+      }
+    }
+
+    const geometry_vector<T, dim>* other_recast = dynamic_cast< const geometry_vector<T, dim>* >(&other);
+    if (other.size() == 1) {
+      T geom = (*other_recast)[0];
+      for (size_t i = 0; i < size(); ++i) {
+        result[i] = (Rboolean) (_storage[i] != geom);
       }
     } else {
       for (size_t i = 0; i < size(); ++i) {
-        result[i] = _storage[i] != other[i];
+        result[i] = (Rboolean) (_storage[i] != (*other_recast)[i]);
       }
     }
     return result;
@@ -102,23 +132,30 @@ public:
     return dim;
   };
 
+  // Subsetting
+  cpp11::external_pointer<geometry_vector_base> subset(cpp11::integers index) const {
+    std::vector<T> new_storage;
+    new_storage.reserve(index.size());
+    for (R_xlen_t i = 0; i < index.size(); ++i) {
+      new_storage.push_back(_storage[index[i]]);
+    }
+    geometry_vector<T, dim> *subsetted_vec(new geometry_vector<T, dim>(new_storage));
+    return {subsetted_vec};
+  }
+  cpp11::external_pointer<geometry_vector_base> copy() const {
+    std::vector<T> new_storage;
+    new_storage.reserve(size());
+    new_storage.insert(new_storage.begin(), _storage.begin(), _storage.end());
+    geometry_vector<T, dim> *copied_vec(new geometry_vector<T, dim>(new_storage));
+    return {copied_vec};
+  }
+
   // Predicates
   cpp11::writable::logicals is_degenerate() const {
     cpp11::writable::logicals result;
     result.reserve(_storage.size());
-    switch (geometry_type) {
-    case DIRECTION:
-    case POINT:
-    case VECTOR:
-    case WPOINT:
-      for (size_t i = 0; i < _storage.size(); ++i) {
-        result.push_back((Rboolean) false);
-      }
-      return result;
-    }
-
     for (size_t i = 0; i < _storage.size(); ++i) {
-      result.push_back((Rboolean) _storage[i].is_degenerate());
+      result.push_back((Rboolean) false);
     }
     return result;
   }

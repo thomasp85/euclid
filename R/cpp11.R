@@ -4,10 +4,38 @@ create_circle_2 <- function(x, y, r) {
   .Call("_euclid_create_circle_2", x, y, r)
 }
 
-circle_2_to_matrix <- function(circles) {
-  .Call("_euclid_circle_2_to_matrix", circles)
+geometry_length <- function(geometries) {
+  .Call("_euclid_geometry_length", geometries)
 }
 
-circle_2_to_matrix <- function(geometries) {
-  .Call("_euclid_circle_2_to_matrix", geometries)
+geometry_dimension <- function(geometries) {
+  .Call("_euclid_geometry_dimension", geometries)
+}
+
+geometry_to_matrix <- function(geometries) {
+  .Call("_euclid_geometry_to_matrix", geometries)
+}
+
+geometry_format <- function(geometries) {
+  .Call("_euclid_geometry_format", geometries)
+}
+
+geometry_is_equal <- function(geometries1, geometries2) {
+  .Call("_euclid_geometry_is_equal", geometries1, geometries2)
+}
+
+geometry_is_not_equal <- function(geometries1, geometries2) {
+  .Call("_euclid_geometry_is_not_equal", geometries1, geometries2)
+}
+
+geometry_is_degenerate <- function(geometries) {
+  .Call("_euclid_geometry_is_degenerate", geometries)
+}
+
+create_point_2 <- function(x, y) {
+  .Call("_euclid_create_point_2", x, y)
+}
+
+create_point_3 <- function(x, y, z) {
+  .Call("_euclid_create_point_3", x, y, z)
 }
