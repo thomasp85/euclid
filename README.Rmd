@@ -11,6 +11,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+set.seed(1)
 ```
 
 # euclid
@@ -19,6 +20,54 @@ knitr::opts_chunk$set(
 <!-- badges: end -->
 
 **WIP**
+
+euclid aims to provide a comprehensive interface to the CGAL library for computational geometry. At its core it provides new vector types for all of the geometric primitives defined for the 2 and 3 dimensional kernel. These vector types maps directly into C++ structures ensuring that no conversion back and forth between R and C++ takes place. This, in turn, ensures that geometric calculations remain exact and free of any rounding errors or issues with floating point arithmetic.
+
+The plan is to gradually expand the algorithms that euclid support once the vector foundation is established
+
+## Installation
+For now, euclid can be installed from github using remotes:
+
+```{r, eval=FALSE}
+# install.packages("remotes")
+remotes::install_github("thomasp85/euclid")
+```
+
+## Example
+The package is still quite shallow but have rudmentary support for points and circles
+
+```{r}
+library(euclid)
+
+# Construct some exact numbers
+random_num <- exact_numeric(runif(20, max = 10))
+
+# Exact numbers behave much like R numerics (though not everything is possible)
+random_num[1:5]
+max(random_num)
+sort(random_num)
+random_num[2] * 10
+random_num[5] + random_num[16]
+cumsum(random_num)
+
+# With exact numbers we can construct our geometries
+
+# 2 dimensions
+p1 <- point(random_num[1:5], random_num[6:10])
+p1
+
+# circle based on center and radius
+circle(p1, random_num[11:15])
+
+# circle based on 2 points
+circle(p1, point(random_num[11:15], random_num[16:20]))
+
+# 3 dimensions
+point(random_num[1:5], random_num[6:10], random_num[11:15])
+
+
+```
+
 
 ## Code of Conduct
 

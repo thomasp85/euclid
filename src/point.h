@@ -5,6 +5,7 @@
 #include <cpp11/matrix.hpp>
 #include "cgal_types.h"
 #include "geometry_vector.h"
+#include "exact_numeric.h"
 
 class point2 : public geometry_vector<Point_2, 2> {
 public:
@@ -16,6 +17,12 @@ public:
   point2(cpp11::doubles x, cpp11::doubles y) : geometry_vector(){
     _storage.reserve(x.size());
     for (R_xlen_t i = 0; i < x.size(); ++i) {
+      _storage.emplace_back(x[i], y[i]);
+    }
+  }
+  point2(const exact_numeric& x, const exact_numeric& y) : geometry_vector(){
+    _storage.reserve(x.size());
+    for (size_t i = 0; i < x.size(); ++i) {
       _storage.emplace_back(x[i], y[i]);
     }
   }
@@ -45,6 +52,12 @@ public:
   point3(cpp11::doubles x, cpp11::doubles y, cpp11::doubles z) : geometry_vector(){
     _storage.reserve(x.size());
     for (R_xlen_t i = 0; i < x.size(); ++i) {
+      _storage.emplace_back(x[i], y[i], z[i]);
+    }
+  }
+  point3(const exact_numeric& x, const exact_numeric& y, const exact_numeric& z) : geometry_vector(){
+    _storage.reserve(x.size());
+    for (size_t i = 0; i < x.size(); ++i) {
       _storage.emplace_back(x[i], y[i], z[i]);
     }
   }

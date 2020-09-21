@@ -5,11 +5,14 @@
 #include <cpp11/matrix.hpp>
 #include "cgal_types.h"
 #include "geometry_vector.h"
+#include "point.h"
+#include "exact_numeric.h"
 
 class circle2 : public geometry_vector<Circle_2, 2> {
 public:
   const Primitive geo_type = CIRCLE;
 
+  using geometry_vector::geometry_vector;
   ~circle2() = default;
 
   circle2() : geometry_vector() {}
@@ -17,6 +20,12 @@ public:
     _storage.reserve(x.size());
     for (R_xlen_t i = 0; i < x.size(); ++i) {
       _storage.emplace_back(Point_2(x[i], y[i]), r[i] * r[i]);
+    }
+  }
+  circle2(const point2& center, const exact_numeric& r) : geometry_vector(){
+    _storage.reserve(center.size());
+    for (size_t i = 0; i < center.size(); ++i) {
+      _storage.emplace_back(center[i], r[i] * r[i]);
     }
   }
 

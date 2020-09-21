@@ -25,6 +25,7 @@ Imports:
     cpp11,
     cgal4h,
     BH,
-    rlang
+    rlang,
+    utils
 URL: https://github.com/thomasp85/euclid
 BugReports: https://github.com/thomasp85/euclid/issues

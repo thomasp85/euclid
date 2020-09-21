@@ -27,6 +27,7 @@
 #include <CGAL/Weighted_point_3.h>
 
 typedef CGAL::Exact_predicates_exact_constructions_kernel Kernel;
+typedef Kernel::FT Exact_number;
 typedef Kernel::Circle_2 Circle_2;
 typedef Kernel::Circle_3 Circle_3;
 typedef Kernel::Direction_2 Direction_2;

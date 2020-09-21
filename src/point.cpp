@@ -34,8 +34,9 @@ cpp11::writable::strings point2::format() const {
 }
 
 [[cpp11::register]]
-cpp11::external_pointer<point2> create_point_2(cpp11::doubles x, cpp11::doubles y) {
-  point2 *points(new point2(x, y));
+cpp11::external_pointer<point2> create_point_2(cpp11::external_pointer<exact_numeric> x,
+                                               cpp11::external_pointer<exact_numeric> y) {
+  point2 *points(new point2(*x, *y));
 
   return {points};
 }
@@ -67,8 +68,10 @@ cpp11::writable::strings point3::format() const {
 }
 
 [[cpp11::register]]
-cpp11::external_pointer<point3> create_point_3(cpp11::doubles x, cpp11::doubles y, cpp11::doubles z) {
-  point3 *points(new point3(x, y, z));
+cpp11::external_pointer<point3> create_point_3(cpp11::external_pointer<exact_numeric> x,
+                                               cpp11::external_pointer<exact_numeric> y,
+                                               cpp11::external_pointer<exact_numeric> z) {
+  point3 *points(new point3(*x, *y, *z));
 
   return {points};
 }

@@ -66,10 +66,11 @@ public:
   geometry_vector(std::vector<T> content) {
     _storage.swap(content);
   }
-  geometry_vector(const geometry_vector& copy) : _storage(copy.storage) {}
+  geometry_vector(const geometry_vector& copy) : _storage(copy._storage) {}
   geometry_vector& operator=(const geometry_vector& copy) const {
     _storage.clear();
     _storage.assign(_storage.end(), copy._storage.begin(), copy._storage.end());
+    return *this;
   }
   ~geometry_vector() = default;
 
@@ -140,7 +141,7 @@ public:
     std::vector<T> new_storage;
     new_storage.reserve(size());
     for (R_xlen_t i = 0; i < index.size(); ++i) {
-      new_storage.push_back(_storage[index[i]]);
+      new_storage.push_back(_storage[index[i] - 1]);
     }
     return {new_from_vector(new_storage)};
   }

@@ -39,8 +39,35 @@ cpp11::writable::strings circle2::format() const {
 }
 
 [[cpp11::register]]
-cpp11::external_pointer<circle2> create_circle_2(cpp11::doubles x, cpp11::doubles y, cpp11::doubles r) {
-  circle2 *circles(new circle2(x, y, r));
+cpp11::external_pointer<circle2> create_circle_2_center_radius(cpp11::external_pointer<point2> center, cpp11::external_pointer<exact_numeric> r) {
+  std::vector<Circle_2> circle_vec;
+  circle_vec.reserve(center->size());
+  for (size_t i = 0; i < center->size(); ++i) {
+    circle_vec.emplace_back((*center)[i], (*r)[i] * (*r)[i]);
+  }
+  circle2 *circles(new circle2(circle_vec));
+
+  return {circles};
+}
+[[cpp11::register]]
+cpp11::external_pointer<circle2> create_circle_2_3_point(cpp11::external_pointer<point2> p, cpp11::external_pointer<point2> q, cpp11::external_pointer<point2> r) {
+  std::vector<Circle_2> circle_vec;
+  circle_vec.reserve(p->size());
+  for (size_t i = 0; i < p->size(); ++i) {
+    circle_vec.emplace_back((*p)[i], (*q)[i], (*r)[i]);
+  }
+  circle2 *circles(new circle2(circle_vec));
+
+  return {circles};
+}
+[[cpp11::register]]
+cpp11::external_pointer<circle2> create_circle_2_2_point(cpp11::external_pointer<point2> p, cpp11::external_pointer<point2> q) {
+  std::vector<Circle_2> circle_vec;
+  circle_vec.reserve(p->size());
+  for (size_t i = 0; i < p->size(); ++i) {
+    circle_vec.emplace_back((*p)[i], (*q)[i]);
+  }
+  circle2 *circles(new circle2(circle_vec));
 
   return {circles};
 }

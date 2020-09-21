@@ -1,6 +1,6 @@
 CXX_STD = CXX11
 
-PKG_CPPFLAGS=-DCGAL_HEADER_ONLY -I/usr/local/Cellar/mpfr/4.1.0/include -I/usr/local/Cellar/gmp/6.2.0/include
+PKG_CPPFLAGS=-DCGAL_HEADER_ONLY -DCGAL_USE_GMPXX -I/usr/local/Cellar/mpfr/4.1.0/include -I/usr/local/Cellar/gmp/6.2.0/include
 
 PKG_LIBS = -L/usr/local/Cellar/mpfr/4.1.0/lib -L/usr/local/Cellar/gmp/6.2.0/lib -lmpfr -lgmp $(DARWIN_LIBS)
 
