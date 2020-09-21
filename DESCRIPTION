@@ -29,3 +29,5 @@ Imports:
     utils
 URL: https://github.com/thomasp85/euclid
 BugReports: https://github.com/thomasp85/euclid/issues
+Suggests: 
+    covr
