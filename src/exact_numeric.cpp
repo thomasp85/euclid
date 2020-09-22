@@ -41,7 +41,7 @@ cpp11::external_pointer<exact_numeric> exact_numeric_subset(cpp11::external_poin
   return {new_ex};
 }
 
-exact_numeric exact_numeric::assign(cpp11::integers index, exact_numeric value) const {
+exact_numeric exact_numeric::assign(cpp11::integers index, const exact_numeric& value) const {
   exact_numeric result = *this;
 
   for (R_xlen_t i = 0; i < index.size(); ++i) {
