@@ -93,11 +93,11 @@ print.euclid_exact_numeric <- function(x, ...) {
 #' @importFrom utils str
 #' @export
 str.euclid_geometry <- function(object, ...) {
-  show <- max(5, length(object))
+  show <- min(5, length(object))
   cat(
     "exact num [1:", length(object), "] ",
     paste(format(object)[seq_len(show)], collapse = " "),
-    if (show > 5) " ..." else "",
+    if (show < length(object)) " ..." else "",
     sep = ""
   )
   invisible(object)
