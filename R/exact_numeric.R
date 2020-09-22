@@ -144,7 +144,7 @@ sort.euclid_exact_numeric <- function(x, decreasing = FALSE, ...) {
   if (anyNA(index)) {
     rlang::abort("Trying to assign to non-existing element")
   }
-  value <- rep(as_exact_numeric(value), length(index))
+  value <- rep_len(as_exact_numeric(value), length(index))
   restore_euclid_vector(exact_numeric_assign(get_ptr(x), index, get_ptr(value)), x)
 }
 #' @export

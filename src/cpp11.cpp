@@ -292,6 +292,48 @@ extern "C" SEXP _euclid_geometry_copy(SEXP geometries) {
   END_CPP11
 }
 // geometry_common.cpp
+cpp11::external_pointer<geometry_vector_base> geometry_assign(cpp11::external_pointer<geometry_vector_base> geometries, cpp11::integers index, cpp11::external_pointer<geometry_vector_base> value);
+extern "C" SEXP _euclid_geometry_assign(SEXP geometries, SEXP index, SEXP value) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_assign(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(index), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(value)));
+  END_CPP11
+}
+// geometry_common.cpp
+cpp11::external_pointer<geometry_vector_base> geometry_combine(cpp11::external_pointer<geometry_vector_base> geometries, cpp11::list_of< cpp11::external_pointer<geometry_vector_base> > extra);
+extern "C" SEXP _euclid_geometry_combine(SEXP geometries, SEXP extra) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_combine(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries), cpp11::as_cpp<cpp11::decay_t<cpp11::list_of< cpp11::external_pointer<geometry_vector_base> >>>(extra)));
+  END_CPP11
+}
+// geometry_common.cpp
+cpp11::external_pointer<geometry_vector_base> geometry_unique(cpp11::external_pointer<geometry_vector_base> geometries);
+extern "C" SEXP _euclid_geometry_unique(SEXP geometries) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_unique(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries)));
+  END_CPP11
+}
+// geometry_common.cpp
+cpp11::writable::logicals geometry_duplicated(cpp11::external_pointer<geometry_vector_base> geometries);
+extern "C" SEXP _euclid_geometry_duplicated(SEXP geometries) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_duplicated(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries)));
+  END_CPP11
+}
+// geometry_common.cpp
+cpp11::writable::logicals geometry_any_duplicated(cpp11::external_pointer<geometry_vector_base> geometries);
+extern "C" SEXP _euclid_geometry_any_duplicated(SEXP geometries) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_any_duplicated(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries)));
+  END_CPP11
+}
+// geometry_common.cpp
+cpp11::writable::integers geometry_match(cpp11::external_pointer<geometry_vector_base> geometries, cpp11::external_pointer<geometry_vector_base> table);
+extern "C" SEXP _euclid_geometry_match(SEXP geometries, SEXP table) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_match(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(geometries), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<geometry_vector_base>>>(table)));
+  END_CPP11
+}
+// geometry_common.cpp
 cpp11::writable::doubles_matrix geometry_to_matrix(cpp11::external_pointer<geometry_vector_base> geometries);
 extern "C" SEXP _euclid_geometry_to_matrix(SEXP geometries) {
   BEGIN_CPP11
@@ -382,15 +424,21 @@ extern SEXP _euclid_exact_numeric_times(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_to_numeric(SEXP);
 extern SEXP _euclid_exact_numeric_uni_minus(SEXP);
 extern SEXP _euclid_exact_numeric_unique(SEXP);
+extern SEXP _euclid_geometry_any_duplicated(SEXP);
+extern SEXP _euclid_geometry_assign(SEXP, SEXP, SEXP);
+extern SEXP _euclid_geometry_combine(SEXP, SEXP);
 extern SEXP _euclid_geometry_copy(SEXP);
 extern SEXP _euclid_geometry_dimension(SEXP);
+extern SEXP _euclid_geometry_duplicated(SEXP);
 extern SEXP _euclid_geometry_format(SEXP);
 extern SEXP _euclid_geometry_is_degenerate(SEXP);
 extern SEXP _euclid_geometry_is_equal(SEXP, SEXP);
 extern SEXP _euclid_geometry_is_not_equal(SEXP, SEXP);
 extern SEXP _euclid_geometry_length(SEXP);
+extern SEXP _euclid_geometry_match(SEXP, SEXP);
 extern SEXP _euclid_geometry_subset(SEXP, SEXP);
 extern SEXP _euclid_geometry_to_matrix(SEXP);
+extern SEXP _euclid_geometry_unique(SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"_euclid_create_circle_2_2_point",       (DL_FUNC) &_euclid_create_circle_2_2_point,       2},
@@ -432,15 +480,21 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_exact_numeric_to_numeric",      (DL_FUNC) &_euclid_exact_numeric_to_numeric,      1},
     {"_euclid_exact_numeric_uni_minus",       (DL_FUNC) &_euclid_exact_numeric_uni_minus,       1},
     {"_euclid_exact_numeric_unique",          (DL_FUNC) &_euclid_exact_numeric_unique,          1},
+    {"_euclid_geometry_any_duplicated",       (DL_FUNC) &_euclid_geometry_any_duplicated,       1},
+    {"_euclid_geometry_assign",               (DL_FUNC) &_euclid_geometry_assign,               3},
+    {"_euclid_geometry_combine",              (DL_FUNC) &_euclid_geometry_combine,              2},
     {"_euclid_geometry_copy",                 (DL_FUNC) &_euclid_geometry_copy,                 1},
     {"_euclid_geometry_dimension",            (DL_FUNC) &_euclid_geometry_dimension,            1},
+    {"_euclid_geometry_duplicated",           (DL_FUNC) &_euclid_geometry_duplicated,           1},
     {"_euclid_geometry_format",               (DL_FUNC) &_euclid_geometry_format,               1},
     {"_euclid_geometry_is_degenerate",        (DL_FUNC) &_euclid_geometry_is_degenerate,        1},
     {"_euclid_geometry_is_equal",             (DL_FUNC) &_euclid_geometry_is_equal,             2},
     {"_euclid_geometry_is_not_equal",         (DL_FUNC) &_euclid_geometry_is_not_equal,         2},
     {"_euclid_geometry_length",               (DL_FUNC) &_euclid_geometry_length,               1},
+    {"_euclid_geometry_match",                (DL_FUNC) &_euclid_geometry_match,                2},
     {"_euclid_geometry_subset",               (DL_FUNC) &_euclid_geometry_subset,               2},
     {"_euclid_geometry_to_matrix",            (DL_FUNC) &_euclid_geometry_to_matrix,            1},
+    {"_euclid_geometry_unique",               (DL_FUNC) &_euclid_geometry_unique,               1},
     {NULL, NULL, 0}
 };
 }

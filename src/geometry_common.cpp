@@ -5,6 +5,7 @@
 #include <cpp11/matrix.hpp>
 #include <cpp11/logicals.hpp>
 #include <cpp11/integers.hpp>
+#include <cpp11/list_of.hpp>
 #include <cpp11/external_pointer.hpp>
 
 [[cpp11::register]]
@@ -25,6 +26,36 @@ cpp11::external_pointer<geometry_vector_base> geometry_subset(cpp11::external_po
 [[cpp11::register]]
 cpp11::external_pointer<geometry_vector_base> geometry_copy(cpp11::external_pointer<geometry_vector_base> geometries) {
   return geometries->copy();
+}
+
+[[cpp11::register]]
+cpp11::external_pointer<geometry_vector_base> geometry_assign(cpp11::external_pointer<geometry_vector_base> geometries, cpp11::integers index, cpp11::external_pointer<geometry_vector_base> value) {
+  return geometries->assign(index, *value);
+}
+
+[[cpp11::register]]
+cpp11::external_pointer<geometry_vector_base> geometry_combine(cpp11::external_pointer<geometry_vector_base> geometries, cpp11::list_of< cpp11::external_pointer<geometry_vector_base> > extra) {
+  return geometries->combine(extra);
+}
+
+[[cpp11::register]]
+cpp11::external_pointer<geometry_vector_base> geometry_unique(cpp11::external_pointer<geometry_vector_base> geometries) {
+  return geometries->unique();
+}
+
+[[cpp11::register]]
+cpp11::writable::logicals geometry_duplicated(cpp11::external_pointer<geometry_vector_base> geometries) {
+  return geometries->duplicated();
+}
+
+[[cpp11::register]]
+cpp11::writable::logicals geometry_any_duplicated(cpp11::external_pointer<geometry_vector_base> geometries) {
+  return {(Rboolean) geometries->any_duplicated()};
+}
+
+[[cpp11::register]]
+cpp11::writable::integers geometry_match(cpp11::external_pointer<geometry_vector_base> geometries, cpp11::external_pointer<geometry_vector_base> table) {
+  return geometries->match(*table);
 }
 
 [[cpp11::register]]

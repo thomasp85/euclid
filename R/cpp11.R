@@ -164,6 +164,30 @@ geometry_copy <- function(geometries) {
   .Call("_euclid_geometry_copy", geometries)
 }
 
+geometry_assign <- function(geometries, index, value) {
+  .Call("_euclid_geometry_assign", geometries, index, value)
+}
+
+geometry_combine <- function(geometries, extra) {
+  .Call("_euclid_geometry_combine", geometries, extra)
+}
+
+geometry_unique <- function(geometries) {
+  .Call("_euclid_geometry_unique", geometries)
+}
+
+geometry_duplicated <- function(geometries) {
+  .Call("_euclid_geometry_duplicated", geometries)
+}
+
+geometry_any_duplicated <- function(geometries) {
+  .Call("_euclid_geometry_any_duplicated", geometries)
+}
+
+geometry_match <- function(geometries, table) {
+  .Call("_euclid_geometry_match", geometries, table)
+}
+
 geometry_to_matrix <- function(geometries) {
   .Call("_euclid_geometry_to_matrix", geometries)
 }
