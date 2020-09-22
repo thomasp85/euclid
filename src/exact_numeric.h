@@ -41,7 +41,7 @@ public:
   void swap(exact_numeric& x) { _storage.swap(x._storage); }
   void push_back(Exact_number x) { _storage.push_back(x); }
   exact_numeric subset(cpp11::integers index) const;
-  exact_numeric assign(cpp11::integers index, exact_numeric value) const;
+  exact_numeric assign(cpp11::integers index, const exact_numeric& value) const;
   exact_numeric combine(cpp11::list_of< cpp11::external_pointer<exact_numeric> > extra) const;
 
   // Convert back
