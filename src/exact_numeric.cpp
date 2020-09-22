@@ -193,11 +193,14 @@ cpp11::writable::logicals exact_numeric_greater_equal(cpp11::external_pointer<ex
 }
 
 exact_numeric exact_numeric::unique() const {
+  std::vector<Exact_number> new_storage;
   std::set<Exact_number> uniques;
   for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
-    uniques.insert(*iter);
+    if (uniques.find(*iter) == uniques.end()) {
+      uniques.insert(*iter);
+      new_storage.push_back(*iter);
+    }
   }
-  std::vector<Exact_number> new_storage(uniques.begin(), uniques.end());
 
   return {new_storage};
 }
