@@ -12,8 +12,8 @@ cpp11::writable::doubles_matrix point2::as_numeric() const {
   cpp11::writable::doubles_matrix result(size(), 2);
 
   for (size_t i = 0; i < size(); ++i) {
-    result(i, 0) = CGAL::to_double(_storage[i].x());
-    result(i, 1) = CGAL::to_double(_storage[i].y());
+    result(i, 0) = CGAL::to_double(_storage[i].x().exact());
+    result(i, 1) = CGAL::to_double(_storage[i].y().exact());
   }
 
   result.attr("dimnames") = cpp11::writable::list({R_NilValue, dim_names()});

@@ -14,9 +14,9 @@ cpp11::writable::doubles_matrix circle2::as_numeric() const {
   for (size_t i = 0; i < size(); ++i) {
     Circle_2 circ = _storage[i];
     Point_2 center = circ.center();
-    result(i, 0) = CGAL::to_double(center.x());
-    result(i, 1) = CGAL::to_double(center.y());
-    result(i, 2) = CGAL::sqrt(CGAL::to_double(circ.squared_radius()));
+    result(i, 0) = CGAL::to_double(center.x().exact());
+    result(i, 1) = CGAL::to_double(center.y().exact());
+    result(i, 2) = CGAL::sqrt(CGAL::to_double(circ.squared_radius().exact()));
   }
 
   result.attr("dimnames") = cpp11::writable::list({R_NilValue, dim_names()});
