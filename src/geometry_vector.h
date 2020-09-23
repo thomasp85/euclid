@@ -1,15 +1,20 @@
 #pragma once
 
 #include <vector>
+#include <string>
 #include <typeinfo>
 #include <algorithm>
 #include <cpp11/logicals.hpp>
 #include <cpp11/matrix.hpp>
 #include <cpp11/strings.hpp>
+#include <cpp11/r_string.hpp>
 #include <cpp11/list.hpp>
 #include <cpp11/list_of.hpp>
 #include <cpp11/external_pointer.hpp>
 #include <cpp11/integers.hpp>
+
+#include <sstream>
+#include <iomanip>
 
 enum Primitive {
   VIRTUAL,
@@ -39,6 +44,7 @@ public:
   // Conversion
   virtual cpp11::writable::doubles_matrix as_numeric() const = 0;
   virtual cpp11::writable::strings format() const = 0;
+  virtual std::vector<double> get_row(size_t i, size_t j) const = 0;
 
   // Equality
   virtual cpp11::writable::logicals operator==(const geometry_vector_base& other) const = 0;
@@ -48,6 +54,8 @@ public:
   virtual size_t size() const = 0;
   virtual size_t dimensions() const = 0;
   virtual cpp11::writable::strings dim_names() const = 0;
+  virtual size_t cardinality(size_t i) const = 0;
+  virtual size_t long_length() const = 0;
 
   // Subsetting etc
   virtual cpp11::external_pointer<geometry_vector_base> subset(cpp11::integers index) const = 0;
@@ -84,7 +92,66 @@ public:
     return *this;
   }
   ~geometry_vector() = default;
+  const std::vector<T>& get_storage() const { return _storage; }
 
+  // Conversion
+  cpp11::writable::doubles_matrix as_numeric() const {
+    cpp11::writable::strings colnames = dim_names();
+    size_t ncols = colnames.size();
+    cpp11::writable::doubles_matrix result(long_length(), ncols);
+
+    size_t ii = 0;
+    for (size_t i = 0; i < size(); ++i) {
+      for (size_t j = 0; j < cardinality(i); ++j) {
+        std::vector<double> row = get_row(i, j);
+        for (size_t k = 0; k < ncols; ++k) {
+          result(ii, k) = row[k];
+        }
+        ++ii;
+      }
+    }
+
+    result.attr("dimnames") = cpp11::writable::list({R_NilValue, colnames});
+    return result;
+  }
+  cpp11::writable::strings format() const {
+    cpp11::writable::strings result(size());
+    cpp11::writable::strings dimnames = dim_names();
+    size_t ndims = dimnames.size();
+
+    for (size_t i = 0; i < size(); ++i) {
+      std::ostringstream f;
+      f << std::setprecision(3);
+      size_t car = cardinality(i);
+      if (car > 1) {
+        f << "<";
+      }
+      for (size_t j = 0; j < car; ++j) {
+        if (j != 0) {
+          f << ", ";
+        }
+        f << "<";
+        std::vector<double> row = get_row(i, j);
+        for (size_t k = 0; k < ndims; ++k) {
+          if (k != 0) {
+            f << ", ";
+          }
+          const std::string name = cpp11::r_string(dimnames[k]);
+          f << name << ":" << row[k];
+        }
+        f << ">";
+      }
+      if (car > 1) {
+        f << ">";
+      }
+
+      result[i] = f.str();
+    }
+
+    return result;
+  }
+
+  // Equality
   cpp11::writable::logicals operator==(const geometry_vector_base& other) const {
     if (other.size() != 1 && other.size() != size()) {
       cpp11::stop("Incompatible vector sizes");
@@ -138,6 +205,7 @@ public:
     return result;
   }
 
+  // Utility
   size_t size() const { return _storage.size(); }
   T operator[](size_t i) const { return _storage[i]; }
   void clear() { _storage.clear(); }
@@ -145,6 +213,8 @@ public:
   size_t dimensions() const {
     return dim;
   };
+  size_t cardinality(size_t i) const { return 1; }
+  size_t long_length() const { return size(); }
 
   // Subsetting, assignment, combining etc
   virtual geometry_vector_base* new_from_vector(std::vector<T> vec) const = 0;

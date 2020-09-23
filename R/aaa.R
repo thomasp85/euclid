@@ -1,22 +1,23 @@
-validate_numeric_input <- function(...) {
-  inputs <- list(...)
-  inputs <- lapply(inputs, exact_numeric)
-  l <- lengths(inputs)
-  l_max <- max(l)
-  non_conform <- l != 1 & l != l_max
-  if (any(non_conform)) {
-    rlang::abort(paste0(
-      "Inputs must be either scalars or the same length. `",
-      paste(names(inputs)[non_conform], collapse = "`, `"),
-      "` have fewer elements than the longest argument (", l_max, ")"
-    ))
+validate_constructor_input <- function(...) {
+  inputs <- lapply(list(...), function(x) {
+    if (!is_geometry(x)) {
+      x <- as_exact_numeric(x)
+    }
+    x
+  })
+  dim <- unique(unlist(lapply(inputs, dim)))
+  if (length(dim) > 1) {
+    rlang::abort("Inputs must be of the same dimensionality")
   }
-  lapply(inputs, rep_len, l_max)
-}
-assert_lengths_are_equal <- function(...) {
-  if (length(unique(lengths(list(...)))) != 1) {
-    rlang::abort("All input vectors must by of equal length")
+  input_lengths <- lengths(inputs)
+  max_length <- max(input_lengths)
+  if (any(input_lengths != 1 & input_lengths != max_length)) {
+    rlang::abort("Inputs must be either scalar or of the same length")
   }
+  inputs[input_lengths == 1] <- lapply(inputs[input_lengths == 1], function(x) {
+    rep_len(x, max_length)
+  })
+  inputs
 }
 
 get_ptr <- function(x) .subset2(x, 1L)

@@ -3,18 +3,27 @@
 \name{euclid_geometry}
 \alias{euclid_geometry}
 \alias{is_geometry}
+\alias{cardinality}
 \title{Vector of geometries}
 \usage{
 is_geometry(x)
+
+cardinality(x)
 }
 \arguments{
-\item{x}{An input to test whether it is an \code{euclid_geometry} object}
+\item{x}{An \code{euclid_geometry} object}
 }
 \description{
 The base vector type for geometries in euclid is the \code{euclid_geometry} class.
 While this is a virtual class (you cannot construct it, only its subclasses),
 many of the common vector operations are defined here. Further it is possible
 to check whether a vector is a geometry of any type using \code{is_geometry()}.
+While most geometries are atomic, a few are defined by multiples of the same
+geometry, e.g. segments and triangles which are defined by 2 and 3 points
+respectively. The cardinality of each geometry in a vector can be queried
+with \code{cardinality()}. The matrix conversion will place each sub-geometry of
+a geometry on a new row, meaning that the final number of rows in a matrix
+constructed from \code{x} is not \code{length(x)} but \code{sum(cardinality(x))}.
 }
 \section{Vector behaviour}{
 
@@ -30,6 +39,7 @@ value.
 The following is a list of standard vector methods defined for geometry
 vectors:
 \itemize{
+\item \code{\link[=as.matrix]{as.matrix()}} - converts the geometry to a standard R matrix of numerics
 \item \code{\link[=as.character]{as.character()}} - provides a textual representation of the geometry
 \item \code{\link[=format]{format()}} - as above
 \item \code{\link[=as.list]{as.list()}} - splits the vector into single elements in a list

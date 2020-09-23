@@ -3,19 +3,22 @@
 \name{circle}
 \alias{circle}
 \alias{is_circle}
+\alias{as_circle}
 \title{Vector of circles}
 \usage{
 circle(...)
 
 is_circle(x)
+
+as_circle(x)
 }
 \arguments{
 \item{...}{Various input. See the Constructor section.}
 
-\item{x}{A circle vector}
+\item{x}{A circle vector or an object to convert to it}
 }
 \value{
-An \code{euclid_circle2} or \code{euclid_circle3} vector
+An \code{euclid_circle} vector
 }
 \description{
 This function create circles from various combinations of input.

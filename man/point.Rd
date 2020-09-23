@@ -3,23 +3,30 @@
 \name{point}
 \alias{point}
 \alias{is_point}
+\alias{as_point}
 \title{Vector of points}
 \usage{
-point(x, y, z = NULL)
+point(...)
 
 is_point(x)
+
+as_point(x)
 }
 \arguments{
-\item{x, y, z}{\link{exact_numeric} vectors or standard R numerics. If \code{z} is \code{NULL}
-a 2-dimensional point is constructed, if not a 3 dimensional point is
-constructed.}
+\item{...}{Various input. See the Constructor section.}
+
+\item{x}{A point vector or an object to convert to it}
 }
 \value{
-a \code{euclid_point2} or \code{euclid_point3} vector
+a \code{euclid_point} vector
 }
 \description{
 Points are the fundamental unit in geometry, from which other geometric
-primitives can be constructed.
+primitives can be constructed. Points support less than and greater than
+operations which are handled lexicographically. This means that point vectors
+can also be sorted and ranked. Subtracking a point from a point gives a
+vector. Adding and subtracting a vector to a point translates the point by
+the vector.
 }
 \examples{
 num1 <- exact_numeric(runif(5))

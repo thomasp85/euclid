@@ -4,8 +4,14 @@
 #' While this is a virtual class (you cannot construct it, only its subclasses),
 #' many of the common vector operations are defined here. Further it is possible
 #' to check whether a vector is a geometry of any type using `is_geometry()`.
+#' While most geometries are atomic, a few are defined by multiples of the same
+#' geometry, e.g. segments and triangles which are defined by 2 and 3 points
+#' respectively. The cardinality of each geometry in a vector can be queried
+#' with `cardinality()`. The matrix conversion will place each sub-geometry of
+#' a geometry on a new row, meaning that the final number of rows in a matrix
+#' constructed from `x` is not `length(x)` but `sum(cardinality(x))`.
 #'
-#' @param x An input to test whether it is an `euclid_geometry` object
+#' @param x An `euclid_geometry` object
 #'
 #' @section Vector behaviour:
 #' Geometry vectors in euclid are made to behave as closely as possible to what
@@ -19,6 +25,7 @@
 #'
 #' The following is a list of standard vector methods defined for geometry
 #' vectors:
+#' - [as.matrix()] - converts the geometry to a standard R matrix of numerics
 #' - [as.character()] - provides a textual representation of the geometry
 #' - [format()] - as above
 #' - [as.list()] - splits the vector into single elements in a list
@@ -57,6 +64,18 @@ new_geometry_vector <- function(x, class) {
 #' @export
 is_geometry <- function(x) inherits(x, "euclid_geometry")
 
+#' @rdname euclid_geometry
+#' @export
+cardinality <- function(x) {
+  if (!is_geometry(x)) {
+    rlang::abort("Cardinality can only be calculated for euclid geometry objects")
+  }
+  geometry_cardinality(get_ptr(x))
+}
+#' @export
+as.matrix.euclid_geometry <- function(x, ...) {
+  geometry_to_matrix(get_ptr(x))
+}
 #' @export
 as.character.euclid_geometry <- function(x, ...) {
   format(x, ...)
@@ -177,14 +196,10 @@ match_geometry <- function(x, table) {
   geometry_match(get_ptr(x), get_ptr(table))
 }
 #' @export
-Ops.euclid_geometry <- function(e1, e2) {
-  res <- switch(.Generic,
-    "==" = geometry_is_equal(get_ptr(e1), get_ptr(e2)),
-    "!=" = geometry_is_not_equal(get_ptr(e1), get_ptr(e2)),
-    rlang::abort(paste0("The `", .Generic, "` operator is not defined for geometries"))
-  )
-  if (.Generic %in% c("+", "-", "*", "/")) {
-    res <- restore_euclid_vector(res, e1)
-  }
-  res
+sort.euclid_geometry <- function(x, decreasing = FALSE, ...) {
+  rlang::abort("Sorting is not supported for the geometry type")
+}
+#' @export
+xtfrm.euclid_geometry <- function(x) {
+  rlang::abort("Ranking is not supported for the geometry type")
 }

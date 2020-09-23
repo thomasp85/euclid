@@ -55,7 +55,10 @@ exact_numeric <- function(x) {
   if (any(!is.finite(x))) {
     rlang::abort("euclid only works with finite numbers. Be sure to remove any `NA`, `NaN`, `Inf`, and `-Inf` values from your data")
   }
-  x <- list(create_exact_numeric(as.numeric(x)))
+  new_exact_numeric(create_exact_numeric(as.numeric(x)))
+}
+new_exact_numeric <- function(x) {
+  x <- list(x)
   class(x) <- "euclid_exact_numeric"
   x
 }

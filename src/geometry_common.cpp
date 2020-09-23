@@ -19,6 +19,16 @@ int geometry_dimension(cpp11::external_pointer<geometry_vector_base> geometries)
 }
 
 [[cpp11::register]]
+cpp11::writable::integers geometry_cardinality(cpp11::external_pointer<geometry_vector_base> geometries) {
+  cpp11::writable::integers result;
+  result.reserve(geometries->size());
+  for (size_t i = 0; i < geometries->size(); ++i) {
+    result.push_back(geometries->cardinality(i));
+  }
+  return result;
+}
+
+[[cpp11::register]]
 cpp11::external_pointer<geometry_vector_base> geometry_subset(cpp11::external_pointer<geometry_vector_base> geometries, cpp11::integers index) {
   return geometries->subset(index);
 }

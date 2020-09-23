@@ -156,6 +156,10 @@ geometry_dimension <- function(geometries) {
   .Call("_euclid_geometry_dimension", geometries)
 }
 
+geometry_cardinality <- function(geometries) {
+  .Call("_euclid_geometry_cardinality", geometries)
+}
+
 geometry_subset <- function(geometries, index) {
   .Call("_euclid_geometry_subset", geometries, index)
 }
@@ -208,10 +212,114 @@ geometry_is_degenerate <- function(geometries) {
   .Call("_euclid_geometry_is_degenerate", geometries)
 }
 
-create_point_2 <- function(x, y) {
-  .Call("_euclid_create_point_2", x, y)
+create_point_2_x_y <- function(x, y) {
+  .Call("_euclid_create_point_2_x_y", x, y)
 }
 
-create_point_3 <- function(x, y, z) {
-  .Call("_euclid_create_point_3", x, y, z)
+create_point_2_vec <- function(p) {
+  .Call("_euclid_create_point_2_vec", p)
+}
+
+point_2_add_vector <- function(x, y) {
+  .Call("_euclid_point_2_add_vector", x, y)
+}
+
+point_2_sub_vector <- function(x, y) {
+  .Call("_euclid_point_2_sub_vector", x, y)
+}
+
+point_2_sub_point <- function(x, y) {
+  .Call("_euclid_point_2_sub_point", x, y)
+}
+
+point_2_less <- function(x, y) {
+  .Call("_euclid_point_2_less", x, y)
+}
+
+point_2_less_equal <- function(x, y) {
+  .Call("_euclid_point_2_less_equal", x, y)
+}
+
+point_2_greater <- function(x, y) {
+  .Call("_euclid_point_2_greater", x, y)
+}
+
+point_2_greater_equal <- function(x, y) {
+  .Call("_euclid_point_2_greater_equal", x, y)
+}
+
+point_2_coord <- function(x, i) {
+  .Call("_euclid_point_2_coord", x, i)
+}
+
+point_2_sort <- function(x, decreasing) {
+  .Call("_euclid_point_2_sort", x, decreasing)
+}
+
+point_2_rank <- function(x) {
+  .Call("_euclid_point_2_rank", x)
+}
+
+create_point_3_x_y_z <- function(x, y, z) {
+  .Call("_euclid_create_point_3_x_y_z", x, y, z)
+}
+
+create_point_3_vec <- function(p) {
+  .Call("_euclid_create_point_3_vec", p)
+}
+
+point_3_add_vector <- function(x, y) {
+  .Call("_euclid_point_3_add_vector", x, y)
+}
+
+point_3_sub_vector <- function(x, y) {
+  .Call("_euclid_point_3_sub_vector", x, y)
+}
+
+point_3_sub_point <- function(x, y) {
+  .Call("_euclid_point_3_sub_point", x, y)
+}
+
+point_3_less <- function(x, y) {
+  .Call("_euclid_point_3_less", x, y)
+}
+
+point_3_less_equal <- function(x, y) {
+  .Call("_euclid_point_3_less_equal", x, y)
+}
+
+point_3_greater <- function(x, y) {
+  .Call("_euclid_point_3_greater", x, y)
+}
+
+point_3_greater_equal <- function(x, y) {
+  .Call("_euclid_point_3_greater_equal", x, y)
+}
+
+point_3_coord <- function(x, i) {
+  .Call("_euclid_point_3_coord", x, i)
+}
+
+point_3_sort <- function(x, decreasing) {
+  .Call("_euclid_point_3_sort", x, decreasing)
+}
+
+point_3_rank <- function(x) {
+  .Call("_euclid_point_3_rank", x)
+}
+
+create_vector_2_point <- function(p) {
+  .Call("_euclid_create_vector_2_point", p)
+}
+
+create_vector_2_x_y <- function(x, y) {
+  .Call("_euclid_create_vector_2_x_y", x, y)
+}
+
+create_vector_3_point <- function(p) {
+  .Call("_euclid_create_vector_3_point", p)
+}
+
+create_vector_3_x_y_z <- function(x, y, z) {
+  .Call("_euclid_create_vector_3_x_y_z", x, y, z)
 }
