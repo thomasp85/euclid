@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Function reference • euclid</title>
+<title>Vector of vectors — vec • euclid</title>
 
 
 <!-- jquery -->
@@ -39,7 +39,12 @@
 
 
 
-<meta property="og:title" content="Function reference" />
+<meta property="og:title" content="Vector of vectors — vec" />
+<meta property="og:description" content="A geometrical vector is somewhat different from the concept of a vector in
+programming hence the slightly confusing terminology. In geometry a vector is
+a direction and a magnitude most often defined by a point in space where the
+direction is defined as the direction from the origin to the point and the
+magnitude is defined as the distance from the origin to the point." />
 
 
 
@@ -58,7 +63,7 @@
   </head>
 
   <body data-spy="scroll" data-target="#toc">
-    <div class="container template-reference-index">
+    <div class="container template-reference-topic">
       <header>
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -105,72 +110,63 @@
       </header>
 
 <div class="row">
-  <div class="contents col-md-9">
+  <div class="col-md-9 contents">
     <div class="page-header">
-      <h1>Reference</h1>
+    <h1>Vector of vectors</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/vector.R'><code>R/vector.R</code></a></small>
+    <div class="hidden name"><code>vec.Rd</code></div>
     </div>
 
-    <table class="ref-index">
+    <div class="ref-description">
+    <p>A geometrical vector is somewhat different from the concept of a vector in
+programming hence the slightly confusing terminology. In geometry a vector is
+a direction and a magnitude most often defined by a point in space where the
+direction is defined as the direction from the origin to the point and the
+magnitude is defined as the distance from the origin to the point.</p>
+    </div>
 
-    <colgroup>
-      
-      <col class="alias" />
-      <col class="title" />
-    </colgroup>
+    <pre class="usage"><span class='fu'>vec</span>(<span class='kw'>...</span>)
 
-    <tbody>
-      <tr>
-        <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
-        </th>
-      </tr>
-      
-      
-    </tbody><tbody>
-      
-      
-      <tr>
-        
-        <td>
-          <p><code><a href="circle.html">circle()</a></code> <code><a href="circle.html">is_circle()</a></code> <code><a href="circle.html">as_circle()</a></code> </p>
-        </td>
-        <td><p>Vector of circles</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="coord.html">coord()</a></code> </p>
-        </td>
-        <td><p>Access coordinate dimensions in geometries</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="euclid_geometry.html">is_geometry()</a></code> <code><a href="euclid_geometry.html">cardinality()</a></code> </p>
-        </td>
-        <td><p>Vector of geometries</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="exact_numeric.html">exact_numeric()</a></code> <code><a href="exact_numeric.html">is_exact_numeric()</a></code> <code><a href="exact_numeric.html">as_exact_numeric()</a></code> </p>
-        </td>
-        <td><p>Exact numeric representation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="point.html">point()</a></code> <code><a href="point.html">is_point()</a></code> <code><a href="point.html">as_point()</a></code> </p>
-        </td>
-        <td><p>Vector of points</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="vec.html">vec()</a></code> <code><a href="vec.html">is_vec()</a></code> <code><a href="vec.html">as_vec()</a></code> </p>
-        </td>
-        <td><p>Vector of vectors</p></td>
-      </tr>
-    </tbody>
+<span class='fu'>is_vec</span>(<span class='kw'>x</span>)
+
+<span class='fu'>as_vec</span>(<span class='kw'>x</span>)</pre>
+
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>...</th>
+      <td><p>Various input. See the Constructor section.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>A vector of vectors or an object to convert to it</p></td>
+    </tr>
     </table>
-  </div>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An <code>euclid_vector</code> vector</p>
+    <h2 class="hasAnchor" id="constructors"><a class="anchor" href="#constructors"></a>Constructors</h2>
+
+    
+
+<p><strong>2 dimensional vectors</strong></p><ul>
+<li><p>Providing a point will construct vectors pointing to the points from the
+origin centered.</p></li>
+<li><p>Providing two exact numeric vectors will construct vectors pointing to the
+point defined by the coordinates given.</p></li>
+</ul>
+
+<p><strong>3 dimensional vectors</strong></p><ul>
+<li><p>Providing a point will construct vectors pointing to the points from the
+origin centered.</p></li>
+<li><p>Providing three exact numeric vectors will construct vectors pointing to
+the point defined by the coordinates given.</p></li>
+</ul>
+
+
+  </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
       <h2 data-toc-skip>Contents</h2>

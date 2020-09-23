@@ -41,7 +41,11 @@
 
 <meta property="og:title" content="Vector of points — point" />
 <meta property="og:description" content="Points are the fundamental unit in geometry, from which other geometric
-primitives can be constructed." />
+primitives can be constructed. Points support less than and greater than
+operations which are handled lexicographically. This means that point vectors
+can also be sorted and ranked. Subtracking a point from a point gives a
+vector. Adding and subtracting a vector to a point translates the point by
+the vector." />
 
 
 
@@ -116,27 +120,35 @@ primitives can be constructed." />
 
     <div class="ref-description">
     <p>Points are the fundamental unit in geometry, from which other geometric
-primitives can be constructed.</p>
+primitives can be constructed. Points support less than and greater than
+operations which are handled lexicographically. This means that point vectors
+can also be sorted and ranked. Subtracking a point from a point gives a
+vector. Adding and subtracting a vector to a point translates the point by
+the vector.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>point</span>(<span class='kw'>x</span>, <span class='kw'>y</span>, z = <span class='kw'>NULL</span>)
+    <pre class="usage"><span class='fu'>point</span>(<span class='kw'>...</span>)
 
-<span class='fu'>is_point</span>(<span class='kw'>x</span>)</pre>
+<span class='fu'>is_point</span>(<span class='kw'>x</span>)
+
+<span class='fu'>as_point</span>(<span class='kw'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x, y, z</th>
-      <td><p><a href='exact_numeric.html'>exact_numeric</a> vectors or standard R numerics. If <code>z</code> is <code>NULL</code>
-a 2-dimensional point is constructed, if not a 3 dimensional point is
-constructed.</p></td>
+      <th>...</th>
+      <td><p>Various input. See the Constructor section.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>A point vector or an object to convert to it</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <code>euclid_point2</code> or <code>euclid_point3</code> vector</p>
+    <p>a <code>euclid_point</code> vector</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>num1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='exact_numeric.html'>exact_numeric</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>5</span>))

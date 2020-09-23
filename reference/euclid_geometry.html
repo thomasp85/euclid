@@ -43,7 +43,13 @@
 <meta property="og:description" content="The base vector type for geometries in euclid is the euclid_geometry class.
 While this is a virtual class (you cannot construct it, only its subclasses),
 many of the common vector operations are defined here. Further it is possible
-to check whether a vector is a geometry of any type using is_geometry()." />
+to check whether a vector is a geometry of any type using is_geometry().
+While most geometries are atomic, a few are defined by multiples of the same
+geometry, e.g. segments and triangles which are defined by 2 and 3 points
+respectively. The cardinality of each geometry in a vector can be queried
+with cardinality(). The matrix conversion will place each sub-geometry of
+a geometry on a new row, meaning that the final number of rows in a matrix
+constructed from x is not length(x) but sum(cardinality(x))." />
 
 
 
@@ -120,17 +126,25 @@ to check whether a vector is a geometry of any type using is_geometry()." />
     <p>The base vector type for geometries in euclid is the <code>euclid_geometry</code> class.
 While this is a virtual class (you cannot construct it, only its subclasses),
 many of the common vector operations are defined here. Further it is possible
-to check whether a vector is a geometry of any type using <code>is_geometry()</code>.</p>
+to check whether a vector is a geometry of any type using <code>is_geometry()</code>.
+While most geometries are atomic, a few are defined by multiples of the same
+geometry, e.g. segments and triangles which are defined by 2 and 3 points
+respectively. The cardinality of each geometry in a vector can be queried
+with <code>cardinality()</code>. The matrix conversion will place each sub-geometry of
+a geometry on a new row, meaning that the final number of rows in a matrix
+constructed from <code>x</code> is not <code><a href='https://rdrr.io/r/base/length.html'>length(x)</a></code> but <code><a href='https://rdrr.io/r/base/sum.html'>sum(cardinality(x))</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>is_geometry</span>(<span class='kw'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>is_geometry</span>(<span class='kw'>x</span>)
+
+<span class='fu'>cardinality</span>(<span class='kw'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>An input to test whether it is an <code>euclid_geometry</code> object</p></td>
+      <td><p>An <code>euclid_geometry</code> object</p></td>
     </tr>
     </table>
 
@@ -148,6 +162,7 @@ vectors only supports finite values, geometry vectors do not have an <code>NA</c
 value.</p>
 <p>The following is a list of standard vector methods defined for geometry
 vectors:</p><ul>
+<li><p><code><a href='https://rdrr.io/r/base/matrix.html'>as.matrix()</a></code> - converts the geometry to a standard R matrix of numerics</p></li>
 <li><p><code><a href='https://rdrr.io/r/base/character.html'>as.character()</a></code> - provides a textual representation of the geometry</p></li>
 <li><p><code><a href='https://rdrr.io/r/base/format.html'>format()</a></code> - as above</p></li>
 <li><p><code><a href='https://rdrr.io/r/base/list.html'>as.list()</a></code> - splits the vector into single elements in a list</p></li>
