@@ -32,58 +32,67 @@ class vector2 : public geometry_vector<Vector_2, 2> {
       };
     }
 
-    vector2 operator+(const std::vector<Vector_2>& other) const {
+    std::vector<Vector_2> operator+(const std::vector<Vector_2>& other) const {
       size_t final_size = std::max(size(), other.size());
       std::vector<Vector_2> result;
       result.reserve(final_size);
       for (size_t i = 0; i < final_size; ++i) {
         result.push_back(_storage[i % size()] + other[i % other.size()]);
       }
-      return {result};
+      return result;
     }
-    vector2 operator-(const std::vector<Vector_2>& other) const {
+    std::vector<Vector_2> operator-(const std::vector<Vector_2>& other) const {
       size_t final_size = std::max(size(), other.size());
       std::vector<Vector_2> result;
       result.reserve(final_size);
       for (size_t i = 0; i < final_size; ++i) {
         result.push_back(_storage[i % size()] - other[i % other.size()]);
       }
-      return {result};
+      return result;
     }
-    vector2 operator-() const {
+    std::vector<Vector_2> operator-() const {
       std::vector<Vector_2> result;
       result.reserve(size());
       for (size_t i = 0; i < size(); ++i) {
         result.push_back(-_storage[i]);
       }
-      return {result};
+      return result;
     }
-    exact_numeric operator*(const std::vector<Vector_2>& other) const {
+    std::vector<Exact_number> operator*(const std::vector<Vector_2>& other) const {
       size_t final_size = std::max(size(), other.size());
       std::vector<Exact_number> result;
       result.reserve(final_size);
       for (size_t i = 0; i < final_size; ++i) {
         result.push_back(_storage[i % size()] * other[i % other.size()]);
       }
-      return {result};
+      return result;
     }
-    vector2 operator*(const cpp11::doubles other) const {
-      size_t final_size = std::max(size(), (size_t) other.size());
+    std::vector<Vector_2> operator*(const std::vector<Exact_number>& other) const {
+      size_t final_size = std::max(size(), other.size());
       std::vector<Vector_2> result;
       result.reserve(final_size);
       for (size_t i = 0; i < final_size; ++i) {
         result.push_back(_storage[i % size()] * other[i % other.size()]);
       }
-      return {result};
+      return result;
     }
-    vector2 operator/(const cpp11::doubles other) const {
-      size_t final_size = std::max(size(), (size_t) other.size());
+    std::vector<Vector_2> operator/(const std::vector<Exact_number>& other) const {
+      size_t final_size = std::max(size(), other.size());
       std::vector<Vector_2> result;
       result.reserve(final_size);
       for (size_t i = 0; i < final_size; ++i) {
         result.push_back(_storage[i % size()] / other[i % other.size()]);
       }
-      return {result};
+      return result;
+    }
+    std::vector<Exact_number> coord(size_t index) const {
+      std::vector<Exact_number> result;
+      result.reserve(size());
+      for (size_t i = 0; i < size(); ++i) {
+        result.push_back(_storage[i][index]);
+      }
+
+      return result;
     }
 };
 
@@ -114,7 +123,7 @@ class vector3 : public geometry_vector<Vector_3, 3> {
       };
     }
 
-    vector3 operator+(const std::vector<Vector_3>& other) const {
+    std::vector<Vector_3> operator+(const std::vector<Vector_3>& other) const {
       size_t final_size = std::max(size(), other.size());
       std::vector<Vector_3> result;
       result.reserve(final_size);
@@ -123,7 +132,7 @@ class vector3 : public geometry_vector<Vector_3, 3> {
       }
       return {result};
     }
-    vector3 operator-(const std::vector<Vector_3>& other) const {
+    std::vector<Vector_3> operator-(const std::vector<Vector_3>& other) const {
       size_t final_size = std::max(size(), other.size());
       std::vector<Vector_3> result;
       result.reserve(final_size);
@@ -132,7 +141,7 @@ class vector3 : public geometry_vector<Vector_3, 3> {
       }
       return {result};
     }
-    vector3 operator-() const {
+    std::vector<Vector_3> operator-() const {
       std::vector<Vector_3> result;
       result.reserve(size());
       for (size_t i = 0; i < size(); ++i) {
@@ -140,7 +149,7 @@ class vector3 : public geometry_vector<Vector_3, 3> {
       }
       return {result};
     }
-    exact_numeric operator*(const std::vector<Vector_3>& other) const {
+    std::vector<Exact_number> operator*(const std::vector<Vector_3>& other) const {
       size_t final_size = std::max(size(), other.size());
       std::vector<Exact_number> result;
       result.reserve(final_size);
@@ -149,7 +158,7 @@ class vector3 : public geometry_vector<Vector_3, 3> {
       }
       return {result};
     }
-    vector3 operator*(const cpp11::doubles other) const {
+    std::vector<Vector_3> operator*(const std::vector<Exact_number>& other) const {
       size_t final_size = std::max(size(), (size_t) other.size());
       std::vector<Vector_3> result;
       result.reserve(final_size);
@@ -158,7 +167,7 @@ class vector3 : public geometry_vector<Vector_3, 3> {
       }
       return {result};
     }
-    vector3 operator/(const cpp11::doubles other) const {
+    std::vector<Vector_3> operator/(const std::vector<Exact_number>& other) const {
       size_t final_size = std::max(size(), (size_t) other.size());
       std::vector<Vector_3> result;
       result.reserve(final_size);
@@ -166,5 +175,15 @@ class vector3 : public geometry_vector<Vector_3, 3> {
         result.push_back(_storage[i % size()] / other[i % other.size()]);
       }
       return {result};
+    }
+    std::vector<Exact_number> coord(size_t index) const {
+      std::vector<Exact_number> result;
+      result.reserve(size());
+
+      for (size_t i = 0; i < size(); ++i) {
+        result.push_back(_storage[i][index]);
+      }
+
+      return result;
     }
 };

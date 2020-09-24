@@ -32,6 +32,14 @@ exact_numeric_combine <- function(ex_n, extra) {
   .Call("_euclid_exact_numeric_combine", ex_n, extra)
 }
 
+exact_numeric_is_na <- function(ex_n) {
+  .Call("_euclid_exact_numeric_is_na", ex_n)
+}
+
+exact_numeric_any_na <- function(ex_n) {
+  .Call("_euclid_exact_numeric_any_na", ex_n)
+}
+
 exact_numeric_to_numeric <- function(ex_n) {
   .Call("_euclid_exact_numeric_to_numeric", ex_n)
 }
@@ -128,24 +136,24 @@ exact_numeric_diff <- function(ex_n, lag) {
   .Call("_euclid_exact_numeric_diff", ex_n, lag)
 }
 
-exact_numeric_sort <- function(ex_n, decreasing) {
-  .Call("_euclid_exact_numeric_sort", ex_n, decreasing)
+exact_numeric_sort <- function(ex_n, decreasing, na_last) {
+  .Call("_euclid_exact_numeric_sort", ex_n, decreasing, na_last)
 }
 
-exact_numeric_sum <- function(ex_n) {
-  .Call("_euclid_exact_numeric_sum", ex_n)
+exact_numeric_sum <- function(ex_n, na_rm) {
+  .Call("_euclid_exact_numeric_sum", ex_n, na_rm)
 }
 
-exact_numeric_prod <- function(ex_n) {
-  .Call("_euclid_exact_numeric_prod", ex_n)
+exact_numeric_prod <- function(ex_n, na_rm) {
+  .Call("_euclid_exact_numeric_prod", ex_n, na_rm)
 }
 
-exact_numeric_min <- function(ex_n) {
-  .Call("_euclid_exact_numeric_min", ex_n)
+exact_numeric_min <- function(ex_n, na_rm) {
+  .Call("_euclid_exact_numeric_min", ex_n, na_rm)
 }
 
-exact_numeric_max <- function(ex_n) {
-  .Call("_euclid_exact_numeric_max", ex_n)
+exact_numeric_max <- function(ex_n, na_rm) {
+  .Call("_euclid_exact_numeric_max", ex_n, na_rm)
 }
 
 geometry_length <- function(geometries) {
@@ -316,10 +324,66 @@ create_vector_2_x_y <- function(x, y) {
   .Call("_euclid_create_vector_2_x_y", x, y)
 }
 
+vector_2_add_vector <- function(x, y) {
+  .Call("_euclid_vector_2_add_vector", x, y)
+}
+
+vector_2_minus_vector <- function(x, y) {
+  .Call("_euclid_vector_2_minus_vector", x, y)
+}
+
+vector_2_negate <- function(x) {
+  .Call("_euclid_vector_2_negate", x)
+}
+
+vector_2_dot_vector <- function(x, y) {
+  .Call("_euclid_vector_2_dot_vector", x, y)
+}
+
+vector_2_times_numeric <- function(x, y) {
+  .Call("_euclid_vector_2_times_numeric", x, y)
+}
+
+vector_2_divide_numeric <- function(x, y) {
+  .Call("_euclid_vector_2_divide_numeric", x, y)
+}
+
+vector_2_coord <- function(x, i) {
+  .Call("_euclid_vector_2_coord", x, i)
+}
+
 create_vector_3_point <- function(p) {
   .Call("_euclid_create_vector_3_point", p)
 }
 
 create_vector_3_x_y_z <- function(x, y, z) {
   .Call("_euclid_create_vector_3_x_y_z", x, y, z)
+}
+
+vector_3_add_vector <- function(x, y) {
+  .Call("_euclid_vector_3_add_vector", x, y)
+}
+
+vector_3_minus_vector <- function(x, y) {
+  .Call("_euclid_vector_3_minus_vector", x, y)
+}
+
+vector_3_negate <- function(x) {
+  .Call("_euclid_vector_3_negate", x)
+}
+
+vector_3_dot_vector <- function(x, y) {
+  .Call("_euclid_vector_3_dot_vector", x, y)
+}
+
+vector_3_times_numeric <- function(x, y) {
+  .Call("_euclid_vector_3_times_numeric", x, y)
+}
+
+vector_3_divide_numeric <- function(x, y) {
+  .Call("_euclid_vector_3_divide_numeric", x, y)
+}
+
+vector_3_coord <- function(x, i) {
+  .Call("_euclid_vector_3_coord", x, i)
 }

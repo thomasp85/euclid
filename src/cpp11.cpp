@@ -26,241 +26,255 @@ extern "C" SEXP _euclid_create_circle_2_2_point(SEXP p, SEXP q) {
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> create_exact_numeric(cpp11::doubles numeric);
+exact_numeric_p create_exact_numeric(cpp11::doubles numeric);
 extern "C" SEXP _euclid_create_exact_numeric(SEXP numeric) {
   BEGIN_CPP11
     return cpp11::as_sexp(create_exact_numeric(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(numeric)));
   END_CPP11
 }
 // exact_numeric.cpp
-int exact_numeric_length(cpp11::external_pointer<exact_numeric> ex_n);
+int exact_numeric_length(exact_numeric_p ex_n);
 extern "C" SEXP _euclid_exact_numeric_length(SEXP ex_n) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_length(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n)));
+    return cpp11::as_sexp(exact_numeric_length(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_subset(cpp11::external_pointer<exact_numeric> ex_n, cpp11::integers index);
+exact_numeric_p exact_numeric_subset(exact_numeric_p ex_n, cpp11::integers index);
 extern "C" SEXP _euclid_exact_numeric_subset(SEXP ex_n, SEXP index) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_subset(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(index)));
+    return cpp11::as_sexp(exact_numeric_subset(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(index)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_assign(cpp11::external_pointer<exact_numeric> ex_n, cpp11::integers index, cpp11::external_pointer<exact_numeric> value);
+exact_numeric_p exact_numeric_assign(exact_numeric_p ex_n, cpp11::integers index, exact_numeric_p value);
 extern "C" SEXP _euclid_exact_numeric_assign(SEXP ex_n, SEXP index, SEXP value) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_assign(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(index), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(value)));
+    return cpp11::as_sexp(exact_numeric_assign(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(index), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(value)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_combine(cpp11::external_pointer<exact_numeric> ex_n, cpp11::list_of< cpp11::external_pointer<exact_numeric> > extra);
+exact_numeric_p exact_numeric_combine(exact_numeric_p ex_n, cpp11::list_of<exact_numeric_p> extra);
 extern "C" SEXP _euclid_exact_numeric_combine(SEXP ex_n, SEXP extra) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_combine(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n), cpp11::as_cpp<cpp11::decay_t<cpp11::list_of< cpp11::external_pointer<exact_numeric> >>>(extra)));
+    return cpp11::as_sexp(exact_numeric_combine(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<cpp11::list_of<exact_numeric_p>>>(extra)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::writable::doubles exact_numeric_to_numeric(cpp11::external_pointer<exact_numeric> ex_n);
+cpp11::writable::logicals exact_numeric_is_na(exact_numeric_p ex_n);
+extern "C" SEXP _euclid_exact_numeric_is_na(SEXP ex_n) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(exact_numeric_is_na(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n)));
+  END_CPP11
+}
+// exact_numeric.cpp
+bool exact_numeric_any_na(exact_numeric_p ex_n);
+extern "C" SEXP _euclid_exact_numeric_any_na(SEXP ex_n) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(exact_numeric_any_na(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n)));
+  END_CPP11
+}
+// exact_numeric.cpp
+cpp11::writable::doubles exact_numeric_to_numeric(exact_numeric_p ex_n);
 extern "C" SEXP _euclid_exact_numeric_to_numeric(SEXP ex_n) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_to_numeric(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n)));
+    return cpp11::as_sexp(exact_numeric_to_numeric(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::writable::logicals exact_numeric_is_equal(cpp11::external_pointer<exact_numeric> ex_n, cpp11::external_pointer<exact_numeric> ex_n2);
+cpp11::writable::logicals exact_numeric_is_equal(exact_numeric_p ex_n, exact_numeric_p ex_n2);
 extern "C" SEXP _euclid_exact_numeric_is_equal(SEXP ex_n, SEXP ex_n2) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_is_equal(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n2)));
+    return cpp11::as_sexp(exact_numeric_is_equal(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n2)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::writable::logicals exact_numeric_is_not_equal(cpp11::external_pointer<exact_numeric> ex_n, cpp11::external_pointer<exact_numeric> ex_n2);
+cpp11::writable::logicals exact_numeric_is_not_equal(exact_numeric_p ex_n, exact_numeric_p ex_n2);
 extern "C" SEXP _euclid_exact_numeric_is_not_equal(SEXP ex_n, SEXP ex_n2) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_is_not_equal(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n2)));
+    return cpp11::as_sexp(exact_numeric_is_not_equal(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n2)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::writable::logicals exact_numeric_less(cpp11::external_pointer<exact_numeric> ex_n, cpp11::external_pointer<exact_numeric> ex_n2);
+cpp11::writable::logicals exact_numeric_less(exact_numeric_p ex_n, exact_numeric_p ex_n2);
 extern "C" SEXP _euclid_exact_numeric_less(SEXP ex_n, SEXP ex_n2) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_less(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n2)));
+    return cpp11::as_sexp(exact_numeric_less(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n2)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::writable::logicals exact_numeric_less_equal(cpp11::external_pointer<exact_numeric> ex_n, cpp11::external_pointer<exact_numeric> ex_n2);
+cpp11::writable::logicals exact_numeric_less_equal(exact_numeric_p ex_n, exact_numeric_p ex_n2);
 extern "C" SEXP _euclid_exact_numeric_less_equal(SEXP ex_n, SEXP ex_n2) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_less_equal(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n2)));
+    return cpp11::as_sexp(exact_numeric_less_equal(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n2)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::writable::logicals exact_numeric_greater(cpp11::external_pointer<exact_numeric> ex_n, cpp11::external_pointer<exact_numeric> ex_n2);
+cpp11::writable::logicals exact_numeric_greater(exact_numeric_p ex_n, exact_numeric_p ex_n2);
 extern "C" SEXP _euclid_exact_numeric_greater(SEXP ex_n, SEXP ex_n2) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_greater(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n2)));
+    return cpp11::as_sexp(exact_numeric_greater(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n2)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::writable::logicals exact_numeric_greater_equal(cpp11::external_pointer<exact_numeric> ex_n, cpp11::external_pointer<exact_numeric> ex_n2);
+cpp11::writable::logicals exact_numeric_greater_equal(exact_numeric_p ex_n, exact_numeric_p ex_n2);
 extern "C" SEXP _euclid_exact_numeric_greater_equal(SEXP ex_n, SEXP ex_n2) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_greater_equal(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n2)));
+    return cpp11::as_sexp(exact_numeric_greater_equal(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n2)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_unique(cpp11::external_pointer<exact_numeric> ex_n);
+exact_numeric_p exact_numeric_unique(exact_numeric_p ex_n);
 extern "C" SEXP _euclid_exact_numeric_unique(SEXP ex_n) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_unique(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n)));
+    return cpp11::as_sexp(exact_numeric_unique(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::writable::logicals exact_numeric_duplicated(cpp11::external_pointer<exact_numeric> ex_n);
+cpp11::writable::logicals exact_numeric_duplicated(exact_numeric_p ex_n);
 extern "C" SEXP _euclid_exact_numeric_duplicated(SEXP ex_n) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_duplicated(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n)));
+    return cpp11::as_sexp(exact_numeric_duplicated(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::writable::logicals exact_numeric_any_duplicated(cpp11::external_pointer<exact_numeric> ex_n);
+int exact_numeric_any_duplicated(exact_numeric_p ex_n);
 extern "C" SEXP _euclid_exact_numeric_any_duplicated(SEXP ex_n) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_any_duplicated(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n)));
+    return cpp11::as_sexp(exact_numeric_any_duplicated(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::writable::integers exact_numeric_rank(cpp11::external_pointer<exact_numeric> ex_n);
+cpp11::writable::integers exact_numeric_rank(exact_numeric_p ex_n);
 extern "C" SEXP _euclid_exact_numeric_rank(SEXP ex_n) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_rank(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n)));
+    return cpp11::as_sexp(exact_numeric_rank(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::writable::integers exact_numeric_match(cpp11::external_pointer<exact_numeric> ex_n, cpp11::external_pointer<exact_numeric> table);
+cpp11::writable::integers exact_numeric_match(exact_numeric_p ex_n, exact_numeric_p table);
 extern "C" SEXP _euclid_exact_numeric_match(SEXP ex_n, SEXP table) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_match(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(table)));
+    return cpp11::as_sexp(exact_numeric_match(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(table)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_plus(cpp11::external_pointer<exact_numeric> ex_n, cpp11::external_pointer<exact_numeric> ex_n2);
+exact_numeric_p exact_numeric_plus(exact_numeric_p ex_n, exact_numeric_p ex_n2);
 extern "C" SEXP _euclid_exact_numeric_plus(SEXP ex_n, SEXP ex_n2) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_plus(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n2)));
+    return cpp11::as_sexp(exact_numeric_plus(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n2)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_minus(cpp11::external_pointer<exact_numeric> ex_n, cpp11::external_pointer<exact_numeric> ex_n2);
+exact_numeric_p exact_numeric_minus(exact_numeric_p ex_n, exact_numeric_p ex_n2);
 extern "C" SEXP _euclid_exact_numeric_minus(SEXP ex_n, SEXP ex_n2) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_minus(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n2)));
+    return cpp11::as_sexp(exact_numeric_minus(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n2)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_uni_minus(cpp11::external_pointer<exact_numeric> ex_n);
+exact_numeric_p exact_numeric_uni_minus(exact_numeric_p ex_n);
 extern "C" SEXP _euclid_exact_numeric_uni_minus(SEXP ex_n) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_uni_minus(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n)));
+    return cpp11::as_sexp(exact_numeric_uni_minus(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_times(cpp11::external_pointer<exact_numeric> ex_n, cpp11::external_pointer<exact_numeric> ex_n2);
+exact_numeric_p exact_numeric_times(exact_numeric_p ex_n, exact_numeric_p ex_n2);
 extern "C" SEXP _euclid_exact_numeric_times(SEXP ex_n, SEXP ex_n2) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_times(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n2)));
+    return cpp11::as_sexp(exact_numeric_times(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n2)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_divided(cpp11::external_pointer<exact_numeric> ex_n, cpp11::external_pointer<exact_numeric> ex_n2);
+exact_numeric_p exact_numeric_divided(exact_numeric_p ex_n, exact_numeric_p ex_n2);
 extern "C" SEXP _euclid_exact_numeric_divided(SEXP ex_n, SEXP ex_n2) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_divided(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n2)));
+    return cpp11::as_sexp(exact_numeric_divided(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n2)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_abs(cpp11::external_pointer<exact_numeric> ex_n);
+exact_numeric_p exact_numeric_abs(exact_numeric_p ex_n);
 extern "C" SEXP _euclid_exact_numeric_abs(SEXP ex_n) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_abs(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n)));
+    return cpp11::as_sexp(exact_numeric_abs(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::writable::integers exact_numeric_sign(cpp11::external_pointer<exact_numeric> ex_n);
+cpp11::writable::integers exact_numeric_sign(exact_numeric_p ex_n);
 extern "C" SEXP _euclid_exact_numeric_sign(SEXP ex_n) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_sign(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n)));
+    return cpp11::as_sexp(exact_numeric_sign(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_cumsum(cpp11::external_pointer<exact_numeric> ex_n);
+exact_numeric_p exact_numeric_cumsum(exact_numeric_p ex_n);
 extern "C" SEXP _euclid_exact_numeric_cumsum(SEXP ex_n) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_cumsum(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n)));
+    return cpp11::as_sexp(exact_numeric_cumsum(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_cumprod(cpp11::external_pointer<exact_numeric> ex_n);
+exact_numeric_p exact_numeric_cumprod(exact_numeric_p ex_n);
 extern "C" SEXP _euclid_exact_numeric_cumprod(SEXP ex_n) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_cumprod(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n)));
+    return cpp11::as_sexp(exact_numeric_cumprod(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_cummax(cpp11::external_pointer<exact_numeric> ex_n);
+exact_numeric_p exact_numeric_cummax(exact_numeric_p ex_n);
 extern "C" SEXP _euclid_exact_numeric_cummax(SEXP ex_n) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_cummax(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n)));
+    return cpp11::as_sexp(exact_numeric_cummax(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_cummin(cpp11::external_pointer<exact_numeric> ex_n);
+exact_numeric_p exact_numeric_cummin(exact_numeric_p ex_n);
 extern "C" SEXP _euclid_exact_numeric_cummin(SEXP ex_n) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_cummin(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n)));
+    return cpp11::as_sexp(exact_numeric_cummin(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_diff(cpp11::external_pointer<exact_numeric> ex_n, int lag);
+exact_numeric_p exact_numeric_diff(exact_numeric_p ex_n, int lag);
 extern "C" SEXP _euclid_exact_numeric_diff(SEXP ex_n, SEXP lag) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_diff(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n), cpp11::as_cpp<cpp11::decay_t<int>>(lag)));
+    return cpp11::as_sexp(exact_numeric_diff(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<int>>(lag)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_sort(cpp11::external_pointer<exact_numeric> ex_n, bool decreasing);
-extern "C" SEXP _euclid_exact_numeric_sort(SEXP ex_n, SEXP decreasing) {
+exact_numeric_p exact_numeric_sort(exact_numeric_p ex_n, bool decreasing, cpp11::logicals na_last);
+extern "C" SEXP _euclid_exact_numeric_sort(SEXP ex_n, SEXP decreasing, SEXP na_last) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_sort(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n), cpp11::as_cpp<cpp11::decay_t<bool>>(decreasing)));
+    return cpp11::as_sexp(exact_numeric_sort(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<bool>>(decreasing), cpp11::as_cpp<cpp11::decay_t<cpp11::logicals>>(na_last)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_sum(cpp11::external_pointer<exact_numeric> ex_n);
-extern "C" SEXP _euclid_exact_numeric_sum(SEXP ex_n) {
+exact_numeric_p exact_numeric_sum(exact_numeric_p ex_n, bool na_rm);
+extern "C" SEXP _euclid_exact_numeric_sum(SEXP ex_n, SEXP na_rm) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_sum(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n)));
+    return cpp11::as_sexp(exact_numeric_sum(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<bool>>(na_rm)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_prod(cpp11::external_pointer<exact_numeric> ex_n);
-extern "C" SEXP _euclid_exact_numeric_prod(SEXP ex_n) {
+exact_numeric_p exact_numeric_prod(exact_numeric_p ex_n, bool na_rm);
+extern "C" SEXP _euclid_exact_numeric_prod(SEXP ex_n, SEXP na_rm) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_prod(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n)));
+    return cpp11::as_sexp(exact_numeric_prod(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<bool>>(na_rm)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_min(cpp11::external_pointer<exact_numeric> ex_n);
-extern "C" SEXP _euclid_exact_numeric_min(SEXP ex_n) {
+exact_numeric_p exact_numeric_min(exact_numeric_p ex_n, bool na_rm);
+extern "C" SEXP _euclid_exact_numeric_min(SEXP ex_n, SEXP na_rm) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_min(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n)));
+    return cpp11::as_sexp(exact_numeric_min(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<bool>>(na_rm)));
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::external_pointer<exact_numeric> exact_numeric_max(cpp11::external_pointer<exact_numeric> ex_n);
-extern "C" SEXP _euclid_exact_numeric_max(SEXP ex_n) {
+exact_numeric_p exact_numeric_max(exact_numeric_p ex_n, bool na_rm);
+extern "C" SEXP _euclid_exact_numeric_max(SEXP ex_n, SEXP na_rm) {
   BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_max(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(ex_n)));
+    return cpp11::as_sexp(exact_numeric_max(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<bool>>(na_rm)));
   END_CPP11
 }
 // geometry_common.cpp
@@ -558,6 +572,55 @@ extern "C" SEXP _euclid_create_vector_2_x_y(SEXP x, SEXP y) {
   END_CPP11
 }
 // vector.cpp
+cpp11::external_pointer<vector2> vector_2_add_vector(cpp11::external_pointer<vector2> x, cpp11::external_pointer<vector2> y);
+extern "C" SEXP _euclid_vector_2_add_vector(SEXP x, SEXP y) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(vector_2_add_vector(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(y)));
+  END_CPP11
+}
+// vector.cpp
+cpp11::external_pointer<vector2> vector_2_minus_vector(cpp11::external_pointer<vector2> x, cpp11::external_pointer<vector2> y);
+extern "C" SEXP _euclid_vector_2_minus_vector(SEXP x, SEXP y) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(vector_2_minus_vector(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(y)));
+  END_CPP11
+}
+// vector.cpp
+cpp11::external_pointer<vector2> vector_2_negate(cpp11::external_pointer<vector2> x);
+extern "C" SEXP _euclid_vector_2_negate(SEXP x) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(vector_2_negate(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(x)));
+  END_CPP11
+}
+// vector.cpp
+cpp11::external_pointer<exact_numeric> vector_2_dot_vector(cpp11::external_pointer<vector2> x, cpp11::external_pointer<vector2> y);
+extern "C" SEXP _euclid_vector_2_dot_vector(SEXP x, SEXP y) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(vector_2_dot_vector(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(y)));
+  END_CPP11
+}
+// vector.cpp
+cpp11::external_pointer<vector2> vector_2_times_numeric(cpp11::external_pointer<vector2> x, cpp11::external_pointer<exact_numeric> y);
+extern "C" SEXP _euclid_vector_2_times_numeric(SEXP x, SEXP y) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(vector_2_times_numeric(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(y)));
+  END_CPP11
+}
+// vector.cpp
+cpp11::external_pointer<vector2> vector_2_divide_numeric(cpp11::external_pointer<vector2> x, cpp11::external_pointer<exact_numeric> y);
+extern "C" SEXP _euclid_vector_2_divide_numeric(SEXP x, SEXP y) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(vector_2_divide_numeric(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(y)));
+  END_CPP11
+}
+// vector.cpp
+cpp11::external_pointer<exact_numeric> vector_2_coord(cpp11::external_pointer<vector2> x, int i);
+extern "C" SEXP _euclid_vector_2_coord(SEXP x, SEXP i) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(vector_2_coord(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(x), cpp11::as_cpp<cpp11::decay_t<int>>(i)));
+  END_CPP11
+}
+// vector.cpp
 cpp11::external_pointer<vector3> create_vector_3_point(cpp11::external_pointer<point3> p);
 extern "C" SEXP _euclid_create_vector_3_point(SEXP p) {
   BEGIN_CPP11
@@ -569,6 +632,55 @@ cpp11::external_pointer<vector3> create_vector_3_x_y_z(cpp11::external_pointer<e
 extern "C" SEXP _euclid_create_vector_3_x_y_z(SEXP x, SEXP y, SEXP z) {
   BEGIN_CPP11
     return cpp11::as_sexp(create_vector_3_x_y_z(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(y), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(z)));
+  END_CPP11
+}
+// vector.cpp
+cpp11::external_pointer<vector3> vector_3_add_vector(cpp11::external_pointer<vector3> x, cpp11::external_pointer<vector3> y);
+extern "C" SEXP _euclid_vector_3_add_vector(SEXP x, SEXP y) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(vector_3_add_vector(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(y)));
+  END_CPP11
+}
+// vector.cpp
+cpp11::external_pointer<vector3> vector_3_minus_vector(cpp11::external_pointer<vector3> x, cpp11::external_pointer<vector3> y);
+extern "C" SEXP _euclid_vector_3_minus_vector(SEXP x, SEXP y) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(vector_3_minus_vector(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(y)));
+  END_CPP11
+}
+// vector.cpp
+cpp11::external_pointer<vector3> vector_3_negate(cpp11::external_pointer<vector3> x);
+extern "C" SEXP _euclid_vector_3_negate(SEXP x) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(vector_3_negate(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(x)));
+  END_CPP11
+}
+// vector.cpp
+cpp11::external_pointer<exact_numeric> vector_3_dot_vector(cpp11::external_pointer<vector3> x, cpp11::external_pointer<vector3> y);
+extern "C" SEXP _euclid_vector_3_dot_vector(SEXP x, SEXP y) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(vector_3_dot_vector(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(y)));
+  END_CPP11
+}
+// vector.cpp
+cpp11::external_pointer<vector3> vector_3_times_numeric(cpp11::external_pointer<vector3> x, cpp11::external_pointer<exact_numeric> y);
+extern "C" SEXP _euclid_vector_3_times_numeric(SEXP x, SEXP y) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(vector_3_times_numeric(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(y)));
+  END_CPP11
+}
+// vector.cpp
+cpp11::external_pointer<vector3> vector_3_divide_numeric(cpp11::external_pointer<vector3> x, cpp11::external_pointer<exact_numeric> y);
+extern "C" SEXP _euclid_vector_3_divide_numeric(SEXP x, SEXP y) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(vector_3_divide_numeric(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(y)));
+  END_CPP11
+}
+// vector.cpp
+cpp11::external_pointer<exact_numeric> vector_3_coord(cpp11::external_pointer<vector3> x, int i);
+extern "C" SEXP _euclid_vector_3_coord(SEXP x, SEXP i) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(vector_3_coord(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(x), cpp11::as_cpp<cpp11::decay_t<int>>(i)));
   END_CPP11
 }
 
@@ -588,6 +700,7 @@ extern SEXP _euclid_create_vector_3_point(SEXP);
 extern SEXP _euclid_create_vector_3_x_y_z(SEXP, SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_abs(SEXP);
 extern SEXP _euclid_exact_numeric_any_duplicated(SEXP);
+extern SEXP _euclid_exact_numeric_any_na(SEXP);
 extern SEXP _euclid_exact_numeric_assign(SEXP, SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_combine(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_cummax(SEXP);
@@ -600,21 +713,22 @@ extern SEXP _euclid_exact_numeric_duplicated(SEXP);
 extern SEXP _euclid_exact_numeric_greater(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_greater_equal(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_is_equal(SEXP, SEXP);
+extern SEXP _euclid_exact_numeric_is_na(SEXP);
 extern SEXP _euclid_exact_numeric_is_not_equal(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_length(SEXP);
 extern SEXP _euclid_exact_numeric_less(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_less_equal(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_match(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_max(SEXP);
-extern SEXP _euclid_exact_numeric_min(SEXP);
+extern SEXP _euclid_exact_numeric_max(SEXP, SEXP);
+extern SEXP _euclid_exact_numeric_min(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_minus(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_plus(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_prod(SEXP);
+extern SEXP _euclid_exact_numeric_prod(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_rank(SEXP);
 extern SEXP _euclid_exact_numeric_sign(SEXP);
-extern SEXP _euclid_exact_numeric_sort(SEXP, SEXP);
+extern SEXP _euclid_exact_numeric_sort(SEXP, SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_subset(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_sum(SEXP);
+extern SEXP _euclid_exact_numeric_sum(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_times(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_to_numeric(SEXP);
 extern SEXP _euclid_exact_numeric_uni_minus(SEXP);
@@ -655,6 +769,20 @@ extern SEXP _euclid_point_3_rank(SEXP);
 extern SEXP _euclid_point_3_sort(SEXP, SEXP);
 extern SEXP _euclid_point_3_sub_point(SEXP, SEXP);
 extern SEXP _euclid_point_3_sub_vector(SEXP, SEXP);
+extern SEXP _euclid_vector_2_add_vector(SEXP, SEXP);
+extern SEXP _euclid_vector_2_coord(SEXP, SEXP);
+extern SEXP _euclid_vector_2_divide_numeric(SEXP, SEXP);
+extern SEXP _euclid_vector_2_dot_vector(SEXP, SEXP);
+extern SEXP _euclid_vector_2_minus_vector(SEXP, SEXP);
+extern SEXP _euclid_vector_2_negate(SEXP);
+extern SEXP _euclid_vector_2_times_numeric(SEXP, SEXP);
+extern SEXP _euclid_vector_3_add_vector(SEXP, SEXP);
+extern SEXP _euclid_vector_3_coord(SEXP, SEXP);
+extern SEXP _euclid_vector_3_divide_numeric(SEXP, SEXP);
+extern SEXP _euclid_vector_3_dot_vector(SEXP, SEXP);
+extern SEXP _euclid_vector_3_minus_vector(SEXP, SEXP);
+extern SEXP _euclid_vector_3_negate(SEXP);
+extern SEXP _euclid_vector_3_times_numeric(SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
     {"_euclid_create_circle_2_2_point",       (DL_FUNC) &_euclid_create_circle_2_2_point,       2},
@@ -671,6 +799,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_create_vector_3_x_y_z",         (DL_FUNC) &_euclid_create_vector_3_x_y_z,         3},
     {"_euclid_exact_numeric_abs",             (DL_FUNC) &_euclid_exact_numeric_abs,             1},
     {"_euclid_exact_numeric_any_duplicated",  (DL_FUNC) &_euclid_exact_numeric_any_duplicated,  1},
+    {"_euclid_exact_numeric_any_na",          (DL_FUNC) &_euclid_exact_numeric_any_na,          1},
     {"_euclid_exact_numeric_assign",          (DL_FUNC) &_euclid_exact_numeric_assign,          3},
     {"_euclid_exact_numeric_combine",         (DL_FUNC) &_euclid_exact_numeric_combine,         2},
     {"_euclid_exact_numeric_cummax",          (DL_FUNC) &_euclid_exact_numeric_cummax,          1},
@@ -683,21 +812,22 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_exact_numeric_greater",         (DL_FUNC) &_euclid_exact_numeric_greater,         2},
     {"_euclid_exact_numeric_greater_equal",   (DL_FUNC) &_euclid_exact_numeric_greater_equal,   2},
     {"_euclid_exact_numeric_is_equal",        (DL_FUNC) &_euclid_exact_numeric_is_equal,        2},
+    {"_euclid_exact_numeric_is_na",           (DL_FUNC) &_euclid_exact_numeric_is_na,           1},
     {"_euclid_exact_numeric_is_not_equal",    (DL_FUNC) &_euclid_exact_numeric_is_not_equal,    2},
     {"_euclid_exact_numeric_length",          (DL_FUNC) &_euclid_exact_numeric_length,          1},
     {"_euclid_exact_numeric_less",            (DL_FUNC) &_euclid_exact_numeric_less,            2},
     {"_euclid_exact_numeric_less_equal",      (DL_FUNC) &_euclid_exact_numeric_less_equal,      2},
     {"_euclid_exact_numeric_match",           (DL_FUNC) &_euclid_exact_numeric_match,           2},
-    {"_euclid_exact_numeric_max",             (DL_FUNC) &_euclid_exact_numeric_max,             1},
-    {"_euclid_exact_numeric_min",             (DL_FUNC) &_euclid_exact_numeric_min,             1},
+    {"_euclid_exact_numeric_max",             (DL_FUNC) &_euclid_exact_numeric_max,             2},
+    {"_euclid_exact_numeric_min",             (DL_FUNC) &_euclid_exact_numeric_min,             2},
     {"_euclid_exact_numeric_minus",           (DL_FUNC) &_euclid_exact_numeric_minus,           2},
     {"_euclid_exact_numeric_plus",            (DL_FUNC) &_euclid_exact_numeric_plus,            2},
-    {"_euclid_exact_numeric_prod",            (DL_FUNC) &_euclid_exact_numeric_prod,            1},
+    {"_euclid_exact_numeric_prod",            (DL_FUNC) &_euclid_exact_numeric_prod,            2},
     {"_euclid_exact_numeric_rank",            (DL_FUNC) &_euclid_exact_numeric_rank,            1},
     {"_euclid_exact_numeric_sign",            (DL_FUNC) &_euclid_exact_numeric_sign,            1},
-    {"_euclid_exact_numeric_sort",            (DL_FUNC) &_euclid_exact_numeric_sort,            2},
+    {"_euclid_exact_numeric_sort",            (DL_FUNC) &_euclid_exact_numeric_sort,            3},
     {"_euclid_exact_numeric_subset",          (DL_FUNC) &_euclid_exact_numeric_subset,          2},
-    {"_euclid_exact_numeric_sum",             (DL_FUNC) &_euclid_exact_numeric_sum,             1},
+    {"_euclid_exact_numeric_sum",             (DL_FUNC) &_euclid_exact_numeric_sum,             2},
     {"_euclid_exact_numeric_times",           (DL_FUNC) &_euclid_exact_numeric_times,           2},
     {"_euclid_exact_numeric_to_numeric",      (DL_FUNC) &_euclid_exact_numeric_to_numeric,      1},
     {"_euclid_exact_numeric_uni_minus",       (DL_FUNC) &_euclid_exact_numeric_uni_minus,       1},
@@ -738,6 +868,20 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_point_3_sort",                  (DL_FUNC) &_euclid_point_3_sort,                  2},
     {"_euclid_point_3_sub_point",             (DL_FUNC) &_euclid_point_3_sub_point,             2},
     {"_euclid_point_3_sub_vector",            (DL_FUNC) &_euclid_point_3_sub_vector,            2},
+    {"_euclid_vector_2_add_vector",           (DL_FUNC) &_euclid_vector_2_add_vector,           2},
+    {"_euclid_vector_2_coord",                (DL_FUNC) &_euclid_vector_2_coord,                2},
+    {"_euclid_vector_2_divide_numeric",       (DL_FUNC) &_euclid_vector_2_divide_numeric,       2},
+    {"_euclid_vector_2_dot_vector",           (DL_FUNC) &_euclid_vector_2_dot_vector,           2},
+    {"_euclid_vector_2_minus_vector",         (DL_FUNC) &_euclid_vector_2_minus_vector,         2},
+    {"_euclid_vector_2_negate",               (DL_FUNC) &_euclid_vector_2_negate,               1},
+    {"_euclid_vector_2_times_numeric",        (DL_FUNC) &_euclid_vector_2_times_numeric,        2},
+    {"_euclid_vector_3_add_vector",           (DL_FUNC) &_euclid_vector_3_add_vector,           2},
+    {"_euclid_vector_3_coord",                (DL_FUNC) &_euclid_vector_3_coord,                2},
+    {"_euclid_vector_3_divide_numeric",       (DL_FUNC) &_euclid_vector_3_divide_numeric,       2},
+    {"_euclid_vector_3_dot_vector",           (DL_FUNC) &_euclid_vector_3_dot_vector,           2},
+    {"_euclid_vector_3_minus_vector",         (DL_FUNC) &_euclid_vector_3_minus_vector,         2},
+    {"_euclid_vector_3_negate",               (DL_FUNC) &_euclid_vector_3_negate,               1},
+    {"_euclid_vector_3_times_numeric",        (DL_FUNC) &_euclid_vector_3_times_numeric,        2},
     {NULL, NULL, 0}
 };
 }

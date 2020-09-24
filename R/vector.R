@@ -65,6 +65,72 @@ as_point.euclid_vector <- function(x) {
   point(x)
 }
 
+# Operators ---------------------------------------------------------------
+
+#' @export
+geometry_op_plus.euclid_vector <- function(e1, e2) {
+  if (!is_vec(e1) || !is_vec(e2)) {
+    rlang::abort("`+` is only defined for addition with another vector")
+  }
+  if (dim(e1) != dim(e2)) {
+    rlang::abort("`e1` and `e2` must have the same number of dimensions")
+  }
+  if (dim(e1) == 2) {
+    restore_euclid_vector(vector_2_add_vector(get_ptr(e1), get_ptr(e2)), e1)
+  } else {
+    restore_euclid_vector(vector_3_add_vector(get_ptr(e1), get_ptr(e2)), e1)
+  }
+}
+#' @export
+geometry_op_minus.euclid_vector <- function(e1, e2) {
+  if (missing(e2)) {
+    if (dim(e1) == 2) {
+      restore_euclid_vector(vector_2_negate(get_ptr(e1)), e1)
+    } else {
+      restore_euclid_vector(vector_3_negate(get_ptr(e1)), e1)
+    }
+  } else {
+    if (!is_vec(e1) || !is_vec(e2)) {
+      rlang::abort("`-` is only defined for subtraction with another vector")
+    }
+    if (dim(e1) != dim(e2)) {
+      rlang::abort("`e1` and `e2` must have the same number of dimensions")
+    }
+    if (dim(e1) == 2) {
+      restore_euclid_vector(vector_2_minus_vector(get_ptr(e1), get_ptr(e2)), e1)
+    } else {
+      restore_euclid_vector(vector_3_minus_vector(get_ptr(e1), get_ptr(e2)), e1)
+    }
+  }
+}
+#' @export
+geometry_op_multiply.euclid_vector <- function(e1, e2) {
+  if (is_vec(e1)) {
+    vec <- e1
+    number <- as_exact_numeric(e2)
+  } else {
+    vec <- e2
+    number <- as_exact_numeric(e1)
+  }
+  if (dim(e1) == 2) {
+    restore_euclid_vector(vector_2_times_numeric(get_ptr(vec), get_ptr(number)), vec)
+  } else {
+    restore_euclid_vector(vector_3_times_numeric(get_ptr(vec), get_ptr(number)), vec)
+  }
+}
+#' @export
+geometry_op_divide.euclid_vector <- function(e1, e2) {
+  if (!is_vec(e1)) {
+    rlang::abort("Vector must be the nominator in division")
+  }
+  e2 <- as_exact_numeric(e2)
+  if (dim(e1) == 2) {
+    restore_euclid_vector(vector_2_divide_numeric(get_ptr(e1), get_ptr(e2)), vec)
+  } else {
+    restore_euclid_vector(vector_3_divide_numeric(get_ptr(e1), get_ptr(e2)), vec)
+  }
+}
+
 # Internal Constructors ---------------------------------------------------
 
 new_vector2 <- function(x) {
