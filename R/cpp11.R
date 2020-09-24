@@ -200,6 +200,14 @@ geometry_match <- function(geometries, table) {
   .Call("_euclid_geometry_match", geometries, table)
 }
 
+geometry_is_na <- function(geometries) {
+  .Call("_euclid_geometry_is_na", geometries)
+}
+
+geometry_any_na <- function(geometries) {
+  .Call("_euclid_geometry_any_na", geometries)
+}
+
 geometry_to_matrix <- function(geometries) {
   .Call("_euclid_geometry_to_matrix", geometries)
 }

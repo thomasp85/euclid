@@ -168,11 +168,18 @@ c.euclid_geometry <- function(..., recursive = FALSE) {
   restore_euclid_vector(res, ..1)
 }
 #' @export
-is.na.euclid_geometry <- function(x) rep_len(FALSE, length(x))
+is.na.euclid_geometry <- function(x) {
+  geometry_is_na(get_ptr(x))
+}
 #' @export
-`is.na<-.euclid_geometry` <- function(x, value) x
+`is.na<-.euclid_geometry` <- function(x, value) {
+  x[is.na(x)] <- value
+  x
+}
 #' @export
-anyNA.euclid_geometry <- function(x, recursive) FALSE
+anyNA.euclid_geometry <- function(x, recursive) {
+  geometry_any_na(get_ptr(x))
+}
 #' @export
 as.data.frame.euclid_geometry <- function(x, row.names = NULL, optional = FALSE, ...) {
   df <- list(x)

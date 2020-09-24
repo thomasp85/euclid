@@ -66,12 +66,15 @@ public:
   // Self-similarity
   virtual cpp11::external_pointer<geometry_vector_base> unique() const = 0;
   virtual cpp11::writable::logicals duplicated() const = 0;
-  virtual bool any_duplicated() const = 0;
+  virtual int any_duplicated() const = 0;
   virtual cpp11::writable::integers match(const geometry_vector_base& table) const = 0;
+  virtual cpp11::writable::logicals is_na() const = 0;
+  virtual bool any_na() const = 0;
 
   // Predicates
   virtual cpp11::writable::logicals is_degenerate() const = 0;
 };
+typedef cpp11::external_pointer<geometry_vector_base> geometry_vector_base_p;
 
 template <typename T, size_t dim>
 class geometry_vector : public geometry_vector_base {
@@ -102,10 +105,11 @@ public:
 
     size_t ii = 0;
     for (size_t i = 0; i < size(); ++i) {
+      bool is_na = !_storage[i];
       for (size_t j = 0; j < cardinality(i); ++j) {
         std::vector<double> row = get_row(i, j);
         for (size_t k = 0; k < ncols; ++k) {
-          result(ii, k) = row[k];
+          result(ii, k) = is_na ? R_NaReal : row[k];
         }
         ++ii;
       }
@@ -120,6 +124,10 @@ public:
     size_t ndims = dimnames.size();
 
     for (size_t i = 0; i < size(); ++i) {
+      if (!_storage[i]) {
+        result[i] = "<NA>";
+        continue;
+      }
       std::ostringstream f;
       f << std::setprecision(3);
       size_t car = cardinality(i);
@@ -153,10 +161,9 @@ public:
 
   // Equality
   cpp11::writable::logicals operator==(const geometry_vector_base& other) const {
-    if (other.size() != 1 && other.size() != size()) {
-      cpp11::stop("Incompatible vector sizes");
-    }
-    cpp11::writable::logicals result(size());
+    size_t output_length = std::max(size(), other.size());
+
+    cpp11::writable::logicals result(output_length);
 
     if (typeid(*this) != typeid(other)) {
       for (size_t i = 0; i < size(); ++i) {
@@ -166,42 +173,39 @@ public:
     }
 
     const geometry_vector<T, dim>* other_recast = dynamic_cast< const geometry_vector<T, dim>* >(&other);
-    if (other.size() == 1) {
-      T geom = (*other_recast)[0];
-      for (size_t i = 0; i < size(); ++i) {
-        result[i] = (Rboolean) (_storage[i] == geom);
+
+    for (size_t i = 0; i < output_length; ++i) {
+      if (!_storage[i % size()] || !(*other_recast)[i % other_recast->size()]) {
+        result[i] = NA_LOGICAL;
+        continue;
       }
-    } else {
-      for (size_t i = 0; i < size(); ++i) {
-        result[i] = (Rboolean) (_storage[i] == (*other_recast)[i]);
-      }
+      result[i] = (Rboolean) (_storage[i % size()] == (*other_recast)[i % other_recast->size()]);
     }
+
     return result;
   }
   cpp11::writable::logicals operator!=(const geometry_vector_base& other) const {
-    if (other.size() != 1 && other.size() != size()) {
-      cpp11::stop("Incompatible vector sizes");
-    }
-    cpp11::writable::logicals result(size());
+    size_t output_length = std::max(size(), other.size());
+
+    cpp11::writable::logicals result(output_length);
 
     if (typeid(*this) != typeid(other)) {
       for (size_t i = 0; i < size(); ++i) {
-        result[i] = (Rboolean) true;
+        result[i] = (Rboolean) false;
         return result;
       }
     }
 
     const geometry_vector<T, dim>* other_recast = dynamic_cast< const geometry_vector<T, dim>* >(&other);
-    if (other.size() == 1) {
-      T geom = (*other_recast)[0];
-      for (size_t i = 0; i < size(); ++i) {
-        result[i] = (Rboolean) (_storage[i] != geom);
+
+    for (size_t i = 0; i < output_length; ++i) {
+      if (!_storage[i % size()] || !(*other_recast)[i % other_recast->size()]) {
+        result[i] = NA_LOGICAL;
+        continue;
       }
-    } else {
-      for (size_t i = 0; i < size(); ++i) {
-        result[i] = (Rboolean) (_storage[i] != (*other_recast)[i]);
-      }
+      result[i] = (Rboolean) (_storage[i % size()] != (*other_recast)[i % other_recast->size()]);
     }
+
     return result;
   }
 
@@ -222,7 +226,11 @@ public:
     std::vector<T> new_storage;
     new_storage.reserve(size());
     for (R_xlen_t i = 0; i < index.size(); ++i) {
-      new_storage.push_back(_storage[index[i] - 1]);
+      if (index[i] == R_NaInt) {
+        new_storage.push_back(T::NA_value());
+      } else {
+        new_storage.push_back(_storage[index[i] - 1]);
+      }
     }
     return {new_from_vector(new_storage)};
   }
@@ -243,6 +251,13 @@ public:
     const geometry_vector<T, dim>* value_recast = dynamic_cast< const geometry_vector<T, dim>* >(&value);
 
     std::vector<T> new_storage(_storage);
+    int max_size = *std::max_element(index.begin(), index.end());
+    if (max_size > new_storage.size()) {
+      new_storage.reserve(max_size);
+      for (int j = new_storage.size(); j < max_size; ++j) {
+        new_storage.push_back(T::NA_value());
+      }
+    }
     for (R_xlen_t i = 0; i < index.size(); ++i) {
       new_storage[index[i] - 1] = (*value_recast)[i];
     }
@@ -268,8 +283,15 @@ public:
   // Self-similarity
   cpp11::external_pointer<geometry_vector_base> unique() const {
     std::vector<T> new_storage;
-
+    bool NA_seen = false;
     for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
+      if (!iter->is_valid()) {
+        if (!NA_seen) {
+          new_storage.push_back(T::NA_value());
+          NA_seen = true;
+        }
+        continue;
+      }
       if (std::find(new_storage.begin(), new_storage.end(), *iter) == new_storage.end()) {
         new_storage.push_back(*iter);
       }
@@ -281,7 +303,15 @@ public:
     std::vector<T> uniques;
     cpp11::writable::logicals dupes;
     dupes.reserve(size());
+    bool NA_seen = false;
     for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
+      if (!iter->is_valid()) {
+        if (!NA_seen) {
+          dupes.push_back(TRUE);
+          NA_seen = true;
+        }
+        continue;
+      }
       if (std::find(uniques.begin(), uniques.end(), *iter) == uniques.end()) {
         uniques.push_back(*iter);
         dupes.push_back(FALSE);
@@ -292,14 +322,22 @@ public:
 
     return dupes;
   }
-  bool any_duplicated() const {
-    bool anyone = false;
-
+  int any_duplicated() const {
+    int anyone = -1;
+    bool NA_seen = false;;
+    int i = 0;
     for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
-      if (std::find(iter + 1, _storage.end(), *iter) != _storage.end()) {
+      if (!_storage[i].is_valid()) {
+        if (NA_seen) {
+          anyone = i;
+          break;
+        }
+        NA_seen = true;
+      } else if (std::find(iter + 1, _storage.end(), *iter) != _storage.end()) {
         anyone = true;
         break;
       }
+      ++i;
     }
 
     return anyone;
@@ -317,9 +355,14 @@ public:
 
     const geometry_vector<T, dim>* table_recast = dynamic_cast< const geometry_vector<T, dim>* >(&table);
 
+    int NA_ind = -1;
+
     std::vector<T> lookup;
     lookup.reserve(table_recast->size());
     for (size_t i = 0; i < table_recast->size(); ++i) {
+      if (NA_ind == -1 && !(*table_recast)[i]) {
+        NA_ind = i;
+      }
       lookup.push_back((*table_recast)[i]);
     }
 
@@ -327,6 +370,14 @@ public:
     result.reserve(size());
     auto start = lookup.begin();
     for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
+      if (!iter->is_valid()) {
+        if (NA_ind == -1) {
+          result.push_back(R_NaInt);
+        } else {
+          result.push_back(NA_ind + 1);
+        }
+        continue;
+      }
       auto match = std::find(lookup.begin(), lookup.end(), *iter);
       if (match == lookup.end()) {
         result.push_back(R_NaInt);
@@ -337,13 +388,31 @@ public:
 
     return result;
   }
+  cpp11::writable::logicals is_na() const {
+    cpp11::writable::logicals result;
+    result.reserve(size());
+
+    for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
+      result.push_back((Rboolean) !(*iter));
+    }
+
+    return result;
+  }
+  bool any_na() const {
+    for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
+      if (!(*iter)) {
+        return true;
+      }
+    }
+    return false;
+  }
 
   // Predicates
   cpp11::writable::logicals is_degenerate() const {
     cpp11::writable::logicals result;
     result.reserve(_storage.size());
     for (size_t i = 0; i < _storage.size(); ++i) {
-      result.push_back((Rboolean) false);
+      result.push_back(FALSE);
     }
     return result;
   }

@@ -307,7 +307,7 @@ cpp11::writable::logicals exact_numeric_duplicated(exact_numeric_p ex_n) {
 int exact_numeric::any_duplicated() const {
   std::set<Exact_number> uniques;
 
-  int anyone = 0;
+  int anyone = -1;
   bool NA_seen = false;
 
   for (size_t i = 0; i < _storage.size(); ++i) {
@@ -317,8 +317,7 @@ int exact_numeric::any_duplicated() const {
         break;
       }
       NA_seen = true;
-    }
-    if (uniques.find(_storage[i]) == uniques.end()) {
+    } else if (uniques.find(_storage[i]) == uniques.end()) {
       uniques.insert(_storage[i]);
     } else {
       anyone = i;
@@ -330,7 +329,7 @@ int exact_numeric::any_duplicated() const {
 }
 [[cpp11::register]]
 int exact_numeric_any_duplicated(exact_numeric_p ex_n) {
-  return ex_n->any_duplicated();
+  return ex_n->any_duplicated() + 1;
 }
 
 cpp11::writable::integers exact_numeric::rank() const {

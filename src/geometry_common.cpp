@@ -9,17 +9,17 @@
 #include <cpp11/external_pointer.hpp>
 
 [[cpp11::register]]
-int geometry_length(cpp11::external_pointer<geometry_vector_base> geometries) {
+int geometry_length(geometry_vector_base_p geometries) {
   return geometries->size();
 }
 
 [[cpp11::register]]
-int geometry_dimension(cpp11::external_pointer<geometry_vector_base> geometries) {
+int geometry_dimension(geometry_vector_base_p geometries) {
   return geometries->dimensions();
 }
 
 [[cpp11::register]]
-cpp11::writable::integers geometry_cardinality(cpp11::external_pointer<geometry_vector_base> geometries) {
+cpp11::writable::integers geometry_cardinality(geometry_vector_base_p geometries) {
   cpp11::writable::integers result;
   result.reserve(geometries->size());
   for (size_t i = 0; i < geometries->size(); ++i) {
@@ -29,69 +29,79 @@ cpp11::writable::integers geometry_cardinality(cpp11::external_pointer<geometry_
 }
 
 [[cpp11::register]]
-cpp11::external_pointer<geometry_vector_base> geometry_subset(cpp11::external_pointer<geometry_vector_base> geometries, cpp11::integers index) {
+geometry_vector_base_p geometry_subset(geometry_vector_base_p geometries, cpp11::integers index) {
   return geometries->subset(index);
 }
 
 [[cpp11::register]]
-cpp11::external_pointer<geometry_vector_base> geometry_copy(cpp11::external_pointer<geometry_vector_base> geometries) {
+geometry_vector_base_p geometry_copy(geometry_vector_base_p geometries) {
   return geometries->copy();
 }
 
 [[cpp11::register]]
-cpp11::external_pointer<geometry_vector_base> geometry_assign(cpp11::external_pointer<geometry_vector_base> geometries, cpp11::integers index, cpp11::external_pointer<geometry_vector_base> value) {
+geometry_vector_base_p geometry_assign(geometry_vector_base_p geometries, cpp11::integers index, geometry_vector_base_p value) {
   return geometries->assign(index, *value);
 }
 
 [[cpp11::register]]
-cpp11::external_pointer<geometry_vector_base> geometry_combine(cpp11::external_pointer<geometry_vector_base> geometries, cpp11::list_of< cpp11::external_pointer<geometry_vector_base> > extra) {
+geometry_vector_base_p geometry_combine(geometry_vector_base_p geometries, cpp11::list_of< geometry_vector_base_p > extra) {
   return geometries->combine(extra);
 }
 
 [[cpp11::register]]
-cpp11::external_pointer<geometry_vector_base> geometry_unique(cpp11::external_pointer<geometry_vector_base> geometries) {
+geometry_vector_base_p geometry_unique(geometry_vector_base_p geometries) {
   return geometries->unique();
 }
 
 [[cpp11::register]]
-cpp11::writable::logicals geometry_duplicated(cpp11::external_pointer<geometry_vector_base> geometries) {
+cpp11::writable::logicals geometry_duplicated(geometry_vector_base_p geometries) {
   return geometries->duplicated();
 }
 
 [[cpp11::register]]
-cpp11::writable::logicals geometry_any_duplicated(cpp11::external_pointer<geometry_vector_base> geometries) {
+cpp11::writable::logicals geometry_any_duplicated(geometry_vector_base_p geometries) {
   return {(Rboolean) geometries->any_duplicated()};
 }
 
 [[cpp11::register]]
-cpp11::writable::integers geometry_match(cpp11::external_pointer<geometry_vector_base> geometries, cpp11::external_pointer<geometry_vector_base> table) {
+cpp11::writable::integers geometry_match(geometry_vector_base_p geometries, geometry_vector_base_p table) {
   return geometries->match(*table);
 }
 
 [[cpp11::register]]
-cpp11::writable::doubles_matrix geometry_to_matrix(cpp11::external_pointer<geometry_vector_base> geometries) {
+cpp11::writable::logicals geometry_is_na(geometry_vector_base_p geometries) {
+  return geometries->is_na();
+}
+
+[[cpp11::register]]
+bool geometry_any_na(geometry_vector_base_p geometries) {
+  return geometries->any_na();
+}
+
+[[cpp11::register]]
+cpp11::writable::doubles_matrix geometry_to_matrix(geometry_vector_base_p geometries) {
   return geometries->as_numeric();
 }
 
 [[cpp11::register]]
-cpp11::writable::strings geometry_format(cpp11::external_pointer<geometry_vector_base> geometries) {
+cpp11::writable::strings geometry_format(geometry_vector_base_p geometries) {
   return geometries->format();
 }
 
 [[cpp11::register]]
-cpp11::writable::logicals geometry_is_equal(cpp11::external_pointer<geometry_vector_base> geometries1,
-                                            cpp11::external_pointer<geometry_vector_base> geometries2) {
+cpp11::writable::logicals geometry_is_equal(geometry_vector_base_p geometries1,
+                                            geometry_vector_base_p geometries2) {
   return (*geometries1) == (*geometries2);
 }
 
 [[cpp11::register]]
-cpp11::writable::logicals geometry_is_not_equal(cpp11::external_pointer<geometry_vector_base> geometries1,
-                                                cpp11::external_pointer<geometry_vector_base> geometries2) {
+cpp11::writable::logicals geometry_is_not_equal(geometry_vector_base_p geometries1,
+                                                geometry_vector_base_p geometries2) {
   return (*geometries1) != (*geometries2);
 }
 
 [[cpp11::register]]
-cpp11::writable::logicals geometry_is_degenerate(cpp11::external_pointer<geometry_vector_base> geometries) {
+cpp11::writable::logicals geometry_is_degenerate(geometry_vector_base_p geometries) {
   return geometries->is_degenerate();
 }
 
