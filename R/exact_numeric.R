@@ -13,9 +13,6 @@
 #' Anywhere euclid takes a numeric input it will convert it to an exact numeric
 #' before use.
 #'
-#' @note exact numerics does not support non-finite values. Trying to create one
-#' will result in an error.
-#'
 #' @param x An object coercible to `numeric`
 #'
 #' @return An `euclid_exact_numeric` vector
@@ -51,10 +48,6 @@
 #' )
 #'
 exact_numeric <- function(x) {
-  x <- as.numeric(x)
-  if (any(!is.finite(x))) {
-    rlang::abort("euclid only works with finite numbers. Be sure to remove any `NA`, `NaN`, `Inf`, and `-Inf` values from your data")
-  }
   new_exact_numeric(create_exact_numeric(as.numeric(x)))
 }
 new_exact_numeric <- function(x) {
@@ -123,15 +116,12 @@ diff.euclid_exact_numeric <- function(x, lag = 1L, difference = 1L, ...) {
   restore_euclid_vector(result, x)
 }
 #' @export
-sort.euclid_exact_numeric <- function(x, decreasing = FALSE, ...) {
-  restore_euclid_vector(exact_numeric_sort(get_ptr(x), decreasing), x)
+sort.euclid_exact_numeric <- function(x, decreasing = FALSE, na.last = NA, ...) {
+  restore_euclid_vector(exact_numeric_sort(get_ptr(x), decreasing, na.last), x)
 }
 #' @export
 `[.euclid_exact_numeric` <- function(x, i, j, ..., drop = TRUE) {
   index <- seq_along(x)[i]
-  if (anyNA(index)) {
-    rlang::abort("Trying to select non-existing element")
-  }
   restore_euclid_vector(exact_numeric_subset(get_ptr(x), index), x)
 }
 #' @export
@@ -143,7 +133,11 @@ sort.euclid_exact_numeric <- function(x, decreasing = FALSE, ...) {
 }
 #' @export
 `[<-.euclid_exact_numeric` <- function(x, i, j, ..., value) {
-  index <- seq_along(x)[i]
+  if (is.numeric(i) && all(i >= 0)) {
+    index <- seq_len(max(i))[i]
+  } else {
+    index <- seq_along(x)[i]
+  }
   if (anyNA(index)) {
     rlang::abort("Trying to assign to non-existing element")
   }
@@ -173,11 +167,18 @@ c.euclid_exact_numeric <- function(..., recursive = FALSE) {
   restore_euclid_vector(res, ..1)
 }
 #' @export
-is.na.euclid_exact_numeric <- function(x) rep_len(FALSE, length(x))
+is.na.euclid_exact_numeric <- function(x) {
+  exact_numeric_is_na(get_ptr(x))
+}
 #' @export
-`is.na<-.euclid_exact_numeric` <- function(x, value) x
+`is.na<-.euclid_exact_numeric` <- function(x, value) {
+  x[is.na(x)] <- value
+  x
+}
 #' @export
-anyNA.euclid_exact_numeric <- function(x, recursive) FALSE
+anyNA.euclid_exact_numeric <- function(x, recursive) {
+  exact_numeric_any_na(get_ptr(x))
+}
 #' @export
 as.data.frame.euclid_exact_numeric <- function(x, row.names = NULL, optional = FALSE, ...) {
   df <- list(x)
@@ -211,6 +212,9 @@ range.euclid_exact_numeric <- function(x, ...) {
 
 #' @export
 Ops.euclid_exact_numeric <- function(e1, e2) {
+  if (.Generic == "/" && (is_vec(e1) || is_vec(e2))) {
+    return(geometry_op_divide(e1, e2))
+  }
   e1 <- as_exact_numeric(e1)
   if (!missing(e2)) e2 <- as_exact_numeric(e2)
   res <- switch(.Generic,
@@ -251,12 +255,13 @@ Math.euclid_exact_numeric <- function(x, ...) {
 
 #' @export
 Summary.euclid_exact_numeric <- function(..., na.rm) {
+  na.rm = isTRUE(na.rm)
   input <- do.call(c, lapply(list(...), as_exact_numeric))
   res <- switch(.Generic,
-    "sum" = exact_numeric_sum(get_ptr(input)),
-    "prod" = exact_numeric_prod(get_ptr(input)),
-    "min" = exact_numeric_min(get_ptr(input)),
-    "max" = exact_numeric_max(get_ptr(input))
+    "sum" = exact_numeric_sum(get_ptr(input), na.rm),
+    "prod" = exact_numeric_prod(get_ptr(input), na.rm),
+    "min" = exact_numeric_min(get_ptr(input), na.rm),
+    "max" = exact_numeric_max(get_ptr(input), na.rm)
   )
   restore_euclid_vector(res, input)
 }

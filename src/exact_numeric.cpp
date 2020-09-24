@@ -15,13 +15,13 @@
 #include <iostream>
 
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> create_exact_numeric(cpp11::doubles numeric) {
+exact_numeric_p create_exact_numeric(cpp11::doubles numeric) {
   exact_numeric* ex_n(new exact_numeric(numeric));
 
   return {ex_n};
 }
 [[cpp11::register]]
-int exact_numeric_length(cpp11::external_pointer<exact_numeric> ex_n) {
+int exact_numeric_length(exact_numeric_p ex_n) {
   return ex_n->size();
 }
 
@@ -30,20 +30,30 @@ exact_numeric exact_numeric::subset(cpp11::integers index) const {
   result.reserve(index.size());
 
   for (R_xlen_t i = 0; i < index.size(); ++i) {
-    result.push_back(_storage[index[i] - 1]);
+    if (index[i] == R_NaInt) {
+      result.push_back(Exact_number::NA_value());
+    } else {
+      result.push_back(_storage[index[i] - 1]);
+    }
   }
 
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_subset(cpp11::external_pointer<exact_numeric> ex_n, cpp11::integers index) {
+exact_numeric_p exact_numeric_subset(exact_numeric_p ex_n, cpp11::integers index) {
   exact_numeric* new_ex(new exact_numeric(ex_n->subset(index)));
   return {new_ex};
 }
 
 exact_numeric exact_numeric::assign(cpp11::integers index, const exact_numeric& value) const {
   exact_numeric result = *this;
-
+  int max_size = *std::max_element(index.begin(), index.end());
+  if (max_size > result.size()) {
+    result._storage.reserve(max_size);
+    for (int j = result.size(); j < max_size; ++j) {
+      result._storage.push_back(Exact_number::NA_value());
+    }
+  }
   for (R_xlen_t i = 0; i < index.size(); ++i) {
     result._storage[index[i] - 1] = value[i];
   }
@@ -51,13 +61,12 @@ exact_numeric exact_numeric::assign(cpp11::integers index, const exact_numeric& 
   return result;
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_assign(cpp11::external_pointer<exact_numeric> ex_n, cpp11::integers index,
-                                                            cpp11::external_pointer<exact_numeric> value) {
+exact_numeric_p exact_numeric_assign(exact_numeric_p ex_n, cpp11::integers index, exact_numeric_p value) {
   exact_numeric* new_ex(new exact_numeric(ex_n->assign(index, *value)));
   return {new_ex};
 }
 
-exact_numeric exact_numeric::combine(cpp11::list_of< cpp11::external_pointer<exact_numeric> > extra) const {
+exact_numeric exact_numeric::combine(cpp11::list_of< exact_numeric_p > extra) const {
   exact_numeric result = *this;
 
   for (R_xlen_t i = 0; i < extra.size(); ++i) {
@@ -69,23 +78,54 @@ exact_numeric exact_numeric::combine(cpp11::list_of< cpp11::external_pointer<exa
   return result;
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_combine(cpp11::external_pointer<exact_numeric> ex_n,
-                                                             cpp11::list_of< cpp11::external_pointer<exact_numeric> > extra) {
+exact_numeric_p exact_numeric_combine(exact_numeric_p ex_n, cpp11::list_of<exact_numeric_p> extra) {
   exact_numeric* new_ex(new exact_numeric(ex_n->combine(extra)));
   return {new_ex};
+}
+
+cpp11::writable::logicals exact_numeric::is_na() const {
+  cpp11::writable::logicals result;
+  result.reserve(size());
+
+  for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
+    result.push_back((Rboolean) !(*iter));
+  }
+
+  return result;
+}
+[[cpp11::register]]
+cpp11::writable::logicals exact_numeric_is_na(exact_numeric_p ex_n) {
+  return ex_n->is_na();
+}
+
+bool exact_numeric::any_na() const {
+  for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
+    if (!(*iter)) {
+      return true;
+    }
+  }
+  return false;
+}
+[[cpp11::register]]
+bool exact_numeric_any_na(exact_numeric_p ex_n) {
+  return ex_n->any_na();
 }
 
 cpp11::writable::doubles exact_numeric::as_numeric() const {
   cpp11::writable::doubles result(size());
 
   for (size_t i = 0; i < size(); ++i) {
-    result[i] = CGAL::to_double(_storage[i]);
+    if (_storage[i]) {
+      result[i] = CGAL::to_double(_storage[i].base());
+    } else {
+      result[i] = R_NaReal;
+    }
   }
 
   return result;
 }
 [[cpp11::register]]
-cpp11::writable::doubles exact_numeric_to_numeric(cpp11::external_pointer<exact_numeric> ex_n) {
+cpp11::writable::doubles exact_numeric_to_numeric(exact_numeric_p ex_n) {
   return ex_n->as_numeric();
 }
 
@@ -95,14 +135,17 @@ cpp11::writable::logicals exact_numeric::operator==(const exact_numeric& x) cons
   cpp11::writable::logicals result(output_length);
 
   for (size_t i = 0; i < output_length; ++i) {
+    if (!_storage[i % size()] || !x[i % x.size()]) {
+      result[i] = NA_LOGICAL;
+      continue;
+    }
     result[i] = (Rboolean) (_storage[i % size()] == x[i % x.size()]);
   }
 
   return result;
 }
 [[cpp11::register]]
-cpp11::writable::logicals exact_numeric_is_equal(cpp11::external_pointer<exact_numeric> ex_n,
-                                                 cpp11::external_pointer<exact_numeric> ex_n2) {
+cpp11::writable::logicals exact_numeric_is_equal(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
   return (*ex_n) == (*ex_n2);
 }
 
@@ -112,14 +155,17 @@ cpp11::writable::logicals exact_numeric::operator!=(const exact_numeric& x) cons
   cpp11::writable::logicals result(output_length);
 
   for (size_t i = 0; i < output_length; ++i) {
+    if (!_storage[i % size()] || !x[i % x.size()]) {
+      result[i] = NA_LOGICAL;
+      continue;
+    }
     result[i] = (Rboolean) (_storage[i % size()] != x[i % x.size()]);
   }
 
   return result;
 }
 [[cpp11::register]]
-cpp11::writable::logicals exact_numeric_is_not_equal(cpp11::external_pointer<exact_numeric> ex_n,
-                                                     cpp11::external_pointer<exact_numeric> ex_n2) {
+cpp11::writable::logicals exact_numeric_is_not_equal(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
   return (*ex_n) != (*ex_n2);
 }
 
@@ -129,14 +175,17 @@ cpp11::writable::logicals exact_numeric::operator<(const exact_numeric& x) const
   cpp11::writable::logicals result(output_length);
 
   for (size_t i = 0; i < output_length; ++i) {
+    if (!_storage[i % size()] || !x[i % x.size()]) {
+      result[i] = NA_LOGICAL;
+      continue;
+    }
     result[i] = (Rboolean) (_storage[i % size()] < x[i % x.size()]);
   }
 
   return result;
 }
 [[cpp11::register]]
-cpp11::writable::logicals exact_numeric_less(cpp11::external_pointer<exact_numeric> ex_n,
-                                             cpp11::external_pointer<exact_numeric> ex_n2) {
+cpp11::writable::logicals exact_numeric_less(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
   return (*ex_n) < (*ex_n2);
 }
 
@@ -146,14 +195,17 @@ cpp11::writable::logicals exact_numeric::operator<=(const exact_numeric& x) cons
   cpp11::writable::logicals result(output_length);
 
   for (size_t i = 0; i < output_length; ++i) {
+    if (!_storage[i % size()] || !x[i % x.size()]) {
+      result[i] = NA_LOGICAL;
+      continue;
+    }
     result[i] = (Rboolean) (_storage[i % size()] <= x[i % x.size()]);
   }
 
   return result;
 }
 [[cpp11::register]]
-cpp11::writable::logicals exact_numeric_less_equal(cpp11::external_pointer<exact_numeric> ex_n,
-                                                   cpp11::external_pointer<exact_numeric> ex_n2) {
+cpp11::writable::logicals exact_numeric_less_equal(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
   return (*ex_n) <= (*ex_n2);
 }
 
@@ -164,14 +216,17 @@ cpp11::writable::logicals exact_numeric::operator>(const exact_numeric& x) const
   cpp11::writable::logicals result(output_length);
 
   for (size_t i = 0; i < output_length; ++i) {
+    if (!_storage[i % size()] || !x[i % x.size()]) {
+      result[i] = NA_LOGICAL;
+      continue;
+    }
     result[i] = (Rboolean) (_storage[i % size()] > x[i % x.size()]);
   }
 
   return result;
 }
 [[cpp11::register]]
-cpp11::writable::logicals exact_numeric_greater(cpp11::external_pointer<exact_numeric> ex_n,
-                                                cpp11::external_pointer<exact_numeric> ex_n2) {
+cpp11::writable::logicals exact_numeric_greater(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
   return (*ex_n) > (*ex_n2);
 }
 
@@ -181,21 +236,32 @@ cpp11::writable::logicals exact_numeric::operator>=(const exact_numeric& x) cons
   cpp11::writable::logicals result(output_length);
 
   for (size_t i = 0; i < output_length; ++i) {
+    if (!_storage[i % size()] || !x[i % x.size()]) {
+      result[i] = NA_LOGICAL;
+      continue;
+    }
     result[i] = (Rboolean) (_storage[i % size()] >= x[i % x.size()]);
   }
 
   return result;
 }
 [[cpp11::register]]
-cpp11::writable::logicals exact_numeric_greater_equal(cpp11::external_pointer<exact_numeric> ex_n,
-                                                      cpp11::external_pointer<exact_numeric> ex_n2) {
+cpp11::writable::logicals exact_numeric_greater_equal(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
   return (*ex_n) >= (*ex_n2);
 }
 
 exact_numeric exact_numeric::unique() const {
   std::vector<Exact_number> new_storage;
   std::set<Exact_number> uniques;
+  bool NA_seen = false;
   for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
+    if (!iter->is_valid()) {
+      if (!NA_seen) {
+        new_storage.push_back(Exact_number::NA_value());
+        NA_seen = true;
+      }
+      continue;
+    }
     if (uniques.find(*iter) == uniques.end()) {
       uniques.insert(*iter);
       new_storage.push_back(*iter);
@@ -205,7 +271,7 @@ exact_numeric exact_numeric::unique() const {
   return {new_storage};
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_unique(cpp11::external_pointer<exact_numeric> ex_n) {
+exact_numeric_p exact_numeric_unique(exact_numeric_p ex_n) {
   exact_numeric* new_ex(new exact_numeric(ex_n->unique()));
   return {new_ex};
 }
@@ -214,7 +280,15 @@ cpp11::writable::logicals exact_numeric::duplicated() const {
   std::set<Exact_number> uniques;
   cpp11::writable::logicals dupes;
   dupes.reserve(size());
+  bool NA_seen = false;
   for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
+    if (!iter->is_valid()) {
+      if (!NA_seen) {
+        dupes.push_back(TRUE);
+        NA_seen = true;
+      }
+      continue;
+    }
     if (uniques.find(*iter) == uniques.end()) {
       uniques.insert(*iter);
       dupes.push_back(FALSE);
@@ -226,20 +300,28 @@ cpp11::writable::logicals exact_numeric::duplicated() const {
   return dupes;
 }
 [[cpp11::register]]
-cpp11::writable::logicals exact_numeric_duplicated(cpp11::external_pointer<exact_numeric> ex_n) {
+cpp11::writable::logicals exact_numeric_duplicated(exact_numeric_p ex_n) {
   return ex_n->duplicated();
 }
 
-bool exact_numeric::any_duplicated() const {
+int exact_numeric::any_duplicated() const {
   std::set<Exact_number> uniques;
 
-  bool anyone = false;
+  int anyone = 0;
+  bool NA_seen = false;
 
-  for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
-    if (uniques.find(*iter) == uniques.end()) {
-      uniques.insert(*iter);
+  for (size_t i = 0; i < _storage.size(); ++i) {
+    if (!_storage[i].is_valid()) {
+      if (NA_seen) {
+        anyone = i;
+        break;
+      }
+      NA_seen = true;
+    }
+    if (uniques.find(_storage[i]) == uniques.end()) {
+      uniques.insert(_storage[i]);
     } else {
-      anyone = true;
+      anyone = i;
       break;
     }
   }
@@ -247,8 +329,8 @@ bool exact_numeric::any_duplicated() const {
   return anyone;
 }
 [[cpp11::register]]
-cpp11::writable::logicals exact_numeric_any_duplicated(cpp11::external_pointer<exact_numeric> ex_n) {
-  return {(Rboolean) ex_n->any_duplicated()};
+int exact_numeric_any_duplicated(exact_numeric_p ex_n) {
+  return ex_n->any_duplicated();
 }
 
 cpp11::writable::integers exact_numeric::rank() const {
@@ -260,7 +342,12 @@ cpp11::writable::integers exact_numeric::rank() const {
   }
 
   std::stable_sort(ranks.begin(), ranks.end(), [](const std::pair<Exact_number, size_t>& l, const std::pair<Exact_number, size_t> & r) {
-    return l.first < r.first;
+    if (l.first && r.first) {
+      return l.first < r.first;
+    } else if (l.first) {
+      return true;
+    }
+    return false;
   });
 
   cpp11::writable::integers result;
@@ -272,14 +359,19 @@ cpp11::writable::integers exact_numeric::rank() const {
   return result;
 }
 [[cpp11::register]]
-cpp11::writable::integers exact_numeric_rank(cpp11::external_pointer<exact_numeric> ex_n) {
+cpp11::writable::integers exact_numeric_rank(exact_numeric_p ex_n) {
   return ex_n->rank();
 }
 
 cpp11::writable::integers exact_numeric::match(const exact_numeric& table) const {
   std::map<Exact_number, size_t> lookup;
 
+  int NA_ind = -1;
   for (size_t i = 0; i < table.size(); ++i) {
+    if (!table[i]) {
+      if (NA_ind == -1) NA_ind = i;
+      continue;
+    }
     if (lookup.find(table[i]) == lookup.end()) {
       lookup[table[i]] = i;
     }
@@ -287,6 +379,14 @@ cpp11::writable::integers exact_numeric::match(const exact_numeric& table) const
   cpp11::writable::integers result;
   result.reserve(size());
   for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
+    if (!iter->is_valid()) {
+      if (NA_ind == -1) {
+        result.push_back(R_NaInt);
+      } else {
+        result.push_back(NA_ind + 1);
+      }
+      continue;
+    }
     auto match = lookup.find(*iter);
     if (match == lookup.end()) {
       result.push_back(R_NaInt);
@@ -298,8 +398,7 @@ cpp11::writable::integers exact_numeric::match(const exact_numeric& table) const
   return result;
 }
 [[cpp11::register]]
-cpp11::writable::integers exact_numeric_match(cpp11::external_pointer<exact_numeric> ex_n,
-                                              cpp11::external_pointer<exact_numeric> table) {
+cpp11::writable::integers exact_numeric_match(exact_numeric_p ex_n, exact_numeric_p table) {
   return ex_n->match(*table);
 }
 
@@ -310,14 +409,17 @@ exact_numeric exact_numeric::operator+(const exact_numeric& x) const {
   result.reserve(output_length);
 
   for (size_t i = 0; i < output_length; ++i) {
+    if (!_storage[i % size()] || !x[i % x.size()]) {
+      result[i] = Exact_number::NA_value();
+      continue;
+    }
     result.push_back(_storage[i % size()] + x[i % x.size()]);
   }
 
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_plus(cpp11::external_pointer<exact_numeric> ex_n,
-                                                          cpp11::external_pointer<exact_numeric> ex_n2) {
+exact_numeric_p exact_numeric_plus(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
   exact_numeric* new_ex(new exact_numeric((*ex_n) + (*ex_n2)));
   return {new_ex};
 }
@@ -329,14 +431,17 @@ exact_numeric exact_numeric::operator-(const exact_numeric& x) const {
   result.reserve(output_length);
 
   for (size_t i = 0; i < output_length; ++i) {
+    if (!_storage[i % size()] || !x[i % x.size()]) {
+      result[i] = Exact_number::NA_value();
+      continue;
+    }
     result.push_back(_storage[i % size()] - x[i % x.size()]);
   }
 
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_minus(cpp11::external_pointer<exact_numeric> ex_n,
-                                                           cpp11::external_pointer<exact_numeric> ex_n2) {
+exact_numeric_p exact_numeric_minus(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
   exact_numeric* new_ex(new exact_numeric((*ex_n) - (*ex_n2)));
   return {new_ex};
 }
@@ -346,13 +451,17 @@ exact_numeric exact_numeric::operator-() const {
   result.reserve(size());
 
   for (size_t i = 0; i < size(); ++i) {
+    if (!_storage[i]) {
+      result[i] = Exact_number::NA_value();
+      continue;
+    }
     result.push_back(-_storage[i]);
   }
 
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_uni_minus(cpp11::external_pointer<exact_numeric> ex_n) {
+exact_numeric_p exact_numeric_uni_minus(exact_numeric_p ex_n) {
   exact_numeric* new_ex(new exact_numeric(-(*ex_n)));
   return {new_ex};
 }
@@ -364,14 +473,17 @@ exact_numeric exact_numeric::operator*(const exact_numeric& x) const {
   result.reserve(output_length);
 
   for (size_t i = 0; i < output_length; ++i) {
+    if (!_storage[i % size()] || !x[i % x.size()]) {
+      result[i] = Exact_number::NA_value();
+      continue;
+    }
     result.push_back(_storage[i % size()] * x[i % x.size()]);
   }
 
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_times(cpp11::external_pointer<exact_numeric> ex_n,
-                                                           cpp11::external_pointer<exact_numeric> ex_n2) {
+exact_numeric_p exact_numeric_times(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
   exact_numeric* new_ex(new exact_numeric((*ex_n) * (*ex_n2)));
   return {new_ex};
 }
@@ -383,8 +495,9 @@ exact_numeric exact_numeric::operator/(const exact_numeric& x) const {
   result.reserve(output_length);
 
   for (size_t i = 0; i < output_length; ++i) {
-    if (x[i % x.size()] == 0.0) {
-      cpp11::stop("Division by zero not allowed");
+    if (!_storage[i % size()] || !x[i % x.size()] || x[i % x.size()] == 0.0) {
+      result[i] = Exact_number::NA_value();
+      continue;
     }
     result.push_back(_storage[i % size()] / x[i % x.size()]);
   }
@@ -392,8 +505,7 @@ exact_numeric exact_numeric::operator/(const exact_numeric& x) const {
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_divided(cpp11::external_pointer<exact_numeric> ex_n,
-                                                             cpp11::external_pointer<exact_numeric> ex_n2) {
+exact_numeric_p exact_numeric_divided(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
   exact_numeric* new_ex(new exact_numeric((*ex_n) / (*ex_n2)));
   return {new_ex};
 }
@@ -403,13 +515,17 @@ exact_numeric exact_numeric::abs() const {
   result.reserve(size());
 
   for (size_t i = 0; i < size(); ++i) {
-    result.push_back(CGAL::abs(_storage[i]));
+    if (!_storage[i]) {
+      result[i] = Exact_number::NA_value();
+      continue;
+    }
+    result.push_back(CGAL::abs(_storage[i].base()));
   }
 
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_abs(cpp11::external_pointer<exact_numeric> ex_n) {
+exact_numeric_p exact_numeric_abs(exact_numeric_p ex_n) {
   exact_numeric* new_ex(new exact_numeric(ex_n->abs()));
   return {new_ex};
 }
@@ -418,6 +534,10 @@ cpp11::writable::integers exact_numeric::sign() const {
   cpp11::writable::integers result(size());
 
   for (size_t i = 0; i < size(); ++i) {
+    if (!_storage[i]) {
+      result[i] = R_NaInt;
+      continue;
+    }
     if (_storage[i] > 0) {
       result[i] = 1;
     } else if (_storage[i] < 0) {
@@ -430,7 +550,7 @@ cpp11::writable::integers exact_numeric::sign() const {
   return result;
 }
 [[cpp11::register]]
-cpp11::writable::integers exact_numeric_sign(cpp11::external_pointer<exact_numeric> ex_n) {
+cpp11::writable::integers exact_numeric_sign(exact_numeric_p ex_n) {
   return ex_n->sign();
 }
 
@@ -439,16 +559,23 @@ exact_numeric exact_numeric::cumsum() const {
   result.reserve(size());
 
   Exact_number cum_sum = 0.0;
+  bool is_na = false;
 
   for (size_t i = 0; i < size(); ++i) {
-    cum_sum += _storage[i];
+    if (!is_na && !_storage[i]) {
+      is_na = true;
+      cum_sum = Exact_number::NA_value();
+    }
+    if (!is_na) {
+      cum_sum += _storage[i];
+    }
     result.push_back(cum_sum);
   }
 
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_cumsum(cpp11::external_pointer<exact_numeric> ex_n) {
+exact_numeric_p exact_numeric_cumsum(exact_numeric_p ex_n) {
   exact_numeric* new_ex(new exact_numeric(ex_n->cumsum()));
   return {new_ex};
 }
@@ -458,16 +585,23 @@ exact_numeric exact_numeric::cumprod() const {
   result.reserve(size());
 
   Exact_number cum_prod = 0.0;
+  bool is_na = false;
 
   for (size_t i = 0; i < size(); ++i) {
-    cum_prod *= _storage[i];
+    if (!is_na && !_storage[i]) {
+      is_na = true;
+      cum_prod = Exact_number::NA_value();
+    }
+    if (!is_na) {
+      cum_prod *= _storage[i];
+    }
     result.push_back(cum_prod);
   }
 
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_cumprod(cpp11::external_pointer<exact_numeric> ex_n) {
+exact_numeric_p exact_numeric_cumprod(exact_numeric_p ex_n) {
   exact_numeric* new_ex(new exact_numeric(ex_n->cumprod()));
   return {new_ex};
 }
@@ -477,9 +611,16 @@ exact_numeric exact_numeric::cummax() const {
   result.reserve(size());
   if (size() != 0) {
     Exact_number cum_max = _storage[0];
+    bool is_na = !cum_max;
 
     for (size_t i = 0; i < size(); ++i) {
-      cum_max = CGAL::max(_storage[i], cum_max);
+      if (!is_na && !_storage[i]) {
+        is_na = true;
+        cum_max = Exact_number::NA_value();
+      }
+      if (!is_na) {
+        cum_max = CGAL::max(_storage[i], cum_max);
+      }
       result.push_back(cum_max);
     }
   }
@@ -487,7 +628,7 @@ exact_numeric exact_numeric::cummax() const {
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_cummax(cpp11::external_pointer<exact_numeric> ex_n) {
+exact_numeric_p exact_numeric_cummax(exact_numeric_p ex_n) {
   exact_numeric* new_ex(new exact_numeric(ex_n->cummax()));
   return {new_ex};
 }
@@ -497,9 +638,16 @@ exact_numeric exact_numeric::cummin() const {
   result.reserve(size());
   if (size() != 0) {
     Exact_number cum_min = _storage[0];
+    bool is_na = !cum_min;
 
     for (size_t i = 0; i < size(); ++i) {
-      cum_min = CGAL::max(_storage[i], cum_min);
+      if (!is_na && !_storage[i]) {
+        is_na = true;
+        cum_min = Exact_number::NA_value();
+      }
+      if (!is_na) {
+        cum_min = CGAL::max(_storage[i], cum_min);
+      }
       result.push_back(cum_min);
     }
   }
@@ -507,7 +655,7 @@ exact_numeric exact_numeric::cummin() const {
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_cummin(cpp11::external_pointer<exact_numeric> ex_n) {
+exact_numeric_p exact_numeric_cummin(exact_numeric_p ex_n) {
   exact_numeric* new_ex(new exact_numeric(ex_n->cummin()));
   return {new_ex};
 }
@@ -518,20 +666,28 @@ exact_numeric exact_numeric::diff(int lag) const {
     result.reserve(size() - lag);
 
     for (size_t i = 0; i < size() - lag; ++i) {
-      result.push_back(_storage[i + lag] - _storage[i]);
+      if (!_storage[i + lag] || !_storage[i]) {
+        result.push_back(Exact_number::NA_value());
+      } else {
+        result.push_back(_storage[i + lag] - _storage[i]);
+      }
     }
   }
 
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_diff(cpp11::external_pointer<exact_numeric> ex_n, int lag) {
+exact_numeric_p exact_numeric_diff(exact_numeric_p ex_n, int lag) {
   exact_numeric* new_ex(new exact_numeric(ex_n->diff(lag)));
   return {new_ex};
 }
 
-exact_numeric exact_numeric::sort(bool decreasing) const {
+exact_numeric exact_numeric::sort(bool decreasing, cpp11::logicals na_last) const {
   exact_numeric result = *this;
+
+  auto end = std::remove_if(result._storage.begin(), result._storage.end(), [](const Exact_number& x) { return !x.is_valid(); });
+  int n_na = result._storage.end() - end;
+  result._storage.resize(end - result._storage.begin());
 
   if (decreasing) {
     std::stable_sort(result._storage.begin(), result._storage.end(), std::greater<Exact_number>());
@@ -539,18 +695,32 @@ exact_numeric exact_numeric::sort(bool decreasing) const {
     std::stable_sort(result._storage.begin(), result._storage.end());
   }
 
+  for (int i = 0; i < n_na; ++i) {
+    result._storage.push_back(Exact_number::NA_value());
+  }
+  if (n_na > 0 && na_last[0] == FALSE) {
+    std::rotate(result._storage.rbegin(), result._storage.rbegin() + n_na, result._storage.rend());
+  }
+
   return result;
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_sort(cpp11::external_pointer<exact_numeric> ex_n, bool decreasing) {
-  exact_numeric* new_ex(new exact_numeric(ex_n->sort(decreasing)));
+exact_numeric_p exact_numeric_sort(exact_numeric_p ex_n, bool decreasing, cpp11::logicals na_last) {
+  exact_numeric* new_ex(new exact_numeric(ex_n->sort(decreasing, na_last)));
   return {new_ex};
 }
 
-exact_numeric exact_numeric::sum() const {
+exact_numeric exact_numeric::sum(bool na_rm) const {
   Exact_number total = 0.0;
 
   for (size_t i = 0; i < size(); ++i) {
+    if (!_storage[i]) {
+      if (!na_rm) {
+        total = Exact_number::NA_value();
+        break;
+      }
+      continue;
+    }
     total += _storage[i];
   }
   std::vector<Exact_number> result;
@@ -559,15 +729,22 @@ exact_numeric exact_numeric::sum() const {
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_sum(cpp11::external_pointer<exact_numeric> ex_n) {
-  exact_numeric* new_ex(new exact_numeric(ex_n->sum()));
+exact_numeric_p exact_numeric_sum(exact_numeric_p ex_n, bool na_rm) {
+  exact_numeric* new_ex(new exact_numeric(ex_n->sum(na_rm)));
   return {new_ex};
 }
 
-exact_numeric exact_numeric::prod() const {
+exact_numeric exact_numeric::prod(bool na_rm) const {
   Exact_number total = 0.0;
 
   for (size_t i = 0; i < size(); ++i) {
+    if (!_storage[i]) {
+      if (!na_rm) {
+        total = Exact_number::NA_value();
+        break;
+      }
+      continue;
+    }
     total *= _storage[i];
   }
   std::vector<Exact_number> result;
@@ -576,15 +753,22 @@ exact_numeric exact_numeric::prod() const {
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_prod(cpp11::external_pointer<exact_numeric> ex_n) {
-  exact_numeric* new_ex(new exact_numeric(ex_n->prod()));
+exact_numeric_p exact_numeric_prod(exact_numeric_p ex_n, bool na_rm) {
+  exact_numeric* new_ex(new exact_numeric(ex_n->prod(na_rm)));
   return {new_ex};
 }
 
-exact_numeric exact_numeric::min() const {
+exact_numeric exact_numeric::min(bool na_rm) const {
   Exact_number minimum = std::numeric_limits<double>::infinity();
 
   for (size_t i = 0; i < size(); ++i) {
+    if (!_storage[i]) {
+      if (!na_rm) {
+        minimum = Exact_number::NA_value();
+        break;
+      }
+      continue;
+    }
     minimum = CGAL::min(_storage[i], minimum);
   }
   std::vector<Exact_number> result;
@@ -593,24 +777,31 @@ exact_numeric exact_numeric::min() const {
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_min(cpp11::external_pointer<exact_numeric> ex_n) {
-  exact_numeric* new_ex(new exact_numeric(ex_n->min()));
+exact_numeric_p exact_numeric_min(exact_numeric_p ex_n, bool na_rm) {
+  exact_numeric* new_ex(new exact_numeric(ex_n->min(na_rm)));
   return {new_ex};
 }
 
-exact_numeric exact_numeric::max() const {
-  Exact_number minimum = -std::numeric_limits<double>::infinity();
+exact_numeric exact_numeric::max(bool na_rm) const {
+  Exact_number maximum = -std::numeric_limits<double>::infinity();
 
   for (size_t i = 0; i < size(); ++i) {
-    minimum = CGAL::max(_storage[i], minimum);
+    if (!_storage[i]) {
+      if (!na_rm) {
+        maximum = Exact_number::NA_value();
+        break;
+      }
+      continue;
+    }
+    maximum = CGAL::max(_storage[i], maximum);
   }
   std::vector<Exact_number> result;
-  result.push_back(minimum);
+  result.push_back(maximum);
 
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<exact_numeric> exact_numeric_max(cpp11::external_pointer<exact_numeric> ex_n) {
-  exact_numeric* new_ex(new exact_numeric(ex_n->max()));
+exact_numeric_p exact_numeric_max(exact_numeric_p ex_n, bool na_rm) {
+  exact_numeric* new_ex(new exact_numeric(ex_n->max(na_rm)));
   return {new_ex};
 }

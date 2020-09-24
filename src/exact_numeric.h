@@ -18,7 +18,16 @@ public:
   ~exact_numeric() {}
 
   // Construction
-  exact_numeric(const cpp11::doubles& x) : _storage(x.begin(), x.end()) {}
+  exact_numeric(const cpp11::doubles& x) {
+    _storage.reserve(x.size());
+    for (R_xlen_t i = 0; i < x.size(); ++i) {
+      if (R_finite(x[i])) {
+        _storage.emplace_back(x[i]);
+      } else {
+        _storage.push_back(Exact_number::NA_value());
+      }
+    }
+  }
   exact_numeric(const std::vector<double>& x) : _storage(x.begin(), x.end()) {}
   exact_numeric(std::vector<Exact_number>& x) {
     _storage.swap(x);
@@ -29,6 +38,7 @@ public:
     _storage.insert(_storage.end(), copy._storage.begin(), copy._storage.end());
     return *this;
   }
+  const std::vector<Exact_number>& get_storage() { return _storage; }
 
   // Utility
   size_t size() const {
@@ -43,6 +53,8 @@ public:
   exact_numeric subset(cpp11::integers index) const;
   exact_numeric assign(cpp11::integers index, const exact_numeric& value) const;
   exact_numeric combine(cpp11::list_of< cpp11::external_pointer<exact_numeric> > extra) const;
+  cpp11::writable::logicals is_na() const;
+  bool any_na() const;
 
   // Convert back
   cpp11::writable::doubles as_numeric() const;
@@ -56,7 +68,7 @@ public:
   cpp11::writable::logicals operator>=(const exact_numeric& x) const;
   exact_numeric unique() const;
   cpp11::writable::logicals duplicated() const;
-  bool any_duplicated() const;
+  int any_duplicated() const;
   cpp11::writable::integers rank() const;
   cpp11::writable::integers match(const exact_numeric& table) const;
 
@@ -75,11 +87,13 @@ public:
   exact_numeric cummax() const;
   exact_numeric cummin() const;
   exact_numeric diff(int lag) const;
-  exact_numeric sort(bool decreasing) const;
+  exact_numeric sort(bool decreasing, cpp11::logicals na_last) const;
 
   // Summary
-  exact_numeric sum() const;
-  exact_numeric prod() const;
-  exact_numeric min() const;
-  exact_numeric max() const;
+  exact_numeric sum(bool na_rm) const;
+  exact_numeric prod(bool na_rm) const;
+  exact_numeric min(bool na_rm) const;
+  exact_numeric max(bool na_rm) const;
 };
+
+typedef cpp11::external_pointer<exact_numeric> exact_numeric_p;

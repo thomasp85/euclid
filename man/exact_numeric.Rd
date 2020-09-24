@@ -32,10 +32,6 @@ needed it is necessary to convert back to numeric (thus loosing exactness).
 Anywhere euclid takes a numeric input it will convert it to an exact numeric
 before use.
 }
-\note{
-exact numerics does not support non-finite values. Trying to create one
-will result in an error.
-}
 \examples{
 # Standard use
 exact_numeric(runif(5))
