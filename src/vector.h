@@ -96,6 +96,8 @@ class vector2 : public geometry_vector<Vector_2, 2> {
     }
 };
 
+typedef cpp11::external_pointer<vector2> vector2_p;
+
 class vector3 : public geometry_vector<Vector_3, 3> {
   public:
     const Primitive geo_type = VECTOR;
@@ -187,3 +189,5 @@ class vector3 : public geometry_vector<Vector_3, 3> {
       return result;
     }
 };
+
+typedef cpp11::external_pointer<vector3> vector3_p;

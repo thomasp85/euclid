@@ -5,24 +5,24 @@
 #include "cpp11/declarations.hpp"
 
 // circle.cpp
-cpp11::external_pointer<circle2> create_circle_2_center_radius(cpp11::external_pointer<point2> center, cpp11::external_pointer<exact_numeric> r);
+circle2_p create_circle_2_center_radius(point2_p center, exact_numeric_p r);
 extern "C" SEXP _euclid_create_circle_2_center_radius(SEXP center, SEXP r) {
   BEGIN_CPP11
-    return cpp11::as_sexp(create_circle_2_center_radius(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(center), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(r)));
+    return cpp11::as_sexp(create_circle_2_center_radius(cpp11::as_cpp<cpp11::decay_t<point2_p>>(center), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(r)));
   END_CPP11
 }
 // circle.cpp
-cpp11::external_pointer<circle2> create_circle_2_3_point(cpp11::external_pointer<point2> p, cpp11::external_pointer<point2> q, cpp11::external_pointer<point2> r);
+circle2_p create_circle_2_3_point(point2_p p, point2_p q, point2_p r);
 extern "C" SEXP _euclid_create_circle_2_3_point(SEXP p, SEXP q, SEXP r) {
   BEGIN_CPP11
-    return cpp11::as_sexp(create_circle_2_3_point(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(p), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(q), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(r)));
+    return cpp11::as_sexp(create_circle_2_3_point(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<point2_p>>(q), cpp11::as_cpp<cpp11::decay_t<point2_p>>(r)));
   END_CPP11
 }
 // circle.cpp
-cpp11::external_pointer<circle2> create_circle_2_2_point(cpp11::external_pointer<point2> p, cpp11::external_pointer<point2> q);
+circle2_p create_circle_2_2_point(point2_p p, point2_p q);
 extern "C" SEXP _euclid_create_circle_2_2_point(SEXP p, SEXP q) {
   BEGIN_CPP11
-    return cpp11::as_sexp(create_circle_2_2_point(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(p), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(q)));
+    return cpp11::as_sexp(create_circle_2_2_point(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<point2_p>>(q)));
   END_CPP11
 }
 // exact_numeric.cpp
@@ -404,297 +404,297 @@ extern "C" SEXP _euclid_geometry_is_degenerate(SEXP geometries) {
   END_CPP11
 }
 // point.cpp
-cpp11::external_pointer<point2> create_point_2_x_y(cpp11::external_pointer<exact_numeric> x, cpp11::external_pointer<exact_numeric> y);
+point2_p create_point_2_x_y(exact_numeric_p x, exact_numeric_p y);
 extern "C" SEXP _euclid_create_point_2_x_y(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(create_point_2_x_y(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(y)));
+    return cpp11::as_sexp(create_point_2_x_y(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y)));
   END_CPP11
 }
 // point.cpp
-cpp11::external_pointer<point2> create_point_2_vec(cpp11::external_pointer<vector2> p);
+point2_p create_point_2_vec(vector2_p p);
 extern "C" SEXP _euclid_create_point_2_vec(SEXP p) {
   BEGIN_CPP11
-    return cpp11::as_sexp(create_point_2_vec(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(p)));
+    return cpp11::as_sexp(create_point_2_vec(cpp11::as_cpp<cpp11::decay_t<vector2_p>>(p)));
   END_CPP11
 }
 // point.cpp
-cpp11::external_pointer<point2> point_2_add_vector(cpp11::external_pointer<point2> x, cpp11::external_pointer<vector2> y);
+point2_p point_2_add_vector(point2_p x, vector2_p y);
 extern "C" SEXP _euclid_point_2_add_vector(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_2_add_vector(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(y)));
+    return cpp11::as_sexp(point_2_add_vector(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<vector2_p>>(y)));
   END_CPP11
 }
 // point.cpp
-cpp11::external_pointer<point2> point_2_sub_vector(cpp11::external_pointer<point2> x, cpp11::external_pointer<vector2> y);
+point2_p point_2_sub_vector(point2_p x, vector2_p y);
 extern "C" SEXP _euclid_point_2_sub_vector(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_2_sub_vector(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(y)));
+    return cpp11::as_sexp(point_2_sub_vector(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<vector2_p>>(y)));
   END_CPP11
 }
 // point.cpp
-cpp11::external_pointer<vector2> point_2_sub_point(cpp11::external_pointer<point2> x, cpp11::external_pointer<point2> y);
+vector2_p point_2_sub_point(point2_p x, point2_p y);
 extern "C" SEXP _euclid_point_2_sub_point(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_2_sub_point(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(y)));
+    return cpp11::as_sexp(point_2_sub_point(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<point2_p>>(y)));
   END_CPP11
 }
 // point.cpp
-cpp11::writable::logicals point_2_less(cpp11::external_pointer<point2> x, cpp11::external_pointer<point2> y);
+cpp11::writable::logicals point_2_less(point2_p x, point2_p y);
 extern "C" SEXP _euclid_point_2_less(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_2_less(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(y)));
+    return cpp11::as_sexp(point_2_less(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<point2_p>>(y)));
   END_CPP11
 }
 // point.cpp
-cpp11::writable::logicals point_2_less_equal(cpp11::external_pointer<point2> x, cpp11::external_pointer<point2> y);
+cpp11::writable::logicals point_2_less_equal(point2_p x, point2_p y);
 extern "C" SEXP _euclid_point_2_less_equal(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_2_less_equal(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(y)));
+    return cpp11::as_sexp(point_2_less_equal(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<point2_p>>(y)));
   END_CPP11
 }
 // point.cpp
-cpp11::writable::logicals point_2_greater(cpp11::external_pointer<point2> x, cpp11::external_pointer<point2> y);
+cpp11::writable::logicals point_2_greater(point2_p x, point2_p y);
 extern "C" SEXP _euclid_point_2_greater(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_2_greater(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(y)));
+    return cpp11::as_sexp(point_2_greater(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<point2_p>>(y)));
   END_CPP11
 }
 // point.cpp
-cpp11::writable::logicals point_2_greater_equal(cpp11::external_pointer<point2> x, cpp11::external_pointer<point2> y);
+cpp11::writable::logicals point_2_greater_equal(point2_p x, point2_p y);
 extern "C" SEXP _euclid_point_2_greater_equal(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_2_greater_equal(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(y)));
+    return cpp11::as_sexp(point_2_greater_equal(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<point2_p>>(y)));
   END_CPP11
 }
 // point.cpp
-cpp11::external_pointer<exact_numeric> point_2_coord(cpp11::external_pointer<point2> x, int i);
+exact_numeric_p point_2_coord(point2_p x, int i);
 extern "C" SEXP _euclid_point_2_coord(SEXP x, SEXP i) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_2_coord(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(x), cpp11::as_cpp<cpp11::decay_t<int>>(i)));
+    return cpp11::as_sexp(point_2_coord(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<int>>(i)));
   END_CPP11
 }
 // point.cpp
-cpp11::external_pointer<point2> point_2_sort(cpp11::external_pointer<point2> x, bool decreasing);
+point2_p point_2_sort(point2_p x, bool decreasing);
 extern "C" SEXP _euclid_point_2_sort(SEXP x, SEXP decreasing) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_2_sort(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(x), cpp11::as_cpp<cpp11::decay_t<bool>>(decreasing)));
+    return cpp11::as_sexp(point_2_sort(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<bool>>(decreasing)));
   END_CPP11
 }
 // point.cpp
-cpp11::writable::integers point_2_rank(cpp11::external_pointer<point2> x);
+cpp11::writable::integers point_2_rank(point2_p x);
 extern "C" SEXP _euclid_point_2_rank(SEXP x) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_2_rank(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(x)));
+    return cpp11::as_sexp(point_2_rank(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x)));
   END_CPP11
 }
 // point.cpp
-cpp11::external_pointer<point3> create_point_3_x_y_z(cpp11::external_pointer<exact_numeric> x, cpp11::external_pointer<exact_numeric> y, cpp11::external_pointer<exact_numeric> z);
+point3_p create_point_3_x_y_z(exact_numeric_p x, exact_numeric_p y, exact_numeric_p z);
 extern "C" SEXP _euclid_create_point_3_x_y_z(SEXP x, SEXP y, SEXP z) {
   BEGIN_CPP11
-    return cpp11::as_sexp(create_point_3_x_y_z(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(y), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(z)));
+    return cpp11::as_sexp(create_point_3_x_y_z(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(z)));
   END_CPP11
 }
 // point.cpp
-cpp11::external_pointer<point3> create_point_3_vec(cpp11::external_pointer<vector3> p);
+point3_p create_point_3_vec(vector3_p p);
 extern "C" SEXP _euclid_create_point_3_vec(SEXP p) {
   BEGIN_CPP11
-    return cpp11::as_sexp(create_point_3_vec(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(p)));
+    return cpp11::as_sexp(create_point_3_vec(cpp11::as_cpp<cpp11::decay_t<vector3_p>>(p)));
   END_CPP11
 }
 // point.cpp
-cpp11::external_pointer<point3> point_3_add_vector(cpp11::external_pointer<point3> x, cpp11::external_pointer<vector3> y);
+point3_p point_3_add_vector(point3_p x, vector3_p y);
 extern "C" SEXP _euclid_point_3_add_vector(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_3_add_vector(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point3>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(y)));
+    return cpp11::as_sexp(point_3_add_vector(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<vector3_p>>(y)));
   END_CPP11
 }
 // point.cpp
-cpp11::external_pointer<point3> point_3_sub_vector(cpp11::external_pointer<point3> x, cpp11::external_pointer<vector3> y);
+point3_p point_3_sub_vector(point3_p x, vector3_p y);
 extern "C" SEXP _euclid_point_3_sub_vector(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_3_sub_vector(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point3>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(y)));
+    return cpp11::as_sexp(point_3_sub_vector(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<vector3_p>>(y)));
   END_CPP11
 }
 // point.cpp
-cpp11::external_pointer<vector3> point_3_sub_point(cpp11::external_pointer<point3> x, cpp11::external_pointer<point3> y);
+vector3_p point_3_sub_point(point3_p x, point3_p y);
 extern "C" SEXP _euclid_point_3_sub_point(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_3_sub_point(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point3>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point3>>>(y)));
+    return cpp11::as_sexp(point_3_sub_point(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<point3_p>>(y)));
   END_CPP11
 }
 // point.cpp
-cpp11::writable::logicals point_3_less(cpp11::external_pointer<point3> x, cpp11::external_pointer<point3> y);
+cpp11::writable::logicals point_3_less(point3_p x, point3_p y);
 extern "C" SEXP _euclid_point_3_less(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_3_less(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point3>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point3>>>(y)));
+    return cpp11::as_sexp(point_3_less(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<point3_p>>(y)));
   END_CPP11
 }
 // point.cpp
-cpp11::writable::logicals point_3_less_equal(cpp11::external_pointer<point3> x, cpp11::external_pointer<point3> y);
+cpp11::writable::logicals point_3_less_equal(point3_p x, point3_p y);
 extern "C" SEXP _euclid_point_3_less_equal(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_3_less_equal(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point3>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point3>>>(y)));
+    return cpp11::as_sexp(point_3_less_equal(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<point3_p>>(y)));
   END_CPP11
 }
 // point.cpp
-cpp11::writable::logicals point_3_greater(cpp11::external_pointer<point3> x, cpp11::external_pointer<point3> y);
+cpp11::writable::logicals point_3_greater(point3_p x, point3_p y);
 extern "C" SEXP _euclid_point_3_greater(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_3_greater(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point3>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point3>>>(y)));
+    return cpp11::as_sexp(point_3_greater(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<point3_p>>(y)));
   END_CPP11
 }
 // point.cpp
-cpp11::writable::logicals point_3_greater_equal(cpp11::external_pointer<point3> x, cpp11::external_pointer<point3> y);
+cpp11::writable::logicals point_3_greater_equal(point3_p x, point3_p y);
 extern "C" SEXP _euclid_point_3_greater_equal(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_3_greater_equal(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point3>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point3>>>(y)));
+    return cpp11::as_sexp(point_3_greater_equal(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<point3_p>>(y)));
   END_CPP11
 }
 // point.cpp
-cpp11::external_pointer<exact_numeric> point_3_coord(cpp11::external_pointer<point3> x, int i);
+exact_numeric_p point_3_coord(point3_p x, int i);
 extern "C" SEXP _euclid_point_3_coord(SEXP x, SEXP i) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_3_coord(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point3>>>(x), cpp11::as_cpp<cpp11::decay_t<int>>(i)));
+    return cpp11::as_sexp(point_3_coord(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<int>>(i)));
   END_CPP11
 }
 // point.cpp
-cpp11::external_pointer<point3> point_3_sort(cpp11::external_pointer<point3> x, bool decreasing);
+point3_p point_3_sort(point3_p x, bool decreasing);
 extern "C" SEXP _euclid_point_3_sort(SEXP x, SEXP decreasing) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_3_sort(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point3>>>(x), cpp11::as_cpp<cpp11::decay_t<bool>>(decreasing)));
+    return cpp11::as_sexp(point_3_sort(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<bool>>(decreasing)));
   END_CPP11
 }
 // point.cpp
-cpp11::writable::integers point_3_rank(cpp11::external_pointer<point3> x);
+cpp11::writable::integers point_3_rank(point3_p x);
 extern "C" SEXP _euclid_point_3_rank(SEXP x) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_3_rank(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point3>>>(x)));
+    return cpp11::as_sexp(point_3_rank(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<vector2> create_vector_2_point(cpp11::external_pointer<point2> p);
+vector2_p create_vector_2_point(point2_p p);
 extern "C" SEXP _euclid_create_vector_2_point(SEXP p) {
   BEGIN_CPP11
-    return cpp11::as_sexp(create_vector_2_point(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point2>>>(p)));
+    return cpp11::as_sexp(create_vector_2_point(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<vector2> create_vector_2_x_y(cpp11::external_pointer<exact_numeric> x, cpp11::external_pointer<exact_numeric> y);
+vector2_p create_vector_2_x_y(exact_numeric_p x, exact_numeric_p y);
 extern "C" SEXP _euclid_create_vector_2_x_y(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(create_vector_2_x_y(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(y)));
+    return cpp11::as_sexp(create_vector_2_x_y(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<vector2> vector_2_add_vector(cpp11::external_pointer<vector2> x, cpp11::external_pointer<vector2> y);
+vector2_p vector_2_add_vector(vector2_p x, vector2_p y);
 extern "C" SEXP _euclid_vector_2_add_vector(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(vector_2_add_vector(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(y)));
+    return cpp11::as_sexp(vector_2_add_vector(cpp11::as_cpp<cpp11::decay_t<vector2_p>>(x), cpp11::as_cpp<cpp11::decay_t<vector2_p>>(y)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<vector2> vector_2_minus_vector(cpp11::external_pointer<vector2> x, cpp11::external_pointer<vector2> y);
+vector2_p vector_2_minus_vector(vector2_p x, vector2_p y);
 extern "C" SEXP _euclid_vector_2_minus_vector(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(vector_2_minus_vector(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(y)));
+    return cpp11::as_sexp(vector_2_minus_vector(cpp11::as_cpp<cpp11::decay_t<vector2_p>>(x), cpp11::as_cpp<cpp11::decay_t<vector2_p>>(y)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<vector2> vector_2_negate(cpp11::external_pointer<vector2> x);
+vector2_p vector_2_negate(vector2_p x);
 extern "C" SEXP _euclid_vector_2_negate(SEXP x) {
   BEGIN_CPP11
-    return cpp11::as_sexp(vector_2_negate(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(x)));
+    return cpp11::as_sexp(vector_2_negate(cpp11::as_cpp<cpp11::decay_t<vector2_p>>(x)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<exact_numeric> vector_2_dot_vector(cpp11::external_pointer<vector2> x, cpp11::external_pointer<vector2> y);
+exact_numeric_p vector_2_dot_vector(vector2_p x, vector2_p y);
 extern "C" SEXP _euclid_vector_2_dot_vector(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(vector_2_dot_vector(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(y)));
+    return cpp11::as_sexp(vector_2_dot_vector(cpp11::as_cpp<cpp11::decay_t<vector2_p>>(x), cpp11::as_cpp<cpp11::decay_t<vector2_p>>(y)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<vector2> vector_2_times_numeric(cpp11::external_pointer<vector2> x, cpp11::external_pointer<exact_numeric> y);
+vector2_p vector_2_times_numeric(vector2_p x, exact_numeric_p y);
 extern "C" SEXP _euclid_vector_2_times_numeric(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(vector_2_times_numeric(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(y)));
+    return cpp11::as_sexp(vector_2_times_numeric(cpp11::as_cpp<cpp11::decay_t<vector2_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<vector2> vector_2_divide_numeric(cpp11::external_pointer<vector2> x, cpp11::external_pointer<exact_numeric> y);
+vector2_p vector_2_divide_numeric(vector2_p x, exact_numeric_p y);
 extern "C" SEXP _euclid_vector_2_divide_numeric(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(vector_2_divide_numeric(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(y)));
+    return cpp11::as_sexp(vector_2_divide_numeric(cpp11::as_cpp<cpp11::decay_t<vector2_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<exact_numeric> vector_2_coord(cpp11::external_pointer<vector2> x, int i);
+exact_numeric_p vector_2_coord(vector2_p x, int i);
 extern "C" SEXP _euclid_vector_2_coord(SEXP x, SEXP i) {
   BEGIN_CPP11
-    return cpp11::as_sexp(vector_2_coord(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector2>>>(x), cpp11::as_cpp<cpp11::decay_t<int>>(i)));
+    return cpp11::as_sexp(vector_2_coord(cpp11::as_cpp<cpp11::decay_t<vector2_p>>(x), cpp11::as_cpp<cpp11::decay_t<int>>(i)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<vector3> create_vector_3_point(cpp11::external_pointer<point3> p);
+vector3_p create_vector_3_point(point3_p p);
 extern "C" SEXP _euclid_create_vector_3_point(SEXP p) {
   BEGIN_CPP11
-    return cpp11::as_sexp(create_vector_3_point(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<point3>>>(p)));
+    return cpp11::as_sexp(create_vector_3_point(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<vector3> create_vector_3_x_y_z(cpp11::external_pointer<exact_numeric> x, cpp11::external_pointer<exact_numeric> y, cpp11::external_pointer<exact_numeric> z);
+vector3_p create_vector_3_x_y_z(exact_numeric_p x, exact_numeric_p y, exact_numeric_p z);
 extern "C" SEXP _euclid_create_vector_3_x_y_z(SEXP x, SEXP y, SEXP z) {
   BEGIN_CPP11
-    return cpp11::as_sexp(create_vector_3_x_y_z(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(y), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(z)));
+    return cpp11::as_sexp(create_vector_3_x_y_z(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(z)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<vector3> vector_3_add_vector(cpp11::external_pointer<vector3> x, cpp11::external_pointer<vector3> y);
+vector3_p vector_3_add_vector(vector3_p x, vector3_p y);
 extern "C" SEXP _euclid_vector_3_add_vector(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(vector_3_add_vector(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(y)));
+    return cpp11::as_sexp(vector_3_add_vector(cpp11::as_cpp<cpp11::decay_t<vector3_p>>(x), cpp11::as_cpp<cpp11::decay_t<vector3_p>>(y)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<vector3> vector_3_minus_vector(cpp11::external_pointer<vector3> x, cpp11::external_pointer<vector3> y);
+vector3_p vector_3_minus_vector(vector3_p x, vector3_p y);
 extern "C" SEXP _euclid_vector_3_minus_vector(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(vector_3_minus_vector(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(y)));
+    return cpp11::as_sexp(vector_3_minus_vector(cpp11::as_cpp<cpp11::decay_t<vector3_p>>(x), cpp11::as_cpp<cpp11::decay_t<vector3_p>>(y)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<vector3> vector_3_negate(cpp11::external_pointer<vector3> x);
+vector3_p vector_3_negate(vector3_p x);
 extern "C" SEXP _euclid_vector_3_negate(SEXP x) {
   BEGIN_CPP11
-    return cpp11::as_sexp(vector_3_negate(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(x)));
+    return cpp11::as_sexp(vector_3_negate(cpp11::as_cpp<cpp11::decay_t<vector3_p>>(x)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<exact_numeric> vector_3_dot_vector(cpp11::external_pointer<vector3> x, cpp11::external_pointer<vector3> y);
+exact_numeric_p vector_3_dot_vector(vector3_p x, vector3_p y);
 extern "C" SEXP _euclid_vector_3_dot_vector(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(vector_3_dot_vector(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(y)));
+    return cpp11::as_sexp(vector_3_dot_vector(cpp11::as_cpp<cpp11::decay_t<vector3_p>>(x), cpp11::as_cpp<cpp11::decay_t<vector3_p>>(y)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<vector3> vector_3_times_numeric(cpp11::external_pointer<vector3> x, cpp11::external_pointer<exact_numeric> y);
+vector3_p vector_3_times_numeric(vector3_p x, exact_numeric_p y);
 extern "C" SEXP _euclid_vector_3_times_numeric(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(vector_3_times_numeric(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(y)));
+    return cpp11::as_sexp(vector_3_times_numeric(cpp11::as_cpp<cpp11::decay_t<vector3_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<vector3> vector_3_divide_numeric(cpp11::external_pointer<vector3> x, cpp11::external_pointer<exact_numeric> y);
+vector3_p vector_3_divide_numeric(vector3_p x, exact_numeric_p y);
 extern "C" SEXP _euclid_vector_3_divide_numeric(SEXP x, SEXP y) {
   BEGIN_CPP11
-    return cpp11::as_sexp(vector_3_divide_numeric(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(x), cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<exact_numeric>>>(y)));
+    return cpp11::as_sexp(vector_3_divide_numeric(cpp11::as_cpp<cpp11::decay_t<vector3_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y)));
   END_CPP11
 }
 // vector.cpp
-cpp11::external_pointer<exact_numeric> vector_3_coord(cpp11::external_pointer<vector3> x, int i);
+exact_numeric_p vector_3_coord(vector3_p x, int i);
 extern "C" SEXP _euclid_vector_3_coord(SEXP x, SEXP i) {
   BEGIN_CPP11
-    return cpp11::as_sexp(vector_3_coord(cpp11::as_cpp<cpp11::decay_t<cpp11::external_pointer<vector3>>>(x), cpp11::as_cpp<cpp11::decay_t<int>>(i)));
+    return cpp11::as_sexp(vector_3_coord(cpp11::as_cpp<cpp11::decay_t<vector3_p>>(x), cpp11::as_cpp<cpp11::decay_t<int>>(i)));
   END_CPP11
 }
 

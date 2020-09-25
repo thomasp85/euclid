@@ -5,10 +5,14 @@
 #include <cpp11/external_pointer.hpp>
 
 [[cpp11::register]]
-cpp11::external_pointer<circle2> create_circle_2_center_radius(cpp11::external_pointer<point2> center, cpp11::external_pointer<exact_numeric> r) {
+circle2_p create_circle_2_center_radius(point2_p center, exact_numeric_p r) {
   std::vector<Circle_2> vec;
   vec.reserve(center->size());
   for (size_t i = 0; i < center->size(); ++i) {
+    if (!(*center)[i] || !(*r)[i]) {
+      vec.push_back(Circle_2::NA_value());
+      continue;
+    }
     vec.emplace_back((*center)[i], (*r)[i] * (*r)[i]);
   }
   circle2 *result(new circle2(vec));
@@ -16,10 +20,19 @@ cpp11::external_pointer<circle2> create_circle_2_center_radius(cpp11::external_p
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<circle2> create_circle_2_3_point(cpp11::external_pointer<point2> p, cpp11::external_pointer<point2> q, cpp11::external_pointer<point2> r) {
+circle2_p create_circle_2_3_point(point2_p p, point2_p q, point2_p r) {
   std::vector<Circle_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
+    if (!(*p)[i] || !(*q)[i] || !(*r)[i]) {
+      cpp11::warning("circle cannot be constructed from 3 colliniar points");
+      vec.push_back(Circle_2::NA_value());
+      continue;
+    }
+    if (CGAL::collinear((*p)[i], (*q)[i], (*r)[i])) {
+      vec.push_back(Circle_2::NA_value());
+      continue;
+    }
     vec.emplace_back((*p)[i], (*q)[i], (*r)[i]);
   }
   circle2 *result(new circle2(vec));
@@ -27,10 +40,14 @@ cpp11::external_pointer<circle2> create_circle_2_3_point(cpp11::external_pointer
   return {result};
 }
 [[cpp11::register]]
-cpp11::external_pointer<circle2> create_circle_2_2_point(cpp11::external_pointer<point2> p, cpp11::external_pointer<point2> q) {
+circle2_p create_circle_2_2_point(point2_p p, point2_p q) {
   std::vector<Circle_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
+    if (!(*p)[i] || !(*q)[i]) {
+      vec.push_back(Circle_2::NA_value());
+      continue;
+    }
     vec.emplace_back((*p)[i], (*q)[i]);
   }
   circle2 *result(new circle2(vec));

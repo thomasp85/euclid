@@ -139,6 +139,8 @@ public:
   }
 };
 
+typedef cpp11::external_pointer<point2> point2_p;
+
 class point3 : public geometry_vector<Point_3, 3> {
 public:
   const Primitive geo_type = POINT;
@@ -271,3 +273,5 @@ public:
     return result;
   }
 };
+
+typedef cpp11::external_pointer<point3> point3_p;

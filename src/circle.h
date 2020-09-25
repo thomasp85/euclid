@@ -46,6 +46,8 @@ public:
   }
 };
 
+typedef cpp11::external_pointer<circle2> circle2_p;
+
 //class circle3 : public geometry_vector<Circle_3, 3> {
 //public:
 //  const Primitive geo_type = CIRCLE;
