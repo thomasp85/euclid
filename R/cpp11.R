@@ -292,6 +292,14 @@ point_2_max <- function(x, na_rm) {
   .Call("_euclid_point_2_max", x, na_rm)
 }
 
+point_2_cummin <- function(x) {
+  .Call("_euclid_point_2_cummin", x)
+}
+
+point_2_cummax <- function(x) {
+  .Call("_euclid_point_2_cummax", x)
+}
+
 create_point_3_empty <- function() {
   .Call("_euclid_create_point_3_empty")
 }
@@ -352,6 +360,14 @@ point_3_max <- function(x, na_rm) {
   .Call("_euclid_point_3_max", x, na_rm)
 }
 
+point_3_cummin <- function(x) {
+  .Call("_euclid_point_3_cummin", x)
+}
+
+point_3_cummax <- function(x) {
+  .Call("_euclid_point_3_cummax", x)
+}
+
 create_vector_2_empty <- function() {
   .Call("_euclid_create_vector_2_empty")
 }
@@ -390,6 +406,10 @@ vector_2_divide_numeric <- function(x, y) {
 
 vector_2_sum <- function(x, na_rm) {
   .Call("_euclid_vector_2_sum", x, na_rm)
+}
+
+vector_2_cumsum <- function(x) {
+  .Call("_euclid_vector_2_cumsum", x)
 }
 
 vector_2_coord <- function(x, i) {
@@ -434,6 +454,10 @@ vector_3_divide_numeric <- function(x, y) {
 
 vector_3_sum <- function(x, na_rm) {
   .Call("_euclid_vector_3_sum", x, na_rm)
+}
+
+vector_3_cumsum <- function(x) {
+  .Call("_euclid_vector_3_cumsum", x)
 }
 
 vector_3_coord <- function(x, i) {

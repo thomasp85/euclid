@@ -209,6 +209,26 @@ geometry_summary_max.euclid_point <- function(x, na_rm) {
   }
 }
 
+# Math --------------------------------------------------------------------
+
+#' @export
+geometry_math_cummin.euclid_point <- function(x) {
+  if (dim(x) == 2) {
+    point_2_cummin(get_ptr(x))
+  } else {
+    point_3_cummin(get_ptr(x))
+  }
+}
+#' @export
+geometry_math_cummax.euclid_point <- function(x) {
+  if (dim(x) == 2) {
+    point_2_cummax(get_ptr(x))
+  } else {
+    point_3_cummax(get_ptr(x))
+  }
+}
+
+
 # Miscellaneous vector support --------------------------------------------
 
 #' @export

@@ -128,6 +128,31 @@ class vector2 : public geometry_vector<Vector_2, 2> {
 
       return {total};
     }
+    std::vector<Vector_2> cumsum() const {
+      std::vector<Vector_2> result;
+      result.reserve(size());
+
+      if (size() == 0) {
+        return {result};
+      }
+
+      Vector_2 cum_sum = _storage[0];
+      result.push_back(cum_sum);
+      bool is_na = false;
+
+      for (size_t i = 1; i < size(); ++i) {
+        if (!is_na && !_storage[i]) {
+          is_na = true;
+          cum_sum = Vector_2::NA_value();
+        }
+        if (!is_na) {
+          cum_sum += _storage[i];
+        }
+        result.push_back(cum_sum);
+      }
+
+      return {result};
+    }
     std::vector<Exact_number> coord(size_t index) const {
       std::vector<Exact_number> result;
       result.reserve(size());
@@ -263,6 +288,31 @@ class vector3 : public geometry_vector<Vector_3, 3> {
       }
 
       return {total};
+    }
+    std::vector<Vector_3> cumsum() const {
+      std::vector<Vector_3> result;
+      result.reserve(size());
+
+      if (size() == 0) {
+        return {result};
+      }
+
+      Vector_3 cum_sum = _storage[0];
+      result.push_back(cum_sum);
+      bool is_na = false;
+
+      for (size_t i = 1; i < size(); ++i) {
+        if (!is_na && !_storage[i]) {
+          is_na = true;
+          cum_sum = Vector_3::NA_value();
+        }
+        if (!is_na) {
+          cum_sum += _storage[i];
+        }
+        result.push_back(cum_sum);
+      }
+
+      return {result};
     }
     std::vector<Exact_number> coord(size_t index) const {
       std::vector<Exact_number> result;

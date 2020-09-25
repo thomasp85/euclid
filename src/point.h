@@ -221,6 +221,56 @@ public:
 
     return {maximum};
   }
+  std::vector<Point_2> cummin() const {
+    std::vector<Point_2> result;
+    result.reserve(size());
+
+    if (size() == 0) {
+      return {result};
+    }
+
+    Point_2 cum_min = _storage[0];
+    result.push_back(cum_min);
+    bool is_na = false;
+
+    for (size_t i = 1; i < size(); ++i) {
+      if (!is_na && !_storage[i]) {
+        is_na = true;
+        cum_min = Point_2::NA_value();
+      }
+      if (!is_na) {
+        cum_min = _storage[i] < cum_min ? _storage[i] : cum_min;
+      }
+      result.push_back(cum_min);
+    }
+
+    return {result};
+  }
+  std::vector<Point_2> cummax() const {
+    std::vector<Point_2> result;
+    result.reserve(size());
+
+    if (size() == 0) {
+      return {result};
+    }
+
+    Point_2 cum_max = _storage[0];
+    result.push_back(cum_max);
+    bool is_na = false;
+
+    for (size_t i = 1; i < size(); ++i) {
+      if (!is_na && !_storage[i]) {
+        is_na = true;
+        cum_max = Point_2::NA_value();
+      }
+      if (!is_na) {
+        cum_max = _storage[i] < cum_max ? _storage[i] : cum_max;
+      }
+      result.push_back(cum_max);
+    }
+
+    return {result};
+  }
 };
 
 typedef cpp11::external_pointer<point2> point2_p;
@@ -411,6 +461,56 @@ public:
     }
 
     return {maximum};
+  }
+  std::vector<Point_3> cummin() const {
+    std::vector<Point_3> result;
+    result.reserve(size());
+
+    if (size() == 0) {
+      return {result};
+    }
+
+    Point_3 cum_min = _storage[0];
+    result.push_back(cum_min);
+    bool is_na = false;
+
+    for (size_t i = 1; i < size(); ++i) {
+      if (!is_na && !_storage[i]) {
+        is_na = true;
+        cum_min = Point_3::NA_value();
+      }
+      if (!is_na) {
+        cum_min = _storage[i] < cum_min ? _storage[i] : cum_min;
+      }
+      result.push_back(cum_min);
+    }
+
+    return {result};
+  }
+  std::vector<Point_3> cummax() const {
+    std::vector<Point_3> result;
+    result.reserve(size());
+
+    if (size() == 0) {
+      return {result};
+    }
+
+    Point_3 cum_max = _storage[0];
+    result.push_back(cum_max);
+    bool is_na = false;
+
+    for (size_t i = 1; i < size(); ++i) {
+      if (!is_na && !_storage[i]) {
+        is_na = true;
+        cum_max = Point_3::NA_value();
+      }
+      if (!is_na) {
+        cum_max = _storage[i] < cum_max ? _storage[i] : cum_max;
+      }
+      result.push_back(cum_max);
+    }
+
+    return {result};
   }
 };
 

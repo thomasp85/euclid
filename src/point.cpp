@@ -121,6 +121,20 @@ point2_p point_2_max(point2_p x, bool na_rm) {
 }
 
 [[cpp11::register]]
+point2_p point_2_cummin(point2_p x) {
+  std::vector<Point_2> vec = x->cummin();
+  point2 *result(new point2(vec));
+  return {result};
+}
+
+[[cpp11::register]]
+point2_p point_2_cummax(point2_p x) {
+  std::vector<Point_2> vec = x->cummax();
+  point2 *result(new point2(vec));
+  return {result};
+}
+
+[[cpp11::register]]
 point3_p create_point_3_empty() {
   std::vector<Point_3> vec;
   point3 *result(new point3(vec));
@@ -232,6 +246,20 @@ point3_p point_3_min(point3_p x, bool na_rm) {
 [[cpp11::register]]
 point3_p point_3_max(point3_p x, bool na_rm) {
   std::vector<Point_3> vec = x->max(na_rm);
+  point3 *result(new point3(vec));
+  return {result};
+}
+
+[[cpp11::register]]
+point3_p point_3_cummin(point3_p x) {
+  std::vector<Point_3> vec = x->cummin();
+  point3 *result(new point3(vec));
+  return {result};
+}
+
+[[cpp11::register]]
+point3_p point_3_cummax(point3_p x) {
+  std::vector<Point_3> vec = x->cummax();
   point3 *result(new point3(vec));
   return {result};
 }

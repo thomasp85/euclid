@@ -159,6 +159,17 @@ geometry_summary_sum.euclid_vector <- function(x, na_rm) {
   }
 }
 
+# Math --------------------------------------------------------------------
+
+#' @export
+geometry_math_cumsum.euclid_vector <- function(x) {
+  if (dim(x) == 2) {
+    vector_2_cumsum(get_ptr(x))
+  } else {
+    vector_3_cumsum(get_ptr(x))
+  }
+}
+
 # Internal Constructors ---------------------------------------------------
 
 new_vector2 <- function(x) {

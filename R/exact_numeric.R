@@ -259,7 +259,7 @@ Ops.euclid_exact_numeric <- function(e1, e2) {
 }
 
 #' @export
-Math.euclid_exact_numeric <- function(x, ...) {
+Math.euclid_exact_numeric <- function(x) {
   res <- switch(.Generic,
     "abs" = exact_numeric_abs(get_ptr(x)),
     "sign" = exact_numeric_sign(get_ptr(x)),
