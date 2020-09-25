@@ -474,10 +474,10 @@ extern "C" SEXP _euclid_point_2_coord(SEXP x, SEXP i) {
   END_CPP11
 }
 // point.cpp
-point2_p point_2_sort(point2_p x, bool decreasing);
-extern "C" SEXP _euclid_point_2_sort(SEXP x, SEXP decreasing) {
+point2_p point_2_sort(point2_p x, bool decreasing, cpp11::logicals na_last);
+extern "C" SEXP _euclid_point_2_sort(SEXP x, SEXP decreasing, SEXP na_last) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_2_sort(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<bool>>(decreasing)));
+    return cpp11::as_sexp(point_2_sort(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<bool>>(decreasing), cpp11::as_cpp<cpp11::decay_t<cpp11::logicals>>(na_last)));
   END_CPP11
 }
 // point.cpp
@@ -485,6 +485,20 @@ cpp11::writable::integers point_2_rank(point2_p x);
 extern "C" SEXP _euclid_point_2_rank(SEXP x) {
   BEGIN_CPP11
     return cpp11::as_sexp(point_2_rank(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x)));
+  END_CPP11
+}
+// point.cpp
+point2_p point_2_min(point2_p x, bool na_rm);
+extern "C" SEXP _euclid_point_2_min(SEXP x, SEXP na_rm) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(point_2_min(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<bool>>(na_rm)));
+  END_CPP11
+}
+// point.cpp
+point2_p point_2_max(point2_p x, bool na_rm);
+extern "C" SEXP _euclid_point_2_max(SEXP x, SEXP na_rm) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(point_2_max(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<bool>>(na_rm)));
   END_CPP11
 }
 // point.cpp
@@ -558,10 +572,10 @@ extern "C" SEXP _euclid_point_3_coord(SEXP x, SEXP i) {
   END_CPP11
 }
 // point.cpp
-point3_p point_3_sort(point3_p x, bool decreasing);
-extern "C" SEXP _euclid_point_3_sort(SEXP x, SEXP decreasing) {
+point3_p point_3_sort(point3_p x, bool decreasing, cpp11::logicals na_last);
+extern "C" SEXP _euclid_point_3_sort(SEXP x, SEXP decreasing, SEXP na_last) {
   BEGIN_CPP11
-    return cpp11::as_sexp(point_3_sort(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<bool>>(decreasing)));
+    return cpp11::as_sexp(point_3_sort(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<bool>>(decreasing), cpp11::as_cpp<cpp11::decay_t<cpp11::logicals>>(na_last)));
   END_CPP11
 }
 // point.cpp
@@ -569,6 +583,20 @@ cpp11::writable::integers point_3_rank(point3_p x);
 extern "C" SEXP _euclid_point_3_rank(SEXP x) {
   BEGIN_CPP11
     return cpp11::as_sexp(point_3_rank(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x)));
+  END_CPP11
+}
+// point.cpp
+point3_p point_3_min(point3_p x, bool na_rm);
+extern "C" SEXP _euclid_point_3_min(SEXP x, SEXP na_rm) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(point_3_min(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<bool>>(na_rm)));
+  END_CPP11
+}
+// point.cpp
+point3_p point_3_max(point3_p x, bool na_rm);
+extern "C" SEXP _euclid_point_3_max(SEXP x, SEXP na_rm) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(point_3_max(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<bool>>(na_rm)));
   END_CPP11
 }
 // vector.cpp
@@ -625,6 +653,13 @@ vector2_p vector_2_divide_numeric(vector2_p x, exact_numeric_p y);
 extern "C" SEXP _euclid_vector_2_divide_numeric(SEXP x, SEXP y) {
   BEGIN_CPP11
     return cpp11::as_sexp(vector_2_divide_numeric(cpp11::as_cpp<cpp11::decay_t<vector2_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y)));
+  END_CPP11
+}
+// vector.cpp
+vector2_p vector_2_sum(vector2_p x, bool na_rm);
+extern "C" SEXP _euclid_vector_2_sum(SEXP x, SEXP na_rm) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(vector_2_sum(cpp11::as_cpp<cpp11::decay_t<vector2_p>>(x), cpp11::as_cpp<cpp11::decay_t<bool>>(na_rm)));
   END_CPP11
 }
 // vector.cpp
@@ -688,6 +723,13 @@ vector3_p vector_3_divide_numeric(vector3_p x, exact_numeric_p y);
 extern "C" SEXP _euclid_vector_3_divide_numeric(SEXP x, SEXP y) {
   BEGIN_CPP11
     return cpp11::as_sexp(vector_3_divide_numeric(cpp11::as_cpp<cpp11::decay_t<vector3_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y)));
+  END_CPP11
+}
+// vector.cpp
+vector3_p vector_3_sum(vector3_p x, bool na_rm);
+extern "C" SEXP _euclid_vector_3_sum(SEXP x, SEXP na_rm) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(vector_3_sum(cpp11::as_cpp<cpp11::decay_t<vector3_p>>(x), cpp11::as_cpp<cpp11::decay_t<bool>>(na_rm)));
   END_CPP11
 }
 // vector.cpp
@@ -771,8 +813,10 @@ extern SEXP _euclid_point_2_greater(SEXP, SEXP);
 extern SEXP _euclid_point_2_greater_equal(SEXP, SEXP);
 extern SEXP _euclid_point_2_less(SEXP, SEXP);
 extern SEXP _euclid_point_2_less_equal(SEXP, SEXP);
+extern SEXP _euclid_point_2_max(SEXP, SEXP);
+extern SEXP _euclid_point_2_min(SEXP, SEXP);
 extern SEXP _euclid_point_2_rank(SEXP);
-extern SEXP _euclid_point_2_sort(SEXP, SEXP);
+extern SEXP _euclid_point_2_sort(SEXP, SEXP, SEXP);
 extern SEXP _euclid_point_2_sub_point(SEXP, SEXP);
 extern SEXP _euclid_point_2_sub_vector(SEXP, SEXP);
 extern SEXP _euclid_point_3_add_vector(SEXP, SEXP);
@@ -781,8 +825,10 @@ extern SEXP _euclid_point_3_greater(SEXP, SEXP);
 extern SEXP _euclid_point_3_greater_equal(SEXP, SEXP);
 extern SEXP _euclid_point_3_less(SEXP, SEXP);
 extern SEXP _euclid_point_3_less_equal(SEXP, SEXP);
+extern SEXP _euclid_point_3_max(SEXP, SEXP);
+extern SEXP _euclid_point_3_min(SEXP, SEXP);
 extern SEXP _euclid_point_3_rank(SEXP);
-extern SEXP _euclid_point_3_sort(SEXP, SEXP);
+extern SEXP _euclid_point_3_sort(SEXP, SEXP, SEXP);
 extern SEXP _euclid_point_3_sub_point(SEXP, SEXP);
 extern SEXP _euclid_point_3_sub_vector(SEXP, SEXP);
 extern SEXP _euclid_vector_2_add_vector(SEXP, SEXP);
@@ -791,6 +837,7 @@ extern SEXP _euclid_vector_2_divide_numeric(SEXP, SEXP);
 extern SEXP _euclid_vector_2_dot_vector(SEXP, SEXP);
 extern SEXP _euclid_vector_2_minus_vector(SEXP, SEXP);
 extern SEXP _euclid_vector_2_negate(SEXP);
+extern SEXP _euclid_vector_2_sum(SEXP, SEXP);
 extern SEXP _euclid_vector_2_times_numeric(SEXP, SEXP);
 extern SEXP _euclid_vector_3_add_vector(SEXP, SEXP);
 extern SEXP _euclid_vector_3_coord(SEXP, SEXP);
@@ -798,6 +845,7 @@ extern SEXP _euclid_vector_3_divide_numeric(SEXP, SEXP);
 extern SEXP _euclid_vector_3_dot_vector(SEXP, SEXP);
 extern SEXP _euclid_vector_3_minus_vector(SEXP, SEXP);
 extern SEXP _euclid_vector_3_negate(SEXP);
+extern SEXP _euclid_vector_3_sum(SEXP, SEXP);
 extern SEXP _euclid_vector_3_times_numeric(SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
@@ -872,8 +920,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_point_2_greater_equal",         (DL_FUNC) &_euclid_point_2_greater_equal,         2},
     {"_euclid_point_2_less",                  (DL_FUNC) &_euclid_point_2_less,                  2},
     {"_euclid_point_2_less_equal",            (DL_FUNC) &_euclid_point_2_less_equal,            2},
+    {"_euclid_point_2_max",                   (DL_FUNC) &_euclid_point_2_max,                   2},
+    {"_euclid_point_2_min",                   (DL_FUNC) &_euclid_point_2_min,                   2},
     {"_euclid_point_2_rank",                  (DL_FUNC) &_euclid_point_2_rank,                  1},
-    {"_euclid_point_2_sort",                  (DL_FUNC) &_euclid_point_2_sort,                  2},
+    {"_euclid_point_2_sort",                  (DL_FUNC) &_euclid_point_2_sort,                  3},
     {"_euclid_point_2_sub_point",             (DL_FUNC) &_euclid_point_2_sub_point,             2},
     {"_euclid_point_2_sub_vector",            (DL_FUNC) &_euclid_point_2_sub_vector,            2},
     {"_euclid_point_3_add_vector",            (DL_FUNC) &_euclid_point_3_add_vector,            2},
@@ -882,8 +932,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_point_3_greater_equal",         (DL_FUNC) &_euclid_point_3_greater_equal,         2},
     {"_euclid_point_3_less",                  (DL_FUNC) &_euclid_point_3_less,                  2},
     {"_euclid_point_3_less_equal",            (DL_FUNC) &_euclid_point_3_less_equal,            2},
+    {"_euclid_point_3_max",                   (DL_FUNC) &_euclid_point_3_max,                   2},
+    {"_euclid_point_3_min",                   (DL_FUNC) &_euclid_point_3_min,                   2},
     {"_euclid_point_3_rank",                  (DL_FUNC) &_euclid_point_3_rank,                  1},
-    {"_euclid_point_3_sort",                  (DL_FUNC) &_euclid_point_3_sort,                  2},
+    {"_euclid_point_3_sort",                  (DL_FUNC) &_euclid_point_3_sort,                  3},
     {"_euclid_point_3_sub_point",             (DL_FUNC) &_euclid_point_3_sub_point,             2},
     {"_euclid_point_3_sub_vector",            (DL_FUNC) &_euclid_point_3_sub_vector,            2},
     {"_euclid_vector_2_add_vector",           (DL_FUNC) &_euclid_vector_2_add_vector,           2},
@@ -892,6 +944,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_vector_2_dot_vector",           (DL_FUNC) &_euclid_vector_2_dot_vector,           2},
     {"_euclid_vector_2_minus_vector",         (DL_FUNC) &_euclid_vector_2_minus_vector,         2},
     {"_euclid_vector_2_negate",               (DL_FUNC) &_euclid_vector_2_negate,               1},
+    {"_euclid_vector_2_sum",                  (DL_FUNC) &_euclid_vector_2_sum,                  2},
     {"_euclid_vector_2_times_numeric",        (DL_FUNC) &_euclid_vector_2_times_numeric,        2},
     {"_euclid_vector_3_add_vector",           (DL_FUNC) &_euclid_vector_3_add_vector,           2},
     {"_euclid_vector_3_coord",                (DL_FUNC) &_euclid_vector_3_coord,                2},
@@ -899,6 +952,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_vector_3_dot_vector",           (DL_FUNC) &_euclid_vector_3_dot_vector,           2},
     {"_euclid_vector_3_minus_vector",         (DL_FUNC) &_euclid_vector_3_minus_vector,         2},
     {"_euclid_vector_3_negate",               (DL_FUNC) &_euclid_vector_3_negate,               1},
+    {"_euclid_vector_3_sum",                  (DL_FUNC) &_euclid_vector_3_sum,                  2},
     {"_euclid_vector_3_times_numeric",        (DL_FUNC) &_euclid_vector_3_times_numeric,        2},
     {NULL, NULL, 0}
 };

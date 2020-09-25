@@ -85,6 +85,14 @@ vector2_p vector_2_divide_numeric(vector2_p x, exact_numeric_p y) {
 }
 
 [[cpp11::register]]
+vector2_p vector_2_sum(vector2_p x, bool na_rm) {
+  std::vector<Vector_2> vec = x->sum(na_rm);
+  vector2 *result(new vector2(vec));
+
+  return {result};
+}
+
+[[cpp11::register]]
 exact_numeric_p vector_2_coord(vector2_p x, int i) {
   std::vector<Exact_number> vec = x->coord(i);
   exact_numeric *result(new exact_numeric(vec));
@@ -166,6 +174,14 @@ vector3_p vector_3_times_numeric(vector3_p x, exact_numeric_p y) {
 [[cpp11::register]]
 vector3_p vector_3_divide_numeric(vector3_p x, exact_numeric_p y) {
   std::vector<Vector_3> vec = (*x) / y->get_storage();
+  vector3 *result(new vector3(vec));
+
+  return {result};
+}
+
+[[cpp11::register]]
+vector3_p vector_3_sum(vector3_p x, bool na_rm) {
+  std::vector<Vector_3> vec = x->sum(na_rm);
   vector3 *result(new vector3(vec));
 
   return {result};

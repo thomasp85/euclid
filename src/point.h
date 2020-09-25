@@ -38,6 +38,10 @@ public:
     std::vector<Point_2> result;
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result[i] = Point_2::NA_value();
+        continue;
+      }
       result.push_back(_storage[i % size()] + other[i % other.size()]);
     }
     return result;
@@ -47,6 +51,10 @@ public:
     std::vector<Point_2> result;
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result[i] = Point_2::NA_value();
+        continue;
+      }
       result.push_back(_storage[i % size()] - other[i % other.size()]);
     }
     return result;
@@ -56,6 +64,10 @@ public:
     std::vector<Vector_2> result;
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result[i] = Vector_2::NA_value();
+        continue;
+      }
       result.push_back(_storage[i % size()] - other[i % other.size()]);
     }
     return result;
@@ -65,6 +77,10 @@ public:
     cpp11::writable::logicals result;
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result[i] = NA_LOGICAL;
+        continue;
+      }
       result.push_back((Rboolean) (_storage[i % size()] < other[i % other.size()]));
     }
     return result;
@@ -74,6 +90,10 @@ public:
     cpp11::writable::logicals result;
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result[i] = NA_LOGICAL;
+        continue;
+      }
       result.push_back((Rboolean) (_storage[i % size()] <= other[i % other.size()]));
     }
     return result;
@@ -83,6 +103,10 @@ public:
     cpp11::writable::logicals result;
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result[i] = NA_LOGICAL;
+        continue;
+      }
       result.push_back((Rboolean) (_storage[i % size()] > other[i % other.size()]));
     }
     return result;
@@ -92,6 +116,10 @@ public:
     cpp11::writable::logicals result;
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result[i] = NA_LOGICAL;
+        continue;
+      }
       result.push_back((Rboolean) (_storage[i % size()] >= other[i % other.size()]));
     }
     return result;
@@ -106,13 +134,26 @@ public:
 
     return result;
   }
-  std::vector<Point_2> sort(bool decreasing) const {
+  std::vector<Point_2> sort(bool decreasing, cpp11::logicals na_last) const {
     std::vector<Point_2> result(_storage.begin(), _storage.end());
+
+    auto end = std::remove_if(result.begin(), result.end(), [](const Point_2& x) { return !x.is_valid(); });
+    int n_na = result.end() - end;
+    result.resize(end - result.begin());
 
     if (decreasing) {
       std::stable_sort(result.begin(), result.end(), std::greater<Point_2>());
     } else {
       std::stable_sort(result.begin(), result.end());
+    }
+
+    if (na_last[0] != NA_LOGICAL) {
+      for (int i = 0; i < n_na; ++i) {
+        result.push_back(Point_2::NA_value());
+      }
+      if (n_na > 0 && na_last[0] == FALSE) {
+        std::rotate(result.rbegin(), result.rbegin() + n_na, result.rend());
+      }
     }
 
     return result;
@@ -126,7 +167,12 @@ public:
     }
 
     std::stable_sort(ranks.begin(), ranks.end(), [](const std::pair<Point_2, size_t>& l, const std::pair<Point_2, size_t> & r) {
-      return l.first < r.first;
+      if (l.first && r.first) {
+        return l.first < r.first;
+      } else if (l.first) {
+        return true;
+      }
+      return false;
     });
 
     cpp11::writable::integers result;
@@ -136,6 +182,44 @@ public:
     }
 
     return result;
+  }
+  std::vector<Point_2> min(bool na_rm) const {
+    if (size() == 0) {
+      return {};
+    }
+    Point_2 minimum = _storage[0];
+
+    for (size_t i = 1; i < size(); ++i) {
+      if (!_storage[i]) {
+        if (!na_rm) {
+          minimum = Point_2::NA_value();
+          break;
+        }
+        continue;
+      }
+      minimum = _storage[i] < minimum ? _storage[i] : minimum;
+    }
+
+    return {minimum};
+  }
+  std::vector<Point_2> max(bool na_rm) const {
+    if (size() == 0) {
+      return {};
+    }
+    Point_2 maximum = _storage[0];
+
+    for (size_t i = 1; i < size(); ++i) {
+      if (!_storage[i]) {
+        if (!na_rm) {
+          maximum = Point_2::NA_value();
+          break;
+        }
+        continue;
+      }
+      maximum = _storage[i] > maximum ? _storage[i] : maximum;
+    }
+
+    return {maximum};
   }
 };
 
@@ -241,13 +325,26 @@ public:
 
     return result;
   }
-  std::vector<Point_3> sort(bool decreasing) const {
+  std::vector<Point_3> sort(bool decreasing, cpp11::logicals na_last) const {
     std::vector<Point_3> result(_storage.begin(), _storage.end());
+
+    auto end = std::remove_if(result.begin(), result.end(), [](const Point_3& x) { return !x.is_valid(); });
+    int n_na = result.end() - end;
+    result.resize(end - result.begin());
 
     if (decreasing) {
       std::stable_sort(result.begin(), result.end(), std::greater<Point_3>());
     } else {
       std::stable_sort(result.begin(), result.end());
+    }
+
+    if (na_last[0] != NA_LOGICAL) {
+      for (int i = 0; i < n_na; ++i) {
+        result.push_back(Point_3::NA_value());
+      }
+      if (n_na > 0 && na_last[0] == FALSE) {
+        std::rotate(result.rbegin(), result.rbegin() + n_na, result.rend());
+      }
     }
 
     return result;
@@ -261,7 +358,12 @@ public:
     }
 
     std::stable_sort(ranks.begin(), ranks.end(), [](const std::pair<Point_3, size_t>& l, const std::pair<Point_3, size_t> & r) {
-      return l.first < r.first;
+      if (l.first && r.first) {
+        return l.first < r.first;
+      } else if (l.first) {
+        return true;
+      }
+      return false;
     });
 
     cpp11::writable::integers result;
@@ -271,6 +373,44 @@ public:
     }
 
     return result;
+  }
+  std::vector<Point_3> min(bool na_rm) const {
+    if (size() == 0) {
+      return {};
+    }
+    Point_3 minimum = _storage[0];
+
+    for (size_t i = 1; i < size(); ++i) {
+      if (!_storage[i]) {
+        if (!na_rm) {
+          minimum = Point_3::NA_value();
+          break;
+        }
+        continue;
+      }
+      minimum = _storage[i] < minimum ? _storage[i] : minimum;
+    }
+
+    return {minimum};
+  }
+  std::vector<Point_3> max(bool na_rm) const {
+    if (size() == 0) {
+      return {};
+    }
+    Point_3 maximum = _storage[0];
+
+    for (size_t i = 1; i < size(); ++i) {
+      if (!_storage[i]) {
+        if (!na_rm) {
+          maximum = Point_3::NA_value();
+          break;
+        }
+        continue;
+      }
+      maximum = _storage[i] > maximum ? _storage[i] : maximum;
+    }
+
+    return {maximum};
   }
 };
 

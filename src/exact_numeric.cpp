@@ -694,11 +694,13 @@ exact_numeric exact_numeric::sort(bool decreasing, cpp11::logicals na_last) cons
     std::stable_sort(result._storage.begin(), result._storage.end());
   }
 
-  for (int i = 0; i < n_na; ++i) {
-    result._storage.push_back(Exact_number::NA_value());
-  }
-  if (n_na > 0 && na_last[0] == FALSE) {
-    std::rotate(result._storage.rbegin(), result._storage.rbegin() + n_na, result._storage.rend());
+  if (na_last[0] != NA_LOGICAL) {
+    for (int i = 0; i < n_na; ++i) {
+      result._storage.push_back(Exact_number::NA_value());
+    }
+    if (n_na > 0 && na_last[0] == FALSE) {
+      std::rotate(result._storage.rbegin(), result._storage.rbegin() + n_na, result._storage.rend());
+    }
   }
 
   return result;

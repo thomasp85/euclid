@@ -163,15 +163,33 @@ geometry_op_greater_equal.euclid_point <- function(e1, e2) {
   }
 }
 
+# Summaries ---------------------------------------------------------------
+
+#' @export
+geometry_summary_min.euclid_point <- function(x, na_rm) {
+  if (dim(x) == 2) {
+    point_2_min(get_ptr(x), na_rm)
+  } else {
+    point_3_min(get_ptr(x), na_rm)
+  }
+}
+#' @export
+geometry_summary_max.euclid_point <- function(x, na_rm) {
+  if (dim(x) == 2) {
+    point_2_max(get_ptr(x), na_rm)
+  } else {
+    point_3_max(get_ptr(x), na_rm)
+  }
+}
 
 # Miscellaneous vector support --------------------------------------------
 
 #' @export
-sort.euclid_point <- function(x, decreasing = FALSE, ...) {
+sort.euclid_point <- function(x, decreasing = FALSE, na.last = NA, ...) {
   if (dim(x) == 2) {
-    restore_euclid_vector(point_2_sort(get_ptr(x), decreasing), x)
+    restore_euclid_vector(point_2_sort(get_ptr(x), decreasing, na.last), x)
   } else {
-    restore_euclid_vector(point_3_sort(get_ptr(x), decreasing), x)
+    restore_euclid_vector(point_3_sort(get_ptr(x), decreasing, na.last), x)
   }
 }
 #' @export

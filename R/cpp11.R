@@ -268,12 +268,20 @@ point_2_coord <- function(x, i) {
   .Call("_euclid_point_2_coord", x, i)
 }
 
-point_2_sort <- function(x, decreasing) {
-  .Call("_euclid_point_2_sort", x, decreasing)
+point_2_sort <- function(x, decreasing, na_last) {
+  .Call("_euclid_point_2_sort", x, decreasing, na_last)
 }
 
 point_2_rank <- function(x) {
   .Call("_euclid_point_2_rank", x)
+}
+
+point_2_min <- function(x, na_rm) {
+  .Call("_euclid_point_2_min", x, na_rm)
+}
+
+point_2_max <- function(x, na_rm) {
+  .Call("_euclid_point_2_max", x, na_rm)
 }
 
 create_point_3_x_y_z <- function(x, y, z) {
@@ -316,12 +324,20 @@ point_3_coord <- function(x, i) {
   .Call("_euclid_point_3_coord", x, i)
 }
 
-point_3_sort <- function(x, decreasing) {
-  .Call("_euclid_point_3_sort", x, decreasing)
+point_3_sort <- function(x, decreasing, na_last) {
+  .Call("_euclid_point_3_sort", x, decreasing, na_last)
 }
 
 point_3_rank <- function(x) {
   .Call("_euclid_point_3_rank", x)
+}
+
+point_3_min <- function(x, na_rm) {
+  .Call("_euclid_point_3_min", x, na_rm)
+}
+
+point_3_max <- function(x, na_rm) {
+  .Call("_euclid_point_3_max", x, na_rm)
 }
 
 create_vector_2_point <- function(p) {
@@ -354,6 +370,10 @@ vector_2_times_numeric <- function(x, y) {
 
 vector_2_divide_numeric <- function(x, y) {
   .Call("_euclid_vector_2_divide_numeric", x, y)
+}
+
+vector_2_sum <- function(x, na_rm) {
+  .Call("_euclid_vector_2_sum", x, na_rm)
 }
 
 vector_2_coord <- function(x, i) {
@@ -390,6 +410,10 @@ vector_3_times_numeric <- function(x, y) {
 
 vector_3_divide_numeric <- function(x, y) {
   .Call("_euclid_vector_3_divide_numeric", x, y)
+}
+
+vector_3_sum <- function(x, na_rm) {
+  .Call("_euclid_vector_3_sum", x, na_rm)
 }
 
 vector_3_coord <- function(x, i) {

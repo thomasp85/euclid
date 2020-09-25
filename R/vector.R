@@ -131,6 +131,17 @@ geometry_op_divide.euclid_vector <- function(e1, e2) {
   }
 }
 
+# Summaries ---------------------------------------------------------------
+
+#' @export
+geometry_summary_sum.euclid_vector <- function(x, na_rm) {
+  if (dim(x) == 2) {
+    vector_2_sum(get_ptr(x), na_rm)
+  } else {
+    vector_3_sum(get_ptr(x), na_rm)
+  }
+}
+
 # Internal Constructors ---------------------------------------------------
 
 new_vector2 <- function(x) {

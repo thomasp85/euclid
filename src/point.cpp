@@ -88,8 +88,8 @@ exact_numeric_p point_2_coord(point2_p x, int i) {
 }
 
 [[cpp11::register]]
-point2_p point_2_sort(point2_p x, bool decreasing) {
-  std::vector<Point_2> vec = x->sort(decreasing);
+point2_p point_2_sort(point2_p x, bool decreasing, cpp11::logicals na_last) {
+  std::vector<Point_2> vec = x->sort(decreasing, na_last);
   point2 *result(new point2(vec));
   return {result};
 }
@@ -97,6 +97,20 @@ point2_p point_2_sort(point2_p x, bool decreasing) {
 [[cpp11::register]]
 cpp11::writable::integers point_2_rank(point2_p x) {
   return x->rank();
+}
+
+[[cpp11::register]]
+point2_p point_2_min(point2_p x, bool na_rm) {
+  std::vector<Point_2> vec = x->min(na_rm);
+  point2 *result(new point2(vec));
+  return {result};
+}
+
+[[cpp11::register]]
+point2_p point_2_max(point2_p x, bool na_rm) {
+  std::vector<Point_2> vec = x->max(na_rm);
+  point2 *result(new point2(vec));
+  return {result};
 }
 
 [[cpp11::register]]
@@ -183,8 +197,8 @@ exact_numeric_p point_3_coord(point3_p x, int i) {
 }
 
 [[cpp11::register]]
-point3_p point_3_sort(point3_p x, bool decreasing) {
-  std::vector<Point_3> vec = x->sort(decreasing);
+point3_p point_3_sort(point3_p x, bool decreasing, cpp11::logicals na_last) {
+  std::vector<Point_3> vec = x->sort(decreasing, na_last);
   point3 *result(new point3(vec));
   return {result};
 }
@@ -192,4 +206,18 @@ point3_p point_3_sort(point3_p x, bool decreasing) {
 [[cpp11::register]]
 cpp11::writable::integers point_3_rank(point3_p x) {
   return x->rank();
+}
+
+[[cpp11::register]]
+point3_p point_3_min(point3_p x, bool na_rm) {
+  std::vector<Point_3> vec = x->min(na_rm);
+  point3 *result(new point3(vec));
+  return {result};
+}
+
+[[cpp11::register]]
+point3_p point_3_max(point3_p x, bool na_rm) {
+  std::vector<Point_3> vec = x->max(na_rm);
+  point3 *result(new point3(vec));
+  return {result};
 }
