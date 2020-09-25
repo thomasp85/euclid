@@ -10,6 +10,9 @@ validate_constructor_input <- function(...) {
     rlang::abort("Inputs must be of the same dimensionality")
   }
   input_lengths <- lengths(inputs)
+  if (length(input_lengths) == 0 || any(lengths(input_lengths)) == 0) {
+    return(list())
+  }
   max_length <- max(input_lengths)
   if (any(input_lengths != 1 & input_lengths != max_length)) {
     rlang::abort("Inputs must be either scalar or of the same length")

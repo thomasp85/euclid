@@ -59,8 +59,8 @@ cpp11::writable::logicals geometry_duplicated(geometry_vector_base_p geometries)
 }
 
 [[cpp11::register]]
-cpp11::writable::logicals geometry_any_duplicated(geometry_vector_base_p geometries) {
-  return {(Rboolean) geometries->any_duplicated()};
+cpp11::writable::integers geometry_any_duplicated(geometry_vector_base_p geometries) {
+  return {geometries->any_duplicated() + 1};
 }
 
 [[cpp11::register]]

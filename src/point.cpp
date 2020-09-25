@@ -5,6 +5,13 @@
 #include <cpp11/external_pointer.hpp>
 
 [[cpp11::register]]
+point2_p create_point_2_empty() {
+  std::vector<Point_2> vec;
+  point2 *result(new point2(vec));
+  return {result};
+}
+
+[[cpp11::register]]
 point2_p create_point_2_x_y(exact_numeric_p x, exact_numeric_p y) {
   std::vector<Point_2> vec;
   vec.reserve(x->size());
@@ -110,6 +117,13 @@ point2_p point_2_min(point2_p x, bool na_rm) {
 point2_p point_2_max(point2_p x, bool na_rm) {
   std::vector<Point_2> vec = x->max(na_rm);
   point2 *result(new point2(vec));
+  return {result};
+}
+
+[[cpp11::register]]
+point3_p create_point_3_empty() {
+  std::vector<Point_3> vec;
+  point3 *result(new point3(vec));
   return {result};
 }
 

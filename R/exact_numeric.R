@@ -17,6 +17,9 @@
 #'
 #' @return An `euclid_exact_numeric` vector
 #'
+#' @note Exact numeric only have one form of non-finite value: `NA`. Any other
+#' non-finite value will be converted to that.
+#'
 #' @export
 #'
 #' @examples
@@ -47,7 +50,7 @@
 #'   as.numeric(exact_numeric(3/10))
 #' )
 #'
-exact_numeric <- function(x) {
+exact_numeric <- function(x = numeric(0)) {
   new_exact_numeric(create_exact_numeric(as.numeric(x)))
 }
 new_exact_numeric <- function(x) {
@@ -83,19 +86,27 @@ format.euclid_exact_numeric <- function(x, ...) {
 #' @export
 print.euclid_exact_numeric <- function(x, ...) {
   cat("<Vector of exact numerics>\n")
-  print(format(x, ...), quote = FALSE)
+  if (length(x) == 0) {
+    cat("[empty]")
+  } else {
+    print(format(x, ...), quote = FALSE)
+  }
   invisible(x)
 }
 #' @importFrom utils str
 #' @export
 str.euclid_geometry <- function(object, ...) {
   show <- min(5, length(object))
-  cat(
-    "exact num [1:", length(object), "] ",
-    paste(format(object)[seq_len(show)], collapse = " "),
-    if (show < length(object)) " ..." else "",
-    sep = ""
-  )
+  if (length(object) == 0) {
+    cat("exact num [0]")
+  } else {
+    cat(
+      "exact num [1:", length(object), "] ",
+      paste(format(object)[seq_len(show)], collapse = " "),
+      if (show < length(object)) " ..." else "",
+      sep = ""
+    )
+  }
   invisible(object)
 }
 #' @export
@@ -137,6 +148,9 @@ sort.euclid_exact_numeric <- function(x, decreasing = FALSE, na.last = NA, ...) 
     index <- seq_len(max(i))[i]
   } else {
     index <- seq_along(x)[i]
+  }
+  if (length(index) == 0) {
+    return(x)
   }
   if (anyNA(index)) {
     rlang::abort("Trying to assign to non-existing element")
@@ -206,8 +220,9 @@ match_exact_numeric <- function(x, table) {
   exact_numeric_match(get_ptr(x), get_ptr(as_exact_numeric(table)))
 }
 #' @export
-range.euclid_exact_numeric <- function(x, ...) {
-  c(min(x), max(x))
+range.euclid_exact_numeric <- function(..., na.rm = FALSE) {
+  input <- do.call(c, list(...))
+  c(min(input, na.rm = na.rm), max(input, na.rm = na.rm))
 }
 
 #' @export
@@ -217,6 +232,13 @@ Ops.euclid_exact_numeric <- function(e1, e2) {
   }
   e1 <- as_exact_numeric(e1)
   if (!missing(e2)) e2 <- as_exact_numeric(e2)
+  if ((length(e1) == 0 && missing(e2)) || (length(e1) == 0 || (!missing(e2) && length(e2) == 0))) {
+    if (.Generic %in% c("+", "-", "*", "/")) {
+      return(exact_numeric())
+    } else {
+      return(logical(0))
+    }
+  }
   res <- switch(.Generic,
     "+" = exact_numeric_plus(get_ptr(e1), get_ptr(e2)),
     "-" = if (missing(e2)) exact_numeric_uni_minus(get_ptr(e1)) else exact_numeric_minus(get_ptr(e1), get_ptr(e2)),

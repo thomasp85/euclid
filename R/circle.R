@@ -3,6 +3,7 @@
 #' This function create circles from various combinations of input.
 #'
 #' @param ... Various input. See the Constructor section.
+#' @param default_dim The dimensionality when constructing an empty vector
 #' @param x A circle vector or an object to convert to it
 #'
 #' @return An `euclid_circle` vector
@@ -41,8 +42,12 @@
 #' # Construction with 3 points
 #' circle(point1, point2, point3)
 #'
-circle <- function(...) {
+circle <- function(..., default_dim = 2) {
   inputs <- validate_constructor_input(...)
+
+  if (length(inputs) == 0) {
+    return(new_circle_empty(default_dim))
+  }
 
   points <- inputs[vapply(inputs, is_point, logical(1))]
   numbers <- inputs[vapply(inputs, is_exact_numeric, logical(1))]
@@ -79,6 +84,11 @@ as_circle.euclid_circle <- function(x) x
 
 new_circle2 <- function(x) {
   new_geometry_vector(x, class = c("euclid_circle2", "euclid_circle"))
+}
+new_circle_empty <- function(dim) {
+  if (dim == 2) {
+    new_circle2(create_circle_2_empty())
+  }
 }
 new_circle_from_point_number <- function(center, r) {
   if (dim(center) != 2) {

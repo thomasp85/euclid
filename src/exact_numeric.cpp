@@ -736,7 +736,7 @@ exact_numeric_p exact_numeric_sum(exact_numeric_p ex_n, bool na_rm) {
 }
 
 exact_numeric exact_numeric::prod(bool na_rm) const {
-  Exact_number total = 0.0;
+  Exact_number total = 1.0;
 
   for (size_t i = 0; i < size(); ++i) {
     if (!_storage[i]) {
@@ -760,18 +760,24 @@ exact_numeric_p exact_numeric_prod(exact_numeric_p ex_n, bool na_rm) {
 }
 
 exact_numeric exact_numeric::min(bool na_rm) const {
-  Exact_number minimum = std::numeric_limits<double>::infinity();
+  Exact_number minimum;
 
-  for (size_t i = 0; i < size(); ++i) {
-    if (!_storage[i]) {
-      if (!na_rm) {
-        minimum = Exact_number::NA_value();
-        break;
+  if (size() == 0) {
+    minimum = Exact_number::NA_value();
+  } else {
+    minimum = _storage[0];
+    for (size_t i = 1; i < size(); ++i) {
+      if (!_storage[i]) {
+        if (!na_rm) {
+          minimum = Exact_number::NA_value();
+          break;
+        }
+        continue;
       }
-      continue;
+      minimum = CGAL::min(_storage[i], minimum);
     }
-    minimum = CGAL::min(_storage[i], minimum);
   }
+
   std::vector<Exact_number> result;
   result.push_back(minimum);
 
@@ -784,18 +790,23 @@ exact_numeric_p exact_numeric_min(exact_numeric_p ex_n, bool na_rm) {
 }
 
 exact_numeric exact_numeric::max(bool na_rm) const {
-  Exact_number maximum = -std::numeric_limits<double>::infinity();
+  Exact_number maximum;
 
-  for (size_t i = 0; i < size(); ++i) {
-    if (!_storage[i]) {
-      if (!na_rm) {
-        maximum = Exact_number::NA_value();
-        break;
+  if (size() == 0) {
+    maximum = Exact_number::NA_value();
+  } else {
+    for (size_t i = 0; i < size(); ++i) {
+      if (!_storage[i]) {
+        if (!na_rm) {
+          maximum = Exact_number::NA_value();
+          break;
+        }
+        continue;
       }
-      continue;
+      maximum = CGAL::max(_storage[i], maximum);
     }
-    maximum = CGAL::max(_storage[i], maximum);
   }
+
   std::vector<Exact_number> result;
   result.push_back(maximum);
 

@@ -5,6 +5,13 @@
 #include <cpp11/external_pointer.hpp>
 
 [[cpp11::register]]
+circle2_p create_circle_2_empty() {
+  std::vector<Circle_2> vec;
+  circle2 *result(new circle2(vec));
+  return {result};
+}
+
+[[cpp11::register]]
 circle2_p create_circle_2_center_radius(point2_p center, exact_numeric_p r) {
   std::vector<Circle_2> vec;
   vec.reserve(center->size());

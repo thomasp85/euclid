@@ -6,7 +6,7 @@
 \alias{as_exact_numeric}
 \title{Exact numeric representation}
 \usage{
-exact_numeric(x)
+exact_numeric(x = numeric(0))
 
 is_exact_numeric(x)
 
@@ -31,6 +31,10 @@ e.g. trigonometric functions, roots, etc. If any unsupported function is
 needed it is necessary to convert back to numeric (thus loosing exactness).
 Anywhere euclid takes a numeric input it will convert it to an exact numeric
 before use.
+}
+\note{
+Exact numeric only have one form of non-finite value: \code{NA}. Any other
+non-finite value will be converted to that.
 }
 \examples{
 # Standard use

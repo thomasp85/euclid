@@ -5,6 +5,13 @@
 #include "cpp11/declarations.hpp"
 
 // circle.cpp
+circle2_p create_circle_2_empty();
+extern "C" SEXP _euclid_create_circle_2_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_circle_2_empty());
+  END_CPP11
+}
+// circle.cpp
 circle2_p create_circle_2_center_radius(point2_p center, exact_numeric_p r);
 extern "C" SEXP _euclid_create_circle_2_center_radius(SEXP center, SEXP r) {
   BEGIN_CPP11
@@ -341,7 +348,7 @@ extern "C" SEXP _euclid_geometry_duplicated(SEXP geometries) {
   END_CPP11
 }
 // geometry_common.cpp
-cpp11::writable::logicals geometry_any_duplicated(geometry_vector_base_p geometries);
+cpp11::writable::integers geometry_any_duplicated(geometry_vector_base_p geometries);
 extern "C" SEXP _euclid_geometry_any_duplicated(SEXP geometries) {
   BEGIN_CPP11
     return cpp11::as_sexp(geometry_any_duplicated(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries)));
@@ -401,6 +408,13 @@ cpp11::writable::logicals geometry_is_degenerate(geometry_vector_base_p geometri
 extern "C" SEXP _euclid_geometry_is_degenerate(SEXP geometries) {
   BEGIN_CPP11
     return cpp11::as_sexp(geometry_is_degenerate(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries)));
+  END_CPP11
+}
+// point.cpp
+point2_p create_point_2_empty();
+extern "C" SEXP _euclid_create_point_2_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_2_empty());
   END_CPP11
 }
 // point.cpp
@@ -502,6 +516,13 @@ extern "C" SEXP _euclid_point_2_max(SEXP x, SEXP na_rm) {
   END_CPP11
 }
 // point.cpp
+point3_p create_point_3_empty();
+extern "C" SEXP _euclid_create_point_3_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_3_empty());
+  END_CPP11
+}
+// point.cpp
 point3_p create_point_3_x_y_z(exact_numeric_p x, exact_numeric_p y, exact_numeric_p z);
 extern "C" SEXP _euclid_create_point_3_x_y_z(SEXP x, SEXP y, SEXP z) {
   BEGIN_CPP11
@@ -600,6 +621,13 @@ extern "C" SEXP _euclid_point_3_max(SEXP x, SEXP na_rm) {
   END_CPP11
 }
 // vector.cpp
+vector2_p create_vector_2_empty();
+extern "C" SEXP _euclid_create_vector_2_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_vector_2_empty());
+  END_CPP11
+}
+// vector.cpp
 vector2_p create_vector_2_point(point2_p p);
 extern "C" SEXP _euclid_create_vector_2_point(SEXP p) {
   BEGIN_CPP11
@@ -667,6 +695,13 @@ exact_numeric_p vector_2_coord(vector2_p x, int i);
 extern "C" SEXP _euclid_vector_2_coord(SEXP x, SEXP i) {
   BEGIN_CPP11
     return cpp11::as_sexp(vector_2_coord(cpp11::as_cpp<cpp11::decay_t<vector2_p>>(x), cpp11::as_cpp<cpp11::decay_t<int>>(i)));
+  END_CPP11
+}
+// vector.cpp
+vector3_p create_vector_3_empty();
+extern "C" SEXP _euclid_create_vector_3_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_vector_3_empty());
   END_CPP11
 }
 // vector.cpp
@@ -745,13 +780,18 @@ extern "C" {
 extern SEXP _euclid_create_circle_2_2_point(SEXP, SEXP);
 extern SEXP _euclid_create_circle_2_3_point(SEXP, SEXP, SEXP);
 extern SEXP _euclid_create_circle_2_center_radius(SEXP, SEXP);
+extern SEXP _euclid_create_circle_2_empty();
 extern SEXP _euclid_create_exact_numeric(SEXP);
+extern SEXP _euclid_create_point_2_empty();
 extern SEXP _euclid_create_point_2_vec(SEXP);
 extern SEXP _euclid_create_point_2_x_y(SEXP, SEXP);
+extern SEXP _euclid_create_point_3_empty();
 extern SEXP _euclid_create_point_3_vec(SEXP);
 extern SEXP _euclid_create_point_3_x_y_z(SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_vector_2_empty();
 extern SEXP _euclid_create_vector_2_point(SEXP);
 extern SEXP _euclid_create_vector_2_x_y(SEXP, SEXP);
+extern SEXP _euclid_create_vector_3_empty();
 extern SEXP _euclid_create_vector_3_point(SEXP);
 extern SEXP _euclid_create_vector_3_x_y_z(SEXP, SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_abs(SEXP);
@@ -852,13 +892,18 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_create_circle_2_2_point",       (DL_FUNC) &_euclid_create_circle_2_2_point,       2},
     {"_euclid_create_circle_2_3_point",       (DL_FUNC) &_euclid_create_circle_2_3_point,       3},
     {"_euclid_create_circle_2_center_radius", (DL_FUNC) &_euclid_create_circle_2_center_radius, 2},
+    {"_euclid_create_circle_2_empty",         (DL_FUNC) &_euclid_create_circle_2_empty,         0},
     {"_euclid_create_exact_numeric",          (DL_FUNC) &_euclid_create_exact_numeric,          1},
+    {"_euclid_create_point_2_empty",          (DL_FUNC) &_euclid_create_point_2_empty,          0},
     {"_euclid_create_point_2_vec",            (DL_FUNC) &_euclid_create_point_2_vec,            1},
     {"_euclid_create_point_2_x_y",            (DL_FUNC) &_euclid_create_point_2_x_y,            2},
+    {"_euclid_create_point_3_empty",          (DL_FUNC) &_euclid_create_point_3_empty,          0},
     {"_euclid_create_point_3_vec",            (DL_FUNC) &_euclid_create_point_3_vec,            1},
     {"_euclid_create_point_3_x_y_z",          (DL_FUNC) &_euclid_create_point_3_x_y_z,          3},
+    {"_euclid_create_vector_2_empty",         (DL_FUNC) &_euclid_create_vector_2_empty,         0},
     {"_euclid_create_vector_2_point",         (DL_FUNC) &_euclid_create_vector_2_point,         1},
     {"_euclid_create_vector_2_x_y",           (DL_FUNC) &_euclid_create_vector_2_x_y,           2},
+    {"_euclid_create_vector_3_empty",         (DL_FUNC) &_euclid_create_vector_3_empty,         0},
     {"_euclid_create_vector_3_point",         (DL_FUNC) &_euclid_create_vector_3_point,         1},
     {"_euclid_create_vector_3_x_y_z",         (DL_FUNC) &_euclid_create_vector_3_x_y_z,         3},
     {"_euclid_exact_numeric_abs",             (DL_FUNC) &_euclid_exact_numeric_abs,             1},

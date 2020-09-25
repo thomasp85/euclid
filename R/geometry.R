@@ -91,7 +91,11 @@ format.euclid_geometry <- function(x, ...) {
 #' @export
 print.euclid_geometry <- function(x, ...) {
   cat("<Vector of ", sub("euclid_(.*)\\d", "\\1", class(x)[1]), "s in ", dim(x), " dimensions>\n", sep = "")
-  print(format(x), quote = FALSE)
+  if (length(x) == 0) {
+    cat("[empty]")
+  } else {
+    print(format(x), quote = FALSE)
+  }
   invisible(x)
 }
 #' @importFrom utils str
@@ -100,8 +104,8 @@ str.euclid_geometry <- function(object, ...) {
   show <- min(5, length(object))
   cat(
     sub("euclid_(.*)\\d", "\\1", class(object)[1]),
-    " [1:", length(object), "] ",
-    paste(format(object)[seq_len(show)], collapse = " "),
+    if (length(object) == 0) " [0]" else paste0(" [1:", length(object), "] "),
+    if (length(object) == 0) "" else paste(format(object)[seq_len(show)], collapse = " "),
     if (show < length(object)) " ..." else "",
     sep = ""
   )
@@ -134,7 +138,14 @@ dim.euclid_geometry <- function(x) {
 }
 #' @export
 `[<-.euclid_geometry` <- function(x, i, j, ..., value) {
-  index <- seq_along(x)[i]
+  if (is.numeric(i) && all(i >= 0)) {
+    index <- seq_len(max(i))[i]
+  } else {
+    index <- seq_along(x)[i]
+  }
+  if (length(index) == 0) {
+    return(x)
+  }
   if (anyNA(index)) {
     rlang::abort("Trying to assign to non-existing element")
   }

@@ -8,6 +8,7 @@
 #' the vector.
 #'
 #' @param ... Various input. See the Constructor section.
+#' @param default_dim The dimensionality when constructing an empty vector
 #' @param x A point vector or an object to convert to it
 #'
 #' @return a `euclid_point` vector
@@ -28,8 +29,12 @@
 #' # Standard R vectors are automatically converted to exact_numeric vectors
 #' point(runif(5), runif(5))
 #'
-point <- function(...) {
+point <- function(..., default_dim = 2) {
   inputs <- validate_constructor_input(...)
+
+  if (length(inputs) == 0) {
+    return(new_point_empty(default_dim))
+  }
 
   vectors <- inputs[vapply(inputs, is_vec, logical(1))]
   numbers <- inputs[vapply(inputs, is_exact_numeric, logical(1))]
@@ -78,6 +83,9 @@ geometry_op_plus.euclid_point <- function(e1, e2) {
   if (dim(e1) != dim(e2)) {
     rlang::abort("`e1` and `e2` must have the same number of dimensions")
   }
+  if (length(e1) == 0 || length(e2) == 0) {
+    return(new_point_empty(dim(e1)))
+  }
   if (dim(e1) == 2) {
     restore_euclid_vector(point_2_add_vector(get_ptr(e1), get_ptr(e2)), e1)
   } else {
@@ -91,6 +99,13 @@ geometry_op_minus.euclid_point <- function(e1, e2) {
   }
   if (dim(e1) != dim(e2)) {
     rlang::abort("`e1` and `e2` must have the same number of dimensions")
+  }
+  if (length(e1) == 0 || length(e2) == 0) {
+    if (is_point(e2)) {
+      return(new_vector_empty(dim(e1)))
+    } else {
+      return(new_point_empty(dim(e1)))
+    }
   }
   if (dim(e1) == 2) {
     if (is_point(e2)) {
@@ -114,6 +129,9 @@ geometry_op_less.euclid_point <- function(e1, e2) {
   if (dim(e1) != dim(e2)) {
     rlang::abort("`e1` and `e2` must have the same number of dimensions")
   }
+  if (length(e1) == 0 || length(e2) == 0) {
+    return(logical(0))
+  }
   if (dim(e1) == 2) {
     point_2_less(get_ptr(e1), get_ptr(e2))
   } else {
@@ -127,6 +145,9 @@ geometry_op_less_equal.euclid_point <- function(e1, e2) {
   }
   if (dim(e1) != dim(e2)) {
     rlang::abort("`e1` and `e2` must have the same number of dimensions")
+  }
+  if (length(e1) == 0 || length(e2) == 0) {
+    return(logical(0))
   }
   if (dim(e1) == 2) {
     point_2_less_equal(get_ptr(e1), get_ptr(e2))
@@ -142,6 +163,9 @@ geometry_op_greater.euclid_point <- function(e1, e2) {
   if (dim(e1) != dim(e2)) {
     rlang::abort("`e1` and `e2` must have the same number of dimensions")
   }
+  if (length(e1) == 0 || length(e2) == 0) {
+    return(logical(0))
+  }
   if (dim(e1) == 2) {
     point_2_greater(get_ptr(e1), get_ptr(e2))
   } else {
@@ -155,6 +179,9 @@ geometry_op_greater_equal.euclid_point <- function(e1, e2) {
   }
   if (dim(e1) != dim(e2)) {
     rlang::abort("`e1` and `e2` must have the same number of dimensions")
+  }
+  if (length(e1) == 0 || length(e2) == 0) {
+    return(logical(0))
   }
   if (dim(e1) == 2) {
     point_2_greater_equal(get_ptr(e1), get_ptr(e2))
@@ -200,6 +227,11 @@ xtfrm.euclid_geometry <- function(x) {
     point_3_rank(get_ptr(x))
   }
 }
+#' @export
+range.euclid_point <- function(..., na.rm = FALSE) {
+  input <- do.call(c, list(...))
+  c(min(input, na.rm = na.rm), max(input, na.rm = na.rm))
+}
 
 # Internal constructors ---------------------------------------------------
 
@@ -209,7 +241,13 @@ new_point2 <- function(x) {
 new_point3 <- function(x) {
   new_geometry_vector(x, class = c("euclid_point3", "euclid_point"))
 }
-
+new_point_empty <- function(dim) {
+  if (dim == 2) {
+    new_point2(create_point_2_empty())
+  } else {
+    new_point3(create_point_3_empty())
+  }
+}
 new_point_from_xy <- function(x, y) {
   new_point2(create_point_2_x_y(get_ptr(x), get_ptr(y)))
 }

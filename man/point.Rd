@@ -6,7 +6,7 @@
 \alias{as_point}
 \title{Vector of points}
 \usage{
-point(...)
+point(..., default_dim = 2)
 
 is_point(x)
 
@@ -14,6 +14,8 @@ as_point(x)
 }
 \arguments{
 \item{...}{Various input. See the Constructor section.}
+
+\item{default_dim}{The dimensionality when constructing an empty vector}
 
 \item{x}{A point vector or an object to convert to it}
 }

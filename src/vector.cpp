@@ -5,6 +5,13 @@
 #include <cpp11/external_pointer.hpp>
 
 [[cpp11::register]]
+vector2_p create_vector_2_empty() {
+  std::vector<Vector_2> vec;
+  vector2 *result(new vector2(vec));
+  return {result};
+}
+
+[[cpp11::register]]
 vector2_p create_vector_2_point(point2_p p) {
   std::vector<Vector_2> vec;
   vec.reserve(p->size());
@@ -96,6 +103,13 @@ vector2_p vector_2_sum(vector2_p x, bool na_rm) {
 exact_numeric_p vector_2_coord(vector2_p x, int i) {
   std::vector<Exact_number> vec = x->coord(i);
   exact_numeric *result(new exact_numeric(vec));
+  return {result};
+}
+
+[[cpp11::register]]
+vector3_p create_vector_3_empty() {
+  std::vector<Vector_3> vec;
+  vector3 *result(new vector3(vec));
   return {result};
 }
 

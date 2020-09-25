@@ -110,6 +110,9 @@ class vector2 : public geometry_vector<Vector_2, 2> {
       return result;
     }
     std::vector<Vector_2> sum(bool na_rm) const {
+      if (size() == 0) {
+        return {};
+      }
       Vector_2 total = _storage[0];
 
       for (size_t i = 1; i < size(); ++i) {
@@ -243,6 +246,9 @@ class vector3 : public geometry_vector<Vector_3, 3> {
       return {result};
     }
     std::vector<Vector_3> sum(bool na_rm) const {
+      if (size() == 0) {
+        return {};
+      }
       Vector_3 total = _storage[0];
 
       for (size_t i = 1; i < size(); ++i) {

@@ -7,6 +7,7 @@
 #' magnitude is defined as the distance from the origin to the point.
 #'
 #' @param ... Various input. See the Constructor section.
+#' @param default_dim The dimensionality when constructing an empty vector
 #' @param x A vector of vectors or an object to convert to it
 #'
 #' @return An `euclid_vector` vector
@@ -25,8 +26,12 @@
 #'   the point defined by the coordinates given.
 #'
 #' @export
-vec <- function(...) {
+vec <- function(..., default_dim = 2) {
   inputs <- validate_constructor_input(...)
+
+  if (length(inputs) == 0) {
+    return(new_vector_empty(default_dim))
+  }
 
   points <- inputs[vapply(inputs, is_point, logical(1))]
   numbers <- inputs[vapply(inputs, is_exact_numeric, logical(1))]
@@ -75,6 +80,9 @@ geometry_op_plus.euclid_vector <- function(e1, e2) {
   if (dim(e1) != dim(e2)) {
     rlang::abort("`e1` and `e2` must have the same number of dimensions")
   }
+  if (length(e1) == 0 || length(e2) == 0) {
+    return(new_vector_empty(dim(e1)))
+  }
   if (dim(e1) == 2) {
     restore_euclid_vector(vector_2_add_vector(get_ptr(e1), get_ptr(e2)), e1)
   } else {
@@ -96,6 +104,9 @@ geometry_op_minus.euclid_vector <- function(e1, e2) {
     if (dim(e1) != dim(e2)) {
       rlang::abort("`e1` and `e2` must have the same number of dimensions")
     }
+    if (length(e1) == 0 || length(e2) == 0) {
+      return(new_vector_empty(dim(e1)))
+    }
     if (dim(e1) == 2) {
       restore_euclid_vector(vector_2_minus_vector(get_ptr(e1), get_ptr(e2)), e1)
     } else {
@@ -105,6 +116,9 @@ geometry_op_minus.euclid_vector <- function(e1, e2) {
 }
 #' @export
 geometry_op_multiply.euclid_vector <- function(e1, e2) {
+  if (length(e1) == 0 || length(e2) == 0) {
+    return(new_vector_empty(dim(e1)))
+  }
   if (is_vec(e1)) {
     vec <- e1
     number <- as_exact_numeric(e2)
@@ -122,6 +136,9 @@ geometry_op_multiply.euclid_vector <- function(e1, e2) {
 geometry_op_divide.euclid_vector <- function(e1, e2) {
   if (!is_vec(e1)) {
     rlang::abort("Vector must be the nominator in division")
+  }
+  if (length(e1) == 0 || length(e2) == 0) {
+    return(new_vector_empty(dim(e1)))
   }
   e2 <- as_exact_numeric(e2)
   if (dim(e1) == 2) {
@@ -149,6 +166,13 @@ new_vector2 <- function(x) {
 }
 new_vector3 <- function(x) {
   new_geometry_vector(x, class = c("euclid_vector3", "euclid_vector"))
+}
+new_vector_empty <- function(dim) {
+  if (dim == 2) {
+    new_vector2(create_vector_2_empty())
+  } else {
+    new_vector3(create_vector_3_empty())
+  }
 }
 new_vector_from_point <- function(p) {
   if (dim(p) == 2) {

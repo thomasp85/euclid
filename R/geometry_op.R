@@ -56,6 +56,9 @@ geometry_op_greater_equal.default <- function(e1, e2) {
 }
 #' @export
 Ops.euclid_geometry <- function(e1, e2) {
+  if (.Generic %in% c("==", "!=") && (length(e1) == 0 || length(e2) == 0)) {
+    return(e1[integer(0)])
+  }
   switch(.Generic,
     "==" = geometry_is_equal(get_ptr(e1), get_ptr(e2)),
     "!=" = geometry_is_not_equal(get_ptr(e1), get_ptr(e2)),

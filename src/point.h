@@ -185,7 +185,7 @@ public:
   }
   std::vector<Point_2> min(bool na_rm) const {
     if (size() == 0) {
-      return {};
+      return {Point_2::NA_value()};
     }
     Point_2 minimum = _storage[0];
 
@@ -204,7 +204,7 @@ public:
   }
   std::vector<Point_2> max(bool na_rm) const {
     if (size() == 0) {
-      return {};
+      return {Point_2::NA_value()};
     }
     Point_2 maximum = _storage[0];
 
@@ -376,7 +376,7 @@ public:
   }
   std::vector<Point_3> min(bool na_rm) const {
     if (size() == 0) {
-      return {};
+      return {Point_3::NA_value()};
     }
     Point_3 minimum = _storage[0];
 
@@ -395,7 +395,7 @@ public:
   }
   std::vector<Point_3> max(bool na_rm) const {
     if (size() == 0) {
-      return {};
+      return {Point_3::NA_value()};
     }
     Point_3 maximum = _storage[0];
 
