@@ -168,6 +168,14 @@ geometry_dimension <- function(geometries) {
   .Call("_euclid_geometry_dimension", geometries)
 }
 
+geometry_definition_names <- function(geometries) {
+  .Call("_euclid_geometry_definition_names", geometries)
+}
+
+geometry_definition <- function(geometries, which, element) {
+  .Call("_euclid_geometry_definition", geometries, which, element)
+}
+
 geometry_cardinality <- function(geometries) {
   .Call("_euclid_geometry_cardinality", geometries)
 }
@@ -230,6 +238,10 @@ geometry_is_not_equal <- function(geometries1, geometries2) {
 
 geometry_is_degenerate <- function(geometries) {
   .Call("_euclid_geometry_is_degenerate", geometries)
+}
+
+geometry_transform <- function(geometries, affine) {
+  .Call("_euclid_geometry_transform", geometries, affine)
 }
 
 create_point_2_empty <- function() {
@@ -366,6 +378,122 @@ point_3_cummin <- function(x) {
 
 point_3_cummax <- function(x) {
   .Call("_euclid_point_3_cummax", x)
+}
+
+create_transform_2_identity <- function(n) {
+  .Call("_euclid_create_transform_2_identity", n)
+}
+
+create_transform_2_matrix <- function(matrices) {
+  .Call("_euclid_create_transform_2_matrix", matrices)
+}
+
+create_transform_2_translate <- function(trans) {
+  .Call("_euclid_create_transform_2_translate", trans)
+}
+
+create_transform_2_rotate <- function(rho) {
+  .Call("_euclid_create_transform_2_rotate", rho)
+}
+
+create_transform_2_scale <- function(fac) {
+  .Call("_euclid_create_transform_2_scale", fac)
+}
+
+create_transform_3_identity <- function(n) {
+  .Call("_euclid_create_transform_3_identity", n)
+}
+
+create_transform_3_matrix <- function(matrices) {
+  .Call("_euclid_create_transform_3_matrix", matrices)
+}
+
+create_transform_3_translate <- function(trans) {
+  .Call("_euclid_create_transform_3_translate", trans)
+}
+
+create_transform_3_scale <- function(fac) {
+  .Call("_euclid_create_transform_3_scale", fac)
+}
+
+transform_length <- function(transforms) {
+  .Call("_euclid_transform_length", transforms)
+}
+
+transform_dimension <- function(transforms) {
+  .Call("_euclid_transform_dimension", transforms)
+}
+
+transform_definition <- function(transforms, i, j) {
+  .Call("_euclid_transform_definition", transforms, i, j)
+}
+
+transform_subset <- function(transforms, index) {
+  .Call("_euclid_transform_subset", transforms, index)
+}
+
+transform_copy <- function(transforms) {
+  .Call("_euclid_transform_copy", transforms)
+}
+
+transform_assign <- function(transforms, index, value) {
+  .Call("_euclid_transform_assign", transforms, index, value)
+}
+
+transform_combine <- function(transforms, extra) {
+  .Call("_euclid_transform_combine", transforms, extra)
+}
+
+transform_unique <- function(transforms) {
+  .Call("_euclid_transform_unique", transforms)
+}
+
+transform_duplicated <- function(transforms) {
+  .Call("_euclid_transform_duplicated", transforms)
+}
+
+transform_any_duplicated <- function(transforms) {
+  .Call("_euclid_transform_any_duplicated", transforms)
+}
+
+transform_match <- function(transforms, table) {
+  .Call("_euclid_transform_match", transforms, table)
+}
+
+transform_is_na <- function(transforms) {
+  .Call("_euclid_transform_is_na", transforms)
+}
+
+transform_any_na <- function(transforms) {
+  .Call("_euclid_transform_any_na", transforms)
+}
+
+transform_to_array <- function(transforms) {
+  .Call("_euclid_transform_to_array", transforms)
+}
+
+transform_format <- function(transforms) {
+  .Call("_euclid_transform_format", transforms)
+}
+
+transform_is_equal <- function(transforms1, transforms2) {
+  .Call("_euclid_transform_is_equal", transforms1, transforms2)
+}
+
+transform_is_not_equal <- function(transforms1, transforms2) {
+  .Call("_euclid_transform_is_not_equal", transforms1, transforms2)
+}
+
+transform_multiply <- function(transforms, other) {
+  .Call("_euclid_transform_multiply", transforms, other)
+}
+
+transform_inverse <- function(transforms) {
+  .Call("_euclid_transform_inverse", transforms)
+}
+
+transform_is_reflecting <- function(transforms) {
+  .Call("_euclid_transform_is_reflecting", transforms)
 }
 
 create_vector_2_empty <- function() {

@@ -4,11 +4,14 @@
 \alias{euclid_geometry}
 \alias{is_geometry}
 \alias{cardinality}
+\alias{definition_names}
 \title{Vector of geometries}
 \usage{
 is_geometry(x)
 
 cardinality(x)
+
+definition_names(x)
 }
 \arguments{
 \item{x}{An \code{euclid_geometry} object}

@@ -69,6 +69,10 @@ as_vec.euclid_vector <- function(x) x
 as_point.euclid_vector <- function(x) {
   point(x)
 }
+#' @export
+as_affine_transformation.euclid_vector <- function(x) {
+  affine_translate(x)
+}
 
 # Operators ---------------------------------------------------------------
 

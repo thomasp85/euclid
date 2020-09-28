@@ -72,6 +72,11 @@ cardinality <- function(x) {
   }
   geometry_cardinality(get_ptr(x))
 }
+#' @rdname euclid_geometry
+#' @export
+definition_names <- function(x) {
+  geometry_definition_names(get_ptr(x))
+}
 #' @export
 as.matrix.euclid_geometry <- function(x, ...) {
   geometry_to_matrix(get_ptr(x))
@@ -103,7 +108,7 @@ print.euclid_geometry <- function(x, ...) {
 str.euclid_geometry <- function(object, ...) {
   show <- min(5, length(object))
   cat(
-    sub("euclid_(.*)\\d", "\\1", class(object)[1]),
+    sub("euclid_(.*)\\d", "\\1", class(object)[1]), "{", dim(object), "}",
     if (length(object) == 0) " [0]" else paste0(" [1:", length(object), "] "),
     if (length(object) == 0) "" else paste(format(object)[seq_len(show)], collapse = " "),
     if (show < length(object)) " ..." else "",
@@ -138,6 +143,9 @@ dim.euclid_geometry <- function(x) {
 }
 #' @export
 `[<-.euclid_geometry` <- function(x, i, j, ..., value) {
+  if (!is_geometry(value)) {
+    rlang::abort("Only geometries can be assigned to geometry vectors")
+  }
   if (is.numeric(i) && all(i >= 0)) {
     index <- seq_len(max(i))[i]
   } else {
@@ -220,4 +228,9 @@ sort.euclid_geometry <- function(x, decreasing = FALSE, ...) {
 #' @export
 xtfrm.euclid_geometry <- function(x) {
   rlang::abort("Ranking is not supported for the geometry type")
+}
+#' @export
+transform.euclid_geometry <- function(`_data`, transformation, ...) {
+  transformation <- as_affine_transformation(transformation)
+  restore_euclid_vector(geometry_transform(get_ptr(`_data`), get_ptr(transformation)), `_data`)
 }

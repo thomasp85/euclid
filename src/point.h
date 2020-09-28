@@ -22,8 +22,16 @@ public:
     return copy;
   }
 
-  cpp11::writable::strings dim_names() const {
+  cpp11::writable::strings def_names() const {
     return {"x", "y"};
+  }
+
+  Exact_number get_single_definition(size_t i, int which, int element) const {
+    switch(which) {
+    case 0: return _storage[i].x();
+    case 1: return _storage[i].y();
+    }
+    return _storage[i].x();
   }
 
   std::vector<double> get_row(size_t i, size_t j) const {
@@ -290,8 +298,17 @@ public:
     return copy;
   }
 
-  cpp11::writable::strings dim_names() const {
+  cpp11::writable::strings def_names() const {
     return {"x", "y", "z"};
+  }
+
+  Exact_number get_single_definition(size_t i, int which, int element) const {
+    switch(which) {
+    case 0: return _storage[i].x();
+    case 1: return _storage[i].y();
+    case 2: return _storage[i].z();
+    }
+    return _storage[i].x();
   }
 
   std::vector<double> get_row(size_t i, size_t j) const {

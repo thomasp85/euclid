@@ -19,6 +19,17 @@ int geometry_dimension(geometry_vector_base_p geometries) {
 }
 
 [[cpp11::register]]
+cpp11::writable::strings geometry_definition_names(geometry_vector_base_p geometries) {
+  return geometries->def_names();
+}
+
+[[cpp11::register]]
+exact_numeric_p geometry_definition(geometry_vector_base_p geometries, int which, cpp11::integers element) {
+  exact_numeric* vec(new exact_numeric(geometries->definition(which, element)));
+  return {vec};
+}
+
+[[cpp11::register]]
 cpp11::writable::integers geometry_cardinality(geometry_vector_base_p geometries) {
   cpp11::writable::integers result;
   result.reserve(geometries->size());
@@ -105,3 +116,7 @@ cpp11::writable::logicals geometry_is_degenerate(geometry_vector_base_p geometri
   return geometries->is_degenerate();
 }
 
+[[cpp11::register]]
+geometry_vector_base_p geometry_transform(geometry_vector_base_p geometries, transform_vector_base_p affine) {
+  return geometries->transform(*affine);
+}

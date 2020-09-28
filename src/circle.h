@@ -22,8 +22,17 @@ public:
     return copy;
   }
 
-  cpp11::writable::strings dim_names() const {
-    return {"x0", "y0", "r"};
+  cpp11::writable::strings def_names() const {
+    return {"x", "y", "r2"};
+  }
+
+  Exact_number get_single_definition(size_t i, int which, int element) const {
+    switch(which) {
+    case 0: return _storage[i].center().x();
+    case 1: return _storage[i].center().y();
+    case 2: return _storage[i].squared_radius();
+    }
+    return _storage[i].center().x();
   }
 
   std::vector<double> get_row(size_t i, size_t j) const {
@@ -32,7 +41,7 @@ public:
     return {
       CGAL::to_double(center.x().exact()),
       CGAL::to_double(center.y().exact()),
-      CGAL::sqrt(CGAL::to_double(circ.squared_radius().exact()))
+      CGAL::to_double(circ.squared_radius().exact())
     };
   }
 
@@ -47,26 +56,3 @@ public:
 };
 
 typedef cpp11::external_pointer<circle2> circle2_p;
-
-//class circle3 : public geometry_vector<Circle_3, 3> {
-//public:
-//  const Primitive geo_type = CIRCLE;
-//
-//  using geometry_vector::geometry_vector;
-//  ~circle3() = default;
-//
-//  cpp11::writable::strings dim_names() const {
-//    return {"x0", "y0", "z0", "r"};
-//  }
-//
-//  std::vector<double> get_row(size_t i) const {
-//    Circle_3 circ = _storage[i];
-//    Point_3 center = circ.center();
-//    return {
-//      CGAL::to_double(center.x().exact()),
-//      CGAL::to_double(center.y().exact()),
-//      CGAL::to_double(center.z().exact()),
-//      CGAL::sqrt(CGAL::to_double(circ.squared_radius().exact()))
-//    };
-//  }
-//};

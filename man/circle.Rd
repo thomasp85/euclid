@@ -30,7 +30,7 @@ This function create circles from various combinations of input.
 \strong{2 dimensional circles}
 \itemize{
 \item Providing one point and one numeric vector will construct circles centered
-at the point with the radius given by the numeric.
+at the point with the \strong{squared} radius given by the numeric.
 \item Providing two point vectors will construct circles centered between the two
 points with a radius of half the distance between the two points.
 \item Providing three point vectors will construct the unique circle that pass

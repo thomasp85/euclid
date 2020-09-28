@@ -25,6 +25,8 @@
 #include <CGAL/Vector_3.h>
 #include <CGAL/Weighted_point_2.h>
 #include <CGAL/Weighted_point_3.h>
+#include <CGAL/Aff_transformation_2.h>
+#include <CGAL/Aff_transformation_3.h>
 
 template<class T>
 class with_NA : public T {
@@ -74,3 +76,5 @@ typedef with_NA<Kernel::Vector_2> Vector_2;
 typedef with_NA<Kernel::Vector_3> Vector_3;
 typedef with_NA<Kernel::Weighted_point_2> Weighted_point_2;
 typedef with_NA<Kernel::Weighted_point_3> Weighted_point_3;
+typedef with_NA<Kernel::Aff_transformation_2> Aff_transformation_2;
+typedef with_NA<Kernel::Aff_transformation_3> Aff_transformation_3;
