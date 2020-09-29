@@ -39,7 +39,7 @@ effects when changing a geometry vector. Further, since \link{exact_numeric}
 vectors only supports finite values, geometry vectors do not have an \code{NA}
 value.
 
-The following is a list of standard vector methods defined for geometry
+The following is a list of standard R methods defined for geometry
 vectors:
 \itemize{
 \item \code{\link[=as.matrix]{as.matrix()}} - converts the geometry to a standard R matrix of numerics
@@ -61,6 +61,8 @@ vector
 vector
 \item \code{\link[=anyDuplicated]{anyDuplicated()}} - Tells if any element in the vector is a duplicate
 \item \code{\link{==}} and \code{\link{!=}} - Test for equality between elements.
+\item \code{\link[=transform]{transform()}} - Transform geometries in the vector according to an
+\link{affine_transformation}
 }
 
 Do note that since geometries with exact representation is not easily

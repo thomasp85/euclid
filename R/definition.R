@@ -53,5 +53,18 @@ definition.euclid_geometry <- function(x, which, element = NA) {
 #' @rdname definition
 #' @export
 definition.euclid_affine_transformation <- function(x, i, j) {
-
+  n <- max(length(x), length(i), length(j))
+  if (length(x) == 1) {
+    x <- rep_len(x, n)
+  }
+  if (length(i) == 1) {
+    i <- rep_len(i, n)
+  }
+  if (length(j) == 1) {
+    j <- rep_len(j, n)
+  }
+  if (length(x) != length(i) || length(x) != length(j)) {
+    rlang::abort("`x`, `i`, and `j` must be either scalars or of the same length")
+  }
+  new_exact_numeric(transform_definition(get_ptr(x), as.integer(i), as.integer(j)))
 }

@@ -175,7 +175,7 @@ int transform_dimension(transform_vector_base_p transforms) {
 }
 
 [[cpp11::register]]
-exact_numeric_p transform_definition(transform_vector_base_p transforms, int i, int j) {
+exact_numeric_p transform_definition(transform_vector_base_p transforms, cpp11::integers i, cpp11::integers j) {
   exact_numeric* vec(new exact_numeric(transforms->definition(i, j)));
   return {vec};
 }
@@ -265,4 +265,14 @@ transform_vector_base_p transform_inverse(transform_vector_base_p transforms) {
 [[cpp11::register]]
 cpp11::writable::logicals transform_is_reflecting(transform_vector_base_p transforms) {
   return transforms->is_reflecting();
+}
+
+[[cpp11::register]]
+transform_vector_base_p transform_prod(transform_vector_base_p transforms, bool na_rm) {
+  return transforms->prod(na_rm);
+}
+
+[[cpp11::register]]
+transform_vector_base_p transform_cumprod(transform_vector_base_p transforms) {
+  return transforms->cumprod();
 }

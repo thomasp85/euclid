@@ -23,7 +23,7 @@
 #' vectors only supports finite values, geometry vectors do not have an `NA`
 #' value.
 #'
-#' The following is a list of standard vector methods defined for geometry
+#' The following is a list of standard R methods defined for geometry
 #' vectors:
 #' - [as.matrix()] - converts the geometry to a standard R matrix of numerics
 #' - [as.character()] - provides a textual representation of the geometry
@@ -44,6 +44,8 @@
 #'   vector
 #' - [anyDuplicated()] - Tells if any element in the vector is a duplicate
 #' - [`==`] and [`!=`] - Test for equality between elements.
+#' - [transform()] - Transform geometries in the vector according to an
+#'   [affine_transformation]
 #'
 #' Do note that since geometries with exact representation is not easily
 #' hashable, the implementation of `unique()` and `duplicated()` is not very

@@ -1,6 +1,6 @@
-validate_constructor_input <- function(...) {
+validate_constructor_input <- function(..., .convert_numerics = TRUE) {
   inputs <- lapply(list(...), function(x) {
-    if (!is_geometry(x)) {
+    if (.convert_numerics && !is_geometry(x) && is.numeric(x)) {
       x <- as_exact_numeric(x)
     }
     x

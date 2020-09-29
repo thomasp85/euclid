@@ -120,3 +120,8 @@ cpp11::writable::logicals geometry_is_degenerate(geometry_vector_base_p geometri
 geometry_vector_base_p geometry_transform(geometry_vector_base_p geometries, transform_vector_base_p affine) {
   return geometries->transform(*affine);
 }
+
+[[cpp11::register]]
+bbox_vector_base_p geometry_bbox(geometry_vector_base_p geometries) {
+  return geometries->bbox();
+}

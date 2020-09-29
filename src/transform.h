@@ -32,7 +32,7 @@ public:
   // Dimensions
   virtual size_t size() const = 0;
   virtual size_t dimensions() const = 0;
-  virtual exact_numeric definition(int i, int j) const = 0;
+  virtual exact_numeric definition(cpp11::integers i, cpp11::integers j) const = 0;
 
   // Subsetting etc
   virtual cpp11::external_pointer<transform_vector_base> subset(cpp11::integers index) const = 0;
@@ -50,6 +50,8 @@ public:
 
   // Misc
   virtual cpp11::writable::logicals is_reflecting() const = 0;
+  virtual cpp11::external_pointer<transform_vector_base> prod(bool na_rm) const = 0;
+  virtual cpp11::external_pointer<transform_vector_base> cumprod() const = 0;
 };
 
 typedef cpp11::external_pointer<transform_vector_base> transform_vector_base_p;
@@ -123,12 +125,12 @@ public:
 
     return result;
   }
-  exact_numeric definition(int i, int j) const {
+  exact_numeric definition(cpp11::integers i, cpp11::integers j) const {
     std::vector<Exact_number> result;
     result.reserve(size());
 
     for (size_t k = 0; k < size(); ++k) {
-      result.push_back(_storage[k].m(i, j));
+      result.push_back(_storage[k].m(i[k], j[k]));
     }
 
     return {result};
@@ -430,6 +432,44 @@ public:
     }
 
     return result;
+  }
+  transform_vector_base_p prod(bool na_rm) const {
+    T total(CGAL::IDENTITY);
+
+    for (size_t i = 0; i < size(); ++i) {
+      if (!_storage[i]) {
+        if (!na_rm) {
+          total = T::NA_value();
+          break;
+        }
+        continue;
+      }
+      total = total * _storage[i];
+    }
+    std::vector<T> result;
+    result.push_back(total);
+
+    return {new_from_vector(result)};
+  }
+  transform_vector_base_p cumprod() const {
+    std::vector<T> result;
+    result.reserve(size());
+
+    T cum_prod(CGAL::IDENTITY);
+    bool is_na = false;
+
+    for (size_t i = 0; i < size(); ++i) {
+      if (!is_na && !_storage[i]) {
+        is_na = true;
+        cum_prod = T::NA_value();
+      }
+      if (!is_na) {
+        cum_prod = cum_prod * _storage[i];
+      }
+      result.push_back(cum_prod);
+    }
+
+    return {new_from_vector(result)};
   }
 };
 

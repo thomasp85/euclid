@@ -1,197 +1,132 @@
 #pragma once
 
 #include <vector>
-#include <string>
-#include <typeinfo>
-#include <algorithm>
-#include <cpp11/logicals.hpp>
-#include <cpp11/matrix.hpp>
+#include <cpp11/doubles.hpp>
 #include <cpp11/strings.hpp>
-#include <cpp11/r_string.hpp>
-#include <cpp11/list.hpp>
-#include <cpp11/list_of.hpp>
-#include <cpp11/external_pointer.hpp>
+#include <cpp11/logicals.hpp>
 #include <cpp11/integers.hpp>
+#include <cpp11/matrix.hpp>
+#include <cpp11/external_pointer.hpp>
+#include <cpp11/list_of.hpp>
 
-#include "exact_numeric.h"
-#include "transform.h"
-#include "bbox.h"
+#include "cgal_types.h"
 
 #include <sstream>
 #include <iomanip>
 
-enum Primitive {
-  VIRTUAL,
-  CIRCLE,
-  DIRECTION,
-  ISOCUBE,
-  ISORECT,
-  LINE,
-  PLANE,
-  POINT,
-  RAY,
-  SEGMENT,
-  SPHERE,
-  TETRAHEDRON,
-  TRIANGLE,
-  VECTOR,
-  WPOINT
-};
-
-class geometry_vector_base {
+class bbox_vector_base {
 public:
-  const Primitive geometry_type = VIRTUAL;
-
-  geometry_vector_base() {}
-  virtual ~geometry_vector_base() = default;
+  bbox_vector_base() {}
+  virtual ~bbox_vector_base() = default;
 
   // Conversion
   virtual cpp11::writable::doubles_matrix as_numeric() const = 0;
   virtual cpp11::writable::strings format() const = 0;
-  virtual std::vector<double> get_row(size_t i, size_t j) const = 0;
 
   // Equality
-  virtual cpp11::writable::logicals operator==(const geometry_vector_base& other) const = 0;
-  virtual cpp11::writable::logicals operator!=(const geometry_vector_base& other) const = 0;
+  virtual cpp11::writable::logicals operator==(const bbox_vector_base& other) const = 0;
+  virtual cpp11::writable::logicals operator!=(const bbox_vector_base& other) const = 0;
+  virtual cpp11::external_pointer<bbox_vector_base> operator+(const bbox_vector_base& other) const = 0;
 
   // Dimensions
   virtual size_t size() const = 0;
   virtual size_t dimensions() const = 0;
-  virtual cpp11::writable::strings def_names() const = 0;
-  virtual exact_numeric definition(int which, cpp11::integers element) const = 0;
-  virtual Exact_number get_single_definition(size_t i, int which, int element) const = 0;
-  virtual size_t cardinality(size_t i) const = 0;
-  virtual size_t long_length() const = 0;
 
   // Subsetting etc
-  virtual cpp11::external_pointer<geometry_vector_base> subset(cpp11::integers index) const = 0;
-  virtual cpp11::external_pointer<geometry_vector_base> copy() const = 0;
-  virtual cpp11::external_pointer<geometry_vector_base> assign(cpp11::integers index, const geometry_vector_base& value) const = 0;
-  virtual cpp11::external_pointer<geometry_vector_base> combine(cpp11::list_of< cpp11::external_pointer<geometry_vector_base> > extra) const = 0;
+  virtual cpp11::external_pointer<bbox_vector_base> subset(cpp11::integers index) const = 0;
+  virtual cpp11::external_pointer<bbox_vector_base> copy() const = 0;
+  virtual cpp11::external_pointer<bbox_vector_base> assign(cpp11::integers index, const bbox_vector_base& value) const = 0;
+  virtual cpp11::external_pointer<bbox_vector_base> combine(cpp11::list_of< cpp11::external_pointer<bbox_vector_base> > extra) const = 0;
 
   // Self-similarity
-  virtual cpp11::external_pointer<geometry_vector_base> unique() const = 0;
+  virtual cpp11::external_pointer<bbox_vector_base> unique() const = 0;
   virtual cpp11::writable::logicals duplicated() const = 0;
   virtual int any_duplicated() const = 0;
-  virtual cpp11::writable::integers match(const geometry_vector_base& table) const = 0;
+  virtual cpp11::writable::integers match(const bbox_vector_base& table) const = 0;
   virtual cpp11::writable::logicals is_na() const = 0;
   virtual bool any_na() const = 0;
 
-  // Predicates
-  virtual cpp11::writable::logicals is_degenerate() const = 0;
-
-  // Common
-  virtual cpp11::external_pointer<geometry_vector_base> transform(const transform_vector_base& affine) const = 0;
-  virtual bbox_vector_base_p bbox() const = 0;
+  // Misc
+  virtual cpp11::writable::logicals overlaps(const bbox_vector_base& other) const = 0;
+  virtual cpp11::external_pointer<bbox_vector_base> sum(bool na_rm) const = 0;
+  virtual cpp11::external_pointer<bbox_vector_base> cumsum() const = 0;
 };
-typedef cpp11::external_pointer<geometry_vector_base> geometry_vector_base_p;
+
+typedef cpp11::external_pointer<bbox_vector_base> bbox_vector_base_p;
 
 template <typename T, size_t dim>
-class geometry_vector : public geometry_vector_base {
-  typedef typename std::conditional<dim == 2, Aff_transformation_2, Aff_transformation_3>::type Aff;
-  typedef typename std::conditional<dim == 2, Bbox_2, Bbox_3>::type Bbox;
-  typedef typename std::conditional<dim == 2, bbox2, bbox3>::type bbox_vec;
-
+class bbox_vector : public bbox_vector_base {
 protected:
-
   std::vector<T> _storage;
 
 public:
-  geometry_vector() {}
+  bbox_vector() {}
   // Construct without element copy - BEWARE!
-  geometry_vector(std::vector<T> content) {
+  bbox_vector(std::vector<T> content) {
     _storage.swap(content);
   }
-  geometry_vector(const geometry_vector& copy) : _storage(copy._storage) {}
-  geometry_vector& operator=(const geometry_vector& copy) const {
-    _storage.clear();
-    _storage.assign(_storage.end(), copy._storage.begin(), copy._storage.end());
-    return *this;
-  }
-  ~geometry_vector() = default;
+  ~bbox_vector() = default;
   const std::vector<T>& get_storage() const { return _storage; }
 
   // Conversion
   cpp11::writable::doubles_matrix as_numeric() const {
-    cpp11::writable::strings colnames = def_names();
-    size_t ncols = colnames.size();
-    cpp11::writable::doubles_matrix result(long_length(), ncols);
+    size_t ncols = dim * 2;
+    cpp11::writable::doubles_matrix result(size(), ncols);
 
-    size_t ii = 0;
-    for (size_t i = 0; i < size(); ++i) {
-      bool is_na = !_storage[i];
-      for (size_t j = 0; j < cardinality(i); ++j) {
-        std::vector<double> row = get_row(i, j);
-        for (size_t k = 0; k < ncols; ++k) {
-          result(ii, k) = is_na ? R_NaReal : row[k];
+    for (size_t k = 0; k < size(); ++k) {
+      bool is_na = !_storage[k];
+      for (size_t i = 0; i < dim; ++i) {
+        if (is_na) {
+          result(k, i) = R_NaReal;
+        } else {
+          result(k, i) = _storage[k].min(i);
         }
-        ++ii;
+      }
+      for (size_t i = 0; i < dim; ++i) {
+        if (is_na) {
+          result(k, i + 3) = R_NaReal;
+        } else {
+          result(k, i + 3) = _storage[k].max(i);
+        }
       }
     }
 
-    result.attr("dimnames") = cpp11::writable::list({R_NilValue, colnames});
     return result;
   }
   cpp11::writable::strings format() const {
     cpp11::writable::strings result(size());
-    cpp11::writable::strings defnames = def_names();
-    size_t ndims = defnames.size();
 
-    for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
-        result[i] = "<NA>";
+    for (size_t k = 0; k < size(); ++k) {
+      if (!_storage[k]) {
+        result[k] = "<NA>";
         continue;
       }
       std::ostringstream f;
       f << std::setprecision(3);
-      size_t car = cardinality(i);
-      if (car > 1) {
-        f << "<";
-      }
-      for (size_t j = 0; j < car; ++j) {
-        if (j != 0) {
+      f << "<";
+      for (size_t i = 0; i < 2; ++i) {
+        if (i != 0) {
           f << ", ";
         }
         f << "<";
-        std::vector<double> row = get_row(i, j);
-        for (size_t k = 0; k < ndims; ++k) {
-          if (k != 0) {
+        for (size_t j = 0; j < dim; ++j) {
+          if (j != 0) {
             f << ", ";
           }
-          const std::string name = cpp11::r_string(defnames[k]);
-          f << name << ":" << row[k];
+          f << (i == 0 ? _storage[k].min(j) : _storage[k].max(j));
         }
         f << ">";
       }
-      if (car > 1) {
-        f << ">";
-      }
+      f << ">";
 
-      result[i] = f.str();
+      result[k] = f.str();
     }
 
     return result;
   }
-  exact_numeric definition(int which, cpp11::integers element) const {
-    bool get_all = element[0] == R_NaInt;
-    std::vector<Exact_number> result;
-    result.reserve(get_all ? long_length() : size());
-
-    for (size_t i = 0; i < size(); ++i) {
-      if (get_all) {
-        for (size_t j = 0; j < cardinality(i); ++j) {
-          result.push_back(get_single_definition(i, which, j));
-        }
-      } else {
-        result.push_back(get_single_definition(i, which, element[i]));
-      }
-    }
-
-    return {result};
-  }
 
   // Equality
-  cpp11::writable::logicals operator==(const geometry_vector_base& other) const {
+  cpp11::writable::logicals operator==(const bbox_vector_base& other) const {
     size_t output_length = std::max(size(), other.size());
 
     cpp11::writable::logicals result(output_length);
@@ -203,7 +138,7 @@ public:
       }
     }
 
-    const geometry_vector<T, dim>* other_recast = dynamic_cast< const geometry_vector<T, dim>* >(&other);
+    const bbox_vector<T, dim>* other_recast = dynamic_cast< const bbox_vector<T, dim>* >(&other);
 
     for (size_t i = 0; i < output_length; ++i) {
       if (!_storage[i % size()] || !(*other_recast)[i % other_recast->size()]) {
@@ -215,7 +150,7 @@ public:
 
     return result;
   }
-  cpp11::writable::logicals operator!=(const geometry_vector_base& other) const {
+  cpp11::writable::logicals operator!=(const bbox_vector_base& other) const {
     size_t output_length = std::max(size(), other.size());
 
     cpp11::writable::logicals result(output_length);
@@ -227,7 +162,7 @@ public:
       }
     }
 
-    const geometry_vector<T, dim>* other_recast = dynamic_cast< const geometry_vector<T, dim>* >(&other);
+    const bbox_vector<T, dim>* other_recast = dynamic_cast< const bbox_vector<T, dim>* >(&other);
 
     for (size_t i = 0; i < output_length; ++i) {
       if (!_storage[i % size()] || !(*other_recast)[i % other_recast->size()]) {
@@ -239,6 +174,28 @@ public:
 
     return result;
   }
+  bbox_vector_base_p operator+(const bbox_vector_base& other) const {
+    size_t output_length = std::max(size(), other.size());
+
+    if (typeid(*this) != typeid(other)) {
+      cpp11::stop("Incompatible vector types");
+    }
+
+    std::vector<T> result;
+    result.reserve(output_length);
+
+    const bbox_vector<T, dim>* other_recast = dynamic_cast< const bbox_vector<T, dim>* >(&other);
+
+    for (size_t i = 0; i < output_length; ++i) {
+      if (!_storage[i % size()] || !(*other_recast)[i % other_recast->size()]) {
+        result.push_back(T::NA_value());
+        continue;
+      }
+      result.push_back(_storage[i % size()] + (*other_recast)[i % other_recast->size()]);
+    }
+
+    return {new_from_vector(result)};
+  }
 
   // Utility
   size_t size() const { return _storage.size(); }
@@ -248,12 +205,10 @@ public:
   size_t dimensions() const {
     return dim;
   };
-  size_t cardinality(size_t i) const { return 1; }
-  size_t long_length() const { return size(); }
 
   // Subsetting, assignment, combining etc
-  virtual geometry_vector_base* new_from_vector(std::vector<T> vec) const = 0;
-  geometry_vector_base_p subset(cpp11::integers index) const {
+  virtual bbox_vector_base* new_from_vector(std::vector<T> vec) const = 0;
+  bbox_vector_base_p subset(cpp11::integers index) const {
     std::vector<T> new_storage;
     new_storage.reserve(size());
     for (R_xlen_t i = 0; i < index.size(); ++i) {
@@ -265,13 +220,13 @@ public:
     }
     return {new_from_vector(new_storage)};
   }
-  geometry_vector_base_p copy() const {
+  bbox_vector_base_p copy() const {
     std::vector<T> new_storage;
     new_storage.reserve(size());
     new_storage.insert(new_storage.begin(), _storage.begin(), _storage.end());
     return {new_from_vector(new_storage)};
   }
-  geometry_vector_base_p assign(cpp11::integers index, const geometry_vector_base& value) const {
+  bbox_vector_base_p assign(cpp11::integers index, const bbox_vector_base& value) const {
     if (index.size() != value.size()) {
       cpp11::stop("Incompatible vector sizes");
     }
@@ -279,7 +234,7 @@ public:
       cpp11::stop("Incompatible assignment value type");
     }
 
-    const geometry_vector<T, dim>* value_recast = dynamic_cast< const geometry_vector<T, dim>* >(&value);
+    const bbox_vector<T, dim>* value_recast = dynamic_cast< const bbox_vector<T, dim>* >(&value);
 
     std::vector<T> new_storage(_storage);
     int max_size = *std::max_element(index.begin(), index.end());
@@ -294,15 +249,15 @@ public:
     }
     return {new_from_vector(new_storage)};
   }
-  geometry_vector_base_p combine(cpp11::list_of< geometry_vector_base_p > extra) const {
+  bbox_vector_base_p combine(cpp11::list_of< bbox_vector_base_p > extra) const {
     std::vector<T> new_storage(_storage);
 
     for (R_xlen_t i = 0; i < extra.size(); ++i) {
-      geometry_vector_base* candidate = extra[i].get();
+      bbox_vector_base* candidate = extra[i].get();
       if (typeid(*this) != typeid(*candidate)) {
         cpp11::stop("Incompatible vector types");
       }
-      const geometry_vector<T, dim>* candidate_recast = dynamic_cast< const geometry_vector<T, dim>* >(candidate);
+      const bbox_vector<T, dim>* candidate_recast = dynamic_cast< const bbox_vector<T, dim>* >(candidate);
       for (size_t j = 0; j < candidate_recast->size(); ++j) {
         new_storage.push_back((*candidate_recast)[j]);
       }
@@ -312,7 +267,8 @@ public:
   }
 
   // Self-similarity
-  geometry_vector_base_p unique() const {
+  // TODO rewrite to use unordered_map and unordered_set
+  bbox_vector_base_p unique() const {
     std::vector<T> new_storage;
     bool NA_seen = false;
     for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
@@ -373,7 +329,7 @@ public:
 
     return anyone;
   }
-  cpp11::writable::integers match(const geometry_vector_base& table) const {
+  cpp11::writable::integers match(const bbox_vector_base& table) const {
     cpp11::writable::integers results;
     results.reserve(size());
 
@@ -384,7 +340,7 @@ public:
       return results;
     }
 
-    const geometry_vector<T, dim>* table_recast = dynamic_cast< const geometry_vector<T, dim>* >(&table);
+    const bbox_vector<T, dim>* table_recast = dynamic_cast< const bbox_vector<T, dim>* >(&table);
 
     int NA_ind = -1;
 
@@ -438,74 +394,94 @@ public:
     return false;
   }
 
-  // Predicates
-  cpp11::writable::logicals is_degenerate() const {
-    cpp11::writable::logicals result;
-    result.reserve(_storage.size());
-    for (size_t i = 0; i < _storage.size(); ++i) {
-      result.push_back(FALSE);
+  // Misc
+  cpp11::writable::logicals overlaps(const bbox_vector_base& other) const {
+    size_t output_length = std::max(size(), other.size());
+
+    cpp11::writable::logicals result(output_length);
+
+    if (typeid(*this) != typeid(other)) {
+      cpp11::stop("Incompatible vector types");
     }
-    return result;
-  }
 
-  template<typename U>
-  U translate_impl(const U& geo, const Aff& trans) const {
-    return geo.transform(trans);
-  }
-  template<>
-  Circle_2 translate_impl<Circle_2>(const Circle_2& geo, const Aff& trans) const {
-    cpp11::stop("Circles cannot be transformed. Transform the center instead");
-  }
+    const bbox_vector<T, dim>* other_recast = dynamic_cast< const bbox_vector<T, dim>* >(&other);
 
-  // Common
-  geometry_vector_base_p transform(const transform_vector_base& affine) const {
-    if (dim != affine.dimensions()) {
-      cpp11::stop("Transform matrix must match dimensionality of geometry");
-    }
-    size_t output_length = std::max(size(), affine.size());
-
-    std::vector<T> result;
-    result.reserve(output_length);
-
-    const transform_vector<Aff, dim>* affine_recast = dynamic_cast< const transform_vector<Aff, dim>* >(&affine);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !(*affine_recast)[i % affine_recast->size()]) {
-        result.push_back(T::NA_value());
+      if (!_storage[i % size()] || !(*other_recast)[i % other_recast->size()]) {
+        result[i] = NA_LOGICAL;
         continue;
       }
-      result.push_back(translate_impl(_storage[i % size()], (*affine_recast)[i % affine_recast->size()]));
+      result[i] = (Rboolean) CGAL::do_overlap(_storage[i % size()], (*other_recast)[i % other_recast->size()]);
+    }
+
+    return result;
+  }
+  bbox_vector_base_p sum(bool na_rm) const {
+    T total;
+
+    for (size_t i = 0; i < size(); ++i) {
+      if (!_storage[i]) {
+        if (!na_rm) {
+          total = T::NA_value();
+          break;
+        }
+        continue;
+      }
+      total += _storage[i];
+    }
+    std::vector<T> result;
+    result.push_back(total);
+
+    return {new_from_vector(result)};
+  }
+  bbox_vector_base_p cumsum() const {
+    std::vector<T> result;
+    result.reserve(size());
+
+    T cum_sum;
+    bool is_na = false;
+
+    for (size_t i = 0; i < size(); ++i) {
+      if (!is_na && !_storage[i]) {
+        is_na = true;
+        cum_sum = T::NA_value();
+      }
+      if (!is_na) {
+        cum_sum += _storage[i];
+      }
+      result.push_back(cum_sum);
     }
 
     return {new_from_vector(result)};
   }
-  template<typename U>
-  Bbox bbox_impl(const U& geo) const {
-    return geo.bbox();
-  }
-  template<>
-  Bbox bbox_impl<Vector_2>(const Vector_2& geo) const {
-    return Bbox::NA_value();
-  }
-  template<>
-  Bbox bbox_impl<Vector_3>(const Vector_3& geo) const {
-    return Bbox::NA_value();
-  }
+};
 
-  // Common
-  bbox_vector_base_p bbox() const {
-    std::vector<Bbox> result;
-    result.reserve(size());
+class bbox2: public bbox_vector<Bbox_2, 2> {
+public:
+  using bbox_vector::bbox_vector;
+  ~bbox2() = default;
 
-    for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
-        result.push_back(Bbox::NA_value());
-        continue;
-      }
-      result.push_back(bbox_impl(_storage[i]));
-    }
+  bbox_vector_base* new_from_vector(std::vector<Bbox_2> vec) const {
+    bbox2* copy = new bbox2();
 
-    bbox_vec* vec(new bbox_vec(result));
+    copy->_storage.swap(vec);
 
-    return {vec};
+    return copy;
   }
 };
+typedef cpp11::external_pointer<bbox2> bbox2_p;
+
+class bbox3: public bbox_vector<Bbox_3, 3> {
+public:
+  using bbox_vector::bbox_vector;
+  ~bbox3() = default;
+
+  bbox_vector_base* new_from_vector(std::vector<Bbox_3> vec) const {
+    bbox3* copy = new bbox3();
+
+    copy->_storage.swap(vec);
+
+    return copy;
+  }
+};
+typedef cpp11::external_pointer<bbox3> bbox3_p;

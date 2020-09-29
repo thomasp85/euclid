@@ -76,7 +76,7 @@ affine_matrix <- function(x) {
     if (n_cols != dimensionality) {
       rlang::abort("Cannot provide a mix of dimensionalities")
     }
-    if (n_cols != 3 || n_cols != 4) {
+    if (n_cols != 3 && n_cols != 4) {
       rlang::abort("Only 2 and 3 dimensional transformation matrices supported")
     }
     if (nrow(x) == ncol(x) - 1) {
@@ -133,7 +133,7 @@ affine_rotate <- function(rho, axis = NA, direction = NA, yaw = NA, pitch = NA, 
 #' @rdname affine_transformation
 #' @export
 is_affine_transformation <- function(x) inherits(x, "euclid_affine_transformation")
-#' @rdname exact_numeric
+#' @rdname affine_transformation
 #' @export
 as_affine_transformation <- function(x) {
   UseMethod("as_affine_transformation")
@@ -221,9 +221,6 @@ dim.euclid_affine_transformation <- function(x) {
 }
 #' @export
 `[<-.euclid_affine_transformation` <- function(x, i, j, ..., value) {
-  if (!is_affine_transformation(value)) {
-    rlang::abort("Only transformations can be assigned to a transformation vector")
-  }
   if (is.numeric(i) && all(i >= 0)) {
     index <- seq_len(max(i))[i]
   } else {
@@ -337,6 +334,22 @@ Ops.euclid_affine_transformation <- function(e1, e2) {
     res <- restore_euclid_vector(res, e1)
   }
   res
+}
+#' @export
+Math.euclid_affine_transformation <- function(x) {
+  if (.Generic != "cumprod") {
+    rlang::abort(paste0("`", .Generic, "` is not defined for transformation matrices"))
+  }
+  restore_euclid_vector(transform_cumprod(get_ptr(x)), x)
+}
+#' @export
+Ops.euclid_affine_transformation <- function(..., na.rm) {
+  na.rm = isTRUE(na.rm)
+  input <- do.call(c, list(...))
+  if (.Generic != "prod") {
+    rlang::abort(paste0("`", .Generic, "` is not defined for transformation matrices"))
+  }
+  restore_euclid_vector(transform_prod(get_ptr(input), na.rm), input)
 }
 
 affine_rotate_axis <- function(rho, axis) {
@@ -501,7 +514,3 @@ new_affine_transformation_empty <- function(dim) {
     new_affine_transformation3(create_transform_3_identity(0L))
   }
 }
-#' @rdname affine_transformation
-#' @export
-is_affine_transformation <- function(x) inherits(x, "euclid_affine_transformation")
-

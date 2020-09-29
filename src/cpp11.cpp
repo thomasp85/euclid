@@ -4,6 +4,160 @@
 #include "euclid_types.h"
 #include "cpp11/declarations.hpp"
 
+// bbox.cpp
+bbox2_p create_bbox_2(cpp11::doubles xmin, cpp11::doubles ymin, cpp11::doubles xmax, cpp11::doubles ymax);
+extern "C" SEXP _euclid_create_bbox_2(SEXP xmin, SEXP ymin, SEXP xmax, SEXP ymax) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_bbox_2(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(xmin), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ymin), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(xmax), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ymax)));
+  END_CPP11
+}
+// bbox.cpp
+bbox3_p create_bbox_3(cpp11::doubles xmin, cpp11::doubles ymin, cpp11::doubles zmin, cpp11::doubles xmax, cpp11::doubles ymax, cpp11::doubles zmax);
+extern "C" SEXP _euclid_create_bbox_3(SEXP xmin, SEXP ymin, SEXP zmin, SEXP xmax, SEXP ymax, SEXP zmax) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_bbox_3(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(xmin), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ymin), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(zmin), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(xmax), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(ymax), cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(zmax)));
+  END_CPP11
+}
+// bbox.cpp
+int bbox_length(bbox_vector_base_p bboxes);
+extern "C" SEXP _euclid_bbox_length(SEXP bboxes) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_length(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes)));
+  END_CPP11
+}
+// bbox.cpp
+int bbox_dimension(bbox_vector_base_p bboxes);
+extern "C" SEXP _euclid_bbox_dimension(SEXP bboxes) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_dimension(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes)));
+  END_CPP11
+}
+// bbox.cpp
+bbox_vector_base_p bbox_subset(bbox_vector_base_p bboxes, cpp11::integers index);
+extern "C" SEXP _euclid_bbox_subset(SEXP bboxes, SEXP index) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_subset(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(index)));
+  END_CPP11
+}
+// bbox.cpp
+bbox_vector_base_p bbox_copy(bbox_vector_base_p bboxes);
+extern "C" SEXP _euclid_bbox_copy(SEXP bboxes) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_copy(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes)));
+  END_CPP11
+}
+// bbox.cpp
+bbox_vector_base_p bbox_assign(bbox_vector_base_p bboxes, cpp11::integers index, bbox_vector_base_p value);
+extern "C" SEXP _euclid_bbox_assign(SEXP bboxes, SEXP index, SEXP value) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_assign(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(index), cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(value)));
+  END_CPP11
+}
+// bbox.cpp
+bbox_vector_base_p bbox_combine(bbox_vector_base_p bboxes, cpp11::list_of< bbox_vector_base_p > extra);
+extern "C" SEXP _euclid_bbox_combine(SEXP bboxes, SEXP extra) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_combine(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes), cpp11::as_cpp<cpp11::decay_t<cpp11::list_of< bbox_vector_base_p >>>(extra)));
+  END_CPP11
+}
+// bbox.cpp
+bbox_vector_base_p bbox_unique(bbox_vector_base_p bboxes);
+extern "C" SEXP _euclid_bbox_unique(SEXP bboxes) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_unique(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes)));
+  END_CPP11
+}
+// bbox.cpp
+cpp11::writable::logicals bbox_duplicated(bbox_vector_base_p bboxes);
+extern "C" SEXP _euclid_bbox_duplicated(SEXP bboxes) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_duplicated(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes)));
+  END_CPP11
+}
+// bbox.cpp
+cpp11::writable::integers bbox_any_duplicated(bbox_vector_base_p bboxes);
+extern "C" SEXP _euclid_bbox_any_duplicated(SEXP bboxes) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_any_duplicated(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes)));
+  END_CPP11
+}
+// bbox.cpp
+cpp11::writable::integers bbox_match(bbox_vector_base_p bboxes, bbox_vector_base_p table);
+extern "C" SEXP _euclid_bbox_match(SEXP bboxes, SEXP table) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_match(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes), cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(table)));
+  END_CPP11
+}
+// bbox.cpp
+cpp11::writable::logicals bbox_is_na(bbox_vector_base_p bboxes);
+extern "C" SEXP _euclid_bbox_is_na(SEXP bboxes) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_is_na(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes)));
+  END_CPP11
+}
+// bbox.cpp
+bool bbox_any_na(bbox_vector_base_p bboxes);
+extern "C" SEXP _euclid_bbox_any_na(SEXP bboxes) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_any_na(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes)));
+  END_CPP11
+}
+// bbox.cpp
+cpp11::writable::doubles_matrix bbox_to_matrix(bbox_vector_base_p bboxes);
+extern "C" SEXP _euclid_bbox_to_matrix(SEXP bboxes) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_to_matrix(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes)));
+  END_CPP11
+}
+// bbox.cpp
+cpp11::writable::strings bbox_format(bbox_vector_base_p bboxes);
+extern "C" SEXP _euclid_bbox_format(SEXP bboxes) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_format(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes)));
+  END_CPP11
+}
+// bbox.cpp
+cpp11::writable::logicals bbox_is_equal(bbox_vector_base_p bboxes1, bbox_vector_base_p bboxes2);
+extern "C" SEXP _euclid_bbox_is_equal(SEXP bboxes1, SEXP bboxes2) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_is_equal(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes1), cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes2)));
+  END_CPP11
+}
+// bbox.cpp
+cpp11::writable::logicals bbox_is_not_equal(bbox_vector_base_p bboxes1, bbox_vector_base_p bboxes2);
+extern "C" SEXP _euclid_bbox_is_not_equal(SEXP bboxes1, SEXP bboxes2) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_is_not_equal(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes1), cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes2)));
+  END_CPP11
+}
+// bbox.cpp
+bbox_vector_base_p bbox_plus(bbox_vector_base_p bboxes, bbox_vector_base_p other);
+extern "C" SEXP _euclid_bbox_plus(SEXP bboxes, SEXP other) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_plus(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes), cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(other)));
+  END_CPP11
+}
+// bbox.cpp
+bbox_vector_base_p bbox_sum(bbox_vector_base_p bboxes, bool na_rm);
+extern "C" SEXP _euclid_bbox_sum(SEXP bboxes, SEXP na_rm) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_sum(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes), cpp11::as_cpp<cpp11::decay_t<bool>>(na_rm)));
+  END_CPP11
+}
+// bbox.cpp
+bbox_vector_base_p bbox_cumsum(bbox_vector_base_p bboxes);
+extern "C" SEXP _euclid_bbox_cumsum(SEXP bboxes) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_cumsum(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes)));
+  END_CPP11
+}
+// bbox.cpp
+cpp11::writable::logicals bbox_overlaps(bbox_vector_base_p bboxes1, bbox_vector_base_p bboxes2);
+extern "C" SEXP _euclid_bbox_overlaps(SEXP bboxes1, SEXP bboxes2) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(bbox_overlaps(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes1), cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes2)));
+  END_CPP11
+}
 // circle.cpp
 circle2_p create_circle_2_empty();
 extern "C" SEXP _euclid_create_circle_2_empty() {
@@ -431,6 +585,13 @@ extern "C" SEXP _euclid_geometry_transform(SEXP geometries, SEXP affine) {
     return cpp11::as_sexp(geometry_transform(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries), cpp11::as_cpp<cpp11::decay_t<transform_vector_base_p>>(affine)));
   END_CPP11
 }
+// geometry_common.cpp
+bbox_vector_base_p geometry_bbox(geometry_vector_base_p geometries);
+extern "C" SEXP _euclid_geometry_bbox(SEXP geometries) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_bbox(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries)));
+  END_CPP11
+}
 // point.cpp
 point2_p create_point_2_empty();
 extern "C" SEXP _euclid_create_point_2_empty() {
@@ -747,10 +908,10 @@ extern "C" SEXP _euclid_transform_dimension(SEXP transforms) {
   END_CPP11
 }
 // transform.cpp
-exact_numeric_p transform_definition(transform_vector_base_p transforms, int i, int j);
+exact_numeric_p transform_definition(transform_vector_base_p transforms, cpp11::integers i, cpp11::integers j);
 extern "C" SEXP _euclid_transform_definition(SEXP transforms, SEXP i, SEXP j) {
   BEGIN_CPP11
-    return cpp11::as_sexp(transform_definition(cpp11::as_cpp<cpp11::decay_t<transform_vector_base_p>>(transforms), cpp11::as_cpp<cpp11::decay_t<int>>(i), cpp11::as_cpp<cpp11::decay_t<int>>(j)));
+    return cpp11::as_sexp(transform_definition(cpp11::as_cpp<cpp11::decay_t<transform_vector_base_p>>(transforms), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(i), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(j)));
   END_CPP11
 }
 // transform.cpp
@@ -870,6 +1031,20 @@ cpp11::writable::logicals transform_is_reflecting(transform_vector_base_p transf
 extern "C" SEXP _euclid_transform_is_reflecting(SEXP transforms) {
   BEGIN_CPP11
     return cpp11::as_sexp(transform_is_reflecting(cpp11::as_cpp<cpp11::decay_t<transform_vector_base_p>>(transforms)));
+  END_CPP11
+}
+// transform.cpp
+transform_vector_base_p transform_prod(transform_vector_base_p transforms, bool na_rm);
+extern "C" SEXP _euclid_transform_prod(SEXP transforms, SEXP na_rm) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(transform_prod(cpp11::as_cpp<cpp11::decay_t<transform_vector_base_p>>(transforms), cpp11::as_cpp<cpp11::decay_t<bool>>(na_rm)));
+  END_CPP11
+}
+// transform.cpp
+transform_vector_base_p transform_cumprod(transform_vector_base_p transforms);
+extern "C" SEXP _euclid_transform_cumprod(SEXP transforms) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(transform_cumprod(cpp11::as_cpp<cpp11::decay_t<transform_vector_base_p>>(transforms)));
   END_CPP11
 }
 // vector.cpp
@@ -1043,6 +1218,28 @@ extern "C" SEXP _euclid_vector_3_coord(SEXP x, SEXP i) {
 
 extern "C" {
 /* .Call calls */
+extern SEXP _euclid_bbox_any_duplicated(SEXP);
+extern SEXP _euclid_bbox_any_na(SEXP);
+extern SEXP _euclid_bbox_assign(SEXP, SEXP, SEXP);
+extern SEXP _euclid_bbox_combine(SEXP, SEXP);
+extern SEXP _euclid_bbox_copy(SEXP);
+extern SEXP _euclid_bbox_cumsum(SEXP);
+extern SEXP _euclid_bbox_dimension(SEXP);
+extern SEXP _euclid_bbox_duplicated(SEXP);
+extern SEXP _euclid_bbox_format(SEXP);
+extern SEXP _euclid_bbox_is_equal(SEXP, SEXP);
+extern SEXP _euclid_bbox_is_na(SEXP);
+extern SEXP _euclid_bbox_is_not_equal(SEXP, SEXP);
+extern SEXP _euclid_bbox_length(SEXP);
+extern SEXP _euclid_bbox_match(SEXP, SEXP);
+extern SEXP _euclid_bbox_overlaps(SEXP, SEXP);
+extern SEXP _euclid_bbox_plus(SEXP, SEXP);
+extern SEXP _euclid_bbox_subset(SEXP, SEXP);
+extern SEXP _euclid_bbox_sum(SEXP, SEXP);
+extern SEXP _euclid_bbox_to_matrix(SEXP);
+extern SEXP _euclid_bbox_unique(SEXP);
+extern SEXP _euclid_create_bbox_2(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_bbox_3(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
 extern SEXP _euclid_create_circle_2_2_point(SEXP, SEXP);
 extern SEXP _euclid_create_circle_2_3_point(SEXP, SEXP, SEXP);
 extern SEXP _euclid_create_circle_2_center_radius(SEXP, SEXP);
@@ -1107,6 +1304,7 @@ extern SEXP _euclid_exact_numeric_unique(SEXP);
 extern SEXP _euclid_geometry_any_duplicated(SEXP);
 extern SEXP _euclid_geometry_any_na(SEXP);
 extern SEXP _euclid_geometry_assign(SEXP, SEXP, SEXP);
+extern SEXP _euclid_geometry_bbox(SEXP);
 extern SEXP _euclid_geometry_cardinality(SEXP);
 extern SEXP _euclid_geometry_combine(SEXP, SEXP);
 extern SEXP _euclid_geometry_copy(SEXP);
@@ -1158,6 +1356,7 @@ extern SEXP _euclid_transform_any_na(SEXP);
 extern SEXP _euclid_transform_assign(SEXP, SEXP, SEXP);
 extern SEXP _euclid_transform_combine(SEXP, SEXP);
 extern SEXP _euclid_transform_copy(SEXP);
+extern SEXP _euclid_transform_cumprod(SEXP);
 extern SEXP _euclid_transform_definition(SEXP, SEXP, SEXP);
 extern SEXP _euclid_transform_dimension(SEXP);
 extern SEXP _euclid_transform_duplicated(SEXP);
@@ -1170,6 +1369,7 @@ extern SEXP _euclid_transform_is_reflecting(SEXP);
 extern SEXP _euclid_transform_length(SEXP);
 extern SEXP _euclid_transform_match(SEXP, SEXP);
 extern SEXP _euclid_transform_multiply(SEXP, SEXP);
+extern SEXP _euclid_transform_prod(SEXP, SEXP);
 extern SEXP _euclid_transform_subset(SEXP, SEXP);
 extern SEXP _euclid_transform_to_array(SEXP);
 extern SEXP _euclid_transform_unique(SEXP);
@@ -1193,6 +1393,28 @@ extern SEXP _euclid_vector_3_sum(SEXP, SEXP);
 extern SEXP _euclid_vector_3_times_numeric(SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_euclid_bbox_any_duplicated",           (DL_FUNC) &_euclid_bbox_any_duplicated,           1},
+    {"_euclid_bbox_any_na",                   (DL_FUNC) &_euclid_bbox_any_na,                   1},
+    {"_euclid_bbox_assign",                   (DL_FUNC) &_euclid_bbox_assign,                   3},
+    {"_euclid_bbox_combine",                  (DL_FUNC) &_euclid_bbox_combine,                  2},
+    {"_euclid_bbox_copy",                     (DL_FUNC) &_euclid_bbox_copy,                     1},
+    {"_euclid_bbox_cumsum",                   (DL_FUNC) &_euclid_bbox_cumsum,                   1},
+    {"_euclid_bbox_dimension",                (DL_FUNC) &_euclid_bbox_dimension,                1},
+    {"_euclid_bbox_duplicated",               (DL_FUNC) &_euclid_bbox_duplicated,               1},
+    {"_euclid_bbox_format",                   (DL_FUNC) &_euclid_bbox_format,                   1},
+    {"_euclid_bbox_is_equal",                 (DL_FUNC) &_euclid_bbox_is_equal,                 2},
+    {"_euclid_bbox_is_na",                    (DL_FUNC) &_euclid_bbox_is_na,                    1},
+    {"_euclid_bbox_is_not_equal",             (DL_FUNC) &_euclid_bbox_is_not_equal,             2},
+    {"_euclid_bbox_length",                   (DL_FUNC) &_euclid_bbox_length,                   1},
+    {"_euclid_bbox_match",                    (DL_FUNC) &_euclid_bbox_match,                    2},
+    {"_euclid_bbox_overlaps",                 (DL_FUNC) &_euclid_bbox_overlaps,                 2},
+    {"_euclid_bbox_plus",                     (DL_FUNC) &_euclid_bbox_plus,                     2},
+    {"_euclid_bbox_subset",                   (DL_FUNC) &_euclid_bbox_subset,                   2},
+    {"_euclid_bbox_sum",                      (DL_FUNC) &_euclid_bbox_sum,                      2},
+    {"_euclid_bbox_to_matrix",                (DL_FUNC) &_euclid_bbox_to_matrix,                1},
+    {"_euclid_bbox_unique",                   (DL_FUNC) &_euclid_bbox_unique,                   1},
+    {"_euclid_create_bbox_2",                 (DL_FUNC) &_euclid_create_bbox_2,                 4},
+    {"_euclid_create_bbox_3",                 (DL_FUNC) &_euclid_create_bbox_3,                 6},
     {"_euclid_create_circle_2_2_point",       (DL_FUNC) &_euclid_create_circle_2_2_point,       2},
     {"_euclid_create_circle_2_3_point",       (DL_FUNC) &_euclid_create_circle_2_3_point,       3},
     {"_euclid_create_circle_2_center_radius", (DL_FUNC) &_euclid_create_circle_2_center_radius, 2},
@@ -1257,6 +1479,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_geometry_any_duplicated",       (DL_FUNC) &_euclid_geometry_any_duplicated,       1},
     {"_euclid_geometry_any_na",               (DL_FUNC) &_euclid_geometry_any_na,               1},
     {"_euclid_geometry_assign",               (DL_FUNC) &_euclid_geometry_assign,               3},
+    {"_euclid_geometry_bbox",                 (DL_FUNC) &_euclid_geometry_bbox,                 1},
     {"_euclid_geometry_cardinality",          (DL_FUNC) &_euclid_geometry_cardinality,          1},
     {"_euclid_geometry_combine",              (DL_FUNC) &_euclid_geometry_combine,              2},
     {"_euclid_geometry_copy",                 (DL_FUNC) &_euclid_geometry_copy,                 1},
@@ -1308,6 +1531,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_transform_assign",              (DL_FUNC) &_euclid_transform_assign,              3},
     {"_euclid_transform_combine",             (DL_FUNC) &_euclid_transform_combine,             2},
     {"_euclid_transform_copy",                (DL_FUNC) &_euclid_transform_copy,                1},
+    {"_euclid_transform_cumprod",             (DL_FUNC) &_euclid_transform_cumprod,             1},
     {"_euclid_transform_definition",          (DL_FUNC) &_euclid_transform_definition,          3},
     {"_euclid_transform_dimension",           (DL_FUNC) &_euclid_transform_dimension,           1},
     {"_euclid_transform_duplicated",          (DL_FUNC) &_euclid_transform_duplicated,          1},
@@ -1320,6 +1544,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_transform_length",              (DL_FUNC) &_euclid_transform_length,              1},
     {"_euclid_transform_match",               (DL_FUNC) &_euclid_transform_match,               2},
     {"_euclid_transform_multiply",            (DL_FUNC) &_euclid_transform_multiply,            2},
+    {"_euclid_transform_prod",                (DL_FUNC) &_euclid_transform_prod,                2},
     {"_euclid_transform_subset",              (DL_FUNC) &_euclid_transform_subset,              2},
     {"_euclid_transform_to_array",            (DL_FUNC) &_euclid_transform_to_array,            1},
     {"_euclid_transform_unique",              (DL_FUNC) &_euclid_transform_unique,              1},
