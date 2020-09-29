@@ -52,10 +52,12 @@ bbox <- function(...) {
     rlang::abort("bbox vectors needs 4 or 6 coordinate inputs")
   }
 }
-
 #' @rdname bbox
 #' @export
 is_bbox <- function(x) inherits(x, "euclid_bbox")
+
+# Conversion --------------------------------------------------------------
+
 #' @rdname bbox
 #' @export
 as_bbox <- function(x) {
@@ -73,6 +75,9 @@ as.matrix.euclid_bbox <- function(x) {
 as.character.euclid_bbox <- function(x, ...) {
   format(x, ...)
 }
+
+# Vector basic ------------------------------------------------------------
+
 #' @export
 format.euclid_bbox <- function(x, ...) {
   transform_format(get_ptr(x))
@@ -202,6 +207,9 @@ anyDuplicated.euclid_bbox <- function(x, incomparables = FALSE, ...) {
 match_bbox <- function(x, table) {
   bbox_match(get_ptr(x), get_ptr(table))
 }
+
+# Misc --------------------------------------------------------------------
+
 #' @rdname bbox
 #' @export
 is_overlapping <- function(x, y) {
@@ -212,6 +220,9 @@ is_overlapping <- function(x, y) {
 #' @rdname bbox
 #' @export
 `%X%` <- is_overlapping
+
+# Group generics ----------------------------------------------------------
+
 #' @export
 Ops.euclid_bbox <- function(e1, e2) {
   if (!.Generic %in% c("+", "==", "!=")) {
@@ -251,6 +262,8 @@ Summary.euclid_bbox <- function(..., na.rm) {
   }
   restore_euclid_vector(bbox_sum(get_ptr(input), na.rm), input)
 }
+
+# Internal constructors ---------------------------------------------------
 
 new_bbox_empty <- function(dim) {
   if (dim == 2) {

@@ -67,6 +67,7 @@ as_weighted_point.euclid_point_w <- function(x) x
 as_point.euclid_point_w <- function(x) {
   point(x)
 }
+
 # Internal constructors ---------------------------------------------------
 
 new_point_w2 <- function(x) {

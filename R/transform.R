@@ -133,6 +133,9 @@ affine_rotate <- function(rho, axis = NA, direction = NA, yaw = NA, pitch = NA, 
 #' @rdname affine_transformation
 #' @export
 is_affine_transformation <- function(x) inherits(x, "euclid_affine_transformation")
+
+# Conversion --------------------------------------------------------------
+
 #' @rdname affine_transformation
 #' @export
 as_affine_transformation <- function(x) {
@@ -167,6 +170,9 @@ as.list.euclid_affine_transformation <- function(x) {
   x <- split(x, rep(n, each = m_size))
   lapply(x, matrix, nrow = x_dim[1], ncol = x_dim[2])
 }
+
+# Vector basic ------------------------------------------------------------
+
 #' @export
 format.euclid_affine_transformation <- function(x, ...) {
   transform_format(get_ptr(x))
@@ -296,6 +302,9 @@ anyDuplicated.euclid_affine_transformation <- function(x, incomparables = FALSE,
 match_transform <- function(x, table) {
   transform_match(get_ptr(x), get_ptr(table))
 }
+
+# Misc --------------------------------------------------------------------
+
 #' @rdname affine_transformation
 #' @export
 inverse <- function(x) {
@@ -312,6 +321,9 @@ is_reflecting <- function(x) {
   }
   transform_is_reflecting(get_ptr(x))
 }
+
+# Group generics ----------------------------------------------------------
+
 #' @export
 Ops.euclid_affine_transformation <- function(e1, e2) {
   if (!.Generic %in% c("*", "==", "!=")) {
@@ -351,6 +363,8 @@ Ops.euclid_affine_transformation <- function(..., na.rm) {
   }
   restore_euclid_vector(transform_prod(get_ptr(input), na.rm), input)
 }
+
+# Internal constructors ---------------------------------------------------
 
 affine_rotate_axis <- function(rho, axis) {
   rho <- as.numeric(rho)
