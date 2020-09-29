@@ -614,6 +614,13 @@ extern "C" SEXP _euclid_create_point_2_vec(SEXP p) {
   END_CPP11
 }
 // point.cpp
+point2_p create_point_2_wp(point_w2_p p);
+extern "C" SEXP _euclid_create_point_2_wp(SEXP p) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_2_wp(cpp11::as_cpp<cpp11::decay_t<point_w2_p>>(p)));
+  END_CPP11
+}
+// point.cpp
 point2_p point_2_add_vector(point2_p x, vector2_p y);
 extern "C" SEXP _euclid_point_2_add_vector(SEXP x, SEXP y) {
   BEGIN_CPP11
@@ -660,13 +667,6 @@ cpp11::writable::logicals point_2_greater_equal(point2_p x, point2_p y);
 extern "C" SEXP _euclid_point_2_greater_equal(SEXP x, SEXP y) {
   BEGIN_CPP11
     return cpp11::as_sexp(point_2_greater_equal(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<point2_p>>(y)));
-  END_CPP11
-}
-// point.cpp
-exact_numeric_p point_2_coord(point2_p x, int i);
-extern "C" SEXP _euclid_point_2_coord(SEXP x, SEXP i) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(point_2_coord(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<int>>(i)));
   END_CPP11
 }
 // point.cpp
@@ -733,6 +733,13 @@ extern "C" SEXP _euclid_create_point_3_vec(SEXP p) {
   END_CPP11
 }
 // point.cpp
+point3_p create_point_3_wp(point_w3_p p);
+extern "C" SEXP _euclid_create_point_3_wp(SEXP p) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_3_wp(cpp11::as_cpp<cpp11::decay_t<point_w3_p>>(p)));
+  END_CPP11
+}
+// point.cpp
 point3_p point_3_add_vector(point3_p x, vector3_p y);
 extern "C" SEXP _euclid_point_3_add_vector(SEXP x, SEXP y) {
   BEGIN_CPP11
@@ -782,13 +789,6 @@ extern "C" SEXP _euclid_point_3_greater_equal(SEXP x, SEXP y) {
   END_CPP11
 }
 // point.cpp
-exact_numeric_p point_3_coord(point3_p x, int i);
-extern "C" SEXP _euclid_point_3_coord(SEXP x, SEXP i) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(point_3_coord(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<int>>(i)));
-  END_CPP11
-}
-// point.cpp
 point3_p point_3_sort(point3_p x, bool decreasing, cpp11::logicals na_last);
 extern "C" SEXP _euclid_point_3_sort(SEXP x, SEXP decreasing, SEXP na_last) {
   BEGIN_CPP11
@@ -828,6 +828,48 @@ point3_p point_3_cummax(point3_p x);
 extern "C" SEXP _euclid_point_3_cummax(SEXP x) {
   BEGIN_CPP11
     return cpp11::as_sexp(point_3_cummax(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x)));
+  END_CPP11
+}
+// point_w.cpp
+point_w2_p create_point_w_2_empty();
+extern "C" SEXP _euclid_create_point_w_2_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_2_empty());
+  END_CPP11
+}
+// point_w.cpp
+point_w2_p create_point_w_2_x_y_w(exact_numeric_p x, exact_numeric_p y, exact_numeric_p w);
+extern "C" SEXP _euclid_create_point_w_2_x_y_w(SEXP x, SEXP y, SEXP w) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_2_x_y_w(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
+  END_CPP11
+}
+// point_w.cpp
+point_w2_p create_point_w_2_p_w(point2_p p, exact_numeric_p w);
+extern "C" SEXP _euclid_create_point_w_2_p_w(SEXP p, SEXP w) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_2_p_w(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
+  END_CPP11
+}
+// point_w.cpp
+point_w3_p create_point_w_3_empty();
+extern "C" SEXP _euclid_create_point_w_3_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_3_empty());
+  END_CPP11
+}
+// point_w.cpp
+point_w3_p create_point_w_3_x_y_z_w(exact_numeric_p x, exact_numeric_p y, exact_numeric_p z, exact_numeric_p w);
+extern "C" SEXP _euclid_create_point_w_3_x_y_z_w(SEXP x, SEXP y, SEXP z, SEXP w) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_3_x_y_z_w(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(z), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
+  END_CPP11
+}
+// point_w.cpp
+point_w3_p create_point_w_3_p_w(point3_p p, exact_numeric_p w);
+extern "C" SEXP _euclid_create_point_w_3_p_w(SEXP p, SEXP w) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_3_p_w(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
   END_CPP11
 }
 // transform.cpp
@@ -1125,13 +1167,6 @@ extern "C" SEXP _euclid_vector_2_cumsum(SEXP x) {
   END_CPP11
 }
 // vector.cpp
-exact_numeric_p vector_2_coord(vector2_p x, int i);
-extern "C" SEXP _euclid_vector_2_coord(SEXP x, SEXP i) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(vector_2_coord(cpp11::as_cpp<cpp11::decay_t<vector2_p>>(x), cpp11::as_cpp<cpp11::decay_t<int>>(i)));
-  END_CPP11
-}
-// vector.cpp
 vector3_p create_vector_3_empty();
 extern "C" SEXP _euclid_create_vector_3_empty() {
   BEGIN_CPP11
@@ -1208,13 +1243,6 @@ extern "C" SEXP _euclid_vector_3_cumsum(SEXP x) {
     return cpp11::as_sexp(vector_3_cumsum(cpp11::as_cpp<cpp11::decay_t<vector3_p>>(x)));
   END_CPP11
 }
-// vector.cpp
-exact_numeric_p vector_3_coord(vector3_p x, int i);
-extern "C" SEXP _euclid_vector_3_coord(SEXP x, SEXP i) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(vector_3_coord(cpp11::as_cpp<cpp11::decay_t<vector3_p>>(x), cpp11::as_cpp<cpp11::decay_t<int>>(i)));
-  END_CPP11
-}
 
 extern "C" {
 /* .Call calls */
@@ -1247,10 +1275,18 @@ extern SEXP _euclid_create_circle_2_empty();
 extern SEXP _euclid_create_exact_numeric(SEXP);
 extern SEXP _euclid_create_point_2_empty();
 extern SEXP _euclid_create_point_2_vec(SEXP);
+extern SEXP _euclid_create_point_2_wp(SEXP);
 extern SEXP _euclid_create_point_2_x_y(SEXP, SEXP);
 extern SEXP _euclid_create_point_3_empty();
 extern SEXP _euclid_create_point_3_vec(SEXP);
+extern SEXP _euclid_create_point_3_wp(SEXP);
 extern SEXP _euclid_create_point_3_x_y_z(SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_point_w_2_empty();
+extern SEXP _euclid_create_point_w_2_p_w(SEXP, SEXP);
+extern SEXP _euclid_create_point_w_2_x_y_w(SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_point_w_3_empty();
+extern SEXP _euclid_create_point_w_3_p_w(SEXP, SEXP);
+extern SEXP _euclid_create_point_w_3_x_y_z_w(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _euclid_create_transform_2_identity(SEXP);
 extern SEXP _euclid_create_transform_2_matrix(SEXP);
 extern SEXP _euclid_create_transform_2_rotate(SEXP);
@@ -1324,7 +1360,6 @@ extern SEXP _euclid_geometry_to_matrix(SEXP);
 extern SEXP _euclid_geometry_transform(SEXP, SEXP);
 extern SEXP _euclid_geometry_unique(SEXP);
 extern SEXP _euclid_point_2_add_vector(SEXP, SEXP);
-extern SEXP _euclid_point_2_coord(SEXP, SEXP);
 extern SEXP _euclid_point_2_cummax(SEXP);
 extern SEXP _euclid_point_2_cummin(SEXP);
 extern SEXP _euclid_point_2_greater(SEXP, SEXP);
@@ -1338,7 +1373,6 @@ extern SEXP _euclid_point_2_sort(SEXP, SEXP, SEXP);
 extern SEXP _euclid_point_2_sub_point(SEXP, SEXP);
 extern SEXP _euclid_point_2_sub_vector(SEXP, SEXP);
 extern SEXP _euclid_point_3_add_vector(SEXP, SEXP);
-extern SEXP _euclid_point_3_coord(SEXP, SEXP);
 extern SEXP _euclid_point_3_cummax(SEXP);
 extern SEXP _euclid_point_3_cummin(SEXP);
 extern SEXP _euclid_point_3_greater(SEXP, SEXP);
@@ -1374,7 +1408,6 @@ extern SEXP _euclid_transform_subset(SEXP, SEXP);
 extern SEXP _euclid_transform_to_array(SEXP);
 extern SEXP _euclid_transform_unique(SEXP);
 extern SEXP _euclid_vector_2_add_vector(SEXP, SEXP);
-extern SEXP _euclid_vector_2_coord(SEXP, SEXP);
 extern SEXP _euclid_vector_2_cumsum(SEXP);
 extern SEXP _euclid_vector_2_divide_numeric(SEXP, SEXP);
 extern SEXP _euclid_vector_2_dot_vector(SEXP, SEXP);
@@ -1383,7 +1416,6 @@ extern SEXP _euclid_vector_2_negate(SEXP);
 extern SEXP _euclid_vector_2_sum(SEXP, SEXP);
 extern SEXP _euclid_vector_2_times_numeric(SEXP, SEXP);
 extern SEXP _euclid_vector_3_add_vector(SEXP, SEXP);
-extern SEXP _euclid_vector_3_coord(SEXP, SEXP);
 extern SEXP _euclid_vector_3_cumsum(SEXP);
 extern SEXP _euclid_vector_3_divide_numeric(SEXP, SEXP);
 extern SEXP _euclid_vector_3_dot_vector(SEXP, SEXP);
@@ -1422,10 +1454,18 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_create_exact_numeric",          (DL_FUNC) &_euclid_create_exact_numeric,          1},
     {"_euclid_create_point_2_empty",          (DL_FUNC) &_euclid_create_point_2_empty,          0},
     {"_euclid_create_point_2_vec",            (DL_FUNC) &_euclid_create_point_2_vec,            1},
+    {"_euclid_create_point_2_wp",             (DL_FUNC) &_euclid_create_point_2_wp,             1},
     {"_euclid_create_point_2_x_y",            (DL_FUNC) &_euclid_create_point_2_x_y,            2},
     {"_euclid_create_point_3_empty",          (DL_FUNC) &_euclid_create_point_3_empty,          0},
     {"_euclid_create_point_3_vec",            (DL_FUNC) &_euclid_create_point_3_vec,            1},
+    {"_euclid_create_point_3_wp",             (DL_FUNC) &_euclid_create_point_3_wp,             1},
     {"_euclid_create_point_3_x_y_z",          (DL_FUNC) &_euclid_create_point_3_x_y_z,          3},
+    {"_euclid_create_point_w_2_empty",        (DL_FUNC) &_euclid_create_point_w_2_empty,        0},
+    {"_euclid_create_point_w_2_p_w",          (DL_FUNC) &_euclid_create_point_w_2_p_w,          2},
+    {"_euclid_create_point_w_2_x_y_w",        (DL_FUNC) &_euclid_create_point_w_2_x_y_w,        3},
+    {"_euclid_create_point_w_3_empty",        (DL_FUNC) &_euclid_create_point_w_3_empty,        0},
+    {"_euclid_create_point_w_3_p_w",          (DL_FUNC) &_euclid_create_point_w_3_p_w,          2},
+    {"_euclid_create_point_w_3_x_y_z_w",      (DL_FUNC) &_euclid_create_point_w_3_x_y_z_w,      4},
     {"_euclid_create_transform_2_identity",   (DL_FUNC) &_euclid_create_transform_2_identity,   1},
     {"_euclid_create_transform_2_matrix",     (DL_FUNC) &_euclid_create_transform_2_matrix,     1},
     {"_euclid_create_transform_2_rotate",     (DL_FUNC) &_euclid_create_transform_2_rotate,     1},
@@ -1499,7 +1539,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_geometry_transform",            (DL_FUNC) &_euclid_geometry_transform,            2},
     {"_euclid_geometry_unique",               (DL_FUNC) &_euclid_geometry_unique,               1},
     {"_euclid_point_2_add_vector",            (DL_FUNC) &_euclid_point_2_add_vector,            2},
-    {"_euclid_point_2_coord",                 (DL_FUNC) &_euclid_point_2_coord,                 2},
     {"_euclid_point_2_cummax",                (DL_FUNC) &_euclid_point_2_cummax,                1},
     {"_euclid_point_2_cummin",                (DL_FUNC) &_euclid_point_2_cummin,                1},
     {"_euclid_point_2_greater",               (DL_FUNC) &_euclid_point_2_greater,               2},
@@ -1513,7 +1552,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_point_2_sub_point",             (DL_FUNC) &_euclid_point_2_sub_point,             2},
     {"_euclid_point_2_sub_vector",            (DL_FUNC) &_euclid_point_2_sub_vector,            2},
     {"_euclid_point_3_add_vector",            (DL_FUNC) &_euclid_point_3_add_vector,            2},
-    {"_euclid_point_3_coord",                 (DL_FUNC) &_euclid_point_3_coord,                 2},
     {"_euclid_point_3_cummax",                (DL_FUNC) &_euclid_point_3_cummax,                1},
     {"_euclid_point_3_cummin",                (DL_FUNC) &_euclid_point_3_cummin,                1},
     {"_euclid_point_3_greater",               (DL_FUNC) &_euclid_point_3_greater,               2},
@@ -1549,7 +1587,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_transform_to_array",            (DL_FUNC) &_euclid_transform_to_array,            1},
     {"_euclid_transform_unique",              (DL_FUNC) &_euclid_transform_unique,              1},
     {"_euclid_vector_2_add_vector",           (DL_FUNC) &_euclid_vector_2_add_vector,           2},
-    {"_euclid_vector_2_coord",                (DL_FUNC) &_euclid_vector_2_coord,                2},
     {"_euclid_vector_2_cumsum",               (DL_FUNC) &_euclid_vector_2_cumsum,               1},
     {"_euclid_vector_2_divide_numeric",       (DL_FUNC) &_euclid_vector_2_divide_numeric,       2},
     {"_euclid_vector_2_dot_vector",           (DL_FUNC) &_euclid_vector_2_dot_vector,           2},
@@ -1558,7 +1595,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_vector_2_sum",                  (DL_FUNC) &_euclid_vector_2_sum,                  2},
     {"_euclid_vector_2_times_numeric",        (DL_FUNC) &_euclid_vector_2_times_numeric,        2},
     {"_euclid_vector_3_add_vector",           (DL_FUNC) &_euclid_vector_3_add_vector,           2},
-    {"_euclid_vector_3_coord",                (DL_FUNC) &_euclid_vector_3_coord,                2},
     {"_euclid_vector_3_cumsum",               (DL_FUNC) &_euclid_vector_3_cumsum,               1},
     {"_euclid_vector_3_divide_numeric",       (DL_FUNC) &_euclid_vector_3_divide_numeric,       2},
     {"_euclid_vector_3_dot_vector",           (DL_FUNC) &_euclid_vector_3_dot_vector,           2},

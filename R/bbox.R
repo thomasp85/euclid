@@ -42,7 +42,7 @@ bbox <- function(...) {
       return(new_bbox3(bboxes))
     }
   }
-  inputs <- validate_constructor_input(...)
+  inputs <- validate_constructor_input(..., .convert_numerics = FALSE)
   inputs <- inputs[vapply(inputs, is.numeric, logical(1))]
   if (length(inputs) == 4) {
     new_bbox2(create_bbox_2(inputs[[1]], inputs[[2]], inputs[[3]], inputs[[4]]))
@@ -243,7 +243,7 @@ Math.euclid_bbox <- function(x) {
   restore_euclid_vector(bbox_cumsum(get_ptr(x)), x)
 }
 #' @export
-Ops.euclid_bbox <- function(..., na.rm) {
+Summary.euclid_bbox <- function(..., na.rm) {
   na.rm = isTRUE(na.rm)
   input <- do.call(c, list(...))
   if (.Generic != "sum") {

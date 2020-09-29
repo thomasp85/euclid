@@ -13,6 +13,23 @@
 #'
 #' @return a `euclid_point` vector
 #'
+#' @section Constructors:
+#' **2 dimensional points**
+#' - Providing two numeric vector will construct points with those x and y
+#'   coordinate.
+#' - Providing a vector will construct a point at the location the vector
+#'   points to.
+#' - Providing a weighted point vector will create a points at the same
+#'   locations without weights.
+#'
+#' **3 dimensional points**
+#' - Providing three numeric vector will construct points with those x, y, and z
+#'   coordinate.
+#' - Providing a vector will construct a point at the location the vector
+#'   points to.
+#' - Providing a weighted point vector will create a points at the same
+#'   locations without weights.
+#'
 #' @export
 #'
 #' @examples
@@ -38,13 +55,16 @@ point <- function(..., default_dim = 2) {
 
   vectors <- inputs[vapply(inputs, is_vec, logical(1))]
   numbers <- inputs[vapply(inputs, is_exact_numeric, logical(1))]
+  w_points <- inputs[vapply(inputs, is_weighted_point, logical(1))]
 
   if (length(vectors) == 1) {
     new_point_from_vec(vectors[[1]])
+  } else if (length(w_points) == 1) {
+    new_point_from_wp(w_points[[1]])
   } else if (length(numbers) == 2) {
-    new_point_from_xy(inputs[[1]], inputs[[2]])
+    new_point_from_xy(numbers[[1]], numbers[[2]])
   } else if (length(numbers) == 3) {
-    new_point_from_xyz(inputs[[1]], inputs[[2]], inputs[[3]])
+    new_point_from_xyz(numbers[[1]], numbers[[2]], numbers[[3]])
   } else {
     rlang::abort("Don't know how to construct points from the given input")
   }
@@ -279,5 +299,12 @@ new_point_from_vec <- function(p) {
     new_point2(create_point_2_vec(get_ptr(p)))
   } else {
     new_point3(create_point_3_vec(get_ptr(p)))
+  }
+}
+new_point_from_wp <- function(p) {
+  if (dim(p) == 2) {
+    new_point2(create_point_2_wp(get_ptr(p)))
+  } else {
+    new_point3(create_point_3_wp(get_ptr(p)))
   }
 }

@@ -7,340 +7,321 @@
 #include "exact_numeric.h"
 
 class vector2 : public geometry_vector<Vector_2, 2> {
-  public:
-    const Primitive geo_type = VECTOR;
+public:
+  const Primitive geo_type = VECTOR;
 
-    using geometry_vector::geometry_vector;
-    ~vector2() = default;
+  using geometry_vector::geometry_vector;
+  ~vector2() = default;
 
-    geometry_vector_base* new_from_vector(std::vector<Vector_2> vec) const {
-      vector2* copy = new vector2();
+  geometry_vector_base* new_from_vector(std::vector<Vector_2> vec) const {
+    vector2* copy = new vector2();
 
-      copy->_storage.swap(vec);
+    copy->_storage.swap(vec);
 
-      return copy;
+    return copy;
+  }
+
+  cpp11::writable::strings def_names() const {
+    return {"x", "y"};
+  }
+
+  Exact_number get_single_definition(size_t i, int which, int element) const {
+    switch(which) {
+    case 0: return _storage[i].x();
+    case 1: return _storage[i].y();
     }
+    return _storage[i].x();
+  }
 
-    cpp11::writable::strings def_names() const {
-      return {"x", "y"};
-    }
+  std::vector<double> get_row(size_t i, size_t j) const {
+    return {
+      CGAL::to_double(_storage[i].x().exact()),
+      CGAL::to_double(_storage[i].y().exact())
+    };
+  }
 
-    Exact_number get_single_definition(size_t i, int which, int element) const {
-      switch(which) {
-      case 0: return _storage[i].x();
-      case 1: return _storage[i].y();
+  std::vector<Vector_2> operator+(const std::vector<Vector_2>& other) const {
+    size_t final_size = std::max(size(), other.size());
+    std::vector<Vector_2> result;
+    result.reserve(final_size);
+    for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result[i] = Vector_2::NA_value();
+        continue;
       }
-      return _storage[i].x();
+      result.push_back(_storage[i % size()] + other[i % other.size()]);
     }
-
-    std::vector<double> get_row(size_t i, size_t j) const {
-      return {
-        CGAL::to_double(_storage[i].x().exact()),
-        CGAL::to_double(_storage[i].y().exact())
-      };
+    return result;
+  }
+  std::vector<Vector_2> operator-(const std::vector<Vector_2>& other) const {
+    size_t final_size = std::max(size(), other.size());
+    std::vector<Vector_2> result;
+    result.reserve(final_size);
+    for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result[i] = Vector_2::NA_value();
+        continue;
+      }
+      result.push_back(_storage[i % size()] - other[i % other.size()]);
     }
+    return result;
+  }
+  std::vector<Vector_2> operator-() const {
+    std::vector<Vector_2> result;
+    result.reserve(size());
+    for (size_t i = 0; i < size(); ++i) {
+      if (!_storage[i]) {
+        result[i] = Vector_2::NA_value();
+        continue;
+      }
+      result.push_back(-_storage[i]);
+    }
+    return result;
+  }
+  std::vector<Exact_number> operator*(const std::vector<Vector_2>& other) const {
+    size_t final_size = std::max(size(), other.size());
+    std::vector<Exact_number> result;
+    result.reserve(final_size);
+    for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result[i] = Exact_number::NA_value();
+        continue;
+      }
+      result.push_back(_storage[i % size()] * other[i % other.size()]);
+    }
+    return result;
+  }
+  std::vector<Vector_2> operator*(const std::vector<Exact_number>& other) const {
+    size_t final_size = std::max(size(), other.size());
+    std::vector<Vector_2> result;
+    result.reserve(final_size);
+    for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result[i] = Vector_2::NA_value();
+        continue;
+      }
+      result.push_back(_storage[i % size()] * other[i % other.size()]);
+    }
+    return result;
+  }
+  std::vector<Vector_2> operator/(const std::vector<Exact_number>& other) const {
+    size_t final_size = std::max(size(), other.size());
+    std::vector<Vector_2> result;
+    result.reserve(final_size);
+    for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()] || other[i % other.size()] == 0.0) {
+        result[i] = Vector_2::NA_value();
+        continue;
+      }
+      result.push_back(_storage[i % size()] / other[i % other.size()]);
+    }
+    return result;
+  }
+  std::vector<Vector_2> sum(bool na_rm) const {
+    if (size() == 0) {
+      return {};
+    }
+    Vector_2 total = _storage[0];
 
-    std::vector<Vector_2> operator+(const std::vector<Vector_2>& other) const {
-      size_t final_size = std::max(size(), other.size());
-      std::vector<Vector_2> result;
-      result.reserve(final_size);
-      for (size_t i = 0; i < final_size; ++i) {
-        if (!_storage[i % size()] || !other[i % other.size()]) {
-          result[i] = Vector_2::NA_value();
-          continue;
+    for (size_t i = 1; i < size(); ++i) {
+      if (!_storage[i]) {
+        if (!na_rm) {
+          total = Vector_2::NA_value();
+          break;
         }
-        result.push_back(_storage[i % size()] + other[i % other.size()]);
+        continue;
       }
-      return result;
+      total += _storage[i];
     }
-    std::vector<Vector_2> operator-(const std::vector<Vector_2>& other) const {
-      size_t final_size = std::max(size(), other.size());
-      std::vector<Vector_2> result;
-      result.reserve(final_size);
-      for (size_t i = 0; i < final_size; ++i) {
-        if (!_storage[i % size()] || !other[i % other.size()]) {
-          result[i] = Vector_2::NA_value();
-          continue;
-        }
-        result.push_back(_storage[i % size()] - other[i % other.size()]);
-      }
-      return result;
-    }
-    std::vector<Vector_2> operator-() const {
-      std::vector<Vector_2> result;
-      result.reserve(size());
-      for (size_t i = 0; i < size(); ++i) {
-        if (!_storage[i]) {
-          result[i] = Vector_2::NA_value();
-          continue;
-        }
-        result.push_back(-_storage[i]);
-      }
-      return result;
-    }
-    std::vector<Exact_number> operator*(const std::vector<Vector_2>& other) const {
-      size_t final_size = std::max(size(), other.size());
-      std::vector<Exact_number> result;
-      result.reserve(final_size);
-      for (size_t i = 0; i < final_size; ++i) {
-        if (!_storage[i % size()] || !other[i % other.size()]) {
-          result[i] = Exact_number::NA_value();
-          continue;
-        }
-        result.push_back(_storage[i % size()] * other[i % other.size()]);
-      }
-      return result;
-    }
-    std::vector<Vector_2> operator*(const std::vector<Exact_number>& other) const {
-      size_t final_size = std::max(size(), other.size());
-      std::vector<Vector_2> result;
-      result.reserve(final_size);
-      for (size_t i = 0; i < final_size; ++i) {
-        if (!_storage[i % size()] || !other[i % other.size()]) {
-          result[i] = Vector_2::NA_value();
-          continue;
-        }
-        result.push_back(_storage[i % size()] * other[i % other.size()]);
-      }
-      return result;
-    }
-    std::vector<Vector_2> operator/(const std::vector<Exact_number>& other) const {
-      size_t final_size = std::max(size(), other.size());
-      std::vector<Vector_2> result;
-      result.reserve(final_size);
-      for (size_t i = 0; i < final_size; ++i) {
-        if (!_storage[i % size()] || !other[i % other.size()] || other[i % other.size()] == 0.0) {
-          result[i] = Vector_2::NA_value();
-          continue;
-        }
-        result.push_back(_storage[i % size()] / other[i % other.size()]);
-      }
-      return result;
-    }
-    std::vector<Vector_2> sum(bool na_rm) const {
-      if (size() == 0) {
-        return {};
-      }
-      Vector_2 total = _storage[0];
 
-      for (size_t i = 1; i < size(); ++i) {
-        if (!_storage[i]) {
-          if (!na_rm) {
-            total = Vector_2::NA_value();
-            break;
-          }
-          continue;
-        }
-        total += _storage[i];
-      }
+    return {total};
+  }
+  std::vector<Vector_2> cumsum() const {
+    std::vector<Vector_2> result;
+    result.reserve(size());
 
-      return {total};
-    }
-    std::vector<Vector_2> cumsum() const {
-      std::vector<Vector_2> result;
-      result.reserve(size());
-
-      if (size() == 0) {
-        return {result};
-      }
-
-      Vector_2 cum_sum = _storage[0];
-      result.push_back(cum_sum);
-      bool is_na = false;
-
-      for (size_t i = 1; i < size(); ++i) {
-        if (!is_na && !_storage[i]) {
-          is_na = true;
-          cum_sum = Vector_2::NA_value();
-        }
-        if (!is_na) {
-          cum_sum += _storage[i];
-        }
-        result.push_back(cum_sum);
-      }
-
+    if (size() == 0) {
       return {result};
     }
-    std::vector<Exact_number> coord(size_t index) const {
-      std::vector<Exact_number> result;
-      result.reserve(size());
-      for (size_t i = 0; i < size(); ++i) {
-        result.push_back(_storage[i][index]);
-      }
 
-      return result;
+    Vector_2 cum_sum = _storage[0];
+    result.push_back(cum_sum);
+    bool is_na = false;
+
+    for (size_t i = 1; i < size(); ++i) {
+      if (!is_na && !_storage[i]) {
+        is_na = true;
+        cum_sum = Vector_2::NA_value();
+      }
+      if (!is_na) {
+        cum_sum += _storage[i];
+      }
+      result.push_back(cum_sum);
     }
+
+    return {result};
+  }
 };
 
 typedef cpp11::external_pointer<vector2> vector2_p;
 
 class vector3 : public geometry_vector<Vector_3, 3> {
-  public:
-    const Primitive geo_type = VECTOR;
+public:
+  const Primitive geo_type = VECTOR;
 
-    using geometry_vector::geometry_vector;
-    ~vector3() = default;
+  using geometry_vector::geometry_vector;
+  ~vector3() = default;
 
-    geometry_vector_base* new_from_vector(std::vector<Vector_3> vec) const {
-      vector3* copy = new vector3();
+  geometry_vector_base* new_from_vector(std::vector<Vector_3> vec) const {
+    vector3* copy = new vector3();
 
-      copy->_storage.swap(vec);
+    copy->_storage.swap(vec);
 
-      return copy;
+    return copy;
+  }
+
+  cpp11::writable::strings def_names() const {
+    return {"x", "y", "z"};
+  }
+
+  Exact_number get_single_definition(size_t i, int which, int element) const {
+    switch(which) {
+    case 0: return _storage[i].x();
+    case 1: return _storage[i].y();
+    case 2: return _storage[i].z();
     }
+    return _storage[i].x();
+  }
 
-    cpp11::writable::strings def_names() const {
-      return {"x", "y", "z"};
-    }
+  std::vector<double> get_row(size_t i, size_t j) const {
+    return {
+      CGAL::to_double(_storage[i].x().exact()),
+      CGAL::to_double(_storage[i].y().exact()),
+      CGAL::to_double(_storage[i].z().exact())
+    };
+  }
 
-    Exact_number get_single_definition(size_t i, int which, int element) const {
-      switch(which) {
-      case 0: return _storage[i].x();
-      case 1: return _storage[i].y();
-      case 2: return _storage[i].z();
+  std::vector<Vector_3> operator+(const std::vector<Vector_3>& other) const {
+    size_t final_size = std::max(size(), other.size());
+    std::vector<Vector_3> result;
+    result.reserve(final_size);
+    for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result[i] = Vector_3::NA_value();
+        continue;
       }
-      return _storage[i].x();
+      result.push_back(_storage[i % size()] + other[i % other.size()]);
     }
-
-    std::vector<double> get_row(size_t i, size_t j) const {
-      return {
-        CGAL::to_double(_storage[i].x().exact()),
-        CGAL::to_double(_storage[i].y().exact()),
-        CGAL::to_double(_storage[i].z().exact())
-      };
+    return {result};
+  }
+  std::vector<Vector_3> operator-(const std::vector<Vector_3>& other) const {
+    size_t final_size = std::max(size(), other.size());
+    std::vector<Vector_3> result;
+    result.reserve(final_size);
+    for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result[i] = Vector_3::NA_value();
+        continue;
+      }
+      result.push_back(_storage[i % size()] - other[i % other.size()]);
     }
+    return {result};
+  }
+  std::vector<Vector_3> operator-() const {
+    std::vector<Vector_3> result;
+    result.reserve(size());
+    for (size_t i = 0; i < size(); ++i) {
+      if (!_storage[i]) {
+        result[i] = Vector_3::NA_value();
+        continue;
+      }
+      result.push_back(-_storage[i]);
+    }
+    return {result};
+  }
+  std::vector<Exact_number> operator*(const std::vector<Vector_3>& other) const {
+    size_t final_size = std::max(size(), other.size());
+    std::vector<Exact_number> result;
+    result.reserve(final_size);
+    for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result[i] = Exact_number::NA_value();
+        continue;
+      }
+      result.push_back(_storage[i % size()] * other[i % other.size()]);
+    }
+    return {result};
+  }
+  std::vector<Vector_3> operator*(const std::vector<Exact_number>& other) const {
+    size_t final_size = std::max(size(), (size_t) other.size());
+    std::vector<Vector_3> result;
+    result.reserve(final_size);
+    for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result[i] = Vector_3::NA_value();
+        continue;
+      }
+      result.push_back(_storage[i % size()] * other[i % other.size()]);
+    }
+    return {result};
+  }
+  std::vector<Vector_3> operator/(const std::vector<Exact_number>& other) const {
+    size_t final_size = std::max(size(), (size_t) other.size());
+    std::vector<Vector_3> result;
+    result.reserve(final_size);
+    for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()] || other[i % other.size()] == 0.0) {
+        result[i] = Vector_3::NA_value();
+        continue;
+      }
+      result.push_back(_storage[i % size()] / other[i % other.size()]);
+    }
+    return {result};
+  }
+  std::vector<Vector_3> sum(bool na_rm) const {
+    if (size() == 0) {
+      return {};
+    }
+    Vector_3 total = _storage[0];
 
-    std::vector<Vector_3> operator+(const std::vector<Vector_3>& other) const {
-      size_t final_size = std::max(size(), other.size());
-      std::vector<Vector_3> result;
-      result.reserve(final_size);
-      for (size_t i = 0; i < final_size; ++i) {
-        if (!_storage[i % size()] || !other[i % other.size()]) {
-          result[i] = Vector_3::NA_value();
-          continue;
+    for (size_t i = 1; i < size(); ++i) {
+      if (!_storage[i]) {
+        if (!na_rm) {
+          total = Vector_3::NA_value();
+          break;
         }
-        result.push_back(_storage[i % size()] + other[i % other.size()]);
+        continue;
       }
+      total += _storage[i];
+    }
+
+    return {total};
+  }
+  std::vector<Vector_3> cumsum() const {
+    std::vector<Vector_3> result;
+    result.reserve(size());
+
+    if (size() == 0) {
       return {result};
     }
-    std::vector<Vector_3> operator-(const std::vector<Vector_3>& other) const {
-      size_t final_size = std::max(size(), other.size());
-      std::vector<Vector_3> result;
-      result.reserve(final_size);
-      for (size_t i = 0; i < final_size; ++i) {
-        if (!_storage[i % size()] || !other[i % other.size()]) {
-          result[i] = Vector_3::NA_value();
-          continue;
-        }
-        result.push_back(_storage[i % size()] - other[i % other.size()]);
-      }
-      return {result};
-    }
-    std::vector<Vector_3> operator-() const {
-      std::vector<Vector_3> result;
-      result.reserve(size());
-      for (size_t i = 0; i < size(); ++i) {
-        if (!_storage[i]) {
-          result[i] = Vector_3::NA_value();
-          continue;
-        }
-        result.push_back(-_storage[i]);
-      }
-      return {result};
-    }
-    std::vector<Exact_number> operator*(const std::vector<Vector_3>& other) const {
-      size_t final_size = std::max(size(), other.size());
-      std::vector<Exact_number> result;
-      result.reserve(final_size);
-      for (size_t i = 0; i < final_size; ++i) {
-        if (!_storage[i % size()] || !other[i % other.size()]) {
-          result[i] = Exact_number::NA_value();
-          continue;
-        }
-        result.push_back(_storage[i % size()] * other[i % other.size()]);
-      }
-      return {result};
-    }
-    std::vector<Vector_3> operator*(const std::vector<Exact_number>& other) const {
-      size_t final_size = std::max(size(), (size_t) other.size());
-      std::vector<Vector_3> result;
-      result.reserve(final_size);
-      for (size_t i = 0; i < final_size; ++i) {
-        if (!_storage[i % size()] || !other[i % other.size()]) {
-          result[i] = Vector_3::NA_value();
-          continue;
-        }
-        result.push_back(_storage[i % size()] * other[i % other.size()]);
-      }
-      return {result};
-    }
-    std::vector<Vector_3> operator/(const std::vector<Exact_number>& other) const {
-      size_t final_size = std::max(size(), (size_t) other.size());
-      std::vector<Vector_3> result;
-      result.reserve(final_size);
-      for (size_t i = 0; i < final_size; ++i) {
-        if (!_storage[i % size()] || !other[i % other.size()] || other[i % other.size()] == 0.0) {
-          result[i] = Vector_3::NA_value();
-          continue;
-        }
-        result.push_back(_storage[i % size()] / other[i % other.size()]);
-      }
-      return {result};
-    }
-    std::vector<Vector_3> sum(bool na_rm) const {
-      if (size() == 0) {
-        return {};
-      }
-      Vector_3 total = _storage[0];
 
-      for (size_t i = 1; i < size(); ++i) {
-        if (!_storage[i]) {
-          if (!na_rm) {
-            total = Vector_3::NA_value();
-            break;
-          }
-          continue;
-        }
-        total += _storage[i];
+    Vector_3 cum_sum = _storage[0];
+    result.push_back(cum_sum);
+    bool is_na = false;
+
+    for (size_t i = 1; i < size(); ++i) {
+      if (!is_na && !_storage[i]) {
+        is_na = true;
+        cum_sum = Vector_3::NA_value();
       }
-
-      return {total};
-    }
-    std::vector<Vector_3> cumsum() const {
-      std::vector<Vector_3> result;
-      result.reserve(size());
-
-      if (size() == 0) {
-        return {result};
+      if (!is_na) {
+        cum_sum += _storage[i];
       }
-
-      Vector_3 cum_sum = _storage[0];
       result.push_back(cum_sum);
-      bool is_na = false;
-
-      for (size_t i = 1; i < size(); ++i) {
-        if (!is_na && !_storage[i]) {
-          is_na = true;
-          cum_sum = Vector_3::NA_value();
-        }
-        if (!is_na) {
-          cum_sum += _storage[i];
-        }
-        result.push_back(cum_sum);
-      }
-
-      return {result};
     }
-    std::vector<Exact_number> coord(size_t index) const {
-      std::vector<Exact_number> result;
-      result.reserve(size());
 
-      for (size_t i = 0; i < size(); ++i) {
-        result.push_back(_storage[i][index]);
-      }
-
-      return result;
-    }
+    return {result};
+  }
 };
 
 typedef cpp11::external_pointer<vector3> vector3_p;

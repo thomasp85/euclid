@@ -132,16 +132,6 @@ public:
     }
     return result;
   }
-  std::vector<Exact_number> coord(size_t index) const {
-    std::vector<Exact_number> result;
-    result.reserve(size());
-
-    for (size_t i = 0; i < size(); ++i) {
-      result.push_back(_storage[i][index]);
-    }
-
-    return result;
-  }
   std::vector<Point_2> sort(bool decreasing, cpp11::logicals na_last) const {
     std::vector<Point_2> result(_storage.begin(), _storage.end());
 
@@ -380,16 +370,6 @@ public:
     for (size_t i = 0; i < final_size; ++i) {
       result.push_back((Rboolean) (_storage[i % size()] >= other[i % other.size()]));
     }
-    return result;
-  }
-  std::vector<Exact_number> coord(size_t index) const {
-    std::vector<Exact_number> result;
-    result.reserve(size());
-
-    for (size_t i = 0; i < size(); ++i) {
-      result.push_back(_storage[i][index]);
-    }
-
     return result;
   }
   std::vector<Point_3> sort(bool decreasing, cpp11::logicals na_last) const {

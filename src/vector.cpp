@@ -108,13 +108,6 @@ vector2_p vector_2_cumsum(vector2_p x) {
 }
 
 [[cpp11::register]]
-exact_numeric_p vector_2_coord(vector2_p x, int i) {
-  std::vector<Exact_number> vec = x->coord(i);
-  exact_numeric *result(new exact_numeric(vec));
-  return {result};
-}
-
-[[cpp11::register]]
 vector3_p create_vector_3_empty() {
   std::vector<Vector_3> vec;
   vector3 *result(new vector3(vec));
@@ -214,12 +207,5 @@ vector3_p vector_3_cumsum(vector3_p x) {
   std::vector<Vector_3> vec = x->cumsum();
   vector3 *result(new vector3(vec));
 
-  return {result};
-}
-
-[[cpp11::register]]
-exact_numeric_p vector_3_coord(vector3_p x, int i) {
-  std::vector<Exact_number> vec = x->coord(i);
-  exact_numeric *result(new exact_numeric(vec));
   return {result};
 }

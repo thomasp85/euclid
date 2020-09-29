@@ -348,6 +348,10 @@ create_point_2_vec <- function(p) {
   .Call("_euclid_create_point_2_vec", p)
 }
 
+create_point_2_wp <- function(p) {
+  .Call("_euclid_create_point_2_wp", p)
+}
+
 point_2_add_vector <- function(x, y) {
   .Call("_euclid_point_2_add_vector", x, y)
 }
@@ -374,10 +378,6 @@ point_2_greater <- function(x, y) {
 
 point_2_greater_equal <- function(x, y) {
   .Call("_euclid_point_2_greater_equal", x, y)
-}
-
-point_2_coord <- function(x, i) {
-  .Call("_euclid_point_2_coord", x, i)
 }
 
 point_2_sort <- function(x, decreasing, na_last) {
@@ -416,6 +416,10 @@ create_point_3_vec <- function(p) {
   .Call("_euclid_create_point_3_vec", p)
 }
 
+create_point_3_wp <- function(p) {
+  .Call("_euclid_create_point_3_wp", p)
+}
+
 point_3_add_vector <- function(x, y) {
   .Call("_euclid_point_3_add_vector", x, y)
 }
@@ -444,10 +448,6 @@ point_3_greater_equal <- function(x, y) {
   .Call("_euclid_point_3_greater_equal", x, y)
 }
 
-point_3_coord <- function(x, i) {
-  .Call("_euclid_point_3_coord", x, i)
-}
-
 point_3_sort <- function(x, decreasing, na_last) {
   .Call("_euclid_point_3_sort", x, decreasing, na_last)
 }
@@ -470,6 +470,30 @@ point_3_cummin <- function(x) {
 
 point_3_cummax <- function(x) {
   .Call("_euclid_point_3_cummax", x)
+}
+
+create_point_w_2_empty <- function() {
+  .Call("_euclid_create_point_w_2_empty")
+}
+
+create_point_w_2_x_y_w <- function(x, y, w) {
+  .Call("_euclid_create_point_w_2_x_y_w", x, y, w)
+}
+
+create_point_w_2_p_w <- function(p, w) {
+  .Call("_euclid_create_point_w_2_p_w", p, w)
+}
+
+create_point_w_3_empty <- function() {
+  .Call("_euclid_create_point_w_3_empty")
+}
+
+create_point_w_3_x_y_z_w <- function(x, y, z, w) {
+  .Call("_euclid_create_point_w_3_x_y_z_w", x, y, z, w)
+}
+
+create_point_w_3_p_w <- function(p, w) {
+  .Call("_euclid_create_point_w_3_p_w", p, w)
 }
 
 create_transform_2_identity <- function(n) {
@@ -640,10 +664,6 @@ vector_2_cumsum <- function(x) {
   .Call("_euclid_vector_2_cumsum", x)
 }
 
-vector_2_coord <- function(x, i) {
-  .Call("_euclid_vector_2_coord", x, i)
-}
-
 create_vector_3_empty <- function() {
   .Call("_euclid_create_vector_3_empty")
 }
@@ -686,8 +706,4 @@ vector_3_sum <- function(x, na_rm) {
 
 vector_3_cumsum <- function(x) {
   .Call("_euclid_vector_3_cumsum", x)
-}
-
-vector_3_coord <- function(x, i) {
-  .Call("_euclid_vector_3_coord", x, i)
 }

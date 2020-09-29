@@ -1,4 +1,5 @@
 #include "point.h"
+#include "point_w.h"
 #include "exact_numeric.h"
 #include "vector.h"
 
@@ -37,6 +38,22 @@ point2_p create_point_2_vec(vector2_p p) {
       continue;
     }
     vec.emplace_back((*p)[i].x(), (*p)[i].y());
+  }
+  point2 *result(new point2(vec));
+
+  return {result};
+}
+
+[[cpp11::register]]
+point2_p create_point_2_wp(point_w2_p p) {
+  std::vector<Point_2> vec;
+  vec.reserve(p->size());
+  for (size_t i = 0; i < p->size(); ++i) {
+    if (!(*p)[i]) {
+      vec.push_back(Point_2::NA_value());
+      continue;
+    }
+    vec.push_back((*p)[i].point());
   }
   point2 *result(new point2(vec));
 
@@ -85,13 +102,6 @@ cpp11::writable::logicals point_2_greater(point2_p x, point2_p y) {
 [[cpp11::register]]
 cpp11::writable::logicals point_2_greater_equal(point2_p x, point2_p y) {
   return (*x) >= y->get_storage();
-}
-
-[[cpp11::register]]
-exact_numeric_p point_2_coord(point2_p x, int i) {
-  std::vector<Exact_number> vec = x->coord(i);
-  exact_numeric *result(new exact_numeric(vec));
-  return {result};
 }
 
 [[cpp11::register]]
@@ -174,6 +184,22 @@ point3_p create_point_3_vec(vector3_p p) {
 }
 
 [[cpp11::register]]
+point3_p create_point_3_wp(point_w3_p p) {
+  std::vector<Point_3> vec;
+  vec.reserve(p->size());
+  for (size_t i = 0; i < p->size(); ++i) {
+    if (!(*p)[i]) {
+      vec.push_back(Point_3::NA_value());
+      continue;
+    }
+    vec.push_back((*p)[i].point());
+  }
+  point3 *result(new point3(vec));
+
+  return {result};
+}
+
+[[cpp11::register]]
 point3_p point_3_add_vector(point3_p x, vector3_p y) {
   std::vector<Point_3> vec = (*x) + y->get_storage();
   point3 *result(new point3(vec));
@@ -215,13 +241,6 @@ cpp11::writable::logicals point_3_greater(point3_p x, point3_p y) {
 [[cpp11::register]]
 cpp11::writable::logicals point_3_greater_equal(point3_p x, point3_p y) {
   return (*x) >= y->get_storage();
-}
-
-[[cpp11::register]]
-exact_numeric_p point_3_coord(point3_p x, int i) {
-  std::vector<Exact_number> vec = x->coord(i);
-  exact_numeric *result(new exact_numeric(vec));
-  return {result};
 }
 
 [[cpp11::register]]

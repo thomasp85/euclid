@@ -456,6 +456,19 @@ public:
   Circle_2 translate_impl<Circle_2>(const Circle_2& geo, const Aff& trans) const {
     cpp11::stop("Circles cannot be transformed. Transform the center instead");
   }
+  template<>
+  Circle_3 translate_impl<Circle_3>(const Circle_3& geo, const Aff& trans) const {
+    cpp11::stop("Circles cannot be transformed. Transform the center instead");
+  }
+  // Work around bug with transformation of weighted points in CGAL
+  template<>
+  Weighted_point_2 translate_impl<Weighted_point_2>(const Weighted_point_2& geo, const Aff& trans) const {
+    return Weighted_point_2(trans.transform(geo.point()), geo.weight());
+  }
+  template<>
+  Weighted_point_3 translate_impl<Weighted_point_3>(const Weighted_point_3& geo, const Aff& trans) const {
+    return Weighted_point_3(trans.transform(geo.point()), geo.weight());
+  }
 
   // Common
   geometry_vector_base_p transform(const transform_vector_base& affine) const {

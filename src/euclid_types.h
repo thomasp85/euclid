@@ -7,3 +7,4 @@
 #include "exact_numeric.h"
 #include "transform.h"
 #include "bbox.h"
+#include "point_w.h"
