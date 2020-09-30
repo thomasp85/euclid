@@ -9,7 +9,7 @@
 
 class point_w2 : public geometry_vector<Weighted_point_2, 2> {
 public:
-  const Primitive geo_type = POINT;
+  const Primitive geo_type = WPOINT;
 
   using geometry_vector::geometry_vector;
   ~point_w2() = default;
@@ -48,7 +48,7 @@ typedef cpp11::external_pointer<point_w2> point_w2_p;
 
 class point_w3 : public geometry_vector<Weighted_point_3, 3> {
 public:
-  const Primitive geo_type = POINT;
+  const Primitive geo_type = WPOINT;
 
   using geometry_vector::geometry_vector;
   ~point_w3() = default;

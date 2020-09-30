@@ -496,6 +496,38 @@ create_point_w_3_p_w <- function(p, w) {
   .Call("_euclid_create_point_w_3_p_w", p, w)
 }
 
+create_ray_2_empty <- function() {
+  .Call("_euclid_create_ray_2_empty")
+}
+
+create_ray_2_p_q <- function(p, q) {
+  .Call("_euclid_create_ray_2_p_q", p, q)
+}
+
+create_ray_2_p_v <- function(p, v) {
+  .Call("_euclid_create_ray_2_p_v", p, v)
+}
+
+ray_2_negate <- function(x) {
+  .Call("_euclid_ray_2_negate", x)
+}
+
+create_ray_3_empty <- function() {
+  .Call("_euclid_create_ray_3_empty")
+}
+
+create_ray_3_p_q <- function(p, q) {
+  .Call("_euclid_create_ray_3_p_q", p, q)
+}
+
+create_ray_3_p_v <- function(p, v) {
+  .Call("_euclid_create_ray_3_p_v", p, v)
+}
+
+ray_3_negate <- function(x) {
+  .Call("_euclid_ray_3_negate", x)
+}
+
 create_transform_2_identity <- function(n) {
   .Call("_euclid_create_transform_2_identity", n)
 }
@@ -628,6 +660,10 @@ create_vector_2_point <- function(p) {
   .Call("_euclid_create_vector_2_point", p)
 }
 
+create_vector_2_ray <- function(r) {
+  .Call("_euclid_create_vector_2_ray", r)
+}
+
 create_vector_2_x_y <- function(x, y) {
   .Call("_euclid_create_vector_2_x_y", x, y)
 }
@@ -670,6 +706,10 @@ create_vector_3_empty <- function() {
 
 create_vector_3_point <- function(p) {
   .Call("_euclid_create_vector_3_point", p)
+}
+
+create_vector_3_ray <- function(r) {
+  .Call("_euclid_create_vector_3_ray", r)
 }
 
 create_vector_3_x_y_z <- function(x, y, z) {

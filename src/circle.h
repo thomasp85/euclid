@@ -44,15 +44,6 @@ public:
       CGAL::to_double(circ.squared_radius().exact())
     };
   }
-
-  cpp11::writable::logicals is_degenerate() const {
-    cpp11::writable::logicals result;
-    result.reserve(_storage.size());
-    for (size_t i = 0; i < _storage.size(); ++i) {
-      result.push_back((Rboolean) _storage[i].is_degenerate());
-    }
-    return result;
-  }
 };
 
 typedef cpp11::external_pointer<circle2> circle2_p;

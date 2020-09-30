@@ -1,5 +1,6 @@
 #include "vector.h"
 #include "point.h"
+#include "ray.h"
 #include "exact_numeric.h"
 
 #include <cpp11/external_pointer.hpp>
@@ -21,6 +22,22 @@ vector2_p create_vector_2_point(point2_p p) {
       continue;
     }
     vec.emplace_back((*p)[i].x(), (*p)[i].y());
+  }
+  vector2 *result(new vector2(vec));
+
+  return {result};
+}
+
+[[cpp11::register]]
+vector2_p create_vector_2_ray(ray2_p r) {
+  std::vector<Vector_2> vec;
+  vec.reserve(r->size());
+  for (size_t i = 0; i < r->size(); ++i) {
+    if (!(*r)[i]) {
+      vec.push_back(Vector_2::NA_value());
+      continue;
+    }
+    vec.emplace_back((*r)[i]);
   }
   vector2 *result(new vector2(vec));
 
@@ -124,6 +141,22 @@ vector3_p create_vector_3_point(point3_p p) {
       continue;
     }
     vec.emplace_back((*p)[i].x(), (*p)[i].y(), (*p)[i].z());
+  }
+  vector3 *result(new vector3(vec));
+
+  return {result};
+}
+
+[[cpp11::register]]
+vector3_p create_vector_3_ray(ray3_p r) {
+  std::vector<Vector_3> vec;
+  vec.reserve(r->size());
+  for (size_t i = 0; i < r->size(); ++i) {
+    if (!(*r)[i]) {
+      vec.push_back(Vector_3::NA_value());
+      continue;
+    }
+    vec.emplace_back((*r)[i]);
   }
   vector3 *result(new vector3(vec));
 

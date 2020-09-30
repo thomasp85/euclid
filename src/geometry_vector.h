@@ -16,6 +16,7 @@
 #include "exact_numeric.h"
 #include "transform.h"
 #include "bbox.h"
+#include "is_degenerate.h"
 
 #include <sstream>
 #include <iomanip>
@@ -443,31 +444,9 @@ public:
     cpp11::writable::logicals result;
     result.reserve(_storage.size());
     for (size_t i = 0; i < _storage.size(); ++i) {
-      result.push_back(FALSE);
+      result.push_back((Rboolean) is_degenerate_impl(_storage[i]));
     }
     return result;
-  }
-
-  template<typename U>
-  U translate_impl(const U& geo, const Aff& trans) const {
-    return geo.transform(trans);
-  }
-  template<>
-  Circle_2 translate_impl<Circle_2>(const Circle_2& geo, const Aff& trans) const {
-    cpp11::stop("Circles cannot be transformed. Transform the center instead");
-  }
-  template<>
-  Circle_3 translate_impl<Circle_3>(const Circle_3& geo, const Aff& trans) const {
-    cpp11::stop("Circles cannot be transformed. Transform the center instead");
-  }
-  // Work around bug with transformation of weighted points in CGAL
-  template<>
-  Weighted_point_2 translate_impl<Weighted_point_2>(const Weighted_point_2& geo, const Aff& trans) const {
-    return Weighted_point_2(trans.transform(geo.point()), geo.weight());
-  }
-  template<>
-  Weighted_point_3 translate_impl<Weighted_point_3>(const Weighted_point_3& geo, const Aff& trans) const {
-    return Weighted_point_3(trans.transform(geo.point()), geo.weight());
   }
 
   // Common
@@ -478,33 +457,20 @@ public:
     size_t output_length = std::max(size(), affine.size());
 
     std::vector<T> result;
-    result.reserve(output_length);
-
-    const transform_vector<Aff, dim>* affine_recast = dynamic_cast< const transform_vector<Aff, dim>* >(&affine);
-    for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !(*affine_recast)[i % affine_recast->size()]) {
-        result.push_back(T::NA_value());
-        continue;
-      }
-      result.push_back(translate_impl(_storage[i % size()], (*affine_recast)[i % affine_recast->size()]));
-    }
+//    result.reserve(output_length);
+//
+//    const transform_vector<Aff, dim>* affine_recast = dynamic_cast< const transform_vector<Aff, dim>* >(&affine);
+//    for (size_t i = 0; i < output_length; ++i) {
+//      if (!_storage[i % size()] || !(*affine_recast)[i % affine_recast->size()]) {
+//        result.push_back(T::NA_value());
+//        continue;
+//      }
+//      result.push_back(transform_impl(_storage[i % size()], (*affine_recast)[i % affine_recast->size()]));
+//    }
 
     return {new_from_vector(result)};
   }
-  template<typename U>
-  Bbox bbox_impl(const U& geo) const {
-    return geo.bbox();
-  }
-  template<>
-  Bbox bbox_impl<Vector_2>(const Vector_2& geo) const {
-    return Bbox::NA_value();
-  }
-  template<>
-  Bbox bbox_impl<Vector_3>(const Vector_3& geo) const {
-    return Bbox::NA_value();
-  }
 
-  // Common
   bbox_vector_base_p bbox() const {
     std::vector<Bbox> result;
     result.reserve(size());
@@ -514,7 +480,7 @@ public:
         result.push_back(Bbox::NA_value());
         continue;
       }
-      result.push_back(bbox_impl(_storage[i]));
+      result.push_back(bbox_impl<Bbox, T>(_storage[i]));
     }
 
     bbox_vec* vec(new bbox_vec(result));

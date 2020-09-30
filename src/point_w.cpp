@@ -16,7 +16,7 @@ point_w2_p create_point_w_2_x_y_w(exact_numeric_p x, exact_numeric_p y, exact_nu
   std::vector<Weighted_point_2> vec;
   vec.reserve(x->size());
   for (size_t i = 0; i < x->size(); ++i) {
-    if (!(*x)[i] || !(*y)[i]) {
+    if (!(*x)[i] || !(*y)[i] || !(*w)[i]) {
       vec.push_back(Weighted_point_2::NA_value());
       continue;
     }
@@ -32,7 +32,7 @@ point_w2_p create_point_w_2_p_w(point2_p p, exact_numeric_p w) {
   std::vector<Weighted_point_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
-    if (!(*p)[i]) {
+    if (!(*p)[i] || !(*w)[i]) {
       vec.push_back(Weighted_point_2::NA_value());
       continue;
     }
@@ -55,7 +55,7 @@ point_w3_p create_point_w_3_x_y_z_w(exact_numeric_p x, exact_numeric_p y, exact_
   std::vector<Weighted_point_3> vec;
   vec.reserve(x->size());
   for (size_t i = 0; i < x->size(); ++i) {
-    if (!(*x)[i] || !(*y)[i] || !(*z)[i]) {
+    if (!(*x)[i] || !(*y)[i] || !(*z)[i] || !(*w)[i]) {
       vec.push_back(Weighted_point_3::NA_value());
       continue;
     }
@@ -71,7 +71,7 @@ point_w3_p create_point_w_3_p_w(point3_p p, exact_numeric_p w) {
   std::vector<Weighted_point_3> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
-    if (!(*p)[i]) {
+    if (!(*p)[i] || !(*w)[i]) {
       vec.push_back(Weighted_point_3::NA_value());
       continue;
     }

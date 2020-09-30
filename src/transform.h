@@ -14,6 +14,28 @@
 #include <sstream>
 #include <iomanip>
 
+template<typename T, typename Aff>
+inline T transform_impl(const T& geo, const Aff& trans) {
+  return geo.transform(trans);
+}
+//template<>
+//inline Circle_2 transform_impl<Circle_2, Aff_transformation_2>(const Circle_2& geo, const Aff_transformation_2& trans) {
+//  cpp11::stop("Circles cannot be transformed. Transform the center instead");
+//}
+//template<>
+//inline Circle_3 transform_impl<Circle_3, Aff_transformation_3>(const Circle_3& geo, const Aff_transformation_3& trans) {
+//  cpp11::stop("Circles cannot be transformed. Transform the center instead");
+//}
+// Work around bug with transformation of weighted points in CGAL
+template<>
+inline Weighted_point_2 transform_impl<Weighted_point_2, Aff_transformation_2>(const Weighted_point_2& geo, const Aff_transformation_2& trans) {
+  return Weighted_point_2(trans.transform(geo.point()), geo.weight());
+}
+template<>
+inline Weighted_point_3 transform_impl<Weighted_point_3, Aff_transformation_3>(const Weighted_point_3& geo, const Aff_transformation_3& trans) {
+  return Weighted_point_3(trans.transform(geo.point()), geo.weight());
+}
+
 class transform_vector_base {
 public:
   transform_vector_base() {}

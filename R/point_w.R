@@ -14,12 +14,12 @@
 #' @return a `euclid_point_w` vector
 #'
 #' @section Constructors:
-#' **2 dimensional points**
+#' **2 dimensional weighted points**
 #' - Providing three numeric vector will construct points with those x and y
 #'   coordinate and a weight.
 #' - Providing a point and a numeric will construct points with the given weight
 #'
-#' **3 dimensional points**
+#' **3 dimensional weighted points**
 #' - Providing four numeric vector will construct points with those x, y and z
 #'   coordinate and a weight.
 #' - Providing a point and a numeric will construct points with the given weight
@@ -87,7 +87,7 @@ new_point_w_from_xyw <- function(x, y, w) {
   new_point_w2(create_point_w_2_x_y_w(get_ptr(x), get_ptr(y), get_ptr(w)))
 }
 new_point_w_from_xyzw <- function(x, y, z, w) {
-  new_point_w3(create_point_3_x_y_z(get_ptr(x), get_ptr(y), get_ptr(z), get_ptr(w)))
+  new_point_w3(create_point_w_3_x_y_z_w(get_ptr(x), get_ptr(y), get_ptr(z), get_ptr(w)))
 }
 new_point_w_from_pw <- function(p, w) {
   if (dim(p) == 2) {

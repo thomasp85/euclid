@@ -14,6 +14,28 @@
 #include <sstream>
 #include <iomanip>
 
+
+template<typename Bbox, typename T>
+inline Bbox bbox_impl(const T& geo) {
+  return geo.bbox();
+}
+template<>
+inline Bbox_2 bbox_impl<Bbox_2, Vector_2>(const Vector_2& geo) {
+  return Bbox_2::NA_value();
+}
+template<>
+inline Bbox_3 bbox_impl<Bbox_3, Vector_3>(const Vector_3& geo) {
+  return Bbox_3::NA_value();
+}
+template<>
+inline Bbox_2 bbox_impl<Bbox_2, Ray_2>(const Ray_2& geo) {
+  return Bbox_2::NA_value();
+}
+template<>
+inline Bbox_3 bbox_impl<Bbox_3, Ray_3>(const Ray_3& geo) {
+  return Bbox_3::NA_value();
+}
+
 class bbox_vector_base {
 public:
   bbox_vector_base() {}

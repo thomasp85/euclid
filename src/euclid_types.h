@@ -8,3 +8,4 @@
 #include "transform.h"
 #include "bbox.h"
 #include "point_w.h"
+#include "ray.h"

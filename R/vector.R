@@ -18,12 +18,16 @@
 #'   origin centered.
 #' - Providing two exact numeric vectors will construct vectors pointing to the
 #'   point defined by the coordinates given.
+#' - Providing a ray will construct vectors pointing in the same direction as
+#'   the ray
 #'
 #' **3 dimensional vectors**
 #' - Providing a point will construct vectors pointing to the points from the
 #'   origin centered.
 #' - Providing three exact numeric vectors will construct vectors pointing to
 #'   the point defined by the coordinates given.
+#' - Providing a ray will construct vectors pointing in the same direction as
+#'   the ray
 #'
 #' @export
 vec <- function(..., default_dim = 2) {
@@ -35,9 +39,12 @@ vec <- function(..., default_dim = 2) {
 
   points <- inputs[vapply(inputs, is_point, logical(1))]
   numbers <- inputs[vapply(inputs, is_exact_numeric, logical(1))]
+  rays <- inputs[vapply(inputs, is_ray, logical(1))]
 
   if (length(points) == 1) {
     new_vector_from_point(points[[1]])
+  } else if (length(rays) == 1) {
+    new_vector_from_ray(rays[[1]])
   } else if (length(numbers) == 2) {
     new_vector_from_xy(numbers[[1]], numbers[[2]])
   } else if (length(numbers) == 3) {
@@ -46,7 +53,6 @@ vec <- function(..., default_dim = 2) {
     rlang::abort("Don't know how to construct vectors from the given input")
   }
 }
-#'
 #' @rdname vec
 #' @export
 is_vec <- function(x) inherits(x, "euclid_vector")
@@ -194,6 +200,13 @@ new_vector_from_point <- function(p) {
     new_vector2(create_vector_2_point(get_ptr(p)))
   } else {
     new_vector3(create_vector_3_point(get_ptr(p)))
+  }
+}
+new_vector_from_ray <- function(r) {
+  if (dim(p) == 2) {
+    new_vector2(create_vector_2_ray(get_ptr(p)))
+  } else {
+    new_vector3(create_vector_3_ray(get_ptr(p)))
   }
 }
 new_vector_from_xy <- function(x, y) {
