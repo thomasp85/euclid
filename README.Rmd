@@ -14,7 +14,7 @@ knitr::opts_chunk$set(
 set.seed(1)
 ```
 
-# euclid
+# euclid <a href='https://euclid.data-imaginist.com'><img src='man/figures/logo.png' align="right" height="138.5" /></a>
 
 <!-- badges: start -->
 [![Codecov test coverage](https://codecov.io/gh/thomasp85/euclid/branch/master/graph/badge.svg)](https://codecov.io/gh/thomasp85/euclid?branch=master)

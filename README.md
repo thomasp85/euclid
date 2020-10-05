@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# euclid
+# euclid <a href='https://euclid.data-imaginist.com'><img src='man/figures/logo.png' align="right" height="138.5" /></a>
 
 <!-- badges: start -->
 
@@ -40,6 +40,11 @@ points and circles
 
 ``` r
 library(euclid)
+#> 
+#> Attaching package: 'euclid'
+#> The following object is masked from 'package:stats':
+#> 
+#>     line
 
 # Construct some exact numbers
 random_num <- exact_numeric(runif(20, max = 10))
@@ -81,14 +86,16 @@ p1
 # circle based on center and radius
 circle(p1, random_num[11:15])
 #> <Vector of circles in 2 dimensions>
-#> [1] <x:2.66, y:8.98, r:2.06> <x:3.72, y:9.45, r:1.77> <x:5.73, y:6.61, r:6.87>
-#> [4] <x:9.08, y:6.29, r:3.84> <x:2.02, y:0.618, r:7.7>
+#> [1] <x:2.66, y:8.98, r2:4.24>  <x:3.72, y:9.45, r2:3.12> 
+#> [3] <x:5.73, y:6.61, r2:47.2>  <x:9.08, y:6.29, r2:14.8> 
+#> [5] <x:2.02, y:0.618, r2:59.3>
 
 # circle based on 2 points
 circle(p1, point(random_num[11:15], random_num[16:20]))
 #> <Vector of circles in 2 dimensions>
-#> [1] <x:2.36, y:6.98, r:2.03> <x:2.74, y:8.31, r:1.5>  <x:6.3, y:8.26, r:1.75> 
-#> [4] <x:6.46, y:5.05, r:2.9>  <x:4.86, y:4.2, r:4.57>
+#> [1] <x:2.36, y:6.98, r2:4.1>  <x:2.74, y:8.31, r2:2.25>
+#> [3] <x:6.3, y:8.26, r2:3.07>  <x:6.46, y:5.05, r2:8.42>
+#> [5] <x:4.86, y:4.2, r2:20.9>
 
 # 3 dimensions
 point(random_num[1:5], random_num[6:10], random_num[11:15])
