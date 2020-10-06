@@ -694,7 +694,7 @@ exact_numeric exact_numeric::sort(bool decreasing, cpp11::logicals na_last) cons
     std::stable_sort(result._storage.begin(), result._storage.end());
   }
 
-  if (na_last[0] != NA_LOGICAL) {
+  if (cpp11::is_na(na_last[0])) {
     for (int i = 0; i < n_na; ++i) {
       result._storage.push_back(Exact_number::NA_value());
     }

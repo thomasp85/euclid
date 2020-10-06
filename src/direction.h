@@ -118,7 +118,7 @@ public:
       std::stable_sort(result.begin(), result.end());
     }
 
-    if (na_last[0] != NA_LOGICAL) {
+    if (cpp11::is_na(na_last[0])) {
       for (int i = 0; i < n_na; ++i) {
         result.push_back(Direction_2::NA_value());
       }
