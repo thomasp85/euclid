@@ -29,14 +29,14 @@ however.
 }
 \section{Constructors}{
 
-\strong{2 dimensional points}
+\strong{2 dimensional weighted points}
 \itemize{
 \item Providing three numeric vector will construct points with those x and y
 coordinate and a weight.
 \item Providing a point and a numeric will construct points with the given weight
 }
 
-\strong{3 dimensional points}
+\strong{3 dimensional weighted points}
 \itemize{
 \item Providing four numeric vector will construct points with those x, y and z
 coordinate and a weight.

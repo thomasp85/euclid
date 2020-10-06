@@ -76,6 +76,15 @@ as.character.euclid_bbox <- function(x, ...) {
   format(x, ...)
 }
 
+#' @export
+as_iso_cube.euclid_bbox3 <- function(x) {
+  iso_cube(x)
+}
+#' @export
+as_iso_rect.euclid_bbox2 <- function(x) {
+  iso_rect(x)
+}
+
 # Vector basic ------------------------------------------------------------
 
 #' @export
@@ -269,7 +278,7 @@ new_bbox_empty <- function(dim) {
   if (dim == 2) {
     new_bbox2(create_bbox_2(numeric(0), numeric(0), numeric(0), numeric(0)))
   } else {
-    new_bbox2(create_bbox_3(numeric(0), numeric(0), numeric(0), numeric(0), numeric(0), numeric(0)))
+    new_bbox3(create_bbox_3(numeric(0), numeric(0), numeric(0), numeric(0), numeric(0), numeric(0)))
   }
 }
 new_bbox2 <- function(x) {
@@ -279,7 +288,7 @@ new_bbox2 <- function(x) {
 }
 new_bbox3 <- function(x) {
   x <- list(x)
-  class(x) <- c("euclid_bbox2", "euclid_bbox")
+  class(x) <- c("euclid_bbox3", "euclid_bbox")
   x
 }
 

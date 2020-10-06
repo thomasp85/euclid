@@ -147,7 +147,7 @@ public:
       f << std::setprecision(3);
       size_t car = cardinality(i);
       if (car > 1) {
-        f << "<";
+        f << "[";
       }
       for (size_t j = 0; j < car; ++j) {
         if (j != 0) {
@@ -165,7 +165,7 @@ public:
         f << ">";
       }
       if (car > 1) {
-        f << ">";
+        f << "]";
       }
 
       result[i] = f.str();

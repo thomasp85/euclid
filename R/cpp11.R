@@ -92,8 +92,8 @@ create_circle_2_empty <- function() {
   .Call("_euclid_create_circle_2_empty")
 }
 
-create_circle_2_center_radius <- function(center, r) {
-  .Call("_euclid_create_circle_2_center_radius", center, r)
+create_circle_2_center_radius <- function(center, r2) {
+  .Call("_euclid_create_circle_2_center_radius", center, r2)
 }
 
 create_circle_2_3_point <- function(p, q, r) {
@@ -102,6 +102,78 @@ create_circle_2_3_point <- function(p, q, r) {
 
 create_circle_2_2_point <- function(p, q) {
   .Call("_euclid_create_circle_2_2_point", p, q)
+}
+
+create_circle_3_empty <- function() {
+  .Call("_euclid_create_circle_3_empty")
+}
+
+create_circle_3_center_radius_plane <- function(center, r2, p) {
+  .Call("_euclid_create_circle_3_center_radius_plane", center, r2, p)
+}
+
+create_circle_3_center_radius_vec <- function(center, r2, v) {
+  .Call("_euclid_create_circle_3_center_radius_vec", center, r2, v)
+}
+
+create_circle_3_3_point <- function(p, q, r) {
+  .Call("_euclid_create_circle_3_3_point", p, q, r)
+}
+
+create_circle_3_sphere_sphere <- function(s1, s2) {
+  .Call("_euclid_create_circle_3_sphere_sphere", s1, s2)
+}
+
+create_circle_3_sphere_plane <- function(s, p) {
+  .Call("_euclid_create_circle_3_sphere_plane", s, p)
+}
+
+create_direction_2_empty <- function() {
+  .Call("_euclid_create_direction_2_empty")
+}
+
+create_direction_2_vec <- function(v) {
+  .Call("_euclid_create_direction_2_vec", v)
+}
+
+create_direction_2_line <- function(l) {
+  .Call("_euclid_create_direction_2_line", l)
+}
+
+create_direction_2_ray <- function(r) {
+  .Call("_euclid_create_direction_2_ray", r)
+}
+
+create_direction_2_segment <- function(s) {
+  .Call("_euclid_create_direction_2_segment", s)
+}
+
+create_direction_2_xy <- function(x, y) {
+  .Call("_euclid_create_direction_2_xy", x, y)
+}
+
+create_direction_3_empty <- function() {
+  .Call("_euclid_create_direction_3_empty")
+}
+
+create_direction_3_vec <- function(v) {
+  .Call("_euclid_create_direction_3_vec", v)
+}
+
+create_direction_3_line <- function(l) {
+  .Call("_euclid_create_direction_3_line", l)
+}
+
+create_direction_3_ray <- function(r) {
+  .Call("_euclid_create_direction_3_ray", r)
+}
+
+create_direction_3_segment <- function(s) {
+  .Call("_euclid_create_direction_3_segment", s)
+}
+
+create_direction_3_xyz <- function(x, y, z) {
+  .Call("_euclid_create_direction_3_xyz", x, y, z)
 }
 
 create_exact_numeric <- function(numeric) {
@@ -336,6 +408,130 @@ geometry_bbox <- function(geometries) {
   .Call("_euclid_geometry_bbox", geometries)
 }
 
+create_iso_cube_empty <- function() {
+  .Call("_euclid_create_iso_cube_empty")
+}
+
+create_iso_cube_pq <- function(p, q) {
+  .Call("_euclid_create_iso_cube_pq", p, q)
+}
+
+create_iso_cube_lrbtfc <- function(l, r, b, t, f, c) {
+  .Call("_euclid_create_iso_cube_lrbtfc", l, r, b, t, f, c)
+}
+
+create_iso_cube_bbox <- function(bbox) {
+  .Call("_euclid_create_iso_cube_bbox", bbox)
+}
+
+create_iso_rect_empty <- function() {
+  .Call("_euclid_create_iso_rect_empty")
+}
+
+create_iso_rect_pq <- function(p, q) {
+  .Call("_euclid_create_iso_rect_pq", p, q)
+}
+
+create_iso_rect_lrbt <- function(l, r, b, t) {
+  .Call("_euclid_create_iso_rect_lrbt", l, r, b, t)
+}
+
+create_iso_rect_bbox <- function(bbox) {
+  .Call("_euclid_create_iso_rect_bbox", bbox)
+}
+
+create_line_2_empty <- function() {
+  .Call("_euclid_create_line_2_empty")
+}
+
+create_line_2_a_b_c <- function(a, b, c) {
+  .Call("_euclid_create_line_2_a_b_c", a, b, c)
+}
+
+create_line_2_p_q <- function(p, q) {
+  .Call("_euclid_create_line_2_p_q", p, q)
+}
+
+create_line_2_p_d <- function(p, d) {
+  .Call("_euclid_create_line_2_p_d", p, d)
+}
+
+create_line_2_p_v <- function(p, v) {
+  .Call("_euclid_create_line_2_p_v", p, v)
+}
+
+create_line_2_seg <- function(s) {
+  .Call("_euclid_create_line_2_seg", s)
+}
+
+create_line_2_ray <- function(r) {
+  .Call("_euclid_create_line_2_ray", r)
+}
+
+create_line_3_empty <- function() {
+  .Call("_euclid_create_line_3_empty")
+}
+
+create_line_3_p_q <- function(p, q) {
+  .Call("_euclid_create_line_3_p_q", p, q)
+}
+
+create_line_3_p_d <- function(p, d) {
+  .Call("_euclid_create_line_3_p_d", p, d)
+}
+
+create_line_3_p_v <- function(p, v) {
+  .Call("_euclid_create_line_3_p_v", p, v)
+}
+
+create_line_3_seg <- function(s) {
+  .Call("_euclid_create_line_3_seg", s)
+}
+
+create_line_3_ray <- function(r) {
+  .Call("_euclid_create_line_3_ray", r)
+}
+
+create_plane_empty <- function() {
+  .Call("_euclid_create_plane_empty")
+}
+
+create_plane_abcd <- function(a, b, c, d) {
+  .Call("_euclid_create_plane_abcd", a, b, c, d)
+}
+
+create_plane_pqr <- function(p, q, r) {
+  .Call("_euclid_create_plane_pqr", p, q, r)
+}
+
+create_plane_pv <- function(p, v) {
+  .Call("_euclid_create_plane_pv", p, v)
+}
+
+create_plane_pd <- function(p, d) {
+  .Call("_euclid_create_plane_pd", p, d)
+}
+
+create_plane_pl <- function(p, l) {
+  .Call("_euclid_create_plane_pl", p, l)
+}
+
+create_plane_pr <- function(p, r) {
+  .Call("_euclid_create_plane_pr", p, r)
+}
+
+create_plane_ps <- function(p, s) {
+  .Call("_euclid_create_plane_ps", p, s)
+}
+
+create_plane_circle <- function(circle) {
+  .Call("_euclid_create_plane_circle", circle)
+}
+
+create_plane_triangle <- function(triangle) {
+  .Call("_euclid_create_plane_triangle", triangle)
+}
+
 create_point_2_empty <- function() {
   .Call("_euclid_create_point_2_empty")
 }
@@ -504,8 +700,16 @@ create_ray_2_p_q <- function(p, q) {
   .Call("_euclid_create_ray_2_p_q", p, q)
 }
 
+create_ray_2_p_d <- function(p, d) {
+  .Call("_euclid_create_ray_2_p_d", p, d)
+}
+
 create_ray_2_p_v <- function(p, v) {
   .Call("_euclid_create_ray_2_p_v", p, v)
+}
+
+create_ray_2_p_l <- function(p, l) {
+  .Call("_euclid_create_ray_2_p_l", p, l)
 }
 
 ray_2_negate <- function(x) {
@@ -520,12 +724,84 @@ create_ray_3_p_q <- function(p, q) {
   .Call("_euclid_create_ray_3_p_q", p, q)
 }
 
+create_ray_3_p_d <- function(p, d) {
+  .Call("_euclid_create_ray_3_p_d", p, d)
+}
+
 create_ray_3_p_v <- function(p, v) {
   .Call("_euclid_create_ray_3_p_v", p, v)
 }
 
+create_ray_3_p_l <- function(p, l) {
+  .Call("_euclid_create_ray_3_p_l", p, l)
+}
+
 ray_3_negate <- function(x) {
   .Call("_euclid_ray_3_negate", x)
+}
+
+create_segment_2_empty <- function() {
+  .Call("_euclid_create_segment_2_empty")
+}
+
+create_segment_2_p_q <- function(p, q) {
+  .Call("_euclid_create_segment_2_p_q", p, q)
+}
+
+create_segment_2_p_v <- function(p, v) {
+  .Call("_euclid_create_segment_2_p_v", p, v)
+}
+
+segment_2_negate <- function(x) {
+  .Call("_euclid_segment_2_negate", x)
+}
+
+create_segment_3_empty <- function() {
+  .Call("_euclid_create_segment_3_empty")
+}
+
+create_segment_3_p_q <- function(p, q) {
+  .Call("_euclid_create_segment_3_p_q", p, q)
+}
+
+create_segment_3_p_v <- function(p, v) {
+  .Call("_euclid_create_segment_3_p_v", p, v)
+}
+
+segment_3_negate <- function(x) {
+  .Call("_euclid_segment_3_negate", x)
+}
+
+create_sphere_empty <- function() {
+  .Call("_euclid_create_sphere_empty")
+}
+
+create_sphere_center_radius <- function(center, r2) {
+  .Call("_euclid_create_sphere_center_radius", center, r2)
+}
+
+create_sphere_4_point <- function(p, q, r, s) {
+  .Call("_euclid_create_sphere_4_point", p, q, r, s)
+}
+
+create_sphere_3_point <- function(p, q, r) {
+  .Call("_euclid_create_sphere_3_point", p, q, r)
+}
+
+create_sphere_2_point <- function(p, q) {
+  .Call("_euclid_create_sphere_2_point", p, q)
+}
+
+create_sphere_circle <- function(circ) {
+  .Call("_euclid_create_sphere_circle", circ)
+}
+
+create_tetrahedron_empty <- function() {
+  .Call("_euclid_create_tetrahedron_empty")
+}
+
+create_tetrahedron_4points <- function(p, q, r, s) {
+  .Call("_euclid_create_tetrahedron_4points", p, q, r, s)
 }
 
 create_transform_2_identity <- function(n) {
@@ -652,6 +928,22 @@ transform_cumprod <- function(transforms) {
   .Call("_euclid_transform_cumprod", transforms)
 }
 
+create_triangle_2_empty <- function() {
+  .Call("_euclid_create_triangle_2_empty")
+}
+
+create_triangle_2_3points <- function(p, q, r) {
+  .Call("_euclid_create_triangle_2_3points", p, q, r)
+}
+
+create_triangle_3_empty <- function() {
+  .Call("_euclid_create_triangle_3_empty")
+}
+
+create_triangle_3_3points <- function(p, q, r) {
+  .Call("_euclid_create_triangle_3_3points", p, q, r)
+}
+
 create_vector_2_empty <- function() {
   .Call("_euclid_create_vector_2_empty")
 }
@@ -662,6 +954,14 @@ create_vector_2_point <- function(p) {
 
 create_vector_2_ray <- function(r) {
   .Call("_euclid_create_vector_2_ray", r)
+}
+
+create_vector_2_segment <- function(s) {
+  .Call("_euclid_create_vector_2_segment", s)
+}
+
+create_vector_2_line <- function(l) {
+  .Call("_euclid_create_vector_2_line", l)
 }
 
 create_vector_2_x_y <- function(x, y) {
@@ -710,6 +1010,14 @@ create_vector_3_point <- function(p) {
 
 create_vector_3_ray <- function(r) {
   .Call("_euclid_create_vector_3_ray", r)
+}
+
+create_vector_3_segment <- function(s) {
+  .Call("_euclid_create_vector_3_segment", s)
+}
+
+create_vector_3_line <- function(l) {
+  .Call("_euclid_create_vector_3_line", l)
 }
 
 create_vector_3_x_y_z <- function(x, y, z) {

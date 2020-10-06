@@ -40,11 +40,14 @@ vec <- function(..., default_dim = 2) {
   points <- inputs[vapply(inputs, is_point, logical(1))]
   numbers <- inputs[vapply(inputs, is_exact_numeric, logical(1))]
   rays <- inputs[vapply(inputs, is_ray, logical(1))]
+  segments <- inputs[vapply(inputs, is_segment, logical(1))]
 
   if (length(points) == 1) {
     new_vector_from_point(points[[1]])
   } else if (length(rays) == 1) {
     new_vector_from_ray(rays[[1]])
+  } else if (length(segments) == 1) {
+    new_vector_from_segment(segments[[1]])
   } else if (length(numbers) == 2) {
     new_vector_from_xy(numbers[[1]], numbers[[2]])
   } else if (length(numbers) == 3) {
@@ -78,6 +81,10 @@ as_point.euclid_vector <- function(x) {
 #' @export
 as_affine_transformation.euclid_vector <- function(x) {
   affine_translate(x)
+}
+#' @export
+as_direction.euclid_vector <- function(x) {
+  direction(x)
 }
 
 # Operators ---------------------------------------------------------------
@@ -203,10 +210,17 @@ new_vector_from_point <- function(p) {
   }
 }
 new_vector_from_ray <- function(r) {
-  if (dim(p) == 2) {
-    new_vector2(create_vector_2_ray(get_ptr(p)))
+  if (dim(r) == 2) {
+    new_vector2(create_vector_2_ray(get_ptr(r)))
   } else {
-    new_vector3(create_vector_3_ray(get_ptr(p)))
+    new_vector3(create_vector_3_ray(get_ptr(r)))
+  }
+}
+new_vector_from_segment <- function(s) {
+  if (dim(s) == 2) {
+    new_vector2(create_vector_2_segment(get_ptr(s)))
+  } else {
+    new_vector3(create_vector_3_segment(get_ptr(s)))
   }
 }
 new_vector_from_xy <- function(x, y) {

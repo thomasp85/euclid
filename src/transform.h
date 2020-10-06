@@ -18,14 +18,14 @@ template<typename T, typename Aff>
 inline T transform_impl(const T& geo, const Aff& trans) {
   return geo.transform(trans);
 }
-//template<>
-//inline Circle_2 transform_impl<Circle_2, Aff_transformation_2>(const Circle_2& geo, const Aff_transformation_2& trans) {
-//  cpp11::stop("Circles cannot be transformed. Transform the center instead");
-//}
-//template<>
-//inline Circle_3 transform_impl<Circle_3, Aff_transformation_3>(const Circle_3& geo, const Aff_transformation_3& trans) {
-//  cpp11::stop("Circles cannot be transformed. Transform the center instead");
-//}
+template<>
+inline Circle_2 transform_impl<Circle_2, Aff_transformation_2>(const Circle_2& geo, const Aff_transformation_2& trans) {
+  Rf_error("Circles cannot be transformed. Transform the center instead");
+}
+template<>
+inline Circle_3 transform_impl<Circle_3, Aff_transformation_3>(const Circle_3& geo, const Aff_transformation_3& trans) {
+  Rf_error("Circles cannot be transformed. Transform the center instead");
+}
 // Work around bug with transformation of weighted points in CGAL
 template<>
 inline Weighted_point_2 transform_impl<Weighted_point_2, Aff_transformation_2>(const Weighted_point_2& geo, const Aff_transformation_2& trans) {
@@ -126,7 +126,7 @@ public:
       std::ostringstream f;
       f << std::setprecision(3);
       size_t rows = dim;
-      f << "<";
+      f << "[";
       for (size_t i = 0; i < rows; ++i) {
         if (i != 0) {
           f << "/";
@@ -140,7 +140,7 @@ public:
         }
         f << ">";
       }
-      f << ">";
+      f << "]";
 
       result[k] = f.str();
     }

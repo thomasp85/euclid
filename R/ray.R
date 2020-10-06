@@ -27,12 +27,18 @@ ray <- function(..., default_dim = 2) {
   }
 
   points <- inputs[vapply(inputs, is_point, logical(1))]
+  directions <- inputs[vapply(inputs, is_direction, logical(1))]
   vectors <- inputs[vapply(inputs, is_vec, logical(1))]
+  lines <- inputs[vapply(inputs, is_line, logical(1))]
 
   if (length(points) == 2) {
-    new_ray_from_pq(points[[1]], points[[2]])
-  } else if (length(points) > 0 && length(vectors) > 0) {
-    new_ray_from_pv(points[[1]], vectors[[2]])
+    new_ray_from_2_points(points[[1]], points[[2]])
+  } else if (length(points) == 1 && length(directions) == 1) {
+    new_ray_from_point_direction(points[[1]], directions[[1]])
+  } else if (length(points) == 1 && length(vectors) == 1) {
+    new_ray_from_point_vector(points[[1]], vectors[[1]])
+  } else if (length(points) == 1 && length(lines) == 1) {
+    new_ray_from_point_line(points[[1]], lines[[1]])
   } else {
     rlang::abort("Don't know how to construct rays from the given input")
   }
@@ -60,10 +66,19 @@ as_vec.euclid_ray <- function(x) {
   vec(x)
 }
 
+#' @export
+as_direction.euclid_ray <- function(x) {
+  direction(x)
+}
+#' @export
+as_line.euclid_ray <- function(x) {
+  line(x)
+}
+
 # Operators ---------------------------------------------------------------
 
 #' @export
-geometry_op_minus.euclid_vector <- function(e1, e2) {
+geometry_op_minus.euclid_ray <- function(e1, e2) {
   if (!missing(e2)) {
     rlang::abort("Rays cannot be subtracted, only negated")
   }
@@ -89,17 +104,31 @@ new_ray_empty <- function(dim) {
     new_ray3(create_ray_3_empty())
   }
 }
-new_ray_from_pq <- function(p, q) {
+new_ray_from_2_points <- function(p, q) {
   if (dim(p) == 2) {
     new_ray2(create_ray_2_p_q(get_ptr(p), get_ptr(q)))
   } else {
     new_ray3(create_ray_3_p_q(get_ptr(p), get_ptr(q)))
   }
 }
-new_ray_from_pv <- function(p, v) {
+new_ray_from_point_direction <- function(p, d) {
+  if (dim(p) == 2) {
+    new_ray2(create_ray_2_p_d(get_ptr(p), get_ptr(d)))
+  } else {
+    new_ray3(create_ray_3_p_d(get_ptr(p), get_ptr(d)))
+  }
+}
+new_ray_from_point_vector <- function(p, v) {
   if (dim(p) == 2) {
     new_ray2(create_ray_2_p_v(get_ptr(p), get_ptr(v)))
   } else {
     new_ray3(create_ray_3_p_v(get_ptr(p), get_ptr(v)))
+  }
+}
+new_ray_from_point_line <- function(p, l) {
+  if (dim(p) == 2) {
+    new_ray2(create_ray_2_p_l(get_ptr(p), get_ptr(l)))
+  } else {
+    new_ray3(create_ray_3_p_l(get_ptr(p), get_ptr(l)))
   }
 }

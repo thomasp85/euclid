@@ -1,6 +1,8 @@
 #include "vector.h"
 #include "point.h"
 #include "ray.h"
+#include "segment.h"
+#include "line.h"
 #include "exact_numeric.h"
 
 #include <cpp11/external_pointer.hpp>
@@ -38,6 +40,38 @@ vector2_p create_vector_2_ray(ray2_p r) {
       continue;
     }
     vec.emplace_back((*r)[i]);
+  }
+  vector2 *result(new vector2(vec));
+
+  return {result};
+}
+
+[[cpp11::register]]
+vector2_p create_vector_2_segment(segment2_p s) {
+  std::vector<Vector_2> vec;
+  vec.reserve(s->size());
+  for (size_t i = 0; i < s->size(); ++i) {
+    if (!(*s)[i]) {
+      vec.push_back(Vector_2::NA_value());
+      continue;
+    }
+    vec.emplace_back((*s)[i]);
+  }
+  vector2 *result(new vector2(vec));
+
+  return {result};
+}
+
+[[cpp11::register]]
+vector2_p create_vector_2_line(line2_p l) {
+  std::vector<Vector_2> vec;
+  vec.reserve(l->size());
+  for (size_t i = 0; i < l->size(); ++i) {
+    if (!(*l)[i]) {
+      vec.push_back(Vector_2::NA_value());
+      continue;
+    }
+    vec.emplace_back((*l)[i]);
   }
   vector2 *result(new vector2(vec));
 
@@ -157,6 +191,38 @@ vector3_p create_vector_3_ray(ray3_p r) {
       continue;
     }
     vec.emplace_back((*r)[i]);
+  }
+  vector3 *result(new vector3(vec));
+
+  return {result};
+}
+
+[[cpp11::register]]
+vector3_p create_vector_3_segment(segment3_p s) {
+  std::vector<Vector_3> vec;
+  vec.reserve(s->size());
+  for (size_t i = 0; i < s->size(); ++i) {
+    if (!(*s)[i]) {
+      vec.push_back(Vector_3::NA_value());
+      continue;
+    }
+    vec.emplace_back((*s)[i]);
+  }
+  vector3 *result(new vector3(vec));
+
+  return {result};
+}
+
+[[cpp11::register]]
+vector3_p create_vector_3_line(line3_p l) {
+  std::vector<Vector_3> vec;
+  vec.reserve(l->size());
+  for (size_t i = 0; i < l->size(); ++i) {
+    if (!(*l)[i]) {
+      vec.push_back(Vector_3::NA_value());
+      continue;
+    }
+    vec.emplace_back((*l)[i]);
   }
   vector3 *result(new vector3(vec));
 

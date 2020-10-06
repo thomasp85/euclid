@@ -20,11 +20,23 @@ inline Bbox bbox_impl(const T& geo) {
   return geo.bbox();
 }
 template<>
-inline Bbox_2 bbox_impl<Bbox_2, Vector_2>(const Vector_2& geo) {
+inline Bbox_2 bbox_impl<Bbox_2, Direction_2>(const Direction_2& geo) {
   return Bbox_2::NA_value();
 }
 template<>
-inline Bbox_3 bbox_impl<Bbox_3, Vector_3>(const Vector_3& geo) {
+inline Bbox_3 bbox_impl<Bbox_3, Direction_3>(const Direction_3& geo) {
+  return Bbox_3::NA_value();
+}
+template<>
+inline Bbox_2 bbox_impl<Bbox_2, Line_2>(const Line_2& geo) {
+  return Bbox_2::NA_value();
+}
+template<>
+inline Bbox_3 bbox_impl<Bbox_3, Line_3>(const Line_3& geo) {
+  return Bbox_3::NA_value();
+}
+template<>
+inline Bbox_3 bbox_impl<Bbox_3, Plane>(const Plane& geo) {
   return Bbox_3::NA_value();
 }
 template<>
@@ -33,6 +45,14 @@ inline Bbox_2 bbox_impl<Bbox_2, Ray_2>(const Ray_2& geo) {
 }
 template<>
 inline Bbox_3 bbox_impl<Bbox_3, Ray_3>(const Ray_3& geo) {
+  return Bbox_3::NA_value();
+}
+template<>
+inline Bbox_2 bbox_impl<Bbox_2, Vector_2>(const Vector_2& geo) {
+  return Bbox_2::NA_value();
+}
+template<>
+inline Bbox_3 bbox_impl<Bbox_3, Vector_3>(const Vector_3& geo) {
   return Bbox_3::NA_value();
 }
 

@@ -47,3 +47,50 @@ public:
 };
 
 typedef cpp11::external_pointer<circle2> circle2_p;
+
+class circle3 : public geometry_vector<Circle_3, 3> {
+public:
+  const Primitive geo_type = CIRCLE;
+
+  using geometry_vector::geometry_vector;
+  ~circle3() = default;
+
+  geometry_vector_base* new_from_vector(std::vector<Circle_3> vec) const {
+    circle3* copy = new circle3();
+
+    copy->_storage.swap(vec);
+
+    return copy;
+  }
+
+  cpp11::writable::strings def_names() const {
+    return {"x", "y", "z", "r2", "dx", "dy", "dz"};
+  }
+
+  Exact_number get_single_definition(size_t i, int which, int element) const {
+    switch(which) {
+    case 0: return _storage[i].center().x();
+    case 1: return _storage[i].center().y();
+    case 2: return _storage[i].center().z();
+    case 3: return _storage[i].squared_radius();
+    case 4: return _storage[i].supporting_plane().orthogonal_direction().dx();
+    case 5: return _storage[i].supporting_plane().orthogonal_direction().dy();
+    case 6: return _storage[i].supporting_plane().orthogonal_direction().dz();
+    }
+    return _storage[i].center().x();
+  }
+
+  std::vector<double> get_row(size_t i, size_t j) const {
+    return {
+    CGAL::to_double(_storage[i].center().x().exact()),
+    CGAL::to_double(_storage[i].center().y().exact()),
+    CGAL::to_double(_storage[i].center().z().exact()),
+    CGAL::to_double(_storage[i].squared_radius().exact()),
+    CGAL::to_double(_storage[i].supporting_plane().orthogonal_direction().dx().exact()),
+    CGAL::to_double(_storage[i].supporting_plane().orthogonal_direction().dy().exact()),
+    CGAL::to_double(_storage[i].supporting_plane().orthogonal_direction().dz().exact())
+  };
+  }
+};
+
+typedef cpp11::external_pointer<circle3> circle3_p;

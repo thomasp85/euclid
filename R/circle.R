@@ -51,13 +51,24 @@ circle <- function(..., default_dim = 2) {
 
   points <- inputs[vapply(inputs, is_point, logical(1))]
   numbers <- inputs[vapply(inputs, is_exact_numeric, logical(1))]
+  planes <- inputs[vapply(inputs, is_plane, logical(1))]
+  vectors <- inputs[vapply(inputs, is_vec, logical(1))]
+  spheres <- inputs[vapply(inputs, is_sphere, logical(1))]
 
   if (length(points) == 3) {
     new_circle_from_3_points(points[[1]], points[[2]], points[[3]])
   } else if (length(points) == 2) {
     new_circle_from_2_points(points[[1]], points[[2]])
-  } else if (length(points) == 1 && length(numbers) >= 1) {
+  } else if (length(points) == 1 && length(numbers) == 1 && length(planes) == 1) {
+    new_circle_from_point_number_plane(points[[1]], numbers[[1]], planes[[1]])
+  } else if (length(points) == 1 && length(numbers) == 1 && length(vectors) == 1) {
+    new_circle_from_point_number_vec(points[[1]], numbers[[1]], vectors[[1]])
+  } else if (length(points) == 1 && length(numbers) == 1) {
     new_circle_from_point_number(points[[1]], numbers[[1]])
+  } else if (length(spheres) == 2) {
+    new_circle_from_2_spheres(spheres[[1]], spheres[[2]])
+  } else if (length(spheres) == 1 && length(planes) == 1) {
+    new_circle_from_sphere_plane(spheres[[1]], planes[[1]])
   } else {
     rlang::abort("Don't know how to construct circles from the given input")
   }
@@ -80,14 +91,28 @@ as_circle.default <- function(x) {
 #' @export
 as_circle.euclid_circle <- function(x) x
 
+#' @export
+as_sphere.euclid_circle3 <- function(x) {
+  sphere(x)
+}
+#' @export
+as_plane.euclid_circle3 <- function(x) {
+  plane(x)
+}
+
 # Internal Constructors ---------------------------------------------------
 
 new_circle2 <- function(x) {
   new_geometry_vector(x, class = c("euclid_circle2", "euclid_circle"))
 }
+new_circle3 <- function(x) {
+  new_geometry_vector(x, class = c("euclid_circle3", "euclid_circle"))
+}
 new_circle_empty <- function(dim) {
   if (dim == 2) {
     new_circle2(create_circle_2_empty())
+  } else {
+    new_circle3(create_circle_3_empty())
   }
 }
 new_circle_from_point_number <- function(center, r) {
@@ -96,9 +121,17 @@ new_circle_from_point_number <- function(center, r) {
   }
   new_circle2(create_circle_2_center_radius(get_ptr(center), get_ptr(r)))
 }
+new_circle_from_point_number_plane <- function(center, r, p) {
+  new_circle3(create_circle_3_center_radius_plane(get_ptr(center), get_ptr(r), get_ptr(p)))
+}
+new_circle_from_point_number_vec <- function(center, r, v) {
+  new_circle3(create_circle_3_center_radius_vec(get_ptr(center), get_ptr(r), get_ptr(v)))
+}
 new_circle_from_3_points <- function(p, q, r) {
   if (dim(p) == 2) {
     new_circle2(create_circle_2_3_point(get_ptr(p), get_ptr(q), get_ptr(r)))
+  } else {
+    new_circle3(create_circle_3_3_point(get_ptr(p), get_ptr(q), get_ptr(r)))
   }
 }
 new_circle_from_2_points <- function(p, q) {
@@ -106,4 +139,10 @@ new_circle_from_2_points <- function(p, q) {
     rlang::abort("Circles in 3 dimensions cannot be constructed from 2 points")
   }
   new_circle2(create_circle_2_2_point(get_ptr(p), get_ptr(q)))
+}
+new_circle_from_2_spheres <- function(s1, s2) {
+  new_circle3(create_circle_3_sphere_sphere(get_ptr(s1), get_ptr(s2)))
+}
+new_circle_from_sphere_plane <- function(s, p) {
+  new_circle3(create_circle_3_sphere_plane(get_ptr(s), get_ptr(p)))
 }

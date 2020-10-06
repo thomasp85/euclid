@@ -37,6 +37,8 @@ magnitude is defined as the distance from the origin to the point.
 origin centered.
 \item Providing two exact numeric vectors will construct vectors pointing to the
 point defined by the coordinates given.
+\item Providing a ray will construct vectors pointing in the same direction as
+the ray
 }
 
 \strong{3 dimensional vectors}
@@ -45,6 +47,8 @@ point defined by the coordinates given.
 origin centered.
 \item Providing three exact numeric vectors will construct vectors pointing to
 the point defined by the coordinates given.
+\item Providing a ray will construct vectors pointing in the same direction as
+the ray
 }
 }
 

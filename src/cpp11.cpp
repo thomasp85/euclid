@@ -166,10 +166,10 @@ extern "C" SEXP _euclid_create_circle_2_empty() {
   END_CPP11
 }
 // circle.cpp
-circle2_p create_circle_2_center_radius(point2_p center, exact_numeric_p r);
-extern "C" SEXP _euclid_create_circle_2_center_radius(SEXP center, SEXP r) {
+circle2_p create_circle_2_center_radius(point2_p center, exact_numeric_p r2);
+extern "C" SEXP _euclid_create_circle_2_center_radius(SEXP center, SEXP r2) {
   BEGIN_CPP11
-    return cpp11::as_sexp(create_circle_2_center_radius(cpp11::as_cpp<cpp11::decay_t<point2_p>>(center), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(r)));
+    return cpp11::as_sexp(create_circle_2_center_radius(cpp11::as_cpp<cpp11::decay_t<point2_p>>(center), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(r2)));
   END_CPP11
 }
 // circle.cpp
@@ -184,6 +184,132 @@ circle2_p create_circle_2_2_point(point2_p p, point2_p q);
 extern "C" SEXP _euclid_create_circle_2_2_point(SEXP p, SEXP q) {
   BEGIN_CPP11
     return cpp11::as_sexp(create_circle_2_2_point(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<point2_p>>(q)));
+  END_CPP11
+}
+// circle.cpp
+circle3_p create_circle_3_empty();
+extern "C" SEXP _euclid_create_circle_3_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_circle_3_empty());
+  END_CPP11
+}
+// circle.cpp
+cpp11::external_pointer<circle3> create_circle_3_center_radius_plane(point3_p center, exact_numeric_p r2, plane_p p);
+extern "C" SEXP _euclid_create_circle_3_center_radius_plane(SEXP center, SEXP r2, SEXP p) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_circle_3_center_radius_plane(cpp11::as_cpp<cpp11::decay_t<point3_p>>(center), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(r2), cpp11::as_cpp<cpp11::decay_t<plane_p>>(p)));
+  END_CPP11
+}
+// circle.cpp
+cpp11::external_pointer<circle3> create_circle_3_center_radius_vec(point3_p center, exact_numeric_p r2, vector3_p v);
+extern "C" SEXP _euclid_create_circle_3_center_radius_vec(SEXP center, SEXP r2, SEXP v) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_circle_3_center_radius_vec(cpp11::as_cpp<cpp11::decay_t<point3_p>>(center), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(r2), cpp11::as_cpp<cpp11::decay_t<vector3_p>>(v)));
+  END_CPP11
+}
+// circle.cpp
+cpp11::external_pointer<circle3> create_circle_3_3_point(point3_p p, point3_p q, point3_p r);
+extern "C" SEXP _euclid_create_circle_3_3_point(SEXP p, SEXP q, SEXP r) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_circle_3_3_point(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<point3_p>>(q), cpp11::as_cpp<cpp11::decay_t<point3_p>>(r)));
+  END_CPP11
+}
+// circle.cpp
+cpp11::external_pointer<circle3> create_circle_3_sphere_sphere(sphere_p s1, sphere_p s2);
+extern "C" SEXP _euclid_create_circle_3_sphere_sphere(SEXP s1, SEXP s2) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_circle_3_sphere_sphere(cpp11::as_cpp<cpp11::decay_t<sphere_p>>(s1), cpp11::as_cpp<cpp11::decay_t<sphere_p>>(s2)));
+  END_CPP11
+}
+// circle.cpp
+cpp11::external_pointer<circle3> create_circle_3_sphere_plane(sphere_p s, plane_p p);
+extern "C" SEXP _euclid_create_circle_3_sphere_plane(SEXP s, SEXP p) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_circle_3_sphere_plane(cpp11::as_cpp<cpp11::decay_t<sphere_p>>(s), cpp11::as_cpp<cpp11::decay_t<plane_p>>(p)));
+  END_CPP11
+}
+// direction.cpp
+direction2_p create_direction_2_empty();
+extern "C" SEXP _euclid_create_direction_2_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_direction_2_empty());
+  END_CPP11
+}
+// direction.cpp
+direction2_p create_direction_2_vec(vector2_p v);
+extern "C" SEXP _euclid_create_direction_2_vec(SEXP v) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_direction_2_vec(cpp11::as_cpp<cpp11::decay_t<vector2_p>>(v)));
+  END_CPP11
+}
+// direction.cpp
+direction2_p create_direction_2_line(line2_p l);
+extern "C" SEXP _euclid_create_direction_2_line(SEXP l) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_direction_2_line(cpp11::as_cpp<cpp11::decay_t<line2_p>>(l)));
+  END_CPP11
+}
+// direction.cpp
+direction2_p create_direction_2_ray(ray2_p r);
+extern "C" SEXP _euclid_create_direction_2_ray(SEXP r) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_direction_2_ray(cpp11::as_cpp<cpp11::decay_t<ray2_p>>(r)));
+  END_CPP11
+}
+// direction.cpp
+direction2_p create_direction_2_segment(segment2_p s);
+extern "C" SEXP _euclid_create_direction_2_segment(SEXP s) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_direction_2_segment(cpp11::as_cpp<cpp11::decay_t<segment2_p>>(s)));
+  END_CPP11
+}
+// direction.cpp
+direction2_p create_direction_2_xy(exact_numeric_p x, exact_numeric_p y);
+extern "C" SEXP _euclid_create_direction_2_xy(SEXP x, SEXP y) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_direction_2_xy(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y)));
+  END_CPP11
+}
+// direction.cpp
+direction3_p create_direction_3_empty();
+extern "C" SEXP _euclid_create_direction_3_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_direction_3_empty());
+  END_CPP11
+}
+// direction.cpp
+direction3_p create_direction_3_vec(vector3_p v);
+extern "C" SEXP _euclid_create_direction_3_vec(SEXP v) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_direction_3_vec(cpp11::as_cpp<cpp11::decay_t<vector3_p>>(v)));
+  END_CPP11
+}
+// direction.cpp
+direction3_p create_direction_3_line(line3_p l);
+extern "C" SEXP _euclid_create_direction_3_line(SEXP l) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_direction_3_line(cpp11::as_cpp<cpp11::decay_t<line3_p>>(l)));
+  END_CPP11
+}
+// direction.cpp
+direction3_p create_direction_3_ray(ray3_p r);
+extern "C" SEXP _euclid_create_direction_3_ray(SEXP r) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_direction_3_ray(cpp11::as_cpp<cpp11::decay_t<ray3_p>>(r)));
+  END_CPP11
+}
+// direction.cpp
+direction3_p create_direction_3_segment(segment3_p s);
+extern "C" SEXP _euclid_create_direction_3_segment(SEXP s) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_direction_3_segment(cpp11::as_cpp<cpp11::decay_t<segment3_p>>(s)));
+  END_CPP11
+}
+// direction.cpp
+direction3_p create_direction_3_xyz(exact_numeric_p x, exact_numeric_p y, exact_numeric_p z);
+extern "C" SEXP _euclid_create_direction_3_xyz(SEXP x, SEXP y, SEXP z) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_direction_3_xyz(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(z)));
   END_CPP11
 }
 // exact_numeric.cpp
@@ -592,6 +718,223 @@ extern "C" SEXP _euclid_geometry_bbox(SEXP geometries) {
     return cpp11::as_sexp(geometry_bbox(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries)));
   END_CPP11
 }
+// iso_cube.cpp
+iso_cube_p create_iso_cube_empty();
+extern "C" SEXP _euclid_create_iso_cube_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_iso_cube_empty());
+  END_CPP11
+}
+// iso_cube.cpp
+iso_cube_p create_iso_cube_pq(point3_p p, point3_p q);
+extern "C" SEXP _euclid_create_iso_cube_pq(SEXP p, SEXP q) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_iso_cube_pq(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<point3_p>>(q)));
+  END_CPP11
+}
+// iso_cube.cpp
+iso_cube_p create_iso_cube_lrbtfc(point3_p l, point3_p r, point3_p b, point3_p t, point3_p f, point3_p c);
+extern "C" SEXP _euclid_create_iso_cube_lrbtfc(SEXP l, SEXP r, SEXP b, SEXP t, SEXP f, SEXP c) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_iso_cube_lrbtfc(cpp11::as_cpp<cpp11::decay_t<point3_p>>(l), cpp11::as_cpp<cpp11::decay_t<point3_p>>(r), cpp11::as_cpp<cpp11::decay_t<point3_p>>(b), cpp11::as_cpp<cpp11::decay_t<point3_p>>(t), cpp11::as_cpp<cpp11::decay_t<point3_p>>(f), cpp11::as_cpp<cpp11::decay_t<point3_p>>(c)));
+  END_CPP11
+}
+// iso_cube.cpp
+iso_cube_p create_iso_cube_bbox(bbox3_p bbox);
+extern "C" SEXP _euclid_create_iso_cube_bbox(SEXP bbox) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_iso_cube_bbox(cpp11::as_cpp<cpp11::decay_t<bbox3_p>>(bbox)));
+  END_CPP11
+}
+// iso_rect.cpp
+iso_rect_p create_iso_rect_empty();
+extern "C" SEXP _euclid_create_iso_rect_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_iso_rect_empty());
+  END_CPP11
+}
+// iso_rect.cpp
+iso_rect_p create_iso_rect_pq(point2_p p, point2_p q);
+extern "C" SEXP _euclid_create_iso_rect_pq(SEXP p, SEXP q) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_iso_rect_pq(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<point2_p>>(q)));
+  END_CPP11
+}
+// iso_rect.cpp
+iso_rect_p create_iso_rect_lrbt(point2_p l, point2_p r, point2_p b, point2_p t);
+extern "C" SEXP _euclid_create_iso_rect_lrbt(SEXP l, SEXP r, SEXP b, SEXP t) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_iso_rect_lrbt(cpp11::as_cpp<cpp11::decay_t<point2_p>>(l), cpp11::as_cpp<cpp11::decay_t<point2_p>>(r), cpp11::as_cpp<cpp11::decay_t<point2_p>>(b), cpp11::as_cpp<cpp11::decay_t<point2_p>>(t)));
+  END_CPP11
+}
+// iso_rect.cpp
+iso_rect_p create_iso_rect_bbox(bbox2_p bbox);
+extern "C" SEXP _euclid_create_iso_rect_bbox(SEXP bbox) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_iso_rect_bbox(cpp11::as_cpp<cpp11::decay_t<bbox2_p>>(bbox)));
+  END_CPP11
+}
+// line.cpp
+line2_p create_line_2_empty();
+extern "C" SEXP _euclid_create_line_2_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_line_2_empty());
+  END_CPP11
+}
+// line.cpp
+line2_p create_line_2_a_b_c(exact_numeric_p a, exact_numeric_p b, exact_numeric_p c);
+extern "C" SEXP _euclid_create_line_2_a_b_c(SEXP a, SEXP b, SEXP c) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_line_2_a_b_c(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(a), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(b), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(c)));
+  END_CPP11
+}
+// line.cpp
+line2_p create_line_2_p_q(point2_p p, point2_p q);
+extern "C" SEXP _euclid_create_line_2_p_q(SEXP p, SEXP q) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_line_2_p_q(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<point2_p>>(q)));
+  END_CPP11
+}
+// line.cpp
+line2_p create_line_2_p_d(point2_p p, direction2_p d);
+extern "C" SEXP _euclid_create_line_2_p_d(SEXP p, SEXP d) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_line_2_p_d(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<direction2_p>>(d)));
+  END_CPP11
+}
+// line.cpp
+line2_p create_line_2_p_v(point2_p p, vector2_p v);
+extern "C" SEXP _euclid_create_line_2_p_v(SEXP p, SEXP v) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_line_2_p_v(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<vector2_p>>(v)));
+  END_CPP11
+}
+// line.cpp
+line2_p create_line_2_seg(segment2_p s);
+extern "C" SEXP _euclid_create_line_2_seg(SEXP s) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_line_2_seg(cpp11::as_cpp<cpp11::decay_t<segment2_p>>(s)));
+  END_CPP11
+}
+// line.cpp
+line2_p create_line_2_ray(ray2_p r);
+extern "C" SEXP _euclid_create_line_2_ray(SEXP r) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_line_2_ray(cpp11::as_cpp<cpp11::decay_t<ray2_p>>(r)));
+  END_CPP11
+}
+// line.cpp
+line3_p create_line_3_empty();
+extern "C" SEXP _euclid_create_line_3_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_line_3_empty());
+  END_CPP11
+}
+// line.cpp
+line3_p create_line_3_p_q(point3_p p, point3_p q);
+extern "C" SEXP _euclid_create_line_3_p_q(SEXP p, SEXP q) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_line_3_p_q(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<point3_p>>(q)));
+  END_CPP11
+}
+// line.cpp
+line3_p create_line_3_p_d(point3_p p, direction3_p d);
+extern "C" SEXP _euclid_create_line_3_p_d(SEXP p, SEXP d) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_line_3_p_d(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<direction3_p>>(d)));
+  END_CPP11
+}
+// line.cpp
+line3_p create_line_3_p_v(point3_p p, vector3_p v);
+extern "C" SEXP _euclid_create_line_3_p_v(SEXP p, SEXP v) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_line_3_p_v(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<vector3_p>>(v)));
+  END_CPP11
+}
+// line.cpp
+line3_p create_line_3_seg(segment3_p s);
+extern "C" SEXP _euclid_create_line_3_seg(SEXP s) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_line_3_seg(cpp11::as_cpp<cpp11::decay_t<segment3_p>>(s)));
+  END_CPP11
+}
+// line.cpp
+line3_p create_line_3_ray(ray3_p r);
+extern "C" SEXP _euclid_create_line_3_ray(SEXP r) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_line_3_ray(cpp11::as_cpp<cpp11::decay_t<ray3_p>>(r)));
+  END_CPP11
+}
+// plane.cpp
+plane_p create_plane_empty();
+extern "C" SEXP _euclid_create_plane_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_plane_empty());
+  END_CPP11
+}
+// plane.cpp
+plane_p create_plane_abcd(exact_numeric_p a, exact_numeric_p b, exact_numeric_p c, exact_numeric_p d);
+extern "C" SEXP _euclid_create_plane_abcd(SEXP a, SEXP b, SEXP c, SEXP d) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_plane_abcd(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(a), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(b), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(c), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(d)));
+  END_CPP11
+}
+// plane.cpp
+plane_p create_plane_pqr(point3_p p, point3_p q, point3_p r);
+extern "C" SEXP _euclid_create_plane_pqr(SEXP p, SEXP q, SEXP r) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_plane_pqr(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<point3_p>>(q), cpp11::as_cpp<cpp11::decay_t<point3_p>>(r)));
+  END_CPP11
+}
+// plane.cpp
+plane_p create_plane_pv(point3_p p, vector3_p v);
+extern "C" SEXP _euclid_create_plane_pv(SEXP p, SEXP v) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_plane_pv(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<vector3_p>>(v)));
+  END_CPP11
+}
+// plane.cpp
+plane_p create_plane_pd(point3_p p, direction3_p d);
+extern "C" SEXP _euclid_create_plane_pd(SEXP p, SEXP d) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_plane_pd(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<direction3_p>>(d)));
+  END_CPP11
+}
+// plane.cpp
+plane_p create_plane_pl(point3_p p, line3_p l);
+extern "C" SEXP _euclid_create_plane_pl(SEXP p, SEXP l) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_plane_pl(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<line3_p>>(l)));
+  END_CPP11
+}
+// plane.cpp
+plane_p create_plane_pr(point3_p p, ray3_p r);
+extern "C" SEXP _euclid_create_plane_pr(SEXP p, SEXP r) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_plane_pr(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<ray3_p>>(r)));
+  END_CPP11
+}
+// plane.cpp
+plane_p create_plane_ps(point3_p p, segment3_p s);
+extern "C" SEXP _euclid_create_plane_ps(SEXP p, SEXP s) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_plane_ps(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<segment3_p>>(s)));
+  END_CPP11
+}
+// plane.cpp
+plane_p create_plane_circle(circle3_p circle);
+extern "C" SEXP _euclid_create_plane_circle(SEXP circle) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_plane_circle(cpp11::as_cpp<cpp11::decay_t<circle3_p>>(circle)));
+  END_CPP11
+}
+// plane.cpp
+plane_p create_plane_triangle(triangle3_p triangle);
+extern "C" SEXP _euclid_create_plane_triangle(SEXP triangle) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_plane_triangle(cpp11::as_cpp<cpp11::decay_t<triangle3_p>>(triangle)));
+  END_CPP11
+}
 // point.cpp
 point2_p create_point_2_empty();
 extern "C" SEXP _euclid_create_point_2_empty() {
@@ -887,10 +1230,24 @@ extern "C" SEXP _euclid_create_ray_2_p_q(SEXP p, SEXP q) {
   END_CPP11
 }
 // ray.cpp
+ray2_p create_ray_2_p_d(point2_p p, direction2_p d);
+extern "C" SEXP _euclid_create_ray_2_p_d(SEXP p, SEXP d) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_ray_2_p_d(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<direction2_p>>(d)));
+  END_CPP11
+}
+// ray.cpp
 ray2_p create_ray_2_p_v(point2_p p, vector2_p v);
 extern "C" SEXP _euclid_create_ray_2_p_v(SEXP p, SEXP v) {
   BEGIN_CPP11
     return cpp11::as_sexp(create_ray_2_p_v(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<vector2_p>>(v)));
+  END_CPP11
+}
+// ray.cpp
+ray2_p create_ray_2_p_l(point2_p p, line2_p l);
+extern "C" SEXP _euclid_create_ray_2_p_l(SEXP p, SEXP l) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_ray_2_p_l(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<line2_p>>(l)));
   END_CPP11
 }
 // ray.cpp
@@ -915,6 +1272,13 @@ extern "C" SEXP _euclid_create_ray_3_p_q(SEXP p, SEXP q) {
   END_CPP11
 }
 // ray.cpp
+ray3_p create_ray_3_p_d(point3_p p, direction3_p d);
+extern "C" SEXP _euclid_create_ray_3_p_d(SEXP p, SEXP d) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_ray_3_p_d(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<direction3_p>>(d)));
+  END_CPP11
+}
+// ray.cpp
 ray3_p create_ray_3_p_v(point3_p p, vector3_p v);
 extern "C" SEXP _euclid_create_ray_3_p_v(SEXP p, SEXP v) {
   BEGIN_CPP11
@@ -922,10 +1286,129 @@ extern "C" SEXP _euclid_create_ray_3_p_v(SEXP p, SEXP v) {
   END_CPP11
 }
 // ray.cpp
+ray3_p create_ray_3_p_l(point3_p p, line3_p l);
+extern "C" SEXP _euclid_create_ray_3_p_l(SEXP p, SEXP l) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_ray_3_p_l(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<line3_p>>(l)));
+  END_CPP11
+}
+// ray.cpp
 ray3_p ray_3_negate(ray3_p x);
 extern "C" SEXP _euclid_ray_3_negate(SEXP x) {
   BEGIN_CPP11
     return cpp11::as_sexp(ray_3_negate(cpp11::as_cpp<cpp11::decay_t<ray3_p>>(x)));
+  END_CPP11
+}
+// segment.cpp
+segment2_p create_segment_2_empty();
+extern "C" SEXP _euclid_create_segment_2_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_segment_2_empty());
+  END_CPP11
+}
+// segment.cpp
+segment2_p create_segment_2_p_q(point2_p p, point2_p q);
+extern "C" SEXP _euclid_create_segment_2_p_q(SEXP p, SEXP q) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_segment_2_p_q(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<point2_p>>(q)));
+  END_CPP11
+}
+// segment.cpp
+segment2_p create_segment_2_p_v(point2_p p, vector2_p v);
+extern "C" SEXP _euclid_create_segment_2_p_v(SEXP p, SEXP v) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_segment_2_p_v(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<vector2_p>>(v)));
+  END_CPP11
+}
+// segment.cpp
+segment2_p segment_2_negate(segment2_p x);
+extern "C" SEXP _euclid_segment_2_negate(SEXP x) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(segment_2_negate(cpp11::as_cpp<cpp11::decay_t<segment2_p>>(x)));
+  END_CPP11
+}
+// segment.cpp
+segment3_p create_segment_3_empty();
+extern "C" SEXP _euclid_create_segment_3_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_segment_3_empty());
+  END_CPP11
+}
+// segment.cpp
+segment3_p create_segment_3_p_q(point3_p p, point3_p q);
+extern "C" SEXP _euclid_create_segment_3_p_q(SEXP p, SEXP q) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_segment_3_p_q(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<point3_p>>(q)));
+  END_CPP11
+}
+// segment.cpp
+segment3_p create_segment_3_p_v(point3_p p, vector3_p v);
+extern "C" SEXP _euclid_create_segment_3_p_v(SEXP p, SEXP v) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_segment_3_p_v(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<vector3_p>>(v)));
+  END_CPP11
+}
+// segment.cpp
+segment3_p segment_3_negate(segment3_p x);
+extern "C" SEXP _euclid_segment_3_negate(SEXP x) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(segment_3_negate(cpp11::as_cpp<cpp11::decay_t<segment3_p>>(x)));
+  END_CPP11
+}
+// sphere.cpp
+sphere_p create_sphere_empty();
+extern "C" SEXP _euclid_create_sphere_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_sphere_empty());
+  END_CPP11
+}
+// sphere.cpp
+sphere_p create_sphere_center_radius(point3_p center, exact_numeric_p r2);
+extern "C" SEXP _euclid_create_sphere_center_radius(SEXP center, SEXP r2) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_sphere_center_radius(cpp11::as_cpp<cpp11::decay_t<point3_p>>(center), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(r2)));
+  END_CPP11
+}
+// sphere.cpp
+sphere_p create_sphere_4_point(point3_p p, point3_p q, point3_p r, point3_p s);
+extern "C" SEXP _euclid_create_sphere_4_point(SEXP p, SEXP q, SEXP r, SEXP s) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_sphere_4_point(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<point3_p>>(q), cpp11::as_cpp<cpp11::decay_t<point3_p>>(r), cpp11::as_cpp<cpp11::decay_t<point3_p>>(s)));
+  END_CPP11
+}
+// sphere.cpp
+sphere_p create_sphere_3_point(point3_p p, point3_p q, point3_p r);
+extern "C" SEXP _euclid_create_sphere_3_point(SEXP p, SEXP q, SEXP r) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_sphere_3_point(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<point3_p>>(q), cpp11::as_cpp<cpp11::decay_t<point3_p>>(r)));
+  END_CPP11
+}
+// sphere.cpp
+sphere_p create_sphere_2_point(point3_p p, point3_p q);
+extern "C" SEXP _euclid_create_sphere_2_point(SEXP p, SEXP q) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_sphere_2_point(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<point3_p>>(q)));
+  END_CPP11
+}
+// sphere.cpp
+sphere_p create_sphere_circle(circle3_p circ);
+extern "C" SEXP _euclid_create_sphere_circle(SEXP circ) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_sphere_circle(cpp11::as_cpp<cpp11::decay_t<circle3_p>>(circ)));
+  END_CPP11
+}
+// tetrahedron.cpp
+tetrahedron_p create_tetrahedron_empty();
+extern "C" SEXP _euclid_create_tetrahedron_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_tetrahedron_empty());
+  END_CPP11
+}
+// tetrahedron.cpp
+tetrahedron_p create_tetrahedron_4points(point3_p p, point3_p q, point3_p r, point3_p s);
+extern "C" SEXP _euclid_create_tetrahedron_4points(SEXP p, SEXP q, SEXP r, SEXP s) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_tetrahedron_4points(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<point3_p>>(q), cpp11::as_cpp<cpp11::decay_t<point3_p>>(r), cpp11::as_cpp<cpp11::decay_t<point3_p>>(s)));
   END_CPP11
 }
 // transform.cpp
@@ -1145,6 +1628,34 @@ extern "C" SEXP _euclid_transform_cumprod(SEXP transforms) {
     return cpp11::as_sexp(transform_cumprod(cpp11::as_cpp<cpp11::decay_t<transform_vector_base_p>>(transforms)));
   END_CPP11
 }
+// triangle.cpp
+triangle2_p create_triangle_2_empty();
+extern "C" SEXP _euclid_create_triangle_2_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_triangle_2_empty());
+  END_CPP11
+}
+// triangle.cpp
+triangle2_p create_triangle_2_3points(point2_p p, point2_p q, point2_p r);
+extern "C" SEXP _euclid_create_triangle_2_3points(SEXP p, SEXP q, SEXP r) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_triangle_2_3points(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<point2_p>>(q), cpp11::as_cpp<cpp11::decay_t<point2_p>>(r)));
+  END_CPP11
+}
+// triangle.cpp
+triangle3_p create_triangle_3_empty();
+extern "C" SEXP _euclid_create_triangle_3_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_triangle_3_empty());
+  END_CPP11
+}
+// triangle.cpp
+triangle3_p create_triangle_3_3points(point3_p p, point3_p q, point3_p r);
+extern "C" SEXP _euclid_create_triangle_3_3points(SEXP p, SEXP q, SEXP r) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_triangle_3_3points(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<point3_p>>(q), cpp11::as_cpp<cpp11::decay_t<point3_p>>(r)));
+  END_CPP11
+}
 // vector.cpp
 vector2_p create_vector_2_empty();
 extern "C" SEXP _euclid_create_vector_2_empty() {
@@ -1164,6 +1675,20 @@ vector2_p create_vector_2_ray(ray2_p r);
 extern "C" SEXP _euclid_create_vector_2_ray(SEXP r) {
   BEGIN_CPP11
     return cpp11::as_sexp(create_vector_2_ray(cpp11::as_cpp<cpp11::decay_t<ray2_p>>(r)));
+  END_CPP11
+}
+// vector.cpp
+vector2_p create_vector_2_segment(segment2_p s);
+extern "C" SEXP _euclid_create_vector_2_segment(SEXP s) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_vector_2_segment(cpp11::as_cpp<cpp11::decay_t<segment2_p>>(s)));
+  END_CPP11
+}
+// vector.cpp
+vector2_p create_vector_2_line(line2_p l);
+extern "C" SEXP _euclid_create_vector_2_line(SEXP l) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_vector_2_line(cpp11::as_cpp<cpp11::decay_t<line2_p>>(l)));
   END_CPP11
 }
 // vector.cpp
@@ -1248,6 +1773,20 @@ vector3_p create_vector_3_ray(ray3_p r);
 extern "C" SEXP _euclid_create_vector_3_ray(SEXP r) {
   BEGIN_CPP11
     return cpp11::as_sexp(create_vector_3_ray(cpp11::as_cpp<cpp11::decay_t<ray3_p>>(r)));
+  END_CPP11
+}
+// vector.cpp
+vector3_p create_vector_3_segment(segment3_p s);
+extern "C" SEXP _euclid_create_vector_3_segment(SEXP s) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_vector_3_segment(cpp11::as_cpp<cpp11::decay_t<segment3_p>>(s)));
+  END_CPP11
+}
+// vector.cpp
+vector3_p create_vector_3_line(line3_p l);
+extern "C" SEXP _euclid_create_vector_3_line(SEXP l) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_vector_3_line(cpp11::as_cpp<cpp11::decay_t<line3_p>>(l)));
   END_CPP11
 }
 // vector.cpp
@@ -1342,7 +1881,56 @@ extern SEXP _euclid_create_circle_2_2_point(SEXP, SEXP);
 extern SEXP _euclid_create_circle_2_3_point(SEXP, SEXP, SEXP);
 extern SEXP _euclid_create_circle_2_center_radius(SEXP, SEXP);
 extern SEXP _euclid_create_circle_2_empty();
+extern SEXP _euclid_create_circle_3_3_point(SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_circle_3_center_radius_plane(SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_circle_3_center_radius_vec(SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_circle_3_empty();
+extern SEXP _euclid_create_circle_3_sphere_plane(SEXP, SEXP);
+extern SEXP _euclid_create_circle_3_sphere_sphere(SEXP, SEXP);
+extern SEXP _euclid_create_direction_2_empty();
+extern SEXP _euclid_create_direction_2_line(SEXP);
+extern SEXP _euclid_create_direction_2_ray(SEXP);
+extern SEXP _euclid_create_direction_2_segment(SEXP);
+extern SEXP _euclid_create_direction_2_vec(SEXP);
+extern SEXP _euclid_create_direction_2_xy(SEXP, SEXP);
+extern SEXP _euclid_create_direction_3_empty();
+extern SEXP _euclid_create_direction_3_line(SEXP);
+extern SEXP _euclid_create_direction_3_ray(SEXP);
+extern SEXP _euclid_create_direction_3_segment(SEXP);
+extern SEXP _euclid_create_direction_3_vec(SEXP);
+extern SEXP _euclid_create_direction_3_xyz(SEXP, SEXP, SEXP);
 extern SEXP _euclid_create_exact_numeric(SEXP);
+extern SEXP _euclid_create_iso_cube_bbox(SEXP);
+extern SEXP _euclid_create_iso_cube_empty();
+extern SEXP _euclid_create_iso_cube_lrbtfc(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_iso_cube_pq(SEXP, SEXP);
+extern SEXP _euclid_create_iso_rect_bbox(SEXP);
+extern SEXP _euclid_create_iso_rect_empty();
+extern SEXP _euclid_create_iso_rect_lrbt(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_iso_rect_pq(SEXP, SEXP);
+extern SEXP _euclid_create_line_2_a_b_c(SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_line_2_empty();
+extern SEXP _euclid_create_line_2_p_d(SEXP, SEXP);
+extern SEXP _euclid_create_line_2_p_q(SEXP, SEXP);
+extern SEXP _euclid_create_line_2_p_v(SEXP, SEXP);
+extern SEXP _euclid_create_line_2_ray(SEXP);
+extern SEXP _euclid_create_line_2_seg(SEXP);
+extern SEXP _euclid_create_line_3_empty();
+extern SEXP _euclid_create_line_3_p_d(SEXP, SEXP);
+extern SEXP _euclid_create_line_3_p_q(SEXP, SEXP);
+extern SEXP _euclid_create_line_3_p_v(SEXP, SEXP);
+extern SEXP _euclid_create_line_3_ray(SEXP);
+extern SEXP _euclid_create_line_3_seg(SEXP);
+extern SEXP _euclid_create_plane_abcd(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_plane_circle(SEXP);
+extern SEXP _euclid_create_plane_empty();
+extern SEXP _euclid_create_plane_pd(SEXP, SEXP);
+extern SEXP _euclid_create_plane_pl(SEXP, SEXP);
+extern SEXP _euclid_create_plane_pqr(SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_plane_pr(SEXP, SEXP);
+extern SEXP _euclid_create_plane_ps(SEXP, SEXP);
+extern SEXP _euclid_create_plane_pv(SEXP, SEXP);
+extern SEXP _euclid_create_plane_triangle(SEXP);
 extern SEXP _euclid_create_point_2_empty();
 extern SEXP _euclid_create_point_2_vec(SEXP);
 extern SEXP _euclid_create_point_2_wp(SEXP);
@@ -1358,11 +1946,29 @@ extern SEXP _euclid_create_point_w_3_empty();
 extern SEXP _euclid_create_point_w_3_p_w(SEXP, SEXP);
 extern SEXP _euclid_create_point_w_3_x_y_z_w(SEXP, SEXP, SEXP, SEXP);
 extern SEXP _euclid_create_ray_2_empty();
+extern SEXP _euclid_create_ray_2_p_d(SEXP, SEXP);
+extern SEXP _euclid_create_ray_2_p_l(SEXP, SEXP);
 extern SEXP _euclid_create_ray_2_p_q(SEXP, SEXP);
 extern SEXP _euclid_create_ray_2_p_v(SEXP, SEXP);
 extern SEXP _euclid_create_ray_3_empty();
+extern SEXP _euclid_create_ray_3_p_d(SEXP, SEXP);
+extern SEXP _euclid_create_ray_3_p_l(SEXP, SEXP);
 extern SEXP _euclid_create_ray_3_p_q(SEXP, SEXP);
 extern SEXP _euclid_create_ray_3_p_v(SEXP, SEXP);
+extern SEXP _euclid_create_segment_2_empty();
+extern SEXP _euclid_create_segment_2_p_q(SEXP, SEXP);
+extern SEXP _euclid_create_segment_2_p_v(SEXP, SEXP);
+extern SEXP _euclid_create_segment_3_empty();
+extern SEXP _euclid_create_segment_3_p_q(SEXP, SEXP);
+extern SEXP _euclid_create_segment_3_p_v(SEXP, SEXP);
+extern SEXP _euclid_create_sphere_2_point(SEXP, SEXP);
+extern SEXP _euclid_create_sphere_3_point(SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_sphere_4_point(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_sphere_center_radius(SEXP, SEXP);
+extern SEXP _euclid_create_sphere_circle(SEXP);
+extern SEXP _euclid_create_sphere_empty();
+extern SEXP _euclid_create_tetrahedron_4points(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_tetrahedron_empty();
 extern SEXP _euclid_create_transform_2_identity(SEXP);
 extern SEXP _euclid_create_transform_2_matrix(SEXP);
 extern SEXP _euclid_create_transform_2_rotate(SEXP);
@@ -1372,13 +1978,21 @@ extern SEXP _euclid_create_transform_3_identity(SEXP);
 extern SEXP _euclid_create_transform_3_matrix(SEXP);
 extern SEXP _euclid_create_transform_3_scale(SEXP);
 extern SEXP _euclid_create_transform_3_translate(SEXP);
+extern SEXP _euclid_create_triangle_2_3points(SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_triangle_2_empty();
+extern SEXP _euclid_create_triangle_3_3points(SEXP, SEXP, SEXP);
+extern SEXP _euclid_create_triangle_3_empty();
 extern SEXP _euclid_create_vector_2_empty();
+extern SEXP _euclid_create_vector_2_line(SEXP);
 extern SEXP _euclid_create_vector_2_point(SEXP);
 extern SEXP _euclid_create_vector_2_ray(SEXP);
+extern SEXP _euclid_create_vector_2_segment(SEXP);
 extern SEXP _euclid_create_vector_2_x_y(SEXP, SEXP);
 extern SEXP _euclid_create_vector_3_empty();
+extern SEXP _euclid_create_vector_3_line(SEXP);
 extern SEXP _euclid_create_vector_3_point(SEXP);
 extern SEXP _euclid_create_vector_3_ray(SEXP);
+extern SEXP _euclid_create_vector_3_segment(SEXP);
 extern SEXP _euclid_create_vector_3_x_y_z(SEXP, SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_abs(SEXP);
 extern SEXP _euclid_exact_numeric_any_duplicated(SEXP);
@@ -1465,6 +2079,8 @@ extern SEXP _euclid_point_3_sub_point(SEXP, SEXP);
 extern SEXP _euclid_point_3_sub_vector(SEXP, SEXP);
 extern SEXP _euclid_ray_2_negate(SEXP);
 extern SEXP _euclid_ray_3_negate(SEXP);
+extern SEXP _euclid_segment_2_negate(SEXP);
+extern SEXP _euclid_segment_3_negate(SEXP);
 extern SEXP _euclid_transform_any_duplicated(SEXP);
 extern SEXP _euclid_transform_any_na(SEXP);
 extern SEXP _euclid_transform_assign(SEXP, SEXP, SEXP);
@@ -1505,193 +2121,270 @@ extern SEXP _euclid_vector_3_sum(SEXP, SEXP);
 extern SEXP _euclid_vector_3_times_numeric(SEXP, SEXP);
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_euclid_bbox_any_duplicated",           (DL_FUNC) &_euclid_bbox_any_duplicated,           1},
-    {"_euclid_bbox_any_na",                   (DL_FUNC) &_euclid_bbox_any_na,                   1},
-    {"_euclid_bbox_assign",                   (DL_FUNC) &_euclid_bbox_assign,                   3},
-    {"_euclid_bbox_combine",                  (DL_FUNC) &_euclid_bbox_combine,                  2},
-    {"_euclid_bbox_copy",                     (DL_FUNC) &_euclid_bbox_copy,                     1},
-    {"_euclid_bbox_cumsum",                   (DL_FUNC) &_euclid_bbox_cumsum,                   1},
-    {"_euclid_bbox_dimension",                (DL_FUNC) &_euclid_bbox_dimension,                1},
-    {"_euclid_bbox_duplicated",               (DL_FUNC) &_euclid_bbox_duplicated,               1},
-    {"_euclid_bbox_format",                   (DL_FUNC) &_euclid_bbox_format,                   1},
-    {"_euclid_bbox_is_equal",                 (DL_FUNC) &_euclid_bbox_is_equal,                 2},
-    {"_euclid_bbox_is_na",                    (DL_FUNC) &_euclid_bbox_is_na,                    1},
-    {"_euclid_bbox_is_not_equal",             (DL_FUNC) &_euclid_bbox_is_not_equal,             2},
-    {"_euclid_bbox_length",                   (DL_FUNC) &_euclid_bbox_length,                   1},
-    {"_euclid_bbox_match",                    (DL_FUNC) &_euclid_bbox_match,                    2},
-    {"_euclid_bbox_overlaps",                 (DL_FUNC) &_euclid_bbox_overlaps,                 2},
-    {"_euclid_bbox_plus",                     (DL_FUNC) &_euclid_bbox_plus,                     2},
-    {"_euclid_bbox_subset",                   (DL_FUNC) &_euclid_bbox_subset,                   2},
-    {"_euclid_bbox_sum",                      (DL_FUNC) &_euclid_bbox_sum,                      2},
-    {"_euclid_bbox_to_matrix",                (DL_FUNC) &_euclid_bbox_to_matrix,                1},
-    {"_euclid_bbox_unique",                   (DL_FUNC) &_euclid_bbox_unique,                   1},
-    {"_euclid_create_bbox_2",                 (DL_FUNC) &_euclid_create_bbox_2,                 4},
-    {"_euclid_create_bbox_3",                 (DL_FUNC) &_euclid_create_bbox_3,                 6},
-    {"_euclid_create_circle_2_2_point",       (DL_FUNC) &_euclid_create_circle_2_2_point,       2},
-    {"_euclid_create_circle_2_3_point",       (DL_FUNC) &_euclid_create_circle_2_3_point,       3},
-    {"_euclid_create_circle_2_center_radius", (DL_FUNC) &_euclid_create_circle_2_center_radius, 2},
-    {"_euclid_create_circle_2_empty",         (DL_FUNC) &_euclid_create_circle_2_empty,         0},
-    {"_euclid_create_exact_numeric",          (DL_FUNC) &_euclid_create_exact_numeric,          1},
-    {"_euclid_create_point_2_empty",          (DL_FUNC) &_euclid_create_point_2_empty,          0},
-    {"_euclid_create_point_2_vec",            (DL_FUNC) &_euclid_create_point_2_vec,            1},
-    {"_euclid_create_point_2_wp",             (DL_FUNC) &_euclid_create_point_2_wp,             1},
-    {"_euclid_create_point_2_x_y",            (DL_FUNC) &_euclid_create_point_2_x_y,            2},
-    {"_euclid_create_point_3_empty",          (DL_FUNC) &_euclid_create_point_3_empty,          0},
-    {"_euclid_create_point_3_vec",            (DL_FUNC) &_euclid_create_point_3_vec,            1},
-    {"_euclid_create_point_3_wp",             (DL_FUNC) &_euclid_create_point_3_wp,             1},
-    {"_euclid_create_point_3_x_y_z",          (DL_FUNC) &_euclid_create_point_3_x_y_z,          3},
-    {"_euclid_create_point_w_2_empty",        (DL_FUNC) &_euclid_create_point_w_2_empty,        0},
-    {"_euclid_create_point_w_2_p_w",          (DL_FUNC) &_euclid_create_point_w_2_p_w,          2},
-    {"_euclid_create_point_w_2_x_y_w",        (DL_FUNC) &_euclid_create_point_w_2_x_y_w,        3},
-    {"_euclid_create_point_w_3_empty",        (DL_FUNC) &_euclid_create_point_w_3_empty,        0},
-    {"_euclid_create_point_w_3_p_w",          (DL_FUNC) &_euclid_create_point_w_3_p_w,          2},
-    {"_euclid_create_point_w_3_x_y_z_w",      (DL_FUNC) &_euclid_create_point_w_3_x_y_z_w,      4},
-    {"_euclid_create_ray_2_empty",            (DL_FUNC) &_euclid_create_ray_2_empty,            0},
-    {"_euclid_create_ray_2_p_q",              (DL_FUNC) &_euclid_create_ray_2_p_q,              2},
-    {"_euclid_create_ray_2_p_v",              (DL_FUNC) &_euclid_create_ray_2_p_v,              2},
-    {"_euclid_create_ray_3_empty",            (DL_FUNC) &_euclid_create_ray_3_empty,            0},
-    {"_euclid_create_ray_3_p_q",              (DL_FUNC) &_euclid_create_ray_3_p_q,              2},
-    {"_euclid_create_ray_3_p_v",              (DL_FUNC) &_euclid_create_ray_3_p_v,              2},
-    {"_euclid_create_transform_2_identity",   (DL_FUNC) &_euclid_create_transform_2_identity,   1},
-    {"_euclid_create_transform_2_matrix",     (DL_FUNC) &_euclid_create_transform_2_matrix,     1},
-    {"_euclid_create_transform_2_rotate",     (DL_FUNC) &_euclid_create_transform_2_rotate,     1},
-    {"_euclid_create_transform_2_scale",      (DL_FUNC) &_euclid_create_transform_2_scale,      1},
-    {"_euclid_create_transform_2_translate",  (DL_FUNC) &_euclid_create_transform_2_translate,  1},
-    {"_euclid_create_transform_3_identity",   (DL_FUNC) &_euclid_create_transform_3_identity,   1},
-    {"_euclid_create_transform_3_matrix",     (DL_FUNC) &_euclid_create_transform_3_matrix,     1},
-    {"_euclid_create_transform_3_scale",      (DL_FUNC) &_euclid_create_transform_3_scale,      1},
-    {"_euclid_create_transform_3_translate",  (DL_FUNC) &_euclid_create_transform_3_translate,  1},
-    {"_euclid_create_vector_2_empty",         (DL_FUNC) &_euclid_create_vector_2_empty,         0},
-    {"_euclid_create_vector_2_point",         (DL_FUNC) &_euclid_create_vector_2_point,         1},
-    {"_euclid_create_vector_2_ray",           (DL_FUNC) &_euclid_create_vector_2_ray,           1},
-    {"_euclid_create_vector_2_x_y",           (DL_FUNC) &_euclid_create_vector_2_x_y,           2},
-    {"_euclid_create_vector_3_empty",         (DL_FUNC) &_euclid_create_vector_3_empty,         0},
-    {"_euclid_create_vector_3_point",         (DL_FUNC) &_euclid_create_vector_3_point,         1},
-    {"_euclid_create_vector_3_ray",           (DL_FUNC) &_euclid_create_vector_3_ray,           1},
-    {"_euclid_create_vector_3_x_y_z",         (DL_FUNC) &_euclid_create_vector_3_x_y_z,         3},
-    {"_euclid_exact_numeric_abs",             (DL_FUNC) &_euclid_exact_numeric_abs,             1},
-    {"_euclid_exact_numeric_any_duplicated",  (DL_FUNC) &_euclid_exact_numeric_any_duplicated,  1},
-    {"_euclid_exact_numeric_any_na",          (DL_FUNC) &_euclid_exact_numeric_any_na,          1},
-    {"_euclid_exact_numeric_assign",          (DL_FUNC) &_euclid_exact_numeric_assign,          3},
-    {"_euclid_exact_numeric_combine",         (DL_FUNC) &_euclid_exact_numeric_combine,         2},
-    {"_euclid_exact_numeric_cummax",          (DL_FUNC) &_euclid_exact_numeric_cummax,          1},
-    {"_euclid_exact_numeric_cummin",          (DL_FUNC) &_euclid_exact_numeric_cummin,          1},
-    {"_euclid_exact_numeric_cumprod",         (DL_FUNC) &_euclid_exact_numeric_cumprod,         1},
-    {"_euclid_exact_numeric_cumsum",          (DL_FUNC) &_euclid_exact_numeric_cumsum,          1},
-    {"_euclid_exact_numeric_diff",            (DL_FUNC) &_euclid_exact_numeric_diff,            2},
-    {"_euclid_exact_numeric_divided",         (DL_FUNC) &_euclid_exact_numeric_divided,         2},
-    {"_euclid_exact_numeric_duplicated",      (DL_FUNC) &_euclid_exact_numeric_duplicated,      1},
-    {"_euclid_exact_numeric_greater",         (DL_FUNC) &_euclid_exact_numeric_greater,         2},
-    {"_euclid_exact_numeric_greater_equal",   (DL_FUNC) &_euclid_exact_numeric_greater_equal,   2},
-    {"_euclid_exact_numeric_is_equal",        (DL_FUNC) &_euclid_exact_numeric_is_equal,        2},
-    {"_euclid_exact_numeric_is_na",           (DL_FUNC) &_euclid_exact_numeric_is_na,           1},
-    {"_euclid_exact_numeric_is_not_equal",    (DL_FUNC) &_euclid_exact_numeric_is_not_equal,    2},
-    {"_euclid_exact_numeric_length",          (DL_FUNC) &_euclid_exact_numeric_length,          1},
-    {"_euclid_exact_numeric_less",            (DL_FUNC) &_euclid_exact_numeric_less,            2},
-    {"_euclid_exact_numeric_less_equal",      (DL_FUNC) &_euclid_exact_numeric_less_equal,      2},
-    {"_euclid_exact_numeric_match",           (DL_FUNC) &_euclid_exact_numeric_match,           2},
-    {"_euclid_exact_numeric_max",             (DL_FUNC) &_euclid_exact_numeric_max,             2},
-    {"_euclid_exact_numeric_min",             (DL_FUNC) &_euclid_exact_numeric_min,             2},
-    {"_euclid_exact_numeric_minus",           (DL_FUNC) &_euclid_exact_numeric_minus,           2},
-    {"_euclid_exact_numeric_plus",            (DL_FUNC) &_euclid_exact_numeric_plus,            2},
-    {"_euclid_exact_numeric_prod",            (DL_FUNC) &_euclid_exact_numeric_prod,            2},
-    {"_euclid_exact_numeric_rank",            (DL_FUNC) &_euclid_exact_numeric_rank,            1},
-    {"_euclid_exact_numeric_sign",            (DL_FUNC) &_euclid_exact_numeric_sign,            1},
-    {"_euclid_exact_numeric_sort",            (DL_FUNC) &_euclid_exact_numeric_sort,            3},
-    {"_euclid_exact_numeric_subset",          (DL_FUNC) &_euclid_exact_numeric_subset,          2},
-    {"_euclid_exact_numeric_sum",             (DL_FUNC) &_euclid_exact_numeric_sum,             2},
-    {"_euclid_exact_numeric_times",           (DL_FUNC) &_euclid_exact_numeric_times,           2},
-    {"_euclid_exact_numeric_to_numeric",      (DL_FUNC) &_euclid_exact_numeric_to_numeric,      1},
-    {"_euclid_exact_numeric_uni_minus",       (DL_FUNC) &_euclid_exact_numeric_uni_minus,       1},
-    {"_euclid_exact_numeric_unique",          (DL_FUNC) &_euclid_exact_numeric_unique,          1},
-    {"_euclid_geometry_any_duplicated",       (DL_FUNC) &_euclid_geometry_any_duplicated,       1},
-    {"_euclid_geometry_any_na",               (DL_FUNC) &_euclid_geometry_any_na,               1},
-    {"_euclid_geometry_assign",               (DL_FUNC) &_euclid_geometry_assign,               3},
-    {"_euclid_geometry_bbox",                 (DL_FUNC) &_euclid_geometry_bbox,                 1},
-    {"_euclid_geometry_cardinality",          (DL_FUNC) &_euclid_geometry_cardinality,          1},
-    {"_euclid_geometry_combine",              (DL_FUNC) &_euclid_geometry_combine,              2},
-    {"_euclid_geometry_copy",                 (DL_FUNC) &_euclid_geometry_copy,                 1},
-    {"_euclid_geometry_definition",           (DL_FUNC) &_euclid_geometry_definition,           3},
-    {"_euclid_geometry_definition_names",     (DL_FUNC) &_euclid_geometry_definition_names,     1},
-    {"_euclid_geometry_dimension",            (DL_FUNC) &_euclid_geometry_dimension,            1},
-    {"_euclid_geometry_duplicated",           (DL_FUNC) &_euclid_geometry_duplicated,           1},
-    {"_euclid_geometry_format",               (DL_FUNC) &_euclid_geometry_format,               1},
-    {"_euclid_geometry_is_degenerate",        (DL_FUNC) &_euclid_geometry_is_degenerate,        1},
-    {"_euclid_geometry_is_equal",             (DL_FUNC) &_euclid_geometry_is_equal,             2},
-    {"_euclid_geometry_is_na",                (DL_FUNC) &_euclid_geometry_is_na,                1},
-    {"_euclid_geometry_is_not_equal",         (DL_FUNC) &_euclid_geometry_is_not_equal,         2},
-    {"_euclid_geometry_length",               (DL_FUNC) &_euclid_geometry_length,               1},
-    {"_euclid_geometry_match",                (DL_FUNC) &_euclid_geometry_match,                2},
-    {"_euclid_geometry_subset",               (DL_FUNC) &_euclid_geometry_subset,               2},
-    {"_euclid_geometry_to_matrix",            (DL_FUNC) &_euclid_geometry_to_matrix,            1},
-    {"_euclid_geometry_transform",            (DL_FUNC) &_euclid_geometry_transform,            2},
-    {"_euclid_geometry_unique",               (DL_FUNC) &_euclid_geometry_unique,               1},
-    {"_euclid_point_2_add_vector",            (DL_FUNC) &_euclid_point_2_add_vector,            2},
-    {"_euclid_point_2_cummax",                (DL_FUNC) &_euclid_point_2_cummax,                1},
-    {"_euclid_point_2_cummin",                (DL_FUNC) &_euclid_point_2_cummin,                1},
-    {"_euclid_point_2_greater",               (DL_FUNC) &_euclid_point_2_greater,               2},
-    {"_euclid_point_2_greater_equal",         (DL_FUNC) &_euclid_point_2_greater_equal,         2},
-    {"_euclid_point_2_less",                  (DL_FUNC) &_euclid_point_2_less,                  2},
-    {"_euclid_point_2_less_equal",            (DL_FUNC) &_euclid_point_2_less_equal,            2},
-    {"_euclid_point_2_max",                   (DL_FUNC) &_euclid_point_2_max,                   2},
-    {"_euclid_point_2_min",                   (DL_FUNC) &_euclid_point_2_min,                   2},
-    {"_euclid_point_2_rank",                  (DL_FUNC) &_euclid_point_2_rank,                  1},
-    {"_euclid_point_2_sort",                  (DL_FUNC) &_euclid_point_2_sort,                  3},
-    {"_euclid_point_2_sub_point",             (DL_FUNC) &_euclid_point_2_sub_point,             2},
-    {"_euclid_point_2_sub_vector",            (DL_FUNC) &_euclid_point_2_sub_vector,            2},
-    {"_euclid_point_3_add_vector",            (DL_FUNC) &_euclid_point_3_add_vector,            2},
-    {"_euclid_point_3_cummax",                (DL_FUNC) &_euclid_point_3_cummax,                1},
-    {"_euclid_point_3_cummin",                (DL_FUNC) &_euclid_point_3_cummin,                1},
-    {"_euclid_point_3_greater",               (DL_FUNC) &_euclid_point_3_greater,               2},
-    {"_euclid_point_3_greater_equal",         (DL_FUNC) &_euclid_point_3_greater_equal,         2},
-    {"_euclid_point_3_less",                  (DL_FUNC) &_euclid_point_3_less,                  2},
-    {"_euclid_point_3_less_equal",            (DL_FUNC) &_euclid_point_3_less_equal,            2},
-    {"_euclid_point_3_max",                   (DL_FUNC) &_euclid_point_3_max,                   2},
-    {"_euclid_point_3_min",                   (DL_FUNC) &_euclid_point_3_min,                   2},
-    {"_euclid_point_3_rank",                  (DL_FUNC) &_euclid_point_3_rank,                  1},
-    {"_euclid_point_3_sort",                  (DL_FUNC) &_euclid_point_3_sort,                  3},
-    {"_euclid_point_3_sub_point",             (DL_FUNC) &_euclid_point_3_sub_point,             2},
-    {"_euclid_point_3_sub_vector",            (DL_FUNC) &_euclid_point_3_sub_vector,            2},
-    {"_euclid_ray_2_negate",                  (DL_FUNC) &_euclid_ray_2_negate,                  1},
-    {"_euclid_ray_3_negate",                  (DL_FUNC) &_euclid_ray_3_negate,                  1},
-    {"_euclid_transform_any_duplicated",      (DL_FUNC) &_euclid_transform_any_duplicated,      1},
-    {"_euclid_transform_any_na",              (DL_FUNC) &_euclid_transform_any_na,              1},
-    {"_euclid_transform_assign",              (DL_FUNC) &_euclid_transform_assign,              3},
-    {"_euclid_transform_combine",             (DL_FUNC) &_euclid_transform_combine,             2},
-    {"_euclid_transform_copy",                (DL_FUNC) &_euclid_transform_copy,                1},
-    {"_euclid_transform_cumprod",             (DL_FUNC) &_euclid_transform_cumprod,             1},
-    {"_euclid_transform_definition",          (DL_FUNC) &_euclid_transform_definition,          3},
-    {"_euclid_transform_dimension",           (DL_FUNC) &_euclid_transform_dimension,           1},
-    {"_euclid_transform_duplicated",          (DL_FUNC) &_euclid_transform_duplicated,          1},
-    {"_euclid_transform_format",              (DL_FUNC) &_euclid_transform_format,              1},
-    {"_euclid_transform_inverse",             (DL_FUNC) &_euclid_transform_inverse,             1},
-    {"_euclid_transform_is_equal",            (DL_FUNC) &_euclid_transform_is_equal,            2},
-    {"_euclid_transform_is_na",               (DL_FUNC) &_euclid_transform_is_na,               1},
-    {"_euclid_transform_is_not_equal",        (DL_FUNC) &_euclid_transform_is_not_equal,        2},
-    {"_euclid_transform_is_reflecting",       (DL_FUNC) &_euclid_transform_is_reflecting,       1},
-    {"_euclid_transform_length",              (DL_FUNC) &_euclid_transform_length,              1},
-    {"_euclid_transform_match",               (DL_FUNC) &_euclid_transform_match,               2},
-    {"_euclid_transform_multiply",            (DL_FUNC) &_euclid_transform_multiply,            2},
-    {"_euclid_transform_prod",                (DL_FUNC) &_euclid_transform_prod,                2},
-    {"_euclid_transform_subset",              (DL_FUNC) &_euclid_transform_subset,              2},
-    {"_euclid_transform_to_array",            (DL_FUNC) &_euclid_transform_to_array,            1},
-    {"_euclid_transform_unique",              (DL_FUNC) &_euclid_transform_unique,              1},
-    {"_euclid_vector_2_add_vector",           (DL_FUNC) &_euclid_vector_2_add_vector,           2},
-    {"_euclid_vector_2_cumsum",               (DL_FUNC) &_euclid_vector_2_cumsum,               1},
-    {"_euclid_vector_2_divide_numeric",       (DL_FUNC) &_euclid_vector_2_divide_numeric,       2},
-    {"_euclid_vector_2_dot_vector",           (DL_FUNC) &_euclid_vector_2_dot_vector,           2},
-    {"_euclid_vector_2_minus_vector",         (DL_FUNC) &_euclid_vector_2_minus_vector,         2},
-    {"_euclid_vector_2_negate",               (DL_FUNC) &_euclid_vector_2_negate,               1},
-    {"_euclid_vector_2_sum",                  (DL_FUNC) &_euclid_vector_2_sum,                  2},
-    {"_euclid_vector_2_times_numeric",        (DL_FUNC) &_euclid_vector_2_times_numeric,        2},
-    {"_euclid_vector_3_add_vector",           (DL_FUNC) &_euclid_vector_3_add_vector,           2},
-    {"_euclid_vector_3_cumsum",               (DL_FUNC) &_euclid_vector_3_cumsum,               1},
-    {"_euclid_vector_3_divide_numeric",       (DL_FUNC) &_euclid_vector_3_divide_numeric,       2},
-    {"_euclid_vector_3_dot_vector",           (DL_FUNC) &_euclid_vector_3_dot_vector,           2},
-    {"_euclid_vector_3_minus_vector",         (DL_FUNC) &_euclid_vector_3_minus_vector,         2},
-    {"_euclid_vector_3_negate",               (DL_FUNC) &_euclid_vector_3_negate,               1},
-    {"_euclid_vector_3_sum",                  (DL_FUNC) &_euclid_vector_3_sum,                  2},
-    {"_euclid_vector_3_times_numeric",        (DL_FUNC) &_euclid_vector_3_times_numeric,        2},
+    {"_euclid_bbox_any_duplicated",                 (DL_FUNC) &_euclid_bbox_any_duplicated,                 1},
+    {"_euclid_bbox_any_na",                         (DL_FUNC) &_euclid_bbox_any_na,                         1},
+    {"_euclid_bbox_assign",                         (DL_FUNC) &_euclid_bbox_assign,                         3},
+    {"_euclid_bbox_combine",                        (DL_FUNC) &_euclid_bbox_combine,                        2},
+    {"_euclid_bbox_copy",                           (DL_FUNC) &_euclid_bbox_copy,                           1},
+    {"_euclid_bbox_cumsum",                         (DL_FUNC) &_euclid_bbox_cumsum,                         1},
+    {"_euclid_bbox_dimension",                      (DL_FUNC) &_euclid_bbox_dimension,                      1},
+    {"_euclid_bbox_duplicated",                     (DL_FUNC) &_euclid_bbox_duplicated,                     1},
+    {"_euclid_bbox_format",                         (DL_FUNC) &_euclid_bbox_format,                         1},
+    {"_euclid_bbox_is_equal",                       (DL_FUNC) &_euclid_bbox_is_equal,                       2},
+    {"_euclid_bbox_is_na",                          (DL_FUNC) &_euclid_bbox_is_na,                          1},
+    {"_euclid_bbox_is_not_equal",                   (DL_FUNC) &_euclid_bbox_is_not_equal,                   2},
+    {"_euclid_bbox_length",                         (DL_FUNC) &_euclid_bbox_length,                         1},
+    {"_euclid_bbox_match",                          (DL_FUNC) &_euclid_bbox_match,                          2},
+    {"_euclid_bbox_overlaps",                       (DL_FUNC) &_euclid_bbox_overlaps,                       2},
+    {"_euclid_bbox_plus",                           (DL_FUNC) &_euclid_bbox_plus,                           2},
+    {"_euclid_bbox_subset",                         (DL_FUNC) &_euclid_bbox_subset,                         2},
+    {"_euclid_bbox_sum",                            (DL_FUNC) &_euclid_bbox_sum,                            2},
+    {"_euclid_bbox_to_matrix",                      (DL_FUNC) &_euclid_bbox_to_matrix,                      1},
+    {"_euclid_bbox_unique",                         (DL_FUNC) &_euclid_bbox_unique,                         1},
+    {"_euclid_create_bbox_2",                       (DL_FUNC) &_euclid_create_bbox_2,                       4},
+    {"_euclid_create_bbox_3",                       (DL_FUNC) &_euclid_create_bbox_3,                       6},
+    {"_euclid_create_circle_2_2_point",             (DL_FUNC) &_euclid_create_circle_2_2_point,             2},
+    {"_euclid_create_circle_2_3_point",             (DL_FUNC) &_euclid_create_circle_2_3_point,             3},
+    {"_euclid_create_circle_2_center_radius",       (DL_FUNC) &_euclid_create_circle_2_center_radius,       2},
+    {"_euclid_create_circle_2_empty",               (DL_FUNC) &_euclid_create_circle_2_empty,               0},
+    {"_euclid_create_circle_3_3_point",             (DL_FUNC) &_euclid_create_circle_3_3_point,             3},
+    {"_euclid_create_circle_3_center_radius_plane", (DL_FUNC) &_euclid_create_circle_3_center_radius_plane, 3},
+    {"_euclid_create_circle_3_center_radius_vec",   (DL_FUNC) &_euclid_create_circle_3_center_radius_vec,   3},
+    {"_euclid_create_circle_3_empty",               (DL_FUNC) &_euclid_create_circle_3_empty,               0},
+    {"_euclid_create_circle_3_sphere_plane",        (DL_FUNC) &_euclid_create_circle_3_sphere_plane,        2},
+    {"_euclid_create_circle_3_sphere_sphere",       (DL_FUNC) &_euclid_create_circle_3_sphere_sphere,       2},
+    {"_euclid_create_direction_2_empty",            (DL_FUNC) &_euclid_create_direction_2_empty,            0},
+    {"_euclid_create_direction_2_line",             (DL_FUNC) &_euclid_create_direction_2_line,             1},
+    {"_euclid_create_direction_2_ray",              (DL_FUNC) &_euclid_create_direction_2_ray,              1},
+    {"_euclid_create_direction_2_segment",          (DL_FUNC) &_euclid_create_direction_2_segment,          1},
+    {"_euclid_create_direction_2_vec",              (DL_FUNC) &_euclid_create_direction_2_vec,              1},
+    {"_euclid_create_direction_2_xy",               (DL_FUNC) &_euclid_create_direction_2_xy,               2},
+    {"_euclid_create_direction_3_empty",            (DL_FUNC) &_euclid_create_direction_3_empty,            0},
+    {"_euclid_create_direction_3_line",             (DL_FUNC) &_euclid_create_direction_3_line,             1},
+    {"_euclid_create_direction_3_ray",              (DL_FUNC) &_euclid_create_direction_3_ray,              1},
+    {"_euclid_create_direction_3_segment",          (DL_FUNC) &_euclid_create_direction_3_segment,          1},
+    {"_euclid_create_direction_3_vec",              (DL_FUNC) &_euclid_create_direction_3_vec,              1},
+    {"_euclid_create_direction_3_xyz",              (DL_FUNC) &_euclid_create_direction_3_xyz,              3},
+    {"_euclid_create_exact_numeric",                (DL_FUNC) &_euclid_create_exact_numeric,                1},
+    {"_euclid_create_iso_cube_bbox",                (DL_FUNC) &_euclid_create_iso_cube_bbox,                1},
+    {"_euclid_create_iso_cube_empty",               (DL_FUNC) &_euclid_create_iso_cube_empty,               0},
+    {"_euclid_create_iso_cube_lrbtfc",              (DL_FUNC) &_euclid_create_iso_cube_lrbtfc,              6},
+    {"_euclid_create_iso_cube_pq",                  (DL_FUNC) &_euclid_create_iso_cube_pq,                  2},
+    {"_euclid_create_iso_rect_bbox",                (DL_FUNC) &_euclid_create_iso_rect_bbox,                1},
+    {"_euclid_create_iso_rect_empty",               (DL_FUNC) &_euclid_create_iso_rect_empty,               0},
+    {"_euclid_create_iso_rect_lrbt",                (DL_FUNC) &_euclid_create_iso_rect_lrbt,                4},
+    {"_euclid_create_iso_rect_pq",                  (DL_FUNC) &_euclid_create_iso_rect_pq,                  2},
+    {"_euclid_create_line_2_a_b_c",                 (DL_FUNC) &_euclid_create_line_2_a_b_c,                 3},
+    {"_euclid_create_line_2_empty",                 (DL_FUNC) &_euclid_create_line_2_empty,                 0},
+    {"_euclid_create_line_2_p_d",                   (DL_FUNC) &_euclid_create_line_2_p_d,                   2},
+    {"_euclid_create_line_2_p_q",                   (DL_FUNC) &_euclid_create_line_2_p_q,                   2},
+    {"_euclid_create_line_2_p_v",                   (DL_FUNC) &_euclid_create_line_2_p_v,                   2},
+    {"_euclid_create_line_2_ray",                   (DL_FUNC) &_euclid_create_line_2_ray,                   1},
+    {"_euclid_create_line_2_seg",                   (DL_FUNC) &_euclid_create_line_2_seg,                   1},
+    {"_euclid_create_line_3_empty",                 (DL_FUNC) &_euclid_create_line_3_empty,                 0},
+    {"_euclid_create_line_3_p_d",                   (DL_FUNC) &_euclid_create_line_3_p_d,                   2},
+    {"_euclid_create_line_3_p_q",                   (DL_FUNC) &_euclid_create_line_3_p_q,                   2},
+    {"_euclid_create_line_3_p_v",                   (DL_FUNC) &_euclid_create_line_3_p_v,                   2},
+    {"_euclid_create_line_3_ray",                   (DL_FUNC) &_euclid_create_line_3_ray,                   1},
+    {"_euclid_create_line_3_seg",                   (DL_FUNC) &_euclid_create_line_3_seg,                   1},
+    {"_euclid_create_plane_abcd",                   (DL_FUNC) &_euclid_create_plane_abcd,                   4},
+    {"_euclid_create_plane_circle",                 (DL_FUNC) &_euclid_create_plane_circle,                 1},
+    {"_euclid_create_plane_empty",                  (DL_FUNC) &_euclid_create_plane_empty,                  0},
+    {"_euclid_create_plane_pd",                     (DL_FUNC) &_euclid_create_plane_pd,                     2},
+    {"_euclid_create_plane_pl",                     (DL_FUNC) &_euclid_create_plane_pl,                     2},
+    {"_euclid_create_plane_pqr",                    (DL_FUNC) &_euclid_create_plane_pqr,                    3},
+    {"_euclid_create_plane_pr",                     (DL_FUNC) &_euclid_create_plane_pr,                     2},
+    {"_euclid_create_plane_ps",                     (DL_FUNC) &_euclid_create_plane_ps,                     2},
+    {"_euclid_create_plane_pv",                     (DL_FUNC) &_euclid_create_plane_pv,                     2},
+    {"_euclid_create_plane_triangle",               (DL_FUNC) &_euclid_create_plane_triangle,               1},
+    {"_euclid_create_point_2_empty",                (DL_FUNC) &_euclid_create_point_2_empty,                0},
+    {"_euclid_create_point_2_vec",                  (DL_FUNC) &_euclid_create_point_2_vec,                  1},
+    {"_euclid_create_point_2_wp",                   (DL_FUNC) &_euclid_create_point_2_wp,                   1},
+    {"_euclid_create_point_2_x_y",                  (DL_FUNC) &_euclid_create_point_2_x_y,                  2},
+    {"_euclid_create_point_3_empty",                (DL_FUNC) &_euclid_create_point_3_empty,                0},
+    {"_euclid_create_point_3_vec",                  (DL_FUNC) &_euclid_create_point_3_vec,                  1},
+    {"_euclid_create_point_3_wp",                   (DL_FUNC) &_euclid_create_point_3_wp,                   1},
+    {"_euclid_create_point_3_x_y_z",                (DL_FUNC) &_euclid_create_point_3_x_y_z,                3},
+    {"_euclid_create_point_w_2_empty",              (DL_FUNC) &_euclid_create_point_w_2_empty,              0},
+    {"_euclid_create_point_w_2_p_w",                (DL_FUNC) &_euclid_create_point_w_2_p_w,                2},
+    {"_euclid_create_point_w_2_x_y_w",              (DL_FUNC) &_euclid_create_point_w_2_x_y_w,              3},
+    {"_euclid_create_point_w_3_empty",              (DL_FUNC) &_euclid_create_point_w_3_empty,              0},
+    {"_euclid_create_point_w_3_p_w",                (DL_FUNC) &_euclid_create_point_w_3_p_w,                2},
+    {"_euclid_create_point_w_3_x_y_z_w",            (DL_FUNC) &_euclid_create_point_w_3_x_y_z_w,            4},
+    {"_euclid_create_ray_2_empty",                  (DL_FUNC) &_euclid_create_ray_2_empty,                  0},
+    {"_euclid_create_ray_2_p_d",                    (DL_FUNC) &_euclid_create_ray_2_p_d,                    2},
+    {"_euclid_create_ray_2_p_l",                    (DL_FUNC) &_euclid_create_ray_2_p_l,                    2},
+    {"_euclid_create_ray_2_p_q",                    (DL_FUNC) &_euclid_create_ray_2_p_q,                    2},
+    {"_euclid_create_ray_2_p_v",                    (DL_FUNC) &_euclid_create_ray_2_p_v,                    2},
+    {"_euclid_create_ray_3_empty",                  (DL_FUNC) &_euclid_create_ray_3_empty,                  0},
+    {"_euclid_create_ray_3_p_d",                    (DL_FUNC) &_euclid_create_ray_3_p_d,                    2},
+    {"_euclid_create_ray_3_p_l",                    (DL_FUNC) &_euclid_create_ray_3_p_l,                    2},
+    {"_euclid_create_ray_3_p_q",                    (DL_FUNC) &_euclid_create_ray_3_p_q,                    2},
+    {"_euclid_create_ray_3_p_v",                    (DL_FUNC) &_euclid_create_ray_3_p_v,                    2},
+    {"_euclid_create_segment_2_empty",              (DL_FUNC) &_euclid_create_segment_2_empty,              0},
+    {"_euclid_create_segment_2_p_q",                (DL_FUNC) &_euclid_create_segment_2_p_q,                2},
+    {"_euclid_create_segment_2_p_v",                (DL_FUNC) &_euclid_create_segment_2_p_v,                2},
+    {"_euclid_create_segment_3_empty",              (DL_FUNC) &_euclid_create_segment_3_empty,              0},
+    {"_euclid_create_segment_3_p_q",                (DL_FUNC) &_euclid_create_segment_3_p_q,                2},
+    {"_euclid_create_segment_3_p_v",                (DL_FUNC) &_euclid_create_segment_3_p_v,                2},
+    {"_euclid_create_sphere_2_point",               (DL_FUNC) &_euclid_create_sphere_2_point,               2},
+    {"_euclid_create_sphere_3_point",               (DL_FUNC) &_euclid_create_sphere_3_point,               3},
+    {"_euclid_create_sphere_4_point",               (DL_FUNC) &_euclid_create_sphere_4_point,               4},
+    {"_euclid_create_sphere_center_radius",         (DL_FUNC) &_euclid_create_sphere_center_radius,         2},
+    {"_euclid_create_sphere_circle",                (DL_FUNC) &_euclid_create_sphere_circle,                1},
+    {"_euclid_create_sphere_empty",                 (DL_FUNC) &_euclid_create_sphere_empty,                 0},
+    {"_euclid_create_tetrahedron_4points",          (DL_FUNC) &_euclid_create_tetrahedron_4points,          4},
+    {"_euclid_create_tetrahedron_empty",            (DL_FUNC) &_euclid_create_tetrahedron_empty,            0},
+    {"_euclid_create_transform_2_identity",         (DL_FUNC) &_euclid_create_transform_2_identity,         1},
+    {"_euclid_create_transform_2_matrix",           (DL_FUNC) &_euclid_create_transform_2_matrix,           1},
+    {"_euclid_create_transform_2_rotate",           (DL_FUNC) &_euclid_create_transform_2_rotate,           1},
+    {"_euclid_create_transform_2_scale",            (DL_FUNC) &_euclid_create_transform_2_scale,            1},
+    {"_euclid_create_transform_2_translate",        (DL_FUNC) &_euclid_create_transform_2_translate,        1},
+    {"_euclid_create_transform_3_identity",         (DL_FUNC) &_euclid_create_transform_3_identity,         1},
+    {"_euclid_create_transform_3_matrix",           (DL_FUNC) &_euclid_create_transform_3_matrix,           1},
+    {"_euclid_create_transform_3_scale",            (DL_FUNC) &_euclid_create_transform_3_scale,            1},
+    {"_euclid_create_transform_3_translate",        (DL_FUNC) &_euclid_create_transform_3_translate,        1},
+    {"_euclid_create_triangle_2_3points",           (DL_FUNC) &_euclid_create_triangle_2_3points,           3},
+    {"_euclid_create_triangle_2_empty",             (DL_FUNC) &_euclid_create_triangle_2_empty,             0},
+    {"_euclid_create_triangle_3_3points",           (DL_FUNC) &_euclid_create_triangle_3_3points,           3},
+    {"_euclid_create_triangle_3_empty",             (DL_FUNC) &_euclid_create_triangle_3_empty,             0},
+    {"_euclid_create_vector_2_empty",               (DL_FUNC) &_euclid_create_vector_2_empty,               0},
+    {"_euclid_create_vector_2_line",                (DL_FUNC) &_euclid_create_vector_2_line,                1},
+    {"_euclid_create_vector_2_point",               (DL_FUNC) &_euclid_create_vector_2_point,               1},
+    {"_euclid_create_vector_2_ray",                 (DL_FUNC) &_euclid_create_vector_2_ray,                 1},
+    {"_euclid_create_vector_2_segment",             (DL_FUNC) &_euclid_create_vector_2_segment,             1},
+    {"_euclid_create_vector_2_x_y",                 (DL_FUNC) &_euclid_create_vector_2_x_y,                 2},
+    {"_euclid_create_vector_3_empty",               (DL_FUNC) &_euclid_create_vector_3_empty,               0},
+    {"_euclid_create_vector_3_line",                (DL_FUNC) &_euclid_create_vector_3_line,                1},
+    {"_euclid_create_vector_3_point",               (DL_FUNC) &_euclid_create_vector_3_point,               1},
+    {"_euclid_create_vector_3_ray",                 (DL_FUNC) &_euclid_create_vector_3_ray,                 1},
+    {"_euclid_create_vector_3_segment",             (DL_FUNC) &_euclid_create_vector_3_segment,             1},
+    {"_euclid_create_vector_3_x_y_z",               (DL_FUNC) &_euclid_create_vector_3_x_y_z,               3},
+    {"_euclid_exact_numeric_abs",                   (DL_FUNC) &_euclid_exact_numeric_abs,                   1},
+    {"_euclid_exact_numeric_any_duplicated",        (DL_FUNC) &_euclid_exact_numeric_any_duplicated,        1},
+    {"_euclid_exact_numeric_any_na",                (DL_FUNC) &_euclid_exact_numeric_any_na,                1},
+    {"_euclid_exact_numeric_assign",                (DL_FUNC) &_euclid_exact_numeric_assign,                3},
+    {"_euclid_exact_numeric_combine",               (DL_FUNC) &_euclid_exact_numeric_combine,               2},
+    {"_euclid_exact_numeric_cummax",                (DL_FUNC) &_euclid_exact_numeric_cummax,                1},
+    {"_euclid_exact_numeric_cummin",                (DL_FUNC) &_euclid_exact_numeric_cummin,                1},
+    {"_euclid_exact_numeric_cumprod",               (DL_FUNC) &_euclid_exact_numeric_cumprod,               1},
+    {"_euclid_exact_numeric_cumsum",                (DL_FUNC) &_euclid_exact_numeric_cumsum,                1},
+    {"_euclid_exact_numeric_diff",                  (DL_FUNC) &_euclid_exact_numeric_diff,                  2},
+    {"_euclid_exact_numeric_divided",               (DL_FUNC) &_euclid_exact_numeric_divided,               2},
+    {"_euclid_exact_numeric_duplicated",            (DL_FUNC) &_euclid_exact_numeric_duplicated,            1},
+    {"_euclid_exact_numeric_greater",               (DL_FUNC) &_euclid_exact_numeric_greater,               2},
+    {"_euclid_exact_numeric_greater_equal",         (DL_FUNC) &_euclid_exact_numeric_greater_equal,         2},
+    {"_euclid_exact_numeric_is_equal",              (DL_FUNC) &_euclid_exact_numeric_is_equal,              2},
+    {"_euclid_exact_numeric_is_na",                 (DL_FUNC) &_euclid_exact_numeric_is_na,                 1},
+    {"_euclid_exact_numeric_is_not_equal",          (DL_FUNC) &_euclid_exact_numeric_is_not_equal,          2},
+    {"_euclid_exact_numeric_length",                (DL_FUNC) &_euclid_exact_numeric_length,                1},
+    {"_euclid_exact_numeric_less",                  (DL_FUNC) &_euclid_exact_numeric_less,                  2},
+    {"_euclid_exact_numeric_less_equal",            (DL_FUNC) &_euclid_exact_numeric_less_equal,            2},
+    {"_euclid_exact_numeric_match",                 (DL_FUNC) &_euclid_exact_numeric_match,                 2},
+    {"_euclid_exact_numeric_max",                   (DL_FUNC) &_euclid_exact_numeric_max,                   2},
+    {"_euclid_exact_numeric_min",                   (DL_FUNC) &_euclid_exact_numeric_min,                   2},
+    {"_euclid_exact_numeric_minus",                 (DL_FUNC) &_euclid_exact_numeric_minus,                 2},
+    {"_euclid_exact_numeric_plus",                  (DL_FUNC) &_euclid_exact_numeric_plus,                  2},
+    {"_euclid_exact_numeric_prod",                  (DL_FUNC) &_euclid_exact_numeric_prod,                  2},
+    {"_euclid_exact_numeric_rank",                  (DL_FUNC) &_euclid_exact_numeric_rank,                  1},
+    {"_euclid_exact_numeric_sign",                  (DL_FUNC) &_euclid_exact_numeric_sign,                  1},
+    {"_euclid_exact_numeric_sort",                  (DL_FUNC) &_euclid_exact_numeric_sort,                  3},
+    {"_euclid_exact_numeric_subset",                (DL_FUNC) &_euclid_exact_numeric_subset,                2},
+    {"_euclid_exact_numeric_sum",                   (DL_FUNC) &_euclid_exact_numeric_sum,                   2},
+    {"_euclid_exact_numeric_times",                 (DL_FUNC) &_euclid_exact_numeric_times,                 2},
+    {"_euclid_exact_numeric_to_numeric",            (DL_FUNC) &_euclid_exact_numeric_to_numeric,            1},
+    {"_euclid_exact_numeric_uni_minus",             (DL_FUNC) &_euclid_exact_numeric_uni_minus,             1},
+    {"_euclid_exact_numeric_unique",                (DL_FUNC) &_euclid_exact_numeric_unique,                1},
+    {"_euclid_geometry_any_duplicated",             (DL_FUNC) &_euclid_geometry_any_duplicated,             1},
+    {"_euclid_geometry_any_na",                     (DL_FUNC) &_euclid_geometry_any_na,                     1},
+    {"_euclid_geometry_assign",                     (DL_FUNC) &_euclid_geometry_assign,                     3},
+    {"_euclid_geometry_bbox",                       (DL_FUNC) &_euclid_geometry_bbox,                       1},
+    {"_euclid_geometry_cardinality",                (DL_FUNC) &_euclid_geometry_cardinality,                1},
+    {"_euclid_geometry_combine",                    (DL_FUNC) &_euclid_geometry_combine,                    2},
+    {"_euclid_geometry_copy",                       (DL_FUNC) &_euclid_geometry_copy,                       1},
+    {"_euclid_geometry_definition",                 (DL_FUNC) &_euclid_geometry_definition,                 3},
+    {"_euclid_geometry_definition_names",           (DL_FUNC) &_euclid_geometry_definition_names,           1},
+    {"_euclid_geometry_dimension",                  (DL_FUNC) &_euclid_geometry_dimension,                  1},
+    {"_euclid_geometry_duplicated",                 (DL_FUNC) &_euclid_geometry_duplicated,                 1},
+    {"_euclid_geometry_format",                     (DL_FUNC) &_euclid_geometry_format,                     1},
+    {"_euclid_geometry_is_degenerate",              (DL_FUNC) &_euclid_geometry_is_degenerate,              1},
+    {"_euclid_geometry_is_equal",                   (DL_FUNC) &_euclid_geometry_is_equal,                   2},
+    {"_euclid_geometry_is_na",                      (DL_FUNC) &_euclid_geometry_is_na,                      1},
+    {"_euclid_geometry_is_not_equal",               (DL_FUNC) &_euclid_geometry_is_not_equal,               2},
+    {"_euclid_geometry_length",                     (DL_FUNC) &_euclid_geometry_length,                     1},
+    {"_euclid_geometry_match",                      (DL_FUNC) &_euclid_geometry_match,                      2},
+    {"_euclid_geometry_subset",                     (DL_FUNC) &_euclid_geometry_subset,                     2},
+    {"_euclid_geometry_to_matrix",                  (DL_FUNC) &_euclid_geometry_to_matrix,                  1},
+    {"_euclid_geometry_transform",                  (DL_FUNC) &_euclid_geometry_transform,                  2},
+    {"_euclid_geometry_unique",                     (DL_FUNC) &_euclid_geometry_unique,                     1},
+    {"_euclid_point_2_add_vector",                  (DL_FUNC) &_euclid_point_2_add_vector,                  2},
+    {"_euclid_point_2_cummax",                      (DL_FUNC) &_euclid_point_2_cummax,                      1},
+    {"_euclid_point_2_cummin",                      (DL_FUNC) &_euclid_point_2_cummin,                      1},
+    {"_euclid_point_2_greater",                     (DL_FUNC) &_euclid_point_2_greater,                     2},
+    {"_euclid_point_2_greater_equal",               (DL_FUNC) &_euclid_point_2_greater_equal,               2},
+    {"_euclid_point_2_less",                        (DL_FUNC) &_euclid_point_2_less,                        2},
+    {"_euclid_point_2_less_equal",                  (DL_FUNC) &_euclid_point_2_less_equal,                  2},
+    {"_euclid_point_2_max",                         (DL_FUNC) &_euclid_point_2_max,                         2},
+    {"_euclid_point_2_min",                         (DL_FUNC) &_euclid_point_2_min,                         2},
+    {"_euclid_point_2_rank",                        (DL_FUNC) &_euclid_point_2_rank,                        1},
+    {"_euclid_point_2_sort",                        (DL_FUNC) &_euclid_point_2_sort,                        3},
+    {"_euclid_point_2_sub_point",                   (DL_FUNC) &_euclid_point_2_sub_point,                   2},
+    {"_euclid_point_2_sub_vector",                  (DL_FUNC) &_euclid_point_2_sub_vector,                  2},
+    {"_euclid_point_3_add_vector",                  (DL_FUNC) &_euclid_point_3_add_vector,                  2},
+    {"_euclid_point_3_cummax",                      (DL_FUNC) &_euclid_point_3_cummax,                      1},
+    {"_euclid_point_3_cummin",                      (DL_FUNC) &_euclid_point_3_cummin,                      1},
+    {"_euclid_point_3_greater",                     (DL_FUNC) &_euclid_point_3_greater,                     2},
+    {"_euclid_point_3_greater_equal",               (DL_FUNC) &_euclid_point_3_greater_equal,               2},
+    {"_euclid_point_3_less",                        (DL_FUNC) &_euclid_point_3_less,                        2},
+    {"_euclid_point_3_less_equal",                  (DL_FUNC) &_euclid_point_3_less_equal,                  2},
+    {"_euclid_point_3_max",                         (DL_FUNC) &_euclid_point_3_max,                         2},
+    {"_euclid_point_3_min",                         (DL_FUNC) &_euclid_point_3_min,                         2},
+    {"_euclid_point_3_rank",                        (DL_FUNC) &_euclid_point_3_rank,                        1},
+    {"_euclid_point_3_sort",                        (DL_FUNC) &_euclid_point_3_sort,                        3},
+    {"_euclid_point_3_sub_point",                   (DL_FUNC) &_euclid_point_3_sub_point,                   2},
+    {"_euclid_point_3_sub_vector",                  (DL_FUNC) &_euclid_point_3_sub_vector,                  2},
+    {"_euclid_ray_2_negate",                        (DL_FUNC) &_euclid_ray_2_negate,                        1},
+    {"_euclid_ray_3_negate",                        (DL_FUNC) &_euclid_ray_3_negate,                        1},
+    {"_euclid_segment_2_negate",                    (DL_FUNC) &_euclid_segment_2_negate,                    1},
+    {"_euclid_segment_3_negate",                    (DL_FUNC) &_euclid_segment_3_negate,                    1},
+    {"_euclid_transform_any_duplicated",            (DL_FUNC) &_euclid_transform_any_duplicated,            1},
+    {"_euclid_transform_any_na",                    (DL_FUNC) &_euclid_transform_any_na,                    1},
+    {"_euclid_transform_assign",                    (DL_FUNC) &_euclid_transform_assign,                    3},
+    {"_euclid_transform_combine",                   (DL_FUNC) &_euclid_transform_combine,                   2},
+    {"_euclid_transform_copy",                      (DL_FUNC) &_euclid_transform_copy,                      1},
+    {"_euclid_transform_cumprod",                   (DL_FUNC) &_euclid_transform_cumprod,                   1},
+    {"_euclid_transform_definition",                (DL_FUNC) &_euclid_transform_definition,                3},
+    {"_euclid_transform_dimension",                 (DL_FUNC) &_euclid_transform_dimension,                 1},
+    {"_euclid_transform_duplicated",                (DL_FUNC) &_euclid_transform_duplicated,                1},
+    {"_euclid_transform_format",                    (DL_FUNC) &_euclid_transform_format,                    1},
+    {"_euclid_transform_inverse",                   (DL_FUNC) &_euclid_transform_inverse,                   1},
+    {"_euclid_transform_is_equal",                  (DL_FUNC) &_euclid_transform_is_equal,                  2},
+    {"_euclid_transform_is_na",                     (DL_FUNC) &_euclid_transform_is_na,                     1},
+    {"_euclid_transform_is_not_equal",              (DL_FUNC) &_euclid_transform_is_not_equal,              2},
+    {"_euclid_transform_is_reflecting",             (DL_FUNC) &_euclid_transform_is_reflecting,             1},
+    {"_euclid_transform_length",                    (DL_FUNC) &_euclid_transform_length,                    1},
+    {"_euclid_transform_match",                     (DL_FUNC) &_euclid_transform_match,                     2},
+    {"_euclid_transform_multiply",                  (DL_FUNC) &_euclid_transform_multiply,                  2},
+    {"_euclid_transform_prod",                      (DL_FUNC) &_euclid_transform_prod,                      2},
+    {"_euclid_transform_subset",                    (DL_FUNC) &_euclid_transform_subset,                    2},
+    {"_euclid_transform_to_array",                  (DL_FUNC) &_euclid_transform_to_array,                  1},
+    {"_euclid_transform_unique",                    (DL_FUNC) &_euclid_transform_unique,                    1},
+    {"_euclid_vector_2_add_vector",                 (DL_FUNC) &_euclid_vector_2_add_vector,                 2},
+    {"_euclid_vector_2_cumsum",                     (DL_FUNC) &_euclid_vector_2_cumsum,                     1},
+    {"_euclid_vector_2_divide_numeric",             (DL_FUNC) &_euclid_vector_2_divide_numeric,             2},
+    {"_euclid_vector_2_dot_vector",                 (DL_FUNC) &_euclid_vector_2_dot_vector,                 2},
+    {"_euclid_vector_2_minus_vector",               (DL_FUNC) &_euclid_vector_2_minus_vector,               2},
+    {"_euclid_vector_2_negate",                     (DL_FUNC) &_euclid_vector_2_negate,                     1},
+    {"_euclid_vector_2_sum",                        (DL_FUNC) &_euclid_vector_2_sum,                        2},
+    {"_euclid_vector_2_times_numeric",              (DL_FUNC) &_euclid_vector_2_times_numeric,              2},
+    {"_euclid_vector_3_add_vector",                 (DL_FUNC) &_euclid_vector_3_add_vector,                 2},
+    {"_euclid_vector_3_cumsum",                     (DL_FUNC) &_euclid_vector_3_cumsum,                     1},
+    {"_euclid_vector_3_divide_numeric",             (DL_FUNC) &_euclid_vector_3_divide_numeric,             2},
+    {"_euclid_vector_3_dot_vector",                 (DL_FUNC) &_euclid_vector_3_dot_vector,                 2},
+    {"_euclid_vector_3_minus_vector",               (DL_FUNC) &_euclid_vector_3_minus_vector,               2},
+    {"_euclid_vector_3_negate",                     (DL_FUNC) &_euclid_vector_3_negate,                     1},
+    {"_euclid_vector_3_sum",                        (DL_FUNC) &_euclid_vector_3_sum,                        2},
+    {"_euclid_vector_3_times_numeric",              (DL_FUNC) &_euclid_vector_3_times_numeric,              2},
     {NULL, NULL, 0}
 };
 }
