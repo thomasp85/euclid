@@ -457,16 +457,16 @@ public:
     size_t output_length = std::max(size(), affine.size());
 
     std::vector<T> result;
-//    result.reserve(output_length);
-//
-//    const transform_vector<Aff, dim>* affine_recast = dynamic_cast< const transform_vector<Aff, dim>* >(&affine);
-//    for (size_t i = 0; i < output_length; ++i) {
-//      if (!_storage[i % size()] || !(*affine_recast)[i % affine_recast->size()]) {
-//        result.push_back(T::NA_value());
-//        continue;
-//      }
-//      result.push_back(transform_impl(_storage[i % size()], (*affine_recast)[i % affine_recast->size()]));
-//    }
+    result.reserve(output_length);
+
+    const transform_vector<Aff, dim>* affine_recast = dynamic_cast< const transform_vector<Aff, dim>* >(&affine);
+    for (size_t i = 0; i < output_length; ++i) {
+      if (!_storage[i % size()] || !(*affine_recast)[i % affine_recast->size()]) {
+        result.push_back(T::NA_value());
+        continue;
+      }
+      result.push_back(transform_impl(_storage[i % size()], (*affine_recast)[i % affine_recast->size()]));
+    }
 
     return {new_from_vector(result)};
   }

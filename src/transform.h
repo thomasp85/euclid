@@ -26,6 +26,10 @@ template<>
 inline Circle_3 transform_impl<Circle_3, Aff_transformation_3>(const Circle_3& geo, const Aff_transformation_3& trans) {
   Rf_error("Circles cannot be transformed. Transform the center instead");
 }
+template<>
+inline Sphere transform_impl<Sphere, Aff_transformation_3>(const Sphere& geo, const Aff_transformation_3& trans) {
+  Rf_error("Circles cannot be transformed. Transform the center instead");
+}
 // Work around bug with transformation of weighted points in CGAL
 template<>
 inline Weighted_point_2 transform_impl<Weighted_point_2, Aff_transformation_2>(const Weighted_point_2& geo, const Aff_transformation_2& trans) {
