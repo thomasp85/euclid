@@ -935,6 +935,48 @@ extern "C" SEXP _euclid_create_plane_triangle(SEXP triangle) {
     return cpp11::as_sexp(create_plane_triangle(cpp11::as_cpp<cpp11::decay_t<triangle3_p>>(triangle)));
   END_CPP11
 }
+// point_w.cpp
+point_w2_p create_point_w_2_empty();
+extern "C" SEXP _euclid_create_point_w_2_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_2_empty());
+  END_CPP11
+}
+// point_w.cpp
+point_w2_p create_point_w_2_x_y_w(exact_numeric_p x, exact_numeric_p y, exact_numeric_p w);
+extern "C" SEXP _euclid_create_point_w_2_x_y_w(SEXP x, SEXP y, SEXP w) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_2_x_y_w(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
+  END_CPP11
+}
+// point_w.cpp
+point_w2_p create_point_w_2_p_w(point2_p p, exact_numeric_p w);
+extern "C" SEXP _euclid_create_point_w_2_p_w(SEXP p, SEXP w) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_2_p_w(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
+  END_CPP11
+}
+// point_w.cpp
+point_w3_p create_point_w_3_empty();
+extern "C" SEXP _euclid_create_point_w_3_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_3_empty());
+  END_CPP11
+}
+// point_w.cpp
+point_w3_p create_point_w_3_x_y_z_w(exact_numeric_p x, exact_numeric_p y, exact_numeric_p z, exact_numeric_p w);
+extern "C" SEXP _euclid_create_point_w_3_x_y_z_w(SEXP x, SEXP y, SEXP z, SEXP w) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_3_x_y_z_w(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(z), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
+  END_CPP11
+}
+// point_w.cpp
+point_w3_p create_point_w_3_p_w(point3_p p, exact_numeric_p w);
+extern "C" SEXP _euclid_create_point_w_3_p_w(SEXP p, SEXP w) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_3_p_w(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
+  END_CPP11
+}
 // point.cpp
 point2_p create_point_2_empty();
 extern "C" SEXP _euclid_create_point_2_empty() {
@@ -1171,48 +1213,6 @@ point3_p point_3_cummax(point3_p x);
 extern "C" SEXP _euclid_point_3_cummax(SEXP x) {
   BEGIN_CPP11
     return cpp11::as_sexp(point_3_cummax(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x)));
-  END_CPP11
-}
-// point_w.cpp
-point_w2_p create_point_w_2_empty();
-extern "C" SEXP _euclid_create_point_w_2_empty() {
-  BEGIN_CPP11
-    return cpp11::as_sexp(create_point_w_2_empty());
-  END_CPP11
-}
-// point_w.cpp
-point_w2_p create_point_w_2_x_y_w(exact_numeric_p x, exact_numeric_p y, exact_numeric_p w);
-extern "C" SEXP _euclid_create_point_w_2_x_y_w(SEXP x, SEXP y, SEXP w) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(create_point_w_2_x_y_w(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
-  END_CPP11
-}
-// point_w.cpp
-point_w2_p create_point_w_2_p_w(point2_p p, exact_numeric_p w);
-extern "C" SEXP _euclid_create_point_w_2_p_w(SEXP p, SEXP w) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(create_point_w_2_p_w(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
-  END_CPP11
-}
-// point_w.cpp
-point_w3_p create_point_w_3_empty();
-extern "C" SEXP _euclid_create_point_w_3_empty() {
-  BEGIN_CPP11
-    return cpp11::as_sexp(create_point_w_3_empty());
-  END_CPP11
-}
-// point_w.cpp
-point_w3_p create_point_w_3_x_y_z_w(exact_numeric_p x, exact_numeric_p y, exact_numeric_p z, exact_numeric_p w);
-extern "C" SEXP _euclid_create_point_w_3_x_y_z_w(SEXP x, SEXP y, SEXP z, SEXP w) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(create_point_w_3_x_y_z_w(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(z), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
-  END_CPP11
-}
-// point_w.cpp
-point_w3_p create_point_w_3_p_w(point3_p p, exact_numeric_p w);
-extern "C" SEXP _euclid_create_point_w_3_p_w(SEXP p, SEXP w) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(create_point_w_3_p_w(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
   END_CPP11
 }
 // ray.cpp
