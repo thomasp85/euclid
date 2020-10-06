@@ -35,7 +35,7 @@ remotes::install_github("thomasp85/euclid")
 
 ## Example
 
-The package is still quite shallow but have rudmentary support for
+The package is still quite shallow but have rudimentary support for
 points and circles
 
 ``` r
