@@ -20,7 +20,10 @@ LinkingTo:
     cpp11,
     cgal4h,
     BH
-SystemRequirements: C++11
+SystemRequirements: 
+    C++11,
+    gmp,
+    mpfr
 Imports: 
     rlang,
     utils
