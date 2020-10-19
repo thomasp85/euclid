@@ -8,6 +8,13 @@
 
 <title>Vector of vectors — vec • euclid</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -45,6 +52,7 @@ programming hence the slightly confusing terminology. In geometry a vector is
 a direction and a magnitude most often defined by a point in space where the
 direction is defined as the direction from the origin to the point and the
 magnitude is defined as the distance from the origin to the point." />
+<meta property="og:image" content="/logo.svg" />
 
 
 
@@ -125,11 +133,11 @@ direction is defined as the direction from the origin to the point and the
 magnitude is defined as the distance from the origin to the point.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>vec</span>(<span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>vec</span><span class='op'>(</span><span class='va'>...</span>, default_dim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
-<span class='fu'>is_vec</span>(<span class='kw'>x</span>)
+<span class='fu'>is_vec</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>as_vec</span>(<span class='kw'>x</span>)</pre>
+<span class='fu'>as_vec</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -137,6 +145,10 @@ magnitude is defined as the distance from the origin to the point.</p>
     <tr>
       <th>...</th>
       <td><p>Various input. See the Constructor section.</p></td>
+    </tr>
+    <tr>
+      <th>default_dim</th>
+      <td><p>The dimensionality when constructing an empty vector</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -156,6 +168,8 @@ magnitude is defined as the distance from the origin to the point.</p>
 origin centered.</p></li>
 <li><p>Providing two exact numeric vectors will construct vectors pointing to the
 point defined by the coordinates given.</p></li>
+<li><p>Providing a ray will construct vectors pointing in the same direction as
+the ray</p></li>
 </ul>
 
 <p><strong>3 dimensional vectors</strong></p><ul>
@@ -163,9 +177,54 @@ point defined by the coordinates given.</p></li>
 origin centered.</p></li>
 <li><p>Providing three exact numeric vectors will construct vectors pointing to
 the point defined by the coordinates given.</p></li>
+<li><p>Providing a ray will construct vectors pointing in the same direction as
+the ray</p></li>
 </ul>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='co'># Create vectors from points:</span>
+<span class='va'>v1</span> <span class='op'>&lt;-</span> <span class='fu'>vec</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>, y <span class='op'>=</span> <span class='fl'>4</span><span class='op'>:</span><span class='fl'>8</span><span class='op'>)</span>
+
+<span class='co'># Vectors can be added and subtracted</span>
+<span class='va'>v1</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>+</span> <span class='va'>v1</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>
+</div><div class='output co'>#&gt; &lt;Vector of vectors in 2 dimensions&gt;
+#&gt; [1] &lt;x:3, y:9&gt;</div><div class='input'>
+<span class='va'>v1</span><span class='op'>[</span><span class='fl'>5</span><span class='op'>]</span> <span class='op'>-</span> <span class='va'>v1</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span>
+</div><div class='output co'>#&gt; &lt;Vector of vectors in 2 dimensions&gt;
+#&gt; [1] &lt;x:2, y:2&gt;</div><div class='input'>
+<span class='co'># You can invert a vector by taking its negative</span>
+<span class='op'>-</span><span class='va'>v1</span>
+</div><div class='output co'>#&gt; &lt;Vector of vectors in 2 dimensions&gt;
+#&gt; [1] &lt;x:-1, y:-4&gt; &lt;x:-2, y:-5&gt; &lt;x:-3, y:-6&gt; &lt;x:-4, y:-7&gt; &lt;x:-5, y:-8&gt;</div><div class='input'>
+<span class='co'># As vectors can be added you can also use sum() and cumsum()</span>
+<span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>v1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of vectors in 2 dimensions&gt;
+#&gt; [1] &lt;x:15, y:30&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>v1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of vectors in 2 dimensions&gt;
+#&gt; [1] &lt;x:1, y:4&gt;   &lt;x:3, y:9&gt;   &lt;x:6, y:15&gt;  &lt;x:10, y:22&gt; &lt;x:15, y:30&gt;</div><div class='input'>
+<span class='co'># Multiplying and dividing a vector by a numeric changes its magnitude</span>
+<span class='va'>v1</span> <span class='op'>*</span> <span class='fl'>10</span>
+</div><div class='output co'>#&gt; &lt;Vector of vectors in 2 dimensions&gt;
+#&gt; [1] &lt;x:10, y:40&gt; &lt;x:20, y:50&gt; &lt;x:30, y:60&gt; &lt;x:40, y:70&gt; &lt;x:50, y:80&gt;</div><div class='input'><span class='va'>v1</span> <span class='op'>/</span> <span class='fl'>2.5</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; &lt;pointer: 0x7fd6dc13eff0&gt;
+#&gt; </div><div class='input'>
+<span class='co'># Multiplying two vectors gives the inner product of the two</span>
+<span class='va'>v1</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>*</span> <span class='va'>v1</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
+</div><div class='output co'>#&gt; &lt;Vector of exact numerics&gt;
+#&gt; [1] 27 43</div><div class='input'>
+<span class='co'># Vectors can be converted to points, directions and transformation matrices</span>
+<span class='fu'><a href='point.html'>as_point</a></span><span class='op'>(</span><span class='va'>v1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of points in 2 dimensions&gt;
+#&gt; [1] &lt;x:1, y:4&gt; &lt;x:2, y:5&gt; &lt;x:3, y:6&gt; &lt;x:4, y:7&gt; &lt;x:5, y:8&gt;</div><div class='input'><span class='fu'><a href='direction.html'>as_direction</a></span><span class='op'>(</span><span class='va'>v1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of directions in 2 dimensions&gt;
+#&gt; [1] &lt;dx:1, dy:4&gt; &lt;dx:2, dy:5&gt; &lt;dx:3, dy:6&gt; &lt;dx:4, dy:7&gt; &lt;dx:5, dy:8&gt;</div><div class='input'><span class='fu'><a href='affine_transformation.html'>as_affine_transformation</a></span><span class='op'>(</span><span class='va'>v1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of affine transformation matrices in 2 dimensions&gt;
+#&gt; [1] [&lt;1, 0, 1&gt;/&lt;0, 1, 4&gt;] [&lt;1, 0, 2&gt;/&lt;0, 1, 5&gt;] [&lt;1, 0, 3&gt;/&lt;0, 1, 6&gt;]
+#&gt; [4] [&lt;1, 0, 4&gt;/&lt;0, 1, 7&gt;] [&lt;1, 0, 5&gt;/&lt;0, 1, 8&gt;]</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

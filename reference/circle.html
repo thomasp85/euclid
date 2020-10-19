@@ -8,6 +8,13 @@
 
 <title>Vector of circles — circle • euclid</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -40,7 +47,11 @@
 
 
 <meta property="og:title" content="Vector of circles — circle" />
-<meta property="og:description" content="This function create circles from various combinations of input." />
+<meta property="og:description" content="A circle is defined by a center and a radius (given as the squared radius due
+to the inexactness of square roots). In 3 dimensions a circle is a disc and
+thus have an orientation given by an orthogonal direction. If the radius is 0
+the circle is considered degenerate." />
+<meta property="og:image" content="/logo.svg" />
 
 
 
@@ -114,14 +125,17 @@
     </div>
 
     <div class="ref-description">
-    <p>This function create circles from various combinations of input.</p>
+    <p>A circle is defined by a center and a radius (given as the squared radius due
+to the inexactness of square roots). In 3 dimensions a circle is a disc and
+thus have an orientation given by an orthogonal direction. If the radius is 0
+the circle is considered <a href='is_degenerate.html'>degenerate</a>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>circle</span>(<span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>circle</span><span class='op'>(</span><span class='va'>...</span>, default_dim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
-<span class='fu'>is_circle</span>(<span class='kw'>x</span>)
+<span class='fu'>is_circle</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>as_circle</span>(<span class='kw'>x</span>)</pre>
+<span class='fu'>as_circle</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -129,6 +143,10 @@
     <tr>
       <th>...</th>
       <td><p>Various input. See the Constructor section.</p></td>
+    </tr>
+    <tr>
+      <th>default_dim</th>
+      <td><p>The dimensionality when constructing an empty vector</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -145,52 +163,98 @@
 
 <p><strong>2 dimensional circles</strong></p><ul>
 <li><p>Providing one point and one numeric vector will construct circles centered
-at the point with the radius given by the numeric.</p></li>
-<li><p>Providing two point vectors will construct circles centered between the two
+at the point with the <strong>squared</strong> radius given by the numeric.</p></li>
+<li><p>Providing two points will construct circles centered between the two
 points with a radius of half the distance between the two points.</p></li>
 <li><p>Providing three point vectors will construct the unique circle that pass
 through the three points.</p></li>
+</ul>
+
+<p><strong>3 dimensional circles</strong></p><ul>
+<li><p>Providing three point vectors will construct the unique circle that pass
+through the three points.</p></li>
+<li><p>Providing a point, a numeric, and a plane will construct a circle centered
+on the point with the squared radius given by the numeric and the
+orientation given by the plane. The point must lie on the plane</p></li>
+<li><p>Providing a point, a numeric, and a vector will construct a circle centered
+on the point with the squared radius given by the numeric and the
+orientation orthogonal to the vector</p></li>
+<li><p>Providing two spheres will construct a circle given by the intersection of
+the two spheres. The spheres must intersect</p></li>
+<li><p>Providing a sphere and a plane will construct a circle given by the
+intersection of the sphere and the plane. The sphere and plane must
+intersect.</p></li>
 </ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'>## 2 Dimensions</span>
 
-<span class='kw'>point1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>5</span>), <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>5</span>))
-<span class='kw'>point2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>5</span>), <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>5</span>))
-<span class='kw'>point3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>5</span>), <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>5</span>))
-<span class='kw'>number</span> <span class='op'>&lt;-</span> <span class='fu'><a href='exact_numeric.html'>exact_numeric</a></span>(<span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>)
+<span class='va'>point1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>point2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>point3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>number</span> <span class='op'>&lt;-</span> <span class='fu'><a href='exact_numeric.html'>exact_numeric</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
 
 <span class='co'># Construction with center and radius</span>
-<span class='fu'>circle</span>(<span class='kw'>point1</span>, <span class='kw'>number</span>)
+<span class='fu'>circle</span><span class='op'>(</span><span class='va'>point1</span>, <span class='va'>number</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;Vector of circles in 2 dimensions&gt;
-#&gt; [1] &lt;x0:0.0808, y0:0.466, r:1&gt; &lt;x0:0.834, y0:0.498, r:2&gt; 
-#&gt; [3] &lt;x0:0.601, y0:0.29, r:3&gt;   &lt;x0:0.157, y0:0.733, r:4&gt; 
-#&gt; [5] &lt;x0:0.0074, y0:0.773, r:5&gt;</div><div class='input'>
+#&gt; [1] &lt;x:0.196, y:0.696, r2:1&gt;  &lt;x:0.981, y:0.689, r2:2&gt; 
+#&gt; [3] &lt;x:0.742, y:0.0312, r2:3&gt; &lt;x:0.0514, y:0.226, r2:4&gt;
+#&gt; [5] &lt;x:0.53, y:0.301, r2:5&gt;  </div><div class='input'>
 <span class='co'># integers and numerics are converted automatically</span>
-<span class='fu'>circle</span>(<span class='kw'>point1</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span>)
+<span class='fu'>circle</span><span class='op'>(</span><span class='va'>point1</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;Vector of circles in 2 dimensions&gt;
-#&gt; [1] &lt;x0:0.0808, y0:0.466, r:1&gt; &lt;x0:0.834, y0:0.498, r:2&gt; 
-#&gt; [3] &lt;x0:0.601, y0:0.29, r:3&gt;   &lt;x0:0.157, y0:0.733, r:4&gt; 
-#&gt; [5] &lt;x0:0.0074, y0:0.773, r:5&gt;</div><div class='input'>
+#&gt; [1] &lt;x:0.196, y:0.696, r2:1&gt;  &lt;x:0.981, y:0.689, r2:2&gt; 
+#&gt; [3] &lt;x:0.742, y:0.0312, r2:3&gt; &lt;x:0.0514, y:0.226, r2:4&gt;
+#&gt; [5] &lt;x:0.53, y:0.301, r2:5&gt;  </div><div class='input'>
 <span class='co'># You are free to name the input for readability</span>
-<span class='fu'>circle</span>(center = <span class='kw'>point1</span>, radius = <span class='kw'>number</span>)
+<span class='fu'>circle</span><span class='op'>(</span>center <span class='op'>=</span> <span class='va'>point1</span>, radius <span class='op'>=</span> <span class='va'>number</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;Vector of circles in 2 dimensions&gt;
-#&gt; [1] &lt;x0:0.0808, y0:0.466, r:1&gt; &lt;x0:0.834, y0:0.498, r:2&gt; 
-#&gt; [3] &lt;x0:0.601, y0:0.29, r:3&gt;   &lt;x0:0.157, y0:0.733, r:4&gt; 
-#&gt; [5] &lt;x0:0.0074, y0:0.773, r:5&gt;</div><div class='input'>
+#&gt; [1] &lt;x:0.196, y:0.696, r2:1&gt;  &lt;x:0.981, y:0.689, r2:2&gt; 
+#&gt; [3] &lt;x:0.742, y:0.0312, r2:3&gt; &lt;x:0.0514, y:0.226, r2:4&gt;
+#&gt; [5] &lt;x:0.53, y:0.301, r2:5&gt;  </div><div class='input'>
 <span class='co'># Construction with 2 points</span>
-<span class='fu'>circle</span>(<span class='kw'>point1</span>, <span class='kw'>point2</span>)
+<span class='fu'>circle</span><span class='op'>(</span><span class='va'>point1</span>, <span class='va'>point2</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;Vector of circles in 2 dimensions&gt;
-#&gt; [1] &lt;x0:0.478, y0:0.331, r:0.419&gt; &lt;x0:0.505, y0:0.451, r:0.333&gt;
-#&gt; [3] &lt;x0:0.318, y0:0.177, r:0.305&gt; &lt;x0:0.239, y0:0.561, r:0.19&gt; 
-#&gt; [5] &lt;x0:0.205, y0:0.874, r:0.222&gt;</div><div class='input'>
+#&gt; [1] &lt;x:0.416, y:0.438, r2:0.115&gt;  &lt;x:0.73, y:0.453, r2:0.118&gt;  
+#&gt; [3] &lt;x:0.587, y:0.356, r2:0.129&gt;  &lt;x:0.379, y:0.362, r2:0.126&gt; 
+#&gt; [5] &lt;x:0.739, y:0.471, r2:0.0728&gt;</div><div class='input'>
 <span class='co'># Construction with 3 points</span>
-<span class='fu'>circle</span>(<span class='kw'>point1</span>, <span class='kw'>point2</span>, <span class='kw'>point3</span>)
+<span class='fu'>circle</span><span class='op'>(</span><span class='va'>point1</span>, <span class='va'>point2</span>, <span class='va'>point3</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;Vector of circles in 2 dimensions&gt;
-#&gt; [1] &lt;x0:0.491, y0:0.371, r:0.422&gt;  &lt;x0:0.518, y0:0.358, r:0.346&gt; 
-#&gt; [3] &lt;x0:0.0968, y0:0.73, r:0.669&gt;  &lt;x0:-0.144, y0:0.379, r:0.464&gt;
-#&gt; [5] &lt;x0:0.463, y0:0.372, r:0.607&gt; </div><div class='input'>
+#&gt; [1] &lt;x:0.579, y:0.578, r2:0.161&gt; &lt;x:0.476, y:0.722, r2:0.256&gt;
+#&gt; [3] &lt;x:0.399, y:0.266, r2:0.173&gt; &lt;x:0.408, y:0.293, r2:0.132&gt;
+#&gt; [5] &lt;x:0.803, y:0.393, r2:0.083&gt;</div><div class='input'>
+<span class='co'>## 3 Dimensions</span>
+
+<span class='va'>point1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>point2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>point3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='va'>circ</span> <span class='op'>&lt;-</span> <span class='fu'>circle</span><span class='op'>(</span><span class='va'>point1</span>, <span class='va'>point2</span>, <span class='va'>point3</span><span class='op'>)</span>
+
+<span class='fu'>circle</span><span class='op'>(</span><span class='va'>point1</span>, <span class='va'>number</span>, <span class='fu'><a href='vec.html'>as_vec</a></span><span class='op'>(</span><span class='va'>point2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of circles in 3 dimensions&gt;
+#&gt; [1] &lt;x:0.532, y:0.0652, z:0.336, r2:1, dx:0.545, dy:0.466, dz:0.857&gt;
+#&gt; [2] &lt;x:0.494, y:0.354, z:0.596, r2:2, dx:0.279, dy:0.39, dz:0.385&gt;  
+#&gt; [3] &lt;x:0.779, y:0.825, z:0.192, r2:3, dx:0.447, dy:0.0201, dz:0.528&gt;
+#&gt; [4] &lt;x:0.204, y:0.274, z:0.948, r2:4, dx:0.372, dy:0.377, dz:0.601&gt; 
+#&gt; [5] &lt;x:0.713, y:0.57, z:0.542, r2:5, dx:0.0281, dy:0.56, dz:0.261&gt;  </div><div class='input'>
+<span class='co'># Conversion</span>
+<span class='fu'><a href='plane.html'>as_plane</a></span><span class='op'>(</span><span class='va'>circ</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of euclid_planes in 3 dimensions&gt;
+#&gt; [1] &lt;a:-0.112, b:-0.133, c:0.105, d:0.0329&gt;     
+#&gt; [2] &lt;a:-0.0581, b:0.0291, c:0.0641, d:-0.0198&gt;  
+#&gt; [3] &lt;a:-0.0979, b:0.0639, c:0.0561, d:0.0128&gt;   
+#&gt; [4] &lt;a:-0.0847, b:-0.00117, c:-0.0412, d:0.0566&gt;
+#&gt; [5] &lt;a:-0.0174, b:0.341, c:0.0302, d:-0.198&gt;    </div><div class='input'>
+<span class='fu'><a href='sphere.html'>as_sphere</a></span><span class='op'>(</span><span class='va'>circ</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of euclid_spheres in 3 dimensions&gt;
+#&gt; [1] &lt;x:0.293, y:0.397, z:0.502, r2:0.194&gt; 
+#&gt; [2] &lt;x:0.317, y:0.159, z:0.525, r2:0.0742&gt;
+#&gt; [3] &lt;x:1.05, y:0.516, z:1.02, r2:0.847&gt;   
+#&gt; [4] &lt;x:0.302, y:0.211, z:0.747, r2:0.0537&gt;
+#&gt; [5] &lt;x:0.339, y:0.557, z:0.479, r2:0.144&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

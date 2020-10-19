@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>euclid: Exact Computation Geometry Framework Based on 'CGAL' — euclid-package • euclid</title>
+<title>Check if a geometry is degenerate — is_degenerate • euclid</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,12 +46,10 @@
 
 
 
-<meta property="og:title" content="euclid: Exact Computation Geometry Framework Based on 'CGAL' — euclid-package" />
-<meta property="og:description" content="
-Provides a rich framework for doing computation geometry by 
-    interfacing with the 'CGAL' library. The 'euclid' package provides new 
-    vector types for standard geometric objects and supports exact computations
-    on them." />
+<meta property="og:title" content="Check if a geometry is degenerate — is_degenerate" />
+<meta property="og:description" content="Geometries can be ill-defined for several reasons, e.g. circles with a radius
+of zero, segments that start and end at the same location, etc. See details
+for a list of conditions that are considered degenerate." />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -120,32 +118,47 @@ Provides a rich framework for doing computation geometry by
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>euclid: Exact Computation Geometry Framework Based on 'CGAL'</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/euclid-package.R'><code>R/euclid-package.R</code></a></small>
-    <div class="hidden name"><code>euclid-package.Rd</code></div>
+    <h1>Check if a geometry is degenerate</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/geometry_predicates.R'><code>R/geometry_predicates.R</code></a></small>
+    <div class="hidden name"><code>is_degenerate.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/logo.png' align='right' alt='logo' width='120' /></p>
-<p>Provides a rich framework for doing computation geometry by 
-    interfacing with the 'CGAL' library. The 'euclid' package provides new 
-    vector types for standard geometric objects and supports exact computations
-    on them.</p>
+    <p>Geometries can be ill-defined for several reasons, e.g. circles with a radius
+of zero, segments that start and end at the same location, etc. See details
+for a list of conditions that are considered degenerate.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>is_degenerate</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>x</th>
+      <td><p>A geometry vector</p></td>
+    </tr>
+    </table>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <div class='dont-index'><p>Useful links:</p><ul>
-<li><p><a href='https://github.com/thomasp85/euclid'>https://github.com/thomasp85/euclid</a></p></li>
-<li><p>Report bugs at <a href='https://github.com/thomasp85/euclid/issues'>https://github.com/thomasp85/euclid/issues</a></p></li>
+    <p>A logical vector</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p>The following conditions are considered to produce degenerate geometries:</p><ul>
+<li><p>A circle having a radius of zero</p></li>
+<li><p>An iso-rectangle with zero width or zero height</p></li>
+<li><p>An iso-cuboid with zero width, zero height, or zero depth</p></li>
+<li><p>A 2D line with the coefficients being zero</p></li>
+<li><p>A 3D line that is degenerated to a point</p></li>
+<li><p>A plane with the coefficients being zero</p></li>
+<li><p>A ray with the source and the second defining point being equal</p></li>
+<li><p>A segment with the source and target being equal</p></li>
+<li><p>A sphere with a radius of zero</p></li>
+<li><p>A tetrahedron with all vertices being co-planar</p></li>
+<li><p>A triangle with collinear vertices</p></li>
 </ul>
 
-</div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
-
-    <p><strong>Maintainer</strong>: Thomas Lin Pedersen <a href='mailto:thomasp85@gmail.com'>thomasp85@gmail.com</a> (<a href='https://orcid.org/0000-0002-5147-4711'>ORCID</a>)</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

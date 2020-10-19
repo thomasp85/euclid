@@ -8,6 +8,13 @@
 
 <title>Vector of points — point • euclid</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -46,6 +53,7 @@ operations which are handled lexicographically. This means that point vectors
 can also be sorted and ranked. Subtracking a point from a point gives a
 vector. Adding and subtracting a vector to a point translates the point by
 the vector." />
+<meta property="og:image" content="/logo.svg" />
 
 
 
@@ -114,7 +122,7 @@ the vector." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Vector of points</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/point.R'><code>R/point.R</code></a></small>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/point.R'><code>R/point.R</code></a>, <a href='https://github.com/thomasp85/euclid/blob/master/R/point_w.R'><code>R/point_w.R</code></a></small>
     <div class="hidden name"><code>point.Rd</code></div>
     </div>
 
@@ -127,11 +135,13 @@ vector. Adding and subtracting a vector to a point translates the point by
 the vector.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>point</span>(<span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>point</span><span class='op'>(</span><span class='va'>...</span>, default_dim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
 
-<span class='fu'>is_point</span>(<span class='kw'>x</span>)
+<span class='fu'>is_point</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>as_point</span>(<span class='kw'>x</span>)</pre>
+<span class='fu'>as_point</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>as_weighted_point</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -139,6 +149,10 @@ the vector.</p>
     <tr>
       <th>...</th>
       <td><p>Various input. See the Constructor section.</p></td>
+    </tr>
+    <tr>
+      <th>default_dim</th>
+      <td><p>The dimensionality when constructing an empty vector</p></td>
     </tr>
     <tr>
       <th>x</th>
@@ -149,28 +163,78 @@ the vector.</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a <code>euclid_point</code> vector</p>
+    <h2 class="hasAnchor" id="constructors"><a class="anchor" href="#constructors"></a>Constructors</h2>
+
+    
+
+<p><strong>2 dimensional points</strong></p><ul>
+<li><p>Providing two numeric vector will construct points with those x and y
+coordinate.</p></li>
+<li><p>Providing a vector will construct a point at the location the vector
+points to.</p></li>
+<li><p>Providing a weighted point vector will create a points at the same
+locations without weights.</p></li>
+</ul>
+
+<p><strong>3 dimensional points</strong></p><ul>
+<li><p>Providing three numeric vector will construct points with those x, y, and z
+coordinate.</p></li>
+<li><p>Providing a vector will construct a point at the location the vector
+points to.</p></li>
+<li><p>Providing a weighted point vector will create a points at the same
+locations without weights.</p></li>
+</ul>
+
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>num1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='exact_numeric.html'>exact_numeric</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>5</span>))
-<span class='kw'>num2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='exact_numeric.html'>exact_numeric</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>5</span>))
-<span class='kw'>num3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='exact_numeric.html'>exact_numeric</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>5</span>))
+    <pre class="examples"><div class='input'><span class='va'>num1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='exact_numeric.html'>exact_numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>num2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='exact_numeric.html'>exact_numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>num3</span> <span class='op'>&lt;-</span> <span class='fu'><a href='exact_numeric.html'>exact_numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># 2 dimensions</span>
-<span class='fu'>point</span>(<span class='kw'>num1</span>, <span class='kw'>num2</span>)
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'>point</span><span class='op'>(</span><span class='va'>num1</span>, <span class='va'>num2</span><span class='op'>)</span>
+<span class='va'>p</span>
 </div><div class='output co'>#&gt; &lt;Vector of points in 2 dimensions&gt;
-#&gt; [1] &lt;x:0.68, y:0.766&gt;  &lt;x:0.499, y:0.77&gt;  &lt;x:0.642, y:0.991&gt; &lt;x:0.66, y:0.971&gt; 
-#&gt; [5] &lt;x:0.096, y:0.389&gt;</div><div class='input'>
+#&gt; [1] &lt;x:0.867, y:0.751&gt;  &lt;x:0.238, y:0.668&gt;  &lt;x:0.0045, y:0.408&gt;
+#&gt; [4] &lt;x:0.944, y:0.351&gt;  &lt;x:0.438, y:0.738&gt; </div><div class='input'>
 <span class='co'># 3 dimensions</span>
-<span class='fu'>point</span>(<span class='kw'>num1</span>, <span class='kw'>num2</span>, <span class='kw'>num3</span>)
+<span class='fu'>point</span><span class='op'>(</span><span class='va'>num1</span>, <span class='va'>num2</span>, <span class='va'>num3</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;Vector of points in 3 dimensions&gt;
-#&gt; [1] &lt;x:0.68, y:0.766, z:0.461&gt;  &lt;x:0.499, y:0.77, z:0.315&gt; 
-#&gt; [3] &lt;x:0.642, y:0.991, z:0.175&gt; &lt;x:0.66, y:0.971, z:0.532&gt; 
-#&gt; [5] &lt;x:0.096, y:0.389, z:0.494&gt;</div><div class='input'>
+#&gt; [1] &lt;x:0.867, y:0.751, z:0.664&gt;  &lt;x:0.238, y:0.668, z:0.0852&gt;
+#&gt; [3] &lt;x:0.0045, y:0.408, z:0.856&gt; &lt;x:0.944, y:0.351, z:0.077&gt; 
+#&gt; [5] &lt;x:0.438, y:0.738, z:0.853&gt; </div><div class='input'>
 <span class='co'># Standard R vectors are automatically converted to exact_numeric vectors</span>
-<span class='fu'>point</span>(<span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>5</span>), <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fl'>5</span>))
+<span class='fu'>point</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;Vector of points in 2 dimensions&gt;
-#&gt; [1] &lt;x:0.779, y:0.825&gt;  &lt;x:0.204, y:0.274&gt;  &lt;x:0.713, y:0.57&gt;  
-#&gt; [4] &lt;x:0.0652, y:0.336&gt; &lt;x:0.354, y:0.596&gt; </div><div class='input'>
+#&gt; [1] &lt;x:0.106, y:0.953&gt; &lt;x:0.485, y:0.322&gt; &lt;x:0.247, y:0.362&gt; &lt;x:0.687, y:0.888&gt;
+#&gt; [5] &lt;x:0.164, y:0.828&gt;</div><div class='input'>
+<span class='co'># Convert points to vectors</span>
+<span class='fu'><a href='vec.html'>as_vec</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of vectors in 2 dimensions&gt;
+#&gt; [1] &lt;x:0.867, y:0.751&gt;  &lt;x:0.238, y:0.668&gt;  &lt;x:0.0045, y:0.408&gt;
+#&gt; [4] &lt;x:0.944, y:0.351&gt;  &lt;x:0.438, y:0.738&gt; </div><div class='input'>
+<span class='co'># Arithmetic</span>
+<span class='co'># Translate by adding vector</span>
+<span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='vec.html'>vec</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>7</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of points in 2 dimensions&gt;
+#&gt; [1] &lt;x:3.87, y:7.75&gt; &lt;x:3.24, y:7.67&gt; &lt;x:3, y:7.41&gt;    &lt;x:3.94, y:7.35&gt;
+#&gt; [5] &lt;x:3.44, y:7.74&gt;</div><div class='input'>
+<span class='co'># Create vector by subtracting points</span>
+<span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>-</span> <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
+</div><div class='output co'>#&gt; &lt;Vector of vectors in 2 dimensions&gt;
+#&gt; [1] &lt;x:0.862, y:0.343&gt;  &lt;x:-0.705, y:0.317&gt;</div><div class='input'>
+<span class='co'># Sorting etc.</span>
+<span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of points in 2 dimensions&gt;
+#&gt; [1] &lt;x:0.0045, y:0.408&gt; &lt;x:0.238, y:0.668&gt;  &lt;x:0.438, y:0.738&gt; 
+#&gt; [4] &lt;x:0.867, y:0.751&gt;  &lt;x:0.944, y:0.351&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of points in 2 dimensions&gt;
+#&gt; [1] &lt;x:0.0045, y:0.408&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cummax</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of points in 2 dimensions&gt;
+#&gt; [1] &lt;x:0.867, y:0.751&gt;  &lt;x:0.238, y:0.668&gt;  &lt;x:0.0045, y:0.408&gt;
+#&gt; [4] &lt;x:0.0045, y:0.408&gt; &lt;x:0.0045, y:0.408&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/rank.html'>rank</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 4 2 1 5 3</div><div class='input'><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;</span> <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
+</div><div class='output co'>#&gt; [1] FALSE  TRUE</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

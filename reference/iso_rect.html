@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>euclid: Exact Computation Geometry Framework Based on 'CGAL' — euclid-package • euclid</title>
+<title>Vector of iso rectangles — iso_rect • euclid</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,12 +46,13 @@
 
 
 
-<meta property="og:title" content="euclid: Exact Computation Geometry Framework Based on 'CGAL' — euclid-package" />
-<meta property="og:description" content="
-Provides a rich framework for doing computation geometry by 
-    interfacing with the 'CGAL' library. The 'euclid' package provides new 
-    vector types for standard geometric objects and supports exact computations
-    on them." />
+<meta property="og:title" content="Vector of iso rectangles — iso_rect" />
+<meta property="og:description" content="Iso rectangles are axis aligned rectangles mimicking bounding boxes but given
+by exact numerics (bounding boxes are defined by floats because not all
+geometries have exact defined extent). Internally they are stored as two
+points giving the bottom-left and top-right corner of the rectangle. Iso
+rectangles are considered degenerate all its vertices are
+colinear." />
 <meta property="og:image" content="/logo.svg" />
 
 
@@ -120,33 +121,70 @@ Provides a rich framework for doing computation geometry by
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>euclid: Exact Computation Geometry Framework Based on 'CGAL'</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/euclid-package.R'><code>R/euclid-package.R</code></a></small>
-    <div class="hidden name"><code>euclid-package.Rd</code></div>
+    <h1>Vector of iso rectangles</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/iso_rect.R'><code>R/iso_rect.R</code></a></small>
+    <div class="hidden name"><code>iso_rect.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p><img src='figures/logo.png' align='right' alt='logo' width='120' /></p>
-<p>Provides a rich framework for doing computation geometry by 
-    interfacing with the 'CGAL' library. The 'euclid' package provides new 
-    vector types for standard geometric objects and supports exact computations
-    on them.</p>
+    <p>Iso rectangles are axis aligned rectangles mimicking bounding boxes but given
+by exact numerics (bounding boxes are defined by floats because not all
+geometries have exact defined extent). Internally they are stored as two
+points giving the bottom-left and top-right corner of the rectangle. Iso
+rectangles are considered <a href='is_degenerate.html'>degenerate</a> all its vertices are
+colinear.</p>
     </div>
 
+    <pre class="usage"><span class='fu'>iso_rect</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
+<span class='fu'>is_iso_rect</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+<span class='fu'>as_iso_rect</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
-    <div class='dont-index'><p>Useful links:</p><ul>
-<li><p><a href='https://github.com/thomasp85/euclid'>https://github.com/thomasp85/euclid</a></p></li>
-<li><p>Report bugs at <a href='https://github.com/thomasp85/euclid/issues'>https://github.com/thomasp85/euclid/issues</a></p></li>
+    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
+    <table class="ref-arguments">
+    <colgroup><col class="name" /><col class="desc" /></colgroup>
+    <tr>
+      <th>...</th>
+      <td><p>Various input. See the Constructor section.</p></td>
+    </tr>
+    <tr>
+      <th>x</th>
+      <td><p>A vector of iso rectangles or an object to convert to it</p></td>
+    </tr>
+    </table>
+
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>An <code>euclid_iso_rect</code> vector</p>
+    <h2 class="hasAnchor" id="constructors"><a class="anchor" href="#constructors"></a>Constructors</h2>
+
+    
+
+<p><strong>2 dimensional iso rectangles</strong></p><ul>
+<li><p>Providing a bbox will create iso rectangles matching the bbox</p></li>
+<li><p>Providing two points will create iso rectangles with the points as diagonal
+opposite vertices</p></li>
+<li><p>Providing 4 numeric will construct iso rectangles with the given extent,
+with the numerics being interpreted in the following order: left, bottom,
+right, top</p></li>
 </ul>
 
-</div>
-    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p><strong>Maintainer</strong>: Thomas Lin Pedersen <a href='mailto:thomasp85@gmail.com'>thomasp85@gmail.com</a> (<a href='https://orcid.org/0000-0002-5147-4711'>ORCID</a>)</p>
-
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Construction</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>2</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>iso_rect</span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of euclid_iso_rects in 2 dimensions&gt;
+#&gt; [1] [&lt;x:7, y:2&gt;, &lt;x:10, y:2&gt;, &lt;x:10, y:8&gt;, &lt;x:7, y:8&gt;]</div><div class='input'>
+<span class='fu'>iso_rect</span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>10</span>, <span class='fl'>7</span>, <span class='fl'>16</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of euclid_iso_rects in 2 dimensions&gt;
+#&gt; [1] [&lt;x:4, y:10&gt;, &lt;x:7, y:10&gt;, &lt;x:7, y:16&gt;, &lt;x:4, y:16&gt;]</div><div class='input'>
+<span class='va'>circ</span> <span class='op'>&lt;-</span> <span class='fu'><a href='circle.html'>circle</a></span><span class='op'>(</span><span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>9</span><span class='op'>)</span>, <span class='fl'>13</span><span class='op'>)</span>
+<span class='fu'>iso_rect</span><span class='op'>(</span><span class='fu'><a href='bbox.html'>bbox</a></span><span class='op'>(</span><span class='va'>circ</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of euclid_iso_rects in 2 dimensions&gt;
+#&gt; [1] [&lt;x:1.39, y:5.39&gt;, &lt;x:8.61, y:5.39&gt;, &lt;x:8.61, y:12.6&gt;, &lt;x:1.39, y:12.6&gt;]</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

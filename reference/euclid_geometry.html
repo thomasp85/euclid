@@ -8,6 +8,13 @@
 
 <title>Vector of geometries — euclid_geometry • euclid</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -50,6 +57,7 @@ respectively. The cardinality of each geometry in a vector can be queried
 with cardinality(). The matrix conversion will place each sub-geometry of
 a geometry on a new row, meaning that the final number of rows in a matrix
 constructed from x is not length(x) but sum(cardinality(x))." />
+<meta property="og:image" content="/logo.svg" />
 
 
 
@@ -135,9 +143,13 @@ a geometry on a new row, meaning that the final number of rows in a matrix
 constructed from <code>x</code> is not <code><a href='https://rdrr.io/r/base/length.html'>length(x)</a></code> but <code><a href='https://rdrr.io/r/base/sum.html'>sum(cardinality(x))</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>is_geometry</span>(<span class='kw'>x</span>)
+    <pre class="usage"><span class='fu'>is_geometry</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>cardinality</span>(<span class='kw'>x</span>)</pre>
+<span class='fu'>geometry_type</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>cardinality</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>definition_names</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -160,7 +172,7 @@ they mimick R's copy-on-modify semantics so you should not worry about side
 effects when changing a geometry vector. Further, since <a href='exact_numeric.html'>exact_numeric</a>
 vectors only supports finite values, geometry vectors do not have an <code>NA</code>
 value.</p>
-<p>The following is a list of standard vector methods defined for geometry
+<p>The following is a list of standard R methods defined for geometry
 vectors:</p><ul>
 <li><p><code><a href='https://rdrr.io/r/base/matrix.html'>as.matrix()</a></code> - converts the geometry to a standard R matrix of numerics</p></li>
 <li><p><code><a href='https://rdrr.io/r/base/character.html'>as.character()</a></code> - provides a textual representation of the geometry</p></li>
@@ -181,6 +193,8 @@ vector</p></li>
 vector</p></li>
 <li><p><code><a href='https://rdrr.io/r/base/duplicated.html'>anyDuplicated()</a></code> - Tells if any element in the vector is a duplicate</p></li>
 <li><p><code><a href='https://rdrr.io/r/base/Comparison.html'>==</a></code> and <code><a href='https://rdrr.io/r/base/Comparison.html'>!=</a></code> - Test for equality between elements.</p></li>
+<li><p><code><a href='https://rdrr.io/r/base/transform.html'>transform()</a></code> - Transform geometries in the vector according to an
+<a href='affine_transformation.html'>affine_transformation</a></p></li>
 </ul>
 
 <p>Do note that since geometries with exact representation is not easily

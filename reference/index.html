@@ -8,6 +8,13 @@
 
 <title>Function reference • euclid</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -40,6 +47,7 @@
 
 
 <meta property="og:title" content="Function reference" />
+<meta property="og:image" content="/logo.svg" />
 
 
 
@@ -133,19 +141,37 @@
       <tr>
         
         <td>
+          <p><code><a href="affine_transformation.html">affine_identity()</a></code> <code><a href="affine_transformation.html">affine_matrix()</a></code> <code><a href="affine_transformation.html">affine_translate()</a></code> <code><a href="affine_transformation.html">affine_scale()</a></code> <code><a href="affine_transformation.html">affine_rotate()</a></code> <code><a href="affine_transformation.html">is_affine_transformation()</a></code> <code><a href="affine_transformation.html">as_affine_transformation()</a></code> <code><a href="affine_transformation.html">inverse()</a></code> <code><a href="affine_transformation.html">is_reflecting()</a></code> </p>
+        </td>
+        <td><p>Create affine transformation matrices</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="bbox.html">bbox()</a></code> <code><a href="bbox.html">is_bbox()</a></code> <code><a href="bbox.html">as_bbox()</a></code> <code><a href="bbox.html">is_overlapping()</a></code> <code><a href="bbox.html">`%overlaps%`</a></code> </p>
+        </td>
+        <td><p>Create a vector of bounding boxes</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="circle.html">circle()</a></code> <code><a href="circle.html">is_circle()</a></code> <code><a href="circle.html">as_circle()</a></code> </p>
         </td>
         <td><p>Vector of circles</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="coord.html">coord()</a></code> </p>
+          <p><code><a href="definition.html">definition()</a></code> </p>
         </td>
-        <td><p>Access coordinate dimensions in geometries</p></td>
+        <td><p>Access the exact values that defines the geometries</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="euclid_geometry.html">is_geometry()</a></code> <code><a href="euclid_geometry.html">cardinality()</a></code> </p>
+          <p><code><a href="direction.html">direction()</a></code> <code><a href="direction.html">is_direction()</a></code> <code><a href="direction.html">between()</a></code> <code><a href="direction.html">as_direction()</a></code> </p>
+        </td>
+        <td><p>Vector of directions</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="euclid_geometry.html">is_geometry()</a></code> <code><a href="euclid_geometry.html">geometry_type()</a></code> <code><a href="euclid_geometry.html">cardinality()</a></code> <code><a href="euclid_geometry.html">definition_names()</a></code> </p>
         </td>
         <td><p>Vector of geometries</p></td>
       </tr><tr>
@@ -157,15 +183,99 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="point.html">point()</a></code> <code><a href="point.html">is_point()</a></code> <code><a href="point.html">as_point()</a></code> </p>
+          <p><code><a href="geometry_measures.html">approx_length()</a></code> <code><a href="geometry_measures.html">approx_area()</a></code> <code><a href="geometry_measures.html">approx_volume()</a></code> </p>
+        </td>
+        <td><p>Approximate geometry measures</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="geometry_projection.html">project()</a></code> <code><a href="geometry_projection.html">map_to()</a></code> </p>
+        </td>
+        <td><p>Project geometries to lines and planes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="is_degenerate.html">is_degenerate()</a></code> </p>
+        </td>
+        <td><p>Check if a geometry is degenerate</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="iso_cube.html">iso_cube()</a></code> <code><a href="iso_cube.html">is_iso_cube()</a></code> <code><a href="iso_cube.html">as_iso_cube()</a></code> </p>
+        </td>
+        <td><p>Vector of iso cubes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="iso_rect.html">iso_rect()</a></code> <code><a href="iso_rect.html">is_iso_rect()</a></code> <code><a href="iso_rect.html">as_iso_rect()</a></code> </p>
+        </td>
+        <td><p>Vector of iso rectangles</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="line.html">line()</a></code> <code><a href="line.html">is_line()</a></code> <code><a href="line.html">as_line()</a></code> </p>
+        </td>
+        <td><p>Vector of lines</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="location_predicates.html">has_on()</a></code> <code><a href="location_predicates.html">`%is_on%`</a></code> <code><a href="location_predicates.html">has_inside()</a></code> <code><a href="location_predicates.html">`%is_inside%`</a></code> <code><a href="location_predicates.html">has_outside()</a></code> <code><a href="location_predicates.html">`%is_outside%`</a></code> <code><a href="location_predicates.html">has_on_positive_side()</a></code> <code><a href="location_predicates.html">`%is_on_positive_side%`</a></code> <code><a href="location_predicates.html">has_on_negative_side()</a></code> <code><a href="location_predicates.html">`%is_on_negative_side%`</a></code> </p>
+        </td>
+        <td><p>Query location of points relative to geometry</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="plane.html">plane()</a></code> <code><a href="plane.html">is_plane()</a></code> <code><a href="plane.html">as_plane()</a></code> </p>
+        </td>
+        <td><p>Vector of planes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="point.html">point()</a></code> <code><a href="point.html">is_point()</a></code> <code><a href="point.html">as_point()</a></code> <code><a href="point.html">as_weighted_point()</a></code> </p>
         </td>
         <td><p>Vector of points</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="ray.html">ray()</a></code> <code><a href="ray.html">is_ray()</a></code> <code><a href="ray.html">as_ray()</a></code> <code><a href="ray.html">is_segment()</a></code> </p>
+        </td>
+        <td><p>Vector of rays</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="segment.html">segment()</a></code> <code><a href="segment.html">as_segment()</a></code> </p>
+        </td>
+        <td><p>Vector of segments</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="sphere.html">sphere()</a></code> <code><a href="sphere.html">is_sphere()</a></code> <code><a href="sphere.html">as_sphere()</a></code> </p>
+        </td>
+        <td><p>Vector of spheres</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="tetrahedron.html">tetrahedron()</a></code> <code><a href="tetrahedron.html">is_tetrahedron()</a></code> <code><a href="tetrahedron.html">as_tetrahedron()</a></code> </p>
+        </td>
+        <td><p>Vector of tetrahedrons</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="triangle.html">triangle()</a></code> <code><a href="triangle.html">is_triangle()</a></code> <code><a href="triangle.html">as_triangle()</a></code> </p>
+        </td>
+        <td><p>Vector of triangles</p></td>
       </tr><tr>
         
         <td>
           <p><code><a href="vec.html">vec()</a></code> <code><a href="vec.html">is_vec()</a></code> <code><a href="vec.html">as_vec()</a></code> </p>
         </td>
         <td><p>Vector of vectors</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="weighted_point.html">weighted_point()</a></code> <code><a href="weighted_point.html">is_weighted_point()</a></code> </p>
+        </td>
+        <td><p>Vector of weighted points</p></td>
       </tr>
     </tbody>
     </table>
