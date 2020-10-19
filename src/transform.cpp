@@ -166,6 +166,9 @@ transform3_p create_transform_3_scale(exact_numeric_p fac) {
 
 [[cpp11::register]]
 int transform_length(transform_vector_base_p transforms) {
+  if (transforms.get() == nullptr) {
+    return 0;
+  }
   return transforms->size();
 }
 
@@ -237,6 +240,9 @@ cpp11::writable::doubles transform_to_array(transform_vector_base_p transforms) 
 
 [[cpp11::register]]
 cpp11::writable::strings transform_format(transform_vector_base_p transforms) {
+  if (transforms.get() == nullptr) {
+    return {">>>Data structure pointer cleared from memory<<<"};
+  }
   return transforms->format();
 }
 

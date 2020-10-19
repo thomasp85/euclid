@@ -32,6 +32,9 @@ cpp11::writable::strings geometry_primitive_type(geometry_vector_base_p geometri
 
 [[cpp11::register]]
 int geometry_length(geometry_vector_base_p geometries) {
+  if (geometries.get() == nullptr) {
+    return 0;
+  }
   return geometries->size();
 }
 
@@ -118,6 +121,9 @@ cpp11::writable::doubles_matrix geometry_to_matrix(geometry_vector_base_p geomet
 
 [[cpp11::register]]
 cpp11::writable::strings geometry_format(geometry_vector_base_p geometries) {
+  if (geometries.get() == nullptr) {
+    return {">>>Data structure pointer cleared from memory<<<"};
+  }
   return geometries->format();
 }
 

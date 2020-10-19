@@ -36,6 +36,9 @@ bbox3_p create_bbox_3(cpp11::doubles xmin, cpp11::doubles ymin, cpp11::doubles z
 
 [[cpp11::register]]
 int bbox_length(bbox_vector_base_p bboxes) {
+  if (bboxes.get() == nullptr) {
+    return 0;
+  }
   return bboxes->size();
 }
 
@@ -101,6 +104,9 @@ cpp11::writable::doubles_matrix bbox_to_matrix(bbox_vector_base_p bboxes) {
 
 [[cpp11::register]]
 cpp11::writable::strings bbox_format(bbox_vector_base_p bboxes) {
+  if (bboxes.get() == nullptr) {
+    return {">>>Data structure pointer cleared from memory<<<"};
+  }
   return bboxes->format();
 }
 

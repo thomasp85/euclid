@@ -22,6 +22,9 @@ exact_numeric_p create_exact_numeric(cpp11::doubles numeric) {
 }
 [[cpp11::register]]
 int exact_numeric_length(exact_numeric_p ex_n) {
+  if (ex_n.get() == nullptr) {
+    return 0;
+  }
   return ex_n->size();
 }
 
@@ -126,6 +129,9 @@ cpp11::writable::doubles exact_numeric::as_numeric() const {
 }
 [[cpp11::register]]
 cpp11::writable::doubles exact_numeric_to_numeric(exact_numeric_p ex_n) {
+  if (ex_n.get() == nullptr) {
+    return {};
+  }
   return ex_n->as_numeric();
 }
 
