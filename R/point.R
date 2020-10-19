@@ -38,13 +38,31 @@
 #' num3 <- exact_numeric(runif(5))
 #'
 #' # 2 dimensions
-#' point(num1, num2)
+#' p <- point(num1, num2)
+#' p
 #'
 #' # 3 dimensions
 #' point(num1, num2, num3)
 #'
 #' # Standard R vectors are automatically converted to exact_numeric vectors
 #' point(runif(5), runif(5))
+#'
+#' # Convert points to vectors
+#' as_vec(p)
+#'
+#' # Arithmetic
+#' # Translate by adding vector
+#' p + vec(3, 7)
+#'
+#' # Create vector by subtracting points
+#' p[1:2] - p[3:4]
+#'
+#' # Sorting etc.
+#' sort(p)
+#' min(p)
+#' cummax(p)
+#' rank(p)
+#' p[1:2] < p[3:4]
 #'
 point <- function(..., default_dim = 2) {
   inputs <- validate_constructor_input(...)
@@ -248,7 +266,6 @@ geometry_math_cummax.euclid_point <- function(x) {
   }
 }
 
-
 # Miscellaneous vector support --------------------------------------------
 
 #' @export
@@ -260,7 +277,7 @@ sort.euclid_point <- function(x, decreasing = FALSE, na.last = NA, ...) {
   }
 }
 #' @export
-xtfrm.euclid_geometry <- function(x) {
+xtfrm.euclid_point <- function(x) {
   if (dim(x) == 2) {
     point_2_rank(get_ptr(x))
   } else {

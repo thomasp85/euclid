@@ -1,5 +1,6 @@
 #include "iso_cube.h"
 #include "point.h"
+#include "exact_numeric.h"
 #include "bbox.h"
 
 [[cpp11::register]]
@@ -26,15 +27,15 @@ iso_cube_p create_iso_cube_pq(point3_p p, point3_p q) {
 }
 
 [[cpp11::register]]
-iso_cube_p create_iso_cube_lrbtfc(point3_p l, point3_p r, point3_p b, point3_p t, point3_p f, point3_p c) {
+iso_cube_p create_iso_cube_minmax(exact_numeric_p minx, exact_numeric_p miny, exact_numeric_p minz, exact_numeric_p maxx, exact_numeric_p maxy, exact_numeric_p maxz) {
   std::vector<Iso_cuboid> vec;
-  vec.reserve(l->size());
-  for (size_t i = 0; i < l->size(); ++i) {
-    if (!(*l)[i] || !(*r)[i] || !(*b)[i] || !(*t)[i] || !(*f)[i] || !(*c)[i]) {
+  vec.reserve(minx->size());
+  for (size_t i = 0; i < minx->size(); ++i) {
+    if (!(*minx)[i] || !(*miny)[i] || !(*minz)[i] || !(*maxx)[i] || !(*maxy)[i] || !(*maxz)[i]) {
       vec.push_back(Iso_cuboid::NA_value());
       continue;
     }
-    vec.emplace_back((*l)[i], (*r)[i], (*b)[i], (*t)[i], (*f)[i], (*c)[i]);
+    vec.emplace_back((*minx)[i], (*miny)[i], (*minz)[i], (*maxx)[i], (*maxy)[i], (*maxz)[i]);
   }
   iso_cube *result(new iso_cube(vec));
 

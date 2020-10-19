@@ -21,6 +21,10 @@ public:
     return copy;
   }
 
+  geometry_vector_base* new_2D_from_vector(std::vector<Plane> vec) const {
+    cpp11::stop("Planes cannot be mapped to 2D");
+  }
+
   cpp11::writable::strings def_names() const {
     return {"a", "b", "c", "d"};
   }

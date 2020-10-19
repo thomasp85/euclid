@@ -36,6 +36,8 @@ in the opposite direction as well.
 \item Providing two points will construct lines going through those
 \item Providing a point and a vector will construct lines going through the point
 and extending in the direction of the vector.
+\item Providing a point and a direction will construct lines going through the
+point and extending in the given direction.
 \item Providing a ray will construct the supporting line for the ray
 \item Providing a segment will construct the supporting line for the segment
 }
@@ -45,8 +47,23 @@ and extending in the direction of the vector.
 \item Providing two points will construct lines going through those
 \item Providing a point and a vector will construct lines going through the point
 and extending in the direction of the vector.
+\item Providing a point and a direction will construct lines going through the
+point and extending in the given direction.
 \item Providing a ray will construct the supporting line for the ray
 \item Providing a segment will construct the supporting line for the segment
 }
 }
 
+\examples{
+# Construction
+l <- line(sample(10, 2), sample(10, 2), sample(10, 2))
+l
+
+# 3D lines cannot be constructed from coefficients
+p <- point(sample(6), sample(6), sample(6))
+line(p[1:3], p[4:6])
+
+# Construction from point and vector
+line(p, vec(4, -2, 0))
+
+}

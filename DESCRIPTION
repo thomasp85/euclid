@@ -22,9 +22,6 @@ LinkingTo:
     BH
 SystemRequirements: C++11
 Imports: 
-    cpp11,
-    cgal4h,
-    BH,
     rlang,
     utils
 URL: https://github.com/thomasp85/euclid

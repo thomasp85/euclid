@@ -1,6 +1,37 @@
 #' Vector of iso cubes
 #'
+#' Iso cubes are axis-aligned cuboids, i.e. a cube with faces parallel to the x,
+#' y, and z plane. Iso cuboids are the 3 dimensional version of
+#' [iso rectangles][iso_rect] and shares the feature that it can be constructed
+#' from bounding boxes (in 3D). An Iso cube is [degenerate][is_degenerate] all
+#' its vertices are coplanar.
+#'
+#' @param ... Various input. See the Constructor section.
+#' @param x A vector of iso cubes or an object to convert to it
+#'
+#' @return An `euclid_iso_cube` vector
+#'
+#' @section Constructors:
+#' **3 dimensional iso cubes**
+#' - Providing a bbox will create iso cubes matching the bbox
+#' - Providing two points will create iso cubes with the points as diagonal
+#'   opposite vertices
+#' - Providing 6 numeric will construct iso cubes with the given extent,
+#'   with the numerics being interpreted in the following order: minimum x,
+#'   minimum y, minimum z, maximum x, maximum y, and maximum z
+#'
 #' @export
+#'
+#' @examples
+#' # Construction
+#' p <- point(sample(10, 2), sample(10, 2), sample(10, 2))
+#' iso_cube(p[1], p[2])
+#'
+#' iso_cube(4, 10, 7, 16, -4, 0)
+#'
+#' s <- sphere(point(5, 9, 2), 13)
+#' iso_cube(bbox(s))
+#'
 iso_cube <- function(...) {
   inputs <- validate_constructor_input(...)
 
@@ -55,6 +86,6 @@ new_iso_cube_from_bbox <- function(bbox) {
 new_iso_cube_from_2_points <- function(p, q) {
   new_iso_cube(create_iso_cube_pq(get_ptr(p), get_ptr(q)))
 }
-new_iso_cube_from_6_numbers <- function(l, r, b, t, f, c) {
-  new_iso_cube(create_iso_cube_lrbtfc(get_ptr(l), get_ptr(r), get_ptr(b), get_ptr(t), get_ptr(f), get_ptr(c)))
+new_iso_cube_from_6_numbers <- function(x0, y0, z0, x1, y1, z1) {
+  new_iso_cube(create_iso_cube_minmax(get_ptr(x0), get_ptr(y0), get_ptr(z0), get_ptr(x1), get_ptr(y1), get_ptr(z1)))
 }

@@ -152,6 +152,54 @@ create_direction_2_xy <- function(x, y) {
   .Call("_euclid_create_direction_2_xy", x, y, PACKAGE = "euclid")
 }
 
+direction_2_negate <- function(x) {
+  .Call("_euclid_direction_2_negate", x, PACKAGE = "euclid")
+}
+
+direction_2_less <- function(x, y) {
+  .Call("_euclid_direction_2_less", x, y, PACKAGE = "euclid")
+}
+
+direction_2_less_equal <- function(x, y) {
+  .Call("_euclid_direction_2_less_equal", x, y, PACKAGE = "euclid")
+}
+
+direction_2_greater <- function(x, y) {
+  .Call("_euclid_direction_2_greater", x, y, PACKAGE = "euclid")
+}
+
+direction_2_greater_equal <- function(x, y) {
+  .Call("_euclid_direction_2_greater_equal", x, y, PACKAGE = "euclid")
+}
+
+direction_2_sort <- function(x, decreasing, na_last) {
+  .Call("_euclid_direction_2_sort", x, decreasing, na_last, PACKAGE = "euclid")
+}
+
+direction_2_rank <- function(x) {
+  .Call("_euclid_direction_2_rank", x, PACKAGE = "euclid")
+}
+
+direction_2_min <- function(x, na_rm) {
+  .Call("_euclid_direction_2_min", x, na_rm, PACKAGE = "euclid")
+}
+
+direction_2_max <- function(x, na_rm) {
+  .Call("_euclid_direction_2_max", x, na_rm, PACKAGE = "euclid")
+}
+
+direction_2_cummin <- function(x) {
+  .Call("_euclid_direction_2_cummin", x, PACKAGE = "euclid")
+}
+
+direction_2_cummax <- function(x) {
+  .Call("_euclid_direction_2_cummax", x, PACKAGE = "euclid")
+}
+
+direction_2_between <- function(x, d1, d2) {
+  .Call("_euclid_direction_2_between", x, d1, d2, PACKAGE = "euclid")
+}
+
 create_direction_3_empty <- function() {
   .Call("_euclid_create_direction_3_empty", PACKAGE = "euclid")
 }
@@ -174,6 +222,10 @@ create_direction_3_segment <- function(s) {
 
 create_direction_3_xyz <- function(x, y, z) {
   .Call("_euclid_create_direction_3_xyz", x, y, z, PACKAGE = "euclid")
+}
+
+direction_3_negate <- function(x) {
+  .Call("_euclid_direction_3_negate", x, PACKAGE = "euclid")
 }
 
 create_exact_numeric <- function(numeric) {
@@ -320,6 +372,10 @@ exact_numeric_max <- function(ex_n, na_rm) {
   .Call("_euclid_exact_numeric_max", ex_n, na_rm, PACKAGE = "euclid")
 }
 
+geometry_primitive_type <- function(geometries) {
+  .Call("_euclid_geometry_primitive_type", geometries, PACKAGE = "euclid")
+}
+
 geometry_length <- function(geometries) {
   .Call("_euclid_geometry_length", geometries, PACKAGE = "euclid")
 }
@@ -396,16 +452,60 @@ geometry_is_not_equal <- function(geometries1, geometries2) {
   .Call("_euclid_geometry_is_not_equal", geometries1, geometries2, PACKAGE = "euclid")
 }
 
-geometry_is_degenerate <- function(geometries) {
-  .Call("_euclid_geometry_is_degenerate", geometries, PACKAGE = "euclid")
-}
-
 geometry_transform <- function(geometries, affine) {
   .Call("_euclid_geometry_transform", geometries, affine, PACKAGE = "euclid")
 }
 
 geometry_bbox <- function(geometries) {
   .Call("_euclid_geometry_bbox", geometries, PACKAGE = "euclid")
+}
+
+geometry_approx_length <- function(geometries) {
+  .Call("_euclid_geometry_approx_length", geometries, PACKAGE = "euclid")
+}
+
+geometry_approx_area <- function(geometries) {
+  .Call("_euclid_geometry_approx_area", geometries, PACKAGE = "euclid")
+}
+
+geometry_approx_volume <- function(geometries) {
+  .Call("_euclid_geometry_approx_volume", geometries, PACKAGE = "euclid")
+}
+
+geometry_is_degenerate <- function(geometries) {
+  .Call("_euclid_geometry_is_degenerate", geometries, PACKAGE = "euclid")
+}
+
+geometry_has_point_inside <- function(geometries, points) {
+  .Call("_euclid_geometry_has_point_inside", geometries, points, PACKAGE = "euclid")
+}
+
+geometry_has_point_on <- function(geometries, points) {
+  .Call("_euclid_geometry_has_point_on", geometries, points, PACKAGE = "euclid")
+}
+
+geometry_has_point_outside <- function(geometries, points) {
+  .Call("_euclid_geometry_has_point_outside", geometries, points, PACKAGE = "euclid")
+}
+
+geometry_has_point_on_positive <- function(geometries, points) {
+  .Call("_euclid_geometry_has_point_on_positive", geometries, points, PACKAGE = "euclid")
+}
+
+geometry_has_point_on_negative <- function(geometries, points) {
+  .Call("_euclid_geometry_has_point_on_negative", geometries, points, PACKAGE = "euclid")
+}
+
+geometry_project_to_line <- function(geometries, lines) {
+  .Call("_euclid_geometry_project_to_line", geometries, lines, PACKAGE = "euclid")
+}
+
+geometry_project_to_plane <- function(geometries, planes) {
+  .Call("_euclid_geometry_project_to_plane", geometries, planes, PACKAGE = "euclid")
+}
+
+geometry_map_to_plane <- function(geometries, planes) {
+  .Call("_euclid_geometry_map_to_plane", geometries, planes, PACKAGE = "euclid")
 }
 
 create_iso_cube_empty <- function() {
@@ -416,8 +516,8 @@ create_iso_cube_pq <- function(p, q) {
   .Call("_euclid_create_iso_cube_pq", p, q, PACKAGE = "euclid")
 }
 
-create_iso_cube_lrbtfc <- function(l, r, b, t, f, c) {
-  .Call("_euclid_create_iso_cube_lrbtfc", l, r, b, t, f, c, PACKAGE = "euclid")
+create_iso_cube_minmax <- function(minx, miny, minz, maxx, maxy, maxz) {
+  .Call("_euclid_create_iso_cube_minmax", minx, miny, minz, maxx, maxy, maxz, PACKAGE = "euclid")
 }
 
 create_iso_cube_bbox <- function(bbox) {
@@ -432,8 +532,8 @@ create_iso_rect_pq <- function(p, q) {
   .Call("_euclid_create_iso_rect_pq", p, q, PACKAGE = "euclid")
 }
 
-create_iso_rect_lrbt <- function(l, r, b, t) {
-  .Call("_euclid_create_iso_rect_lrbt", l, r, b, t, PACKAGE = "euclid")
+create_iso_rect_minmax <- function(minx, miny, maxx, maxy) {
+  .Call("_euclid_create_iso_rect_minmax", minx, miny, maxx, maxy, PACKAGE = "euclid")
 }
 
 create_iso_rect_bbox <- function(bbox) {

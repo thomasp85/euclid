@@ -23,9 +23,9 @@ a \code{euclid_point_w} vector
 This class is an extension (but not a subclass of) \code{\link[=point]{point()}}. It simply
 attaches a numeric weight to the point that is carried along with it.
 However, most of the functionality of points are lost with this vector class
-as all the a math operations are gone due to ambiguity on whether to operate
-on the point or the weight. Weighted points can easily be converted to points
-however.
+as all the a math and sorting operations are gone due to ambiguity on whether
+to operate on the point or the weight. Weighted points can easily be
+converted to points however.
 }
 \section{Constructors}{
 
@@ -44,3 +44,17 @@ coordinate and a weight.
 }
 }
 
+\examples{
+# Construction
+wp <- weighted_point(sample(5), sample(5), runif(5))
+wp
+
+# Convert to point
+p <- as_point(wp)
+p
+
+# Construct from point and weight
+
+weighted_point(p, 1:5)
+
+}

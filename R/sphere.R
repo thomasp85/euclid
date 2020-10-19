@@ -1,6 +1,43 @@
 #' Vector of spheres
 #'
+#' A sphere is a 3 dimensional object modelling the surface of a ball. As such
+#' it is an extension of the concept of a 2 dimensional circle to 3D, though a
+#' circle can also exist in three dimensions. A sphere has a center and a
+#' radius. if the radius is 0 it is considered to be [degenerate][is_degenerate].
+#'
+#' @param ... Various input. See the Constructor section.
+#' @param x A vector of spheres or an object to convert to it
+#'
+#' @return An `euclid_sphere` vector
+#'
+#' @section Constructors:
+#' **3 dimensional spheres**
+#' - Providing 4 points will construct the unique sphere the passes through all
+#'   4 points (points must not be coplanar)
+#' - Providing 3 points will construct the smallest sphere that passes through
+#'   all 3 points
+#' - Providing 2 points will construct the smallest sphere passing through both
+#'   points
+#' - Providing a point and numeric will construct spheres centered on the point
+#'   with a squared radius set to the numeric
+#' - Providing a circle will construct the diametral sphere of the circle
+#'
 #' @export
+#'
+#' @examples
+#' # Construction
+#' p <- point(sample(8), sample(8), sample(8))
+#' sphere(p, 4)
+#'
+#' sphere(p[1:2], p[3:4], p[5:6], p[7:8])
+#'
+#' sphere(p[1:2], p[3:4], p[5:6])
+#'
+#' sphere(p[1:2], p[3:4])
+#'
+#' circ <- circle(p[1], as_vec(p[2]), 6)
+#' sphere(circ)
+#'
 sphere <- function(...) {
   inputs <- validate_constructor_input(...)
 

@@ -52,3 +52,33 @@ the ray
 }
 }
 
+\examples{
+
+# Create vectors from points:
+v1 <- vec(x = 1:5, y = 4:8)
+
+# Vectors can be added and subtracted
+v1[1] + v1[2]
+
+v1[5] - v1[3]
+
+# You can invert a vector by taking its negative
+-v1
+
+# As vectors can be added you can also use sum() and cumsum()
+sum(v1)
+cumsum(v1)
+
+# Multiplying and dividing a vector by a numeric changes its magnitude
+v1 * 10
+v1 / 2.5
+
+# Multiplying two vectors gives the inner product of the two
+v1[1:2] * v1[3:4]
+
+# Vectors can be converted to points, directions and transformation matrices
+as_point(v1)
+as_direction(v1)
+as_affine_transformation(v1)
+
+}

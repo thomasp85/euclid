@@ -1,6 +1,38 @@
 #' Vector of iso rectangles
 #'
+#' Iso rectangles are axis aligned rectangles mimicking bounding boxes but given
+#' by exact numerics (bounding boxes are defined by floats because not all
+#' geometries have exact defined extent). Internally they are stored as two
+#' points giving the bottom-left and top-right corner of the rectangle. Iso
+#' rectangles are considered [degenerate][is_degenerate] all its vertices are
+#' colinear.
+#'
+#' @param ... Various input. See the Constructor section.
+#' @param x A vector of iso rectangles or an object to convert to it
+#'
+#' @return An `euclid_iso_rect` vector
+#'
+#' @section Constructors:
+#' **2 dimensional iso rectangles**
+#' - Providing a bbox will create iso rectangles matching the bbox
+#' - Providing two points will create iso rectangles with the points as diagonal
+#'   opposite vertices
+#' - Providing 4 numeric will construct iso rectangles with the given extent,
+#'   with the numerics being interpreted in the following order: left, bottom,
+#'   right, top
+#'
 #' @export
+#'
+#' @examples
+#' # Construction
+#' p <- point(sample(10, 2), sample(10, 2))
+#' iso_rect(p[1], p[2])
+#'
+#' iso_rect(4, 10, 7, 16)
+#'
+#' circ <- circle(point(5, 9), 13)
+#' iso_rect(bbox(circ))
+#'
 iso_rect <- function(...) {
   inputs <- validate_constructor_input(...)
 
@@ -55,6 +87,6 @@ new_iso_rect_from_bbox <- function(bbox) {
 new_iso_rect_from_2_points <- function(p, q) {
   new_iso_rect(create_iso_rect_pq(get_ptr(p), get_ptr(q)))
 }
-new_iso_rect_from_4_numbers <- function(l, r, b, t) {
-  new_iso_rect(create_iso_rect_lrbt(get_ptr(l), get_ptr(r), get_ptr(b), get_ptr(t)))
+new_iso_rect_from_4_numbers <- function(l, b, r, t) {
+  new_iso_rect(create_iso_rect_minmax(get_ptr(l), get_ptr(b), get_ptr(r), get_ptr(t)))
 }

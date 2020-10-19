@@ -1,6 +1,40 @@
 #' Vector of planes
 #'
+#' A plane splits the euclidean space in two by all the points that satisfy the
+#' plane equation `ax + by + cz + d = 0`. As can be seen this is an extension of
+#' the concept of lines in 2 dimensions though lines can also exist in three
+#' dimensions.
+#'
+#' @param ... Various input. See the Constructor section.
+#' @param x A vector of planes or an object to convert to it
+#'
+#' @return An `euclid_plane` vector
+#'
+#' @section Constructors:
+#' **3 dimensional planes**
+#' - Providing 4 numberics will construct planes with coefficients from the 4
+#'   numerics in the order given.
+#' - Providing 3 points will construct planes passing through the three points
+#' - Providing a point and vector will construct planes that goes through the
+#'   point and are orthogonal to the vector
+#' - Providing a point and a direction will construct planes that goes through
+#'   the point and are orthogonal to the direction
+#' - Providing a point and a line will construct planes that goes through the
+#'   point and 2 points on the line
+#' - Providing a point and a ray will construct planes that goes through the
+#'   point and 2 points on the ray
+#' - Providing a point and a segment will construct planes that goes through the
+#'   point and the two points making up the segment
+#' - Providing a circle will construct planes that contains the circle
+#' - Providing a triangle will construct planes that contains the triangle
+#'
 #' @export
+#'
+#' @examples
+#' # Construction
+#' p <- plane(sample(10, 2), sample(10, 2), sample(10, 2), sample(10, 2))
+#' p
+#'
 plane <- function(...) {
   inputs <- validate_constructor_input(...)
 

@@ -62,12 +62,30 @@ num2 <- exact_numeric(runif(5))
 num3 <- exact_numeric(runif(5))
 
 # 2 dimensions
-point(num1, num2)
+p <- point(num1, num2)
+p
 
 # 3 dimensions
 point(num1, num2, num3)
 
 # Standard R vectors are automatically converted to exact_numeric vectors
 point(runif(5), runif(5))
+
+# Convert points to vectors
+as_vec(p)
+
+# Arithmetic
+# Translate by adding vector
+p + vec(3, 7)
+
+# Create vector by subtracting points
+p[1:2] - p[3:4]
+
+# Sorting etc.
+sort(p)
+min(p)
+cummax(p)
+rank(p)
+p[1:2] < p[3:4]
 
 }

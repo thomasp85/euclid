@@ -2,9 +2,12 @@
 % Please edit documentation in R/segment.R
 \name{segment}
 \alias{segment}
+\alias{as_segment}
 \title{Vector of segments}
 \usage{
 segment(..., default_dim = 2)
+
+as_segment(x)
 }
 \arguments{
 \item{...}{Various input. See the Constructor section.}
@@ -14,14 +17,16 @@ segment(..., default_dim = 2)
 \item{x}{A vector of segments or an object to convert to it}
 }
 \value{
-An \code{euclid_ray} vector
+An \code{euclid_segment} vector
 }
 \description{
-A segment is a finite directed line going from one point to another
+A segment is a finite directed line going from one point to another. If the
+two points are equal it is considered to be \link[=is_degenerate]{degenerate}. A
+segment can be flipped be taking its negative.
 }
 \section{Constructors}{
 
-\strong{2 and 3 dimensional rays}
+\strong{2 and 3 dimensional segments}
 \itemize{
 \item Providing two points will construct segments starting at the first point
 and ending at the second
@@ -30,3 +35,22 @@ point and ending at the point defined by the start point plus the vector
 }
 }
 
+\examples{
+# Construction
+p <- point(sample(4), sample(4))
+s <- segment(p[1:2], p[3:4])
+s
+
+segment(p[1:2], as_vec(p[3:4]))
+
+# Flip segments
+-s
+
+# Segments can be converted to vectors, directions and lines
+as_vec(s)
+
+as_direction(s)
+
+as_line(s)
+
+}

@@ -22,6 +22,10 @@ public:
     return copy;
   }
 
+  geometry_vector_base* new_2D_from_vector(std::vector<Circle_2> vec) const {
+    return new_from_vector(vec);
+  }
+
   cpp11::writable::strings def_names() const {
     return {"x", "y", "r2"};
   }
@@ -48,7 +52,7 @@ public:
 
 typedef cpp11::external_pointer<circle2> circle2_p;
 
-class circle3 : public geometry_vector<Circle_3, 3> {
+class circle3 : public geometry_vector<Circle_3, 3, Circle_2> {
 public:
   const Primitive geo_type = CIRCLE;
 
@@ -60,6 +64,11 @@ public:
 
     copy->_storage.swap(vec);
 
+    return copy;
+  }
+
+  geometry_vector_base* new_2D_from_vector(std::vector<Circle_2> vec) const {
+    circle2* copy = new circle2(vec);
     return copy;
   }
 

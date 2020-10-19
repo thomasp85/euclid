@@ -3,9 +3,9 @@
 #' This class is an extension (but not a subclass of) [point()]. It simply
 #' attaches a numeric weight to the point that is carried along with it.
 #' However, most of the functionality of points are lost with this vector class
-#' as all the a math operations are gone due to ambiguity on whether to operate
-#' on the point or the weight. Weighted points can easily be converted to points
-#' however.
+#' as all the a math and sorting operations are gone due to ambiguity on whether
+#' to operate on the point or the weight. Weighted points can easily be
+#' converted to points however.
 #'
 #' @param ... Various input. See the Constructor section.
 #' @param default_dim The dimensionality when constructing an empty vector
@@ -25,6 +25,20 @@
 #' - Providing a point and a numeric will construct points with the given weight
 #'
 #' @export
+#'
+#' @examples
+#' # Construction
+#' wp <- weighted_point(sample(5), sample(5), runif(5))
+#' wp
+#'
+#' # Convert to point
+#' p <- as_point(wp)
+#' p
+#'
+#' # Construct from point and weight
+#'
+#' weighted_point(p, 1:5)
+#'
 weighted_point <- function(..., default_dim = 2) {
   inputs <- validate_constructor_input(...)
 

@@ -30,6 +30,36 @@
 #'   the ray
 #'
 #' @export
+#'
+#' @examples
+#'
+#' # Create vectors from points:
+#' v1 <- vec(x = 1:5, y = 4:8)
+#'
+#' # Vectors can be added and subtracted
+#' v1[1] + v1[2]
+#'
+#' v1[5] - v1[3]
+#'
+#' # You can invert a vector by taking its negative
+#' -v1
+#'
+#' # As vectors can be added you can also use sum() and cumsum()
+#' sum(v1)
+#' cumsum(v1)
+#'
+#' # Multiplying and dividing a vector by a numeric changes its magnitude
+#' v1 * 10
+#' v1 / 2.5
+#'
+#' # Multiplying two vectors gives the inner product of the two
+#' v1[1:2] * v1[3:4]
+#'
+#' # Vectors can be converted to points, directions and transformation matrices
+#' as_point(v1)
+#' as_direction(v1)
+#' as_affine_transformation(v1)
+#'
 vec <- function(..., default_dim = 2) {
   inputs <- validate_constructor_input(...)
 
@@ -136,17 +166,28 @@ geometry_op_multiply.euclid_vector <- function(e1, e2) {
   if (length(e1) == 0 || length(e2) == 0) {
     return(new_vector_empty(dim(e1)))
   }
-  if (is_vec(e1)) {
-    vec <- e1
-    number <- as_exact_numeric(e2)
+  if (is_vec(e1) && is_vec(e2)) {
+    if (dim(e1) != dim(e2)) {
+      rlang::abort("Dimensionality of vectors must match when taking the inner product")
+    }
+    if (dim(e1) == 2) {
+      new_exact_numeric(vector_2_dot_vector(get_ptr(e1), get_ptr(e2)))
+    } else {
+      new_exact_numeric(vector_3_dot_vector(get_ptr(e1), get_ptr(e2)))
+    }
   } else {
-    vec <- e2
-    number <- as_exact_numeric(e1)
-  }
-  if (dim(e1) == 2) {
-    restore_euclid_vector(vector_2_times_numeric(get_ptr(vec), get_ptr(number)), vec)
-  } else {
-    restore_euclid_vector(vector_3_times_numeric(get_ptr(vec), get_ptr(number)), vec)
+    if (is_vec(e1)) {
+      vec <- e1
+      number <- as_exact_numeric(e2)
+    } else {
+      vec <- e2
+      number <- as_exact_numeric(e1)
+    }
+    if (dim(e1) == 2) {
+      restore_euclid_vector(vector_2_times_numeric(get_ptr(vec), get_ptr(number)), vec)
+    } else {
+      restore_euclid_vector(vector_3_times_numeric(get_ptr(vec), get_ptr(number)), vec)
+    }
   }
 }
 #' @export

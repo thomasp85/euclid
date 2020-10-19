@@ -12,6 +12,33 @@ is_tetrahedron(x)
 
 as_tetrahedron(x)
 }
+\arguments{
+\item{...}{Various input. See the Constructor section.}
+
+\item{x}{A vector of tetrahedrons or an object to convert to it}
+}
+\value{
+An \code{euclid_tetrahedron} vector
+}
 \description{
-Vector of tetrahedrons
+A tetrahedron, or triangular pyramid, is a polyhedron consisting of 4
+triangles between 4 vertices. A tetrahedron splits the euclidean space in two
+by the plane defined by the first 3 vertices and the positive side being the
+side that includes the fourth vertex. If a all 4 vertices are coplanar the
+tetrahedron is considered \link[=is_degenerate]{degenerate}. Tetrahedrons only
+exists in 3 dimensions.
+}
+\section{Constructors}{
+
+\strong{3 dimensional tetrahedrons}
+\itemize{
+\item Providing four points will construct tetrahedrons in the order the points
+are given.
+}
+}
+
+\examples{
+p <- point(sample(8), sample(8), sample(8))
+tetrahedron(p[1:2], p[3:4], p[5:6], p[7:8])
+
 }

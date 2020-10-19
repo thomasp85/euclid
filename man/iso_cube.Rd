@@ -12,6 +12,42 @@ is_iso_cube(x)
 
 as_iso_cube(x)
 }
+\arguments{
+\item{...}{Various input. See the Constructor section.}
+
+\item{x}{A vector of iso cubes or an object to convert to it}
+}
+\value{
+An \code{euclid_iso_cube} vector
+}
 \description{
-Vector of iso cubes
+Iso cubes are axis-aligned cuboids, i.e. a cube with faces parallel to the x,
+y, and z plane. Iso cuboids are the 3 dimensional version of
+\link[=iso_rect]{iso rectangles} and shares the feature that it can be constructed
+from bounding boxes (in 3D). An Iso cube is \link[=is_degenerate]{degenerate} all
+its vertices are coplanar.
+}
+\section{Constructors}{
+
+\strong{3 dimensional iso cubes}
+\itemize{
+\item Providing a bbox will create iso cubes matching the bbox
+\item Providing two points will create iso cubes with the points as diagonal
+opposite vertices
+\item Providing 6 numeric will construct iso cubes with the given extent,
+with the numerics being interpreted in the following order: minimum x,
+minimum y, minimum z, maximum x, maximum y, and maximum z
+}
+}
+
+\examples{
+# Construction
+p <- point(sample(10, 2), sample(10, 2), sample(10, 2))
+iso_cube(p[1], p[2])
+
+iso_cube(4, 10, 7, 16, -4, 0)
+
+s <- sphere(point(5, 9, 2), 13)
+iso_cube(bbox(s))
+
 }

@@ -3,11 +3,14 @@
 \name{euclid_geometry}
 \alias{euclid_geometry}
 \alias{is_geometry}
+\alias{geometry_type}
 \alias{cardinality}
 \alias{definition_names}
 \title{Vector of geometries}
 \usage{
 is_geometry(x)
+
+geometry_type(x)
 
 cardinality(x)
 

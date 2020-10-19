@@ -1,6 +1,28 @@
 #' Vector of tetrahedrons
 #'
+#' A tetrahedron, or triangular pyramid, is a polyhedron consisting of 4
+#' triangles between 4 vertices. A tetrahedron splits the euclidean space in two
+#' by the plane defined by the first 3 vertices and the positive side being the
+#' side that includes the fourth vertex. If a all 4 vertices are coplanar the
+#' tetrahedron is considered [degenerate][is_degenerate]. Tetrahedrons only
+#' exists in 3 dimensions.
+#'
+#' @param ... Various input. See the Constructor section.
+#' @param x A vector of tetrahedrons or an object to convert to it
+#'
+#' @return An `euclid_tetrahedron` vector
+#'
+#' @section Constructors:
+#' **3 dimensional tetrahedrons**
+#' - Providing four points will construct tetrahedrons in the order the points
+#'   are given.
+#'
 #' @export
+#'
+#' @examples
+#' p <- point(sample(8), sample(8), sample(8))
+#' tetrahedron(p[1:2], p[3:4], p[5:6], p[7:8])
+#'
 tetrahedron <- function(...) {
   inputs <- validate_constructor_input(...)
 

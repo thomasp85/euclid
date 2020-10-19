@@ -68,6 +68,15 @@ is_geometry <- function(x) inherits(x, "euclid_geometry")
 
 #' @rdname euclid_geometry
 #' @export
+geometry_type <- function(x) {
+  if (!is_geometry(x)) {
+    rlang::abort("`x` must be an `euclid_geometry` vector")
+  }
+  geometry_primitive_type(get_ptr(x))
+}
+
+#' @rdname euclid_geometry
+#' @export
 cardinality <- function(x) {
   if (!is_geometry(x)) {
     rlang::abort("Cardinality can only be calculated for euclid geometry objects")

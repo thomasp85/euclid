@@ -3,6 +3,7 @@
 \name{direction}
 \alias{direction}
 \alias{is_direction}
+\alias{between}
 \alias{as_direction}
 \title{Vector of directions}
 \usage{
@@ -10,8 +11,63 @@ direction(..., default_dim = 2)
 
 is_direction(x)
 
+between(x, d1, d2)
+
 as_direction(x)
 }
+\arguments{
+\item{...}{Various input. See the Constructor section.}
+
+\item{default_dim}{The dimensionality when constructing an empty vector}
+
+\item{x}{A direction vector or an object to convert to it}
+
+\item{d1, d2}{direction vectors to relate to}
+}
+\value{
+a \code{euclid_direction} vector
+}
 \description{
-Vector of directions
+Directions are vectors where you have forgot about the length. They are used
+mutch in the same way as normalised vectors (vectors with a magnitude of 1),
+but since vectors cannot be normalized while maintaining exactness it is
+preferable to simply have a data type where you ignore the magnitude. The
+direction can be flipped by taking the negative. 2 dimensional directions can
+be considered as angles and can thus be sorted and compared. The same is not
+true for directions in 3 dimensions.
+}
+\section{Constructors}{
+
+\strong{2 and 3 dimensional directions}
+\itemize{
+\item Providing 2 or 3 numerics will create directions with the given delta
+values. (2 numerics will give 2 dimensional directions, 3 will give 3
+dimensional directions).
+\item Providing vectors will construct directions as the direction of the given
+vectors.
+\item Providing lines will construct directions as the direction of the given
+lines.
+\item Providing rays will construct directions as the direction of the given
+rays.
+\item Providing segments will construct directions as the direction of the given
+segments.
+}
+}
+
+\examples{
+# Constructions
+d <- direction(sample(10, 3), sample(10, 3))
+
+# flipping the direction
+-d
+
+# Relations
+d[1] < d[2]
+
+min(d)
+
+sort(d)
+
+between(d[1], d[2], d[3])
+
 }

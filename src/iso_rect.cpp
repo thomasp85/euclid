@@ -1,5 +1,6 @@
 #include "iso_rect.h"
 #include "point.h"
+#include "exact_numeric.h"
 #include "bbox.h"
 
 [[cpp11::register]]
@@ -26,15 +27,15 @@ iso_rect_p create_iso_rect_pq(point2_p p, point2_p q) {
 }
 
 [[cpp11::register]]
-iso_rect_p create_iso_rect_lrbt(point2_p l, point2_p r, point2_p b, point2_p t) {
+iso_rect_p create_iso_rect_minmax(exact_numeric_p minx, exact_numeric_p miny, exact_numeric_p maxx, exact_numeric_p maxy) {
   std::vector<Iso_rectangle> vec;
-  vec.reserve(l->size());
-  for (size_t i = 0; i < l->size(); ++i) {
-    if (!(*l)[i] || !(*r)[i] || !(*b)[i] || !(*t)[i]) {
+  vec.reserve(minx->size());
+  for (size_t i = 0; i < minx->size(); ++i) {
+    if (!(*minx)[i] || !(*miny)[i] || !(*maxx)[i] || !(*maxy)[i]) {
       vec.push_back(Iso_rectangle::NA_value());
       continue;
     }
-    vec.emplace_back((*l)[i], (*r)[i], (*b)[i], (*t)[i]);
+    vec.emplace_back((*minx)[i], (*miny)[i], (*maxx)[i], (*maxy)[i]);
   }
   iso_rect *result(new iso_rect(vec));
 

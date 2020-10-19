@@ -22,6 +22,10 @@ public:
     return copy;
   }
 
+  geometry_vector_base* new_2D_from_vector(std::vector<Point_2> vec) const {
+    return new_from_vector(vec);
+  }
+
   cpp11::writable::strings def_names() const {
     return {"x", "y"};
   }
@@ -47,7 +51,7 @@ public:
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
-        result[i] = Point_2::NA_value();
+        result.push_back(Point_2::NA_value());
         continue;
       }
       result.push_back(_storage[i % size()] + other[i % other.size()]);
@@ -60,7 +64,7 @@ public:
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
-        result[i] = Point_2::NA_value();
+        result.push_back(Point_2::NA_value());
         continue;
       }
       result.push_back(_storage[i % size()] - other[i % other.size()]);
@@ -73,7 +77,7 @@ public:
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
-        result[i] = Vector_2::NA_value();
+        result.push_back(Vector_2::NA_value());
         continue;
       }
       result.push_back(_storage[i % size()] - other[i % other.size()]);
@@ -86,7 +90,7 @@ public:
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
-        result[i] = NA_LOGICAL;
+        result.push_back(NA_LOGICAL);
         continue;
       }
       result.push_back((Rboolean) (_storage[i % size()] < other[i % other.size()]));
@@ -99,7 +103,7 @@ public:
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
-        result[i] = NA_LOGICAL;
+        result.push_back(NA_LOGICAL);
         continue;
       }
       result.push_back((Rboolean) (_storage[i % size()] <= other[i % other.size()]));
@@ -112,7 +116,7 @@ public:
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
-        result[i] = NA_LOGICAL;
+        result.push_back(NA_LOGICAL);
         continue;
       }
       result.push_back((Rboolean) (_storage[i % size()] > other[i % other.size()]));
@@ -125,7 +129,7 @@ public:
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
-        result[i] = NA_LOGICAL;
+        result.push_back(NA_LOGICAL);
         continue;
       }
       result.push_back((Rboolean) (_storage[i % size()] >= other[i % other.size()]));
@@ -273,7 +277,7 @@ public:
 
 typedef cpp11::external_pointer<point2> point2_p;
 
-class point3 : public geometry_vector<Point_3, 3> {
+class point3 : public geometry_vector<Point_3, 3, Point_2> {
 public:
   const Primitive geo_type = POINT;
 
@@ -285,6 +289,11 @@ public:
 
     copy->_storage.swap(vec);
 
+    return copy;
+  }
+
+  geometry_vector_base* new_2D_from_vector(std::vector<Point_2> vec) const {
+    point2* copy = new point2(vec);
     return copy;
   }
 
@@ -314,6 +323,10 @@ public:
     std::vector<Point_3> result;
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result.push_back(Point_3::NA_value());
+        continue;
+      }
       result.push_back(_storage[i % size()] + other[i % other.size()]);
     }
     return result;
@@ -323,6 +336,10 @@ public:
     std::vector<Point_3> result;
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result.push_back(Point_3::NA_value());
+        continue;
+      }
       result.push_back(_storage[i % size()] - other[i % other.size()]);
     }
     return result;
@@ -332,6 +349,10 @@ public:
     std::vector<Vector_3> result;
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result.push_back(Vector_3::NA_value());
+        continue;
+      }
       result.push_back(_storage[i % size()] - other[i % other.size()]);
     }
     return result;
@@ -341,6 +362,10 @@ public:
     cpp11::writable::logicals result;
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result.push_back(NA_LOGICAL);
+        continue;
+      }
       result.push_back((Rboolean) (_storage[i % size()] < other[i % other.size()]));
     }
     return result;
@@ -350,6 +375,10 @@ public:
     cpp11::writable::logicals result;
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result.push_back(NA_LOGICAL);
+        continue;
+      }
       result.push_back((Rboolean) (_storage[i % size()] <= other[i % other.size()]));
     }
     return result;
@@ -359,6 +388,10 @@ public:
     cpp11::writable::logicals result;
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result.push_back(NA_LOGICAL);
+        continue;
+      }
       result.push_back((Rboolean) (_storage[i % size()] > other[i % other.size()]));
     }
     return result;
@@ -368,6 +401,10 @@ public:
     cpp11::writable::logicals result;
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !other[i % other.size()]) {
+        result.push_back(NA_LOGICAL);
+        continue;
+      }
       result.push_back((Rboolean) (_storage[i % size()] >= other[i % other.size()]));
     }
     return result;

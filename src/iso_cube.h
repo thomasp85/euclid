@@ -20,6 +20,9 @@ public:
 
     return copy;
   }
+  geometry_vector_base* new_2D_from_vector(std::vector<Iso_cuboid> vec) const {
+    cpp11::stop("Iso cuboids cannot be mapped to 2D");
+  }
 
   size_t cardinality(size_t i) const { return 8; }
   size_t long_length() const { return size() * 8; }

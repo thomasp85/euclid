@@ -8,12 +8,14 @@
 \usage{
 definition(x, ...)
 
-\method{definition}{euclid_geometry}(x, which, element = NA)
+\method{definition}{euclid_geometry}(x, which, element = NA, ...)
 
-\method{definition}{euclid_affine_transformation}(x, i, j)
+\method{definition}{euclid_affine_transformation}(x, i, j, ...)
 }
 \arguments{
 \item{x}{A geometry vector}
+
+\item{...}{parameters to pass on}
 
 \item{which}{Either a name or the index of the definition to extract, as
 matched to \code{definition_names(x)}}
@@ -22,6 +24,8 @@ matched to \code{definition_names(x)}}
 the geometry should the definition be extracted for. If \code{NA} the definition
 for all elements will be returned and the length of the returned vector will
 be \code{sum(cardinality(x))} (matching the return of \code{as.matrix(x)})}
+
+\item{i, j}{The row and column of the cell in the transformation to fetch.}
 }
 \value{
 An exact_numeric vector

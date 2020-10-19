@@ -126,9 +126,9 @@ public:
       }
       for (size_t i = 0; i < dim; ++i) {
         if (is_na) {
-          result(k, i + 3) = R_NaReal;
+          result(k, i + dim) = R_NaReal;
         } else {
-          result(k, i + 3) = _storage[k].max(i);
+          result(k, i + dim) = _storage[k].max(i);
         }
       }
     }
@@ -176,8 +176,8 @@ public:
     if (typeid(*this) != typeid(other)) {
       for (size_t i = 0; i < size(); ++i) {
         result[i] = (Rboolean) false;
-        return result;
       }
+      return result;
     }
 
     const bbox_vector<T, dim>* other_recast = dynamic_cast< const bbox_vector<T, dim>* >(&other);
@@ -200,8 +200,8 @@ public:
     if (typeid(*this) != typeid(other)) {
       for (size_t i = 0; i < size(); ++i) {
         result[i] = (Rboolean) true;
-        return result;
       }
+      return result;
     }
 
     const bbox_vector<T, dim>* other_recast = dynamic_cast< const bbox_vector<T, dim>* >(&other);

@@ -22,6 +22,10 @@ public:
     return copy;
   }
 
+  geometry_vector_base* new_2D_from_vector(std::vector<Weighted_point_2> vec) const {
+    return new_from_vector(vec);
+  }
+
   cpp11::writable::strings def_names() const {
     return {"x", "y", "w"};
   }
@@ -46,7 +50,7 @@ public:
 
 typedef cpp11::external_pointer<point_w2> point_w2_p;
 
-class point_w3 : public geometry_vector<Weighted_point_3, 3> {
+class point_w3 : public geometry_vector<Weighted_point_3, 3, Weighted_point_2> {
 public:
   const Primitive geo_type = WPOINT;
 
@@ -58,6 +62,11 @@ public:
 
     copy->_storage.swap(vec);
 
+    return copy;
+  }
+
+  geometry_vector_base* new_2D_from_vector(std::vector<Weighted_point_2> vec) const {
+    point_w2* copy = new point_w2(vec);
     return copy;
   }
 

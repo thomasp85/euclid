@@ -1,21 +1,41 @@
 #' Vector of segments
 #'
-#' A segment is a finite directed line going from one point to another
+#' A segment is a finite directed line going from one point to another. If the
+#' two points are equal it is considered to be [degenerate][is_degenerate]. A
+#' segment can be flipped be taking its negative.
 #'
 #' @param ... Various input. See the Constructor section.
 #' @param default_dim The dimensionality when constructing an empty vector
 #' @param x A vector of segments or an object to convert to it
 #'
-#' @return An `euclid_ray` vector
+#' @return An `euclid_segment` vector
 #'
 #' @section Constructors:
-#' **2 and 3 dimensional rays**
+#' **2 and 3 dimensional segments**
 #' - Providing two points will construct segments starting at the first point
 #'   and ending at the second
 #' - Providing a point and a vector will construct segments starting at the
 #'   point and ending at the point defined by the start point plus the vector
 #'
 #' @export
+#'
+#' @examples
+#' # Construction
+#' p <- point(sample(4), sample(4))
+#' s <- segment(p[1:2], p[3:4])
+#' s
+#'
+#' segment(p[1:2], as_vec(p[3:4]))
+#'
+#' # Flip segments
+#' -s
+#'
+#' # Segments can be converted to vectors, directions and lines
+#' as_vec(s)
+#'
+#' as_direction(s)
+#'
+#' as_line(s)
 #'
 segment <- function(..., default_dim = 2) {
   inputs <- validate_constructor_input(...)
@@ -41,7 +61,7 @@ is_segment <- function(x) inherits(x, "euclid_segment")
 
 # Conversion --------------------------------------------------------------
 
-#' @rdname ray
+#' @rdname segment
 #' @export
 as_segment <- function(x) {
   UseMethod("as_segment")

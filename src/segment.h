@@ -21,6 +21,10 @@ public:
     return copy;
   }
 
+  geometry_vector_base* new_2D_from_vector(std::vector<Segment_2> vec) const {
+    return new_from_vector(vec);
+  }
+
   size_t cardinality(size_t i) const { return 2; }
   size_t long_length() const { return size() * 2; }
 
@@ -48,7 +52,7 @@ public:
     result.reserve(size());
     for (size_t i = 0; i < size(); ++i) {
       if (!_storage[i]) {
-        result[i] = Segment_2::NA_value();
+        result.push_back(Segment_2::NA_value());
         continue;
       }
       result.push_back(_storage[i].opposite());
@@ -59,7 +63,7 @@ public:
 
 typedef cpp11::external_pointer<segment2> segment2_p;
 
-class segment3 : public geometry_vector<Segment_3, 3> {
+class segment3 : public geometry_vector<Segment_3, 3, Segment_2> {
 public:
   const Primitive geo_type = SEGMENT;
 
@@ -70,6 +74,12 @@ public:
     segment3* copy = new segment3();
 
     copy->_storage.swap(vec);
+
+    return copy;
+  }
+
+  geometry_vector_base* new_2D_from_vector(std::vector<Segment_2> vec) const {
+    segment2* copy = new segment2(vec);
 
     return copy;
   }
@@ -103,7 +113,7 @@ public:
     result.reserve(size());
     for (size_t i = 0; i < size(); ++i) {
       if (!_storage[i]) {
-        result[i] = Segment_3::NA_value();
+        result.push_back(Segment_3::NA_value());
         continue;
       }
       result.emplace_back(_storage[i].opposite());

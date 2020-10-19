@@ -12,6 +12,45 @@ is_plane(x)
 
 as_plane(x)
 }
+\arguments{
+\item{...}{Various input. See the Constructor section.}
+
+\item{x}{A vector of planes or an object to convert to it}
+}
+\value{
+An \code{euclid_plane} vector
+}
 \description{
-Vector of planes
+A plane splits the euclidean space in two by all the points that satisfy the
+plane equation \code{ax + by + cz + d = 0}. As can be seen this is an extension of
+the concept of lines in 2 dimensions though lines can also exist in three
+dimensions.
+}
+\section{Constructors}{
+
+\strong{3 dimensional planes}
+\itemize{
+\item Providing 4 numberics will construct planes with coefficients from the 4
+numerics in the order given.
+\item Providing 3 points will construct planes passing through the three points
+\item Providing a point and vector will construct planes that goes through the
+point and are orthogonal to the vector
+\item Providing a point and a direction will construct planes that goes through
+the point and are orthogonal to the direction
+\item Providing a point and a line will construct planes that goes through the
+point and 2 points on the line
+\item Providing a point and a ray will construct planes that goes through the
+point and 2 points on the ray
+\item Providing a point and a segment will construct planes that goes through the
+point and the two points making up the segment
+\item Providing a circle will construct planes that contains the circle
+\item Providing a triangle will construct planes that contains the triangle
+}
+}
+
+\examples{
+# Construction
+p <- plane(sample(10, 2), sample(10, 2), sample(10, 2), sample(10, 2))
+p
+
 }

@@ -21,6 +21,10 @@ public:
     return copy;
   }
 
+  geometry_vector_base* new_2D_from_vector(std::vector<Iso_rectangle> vec) const {
+    return new_from_vector(vec);
+  }
+
   size_t cardinality(size_t i) const { return 4; }
   size_t long_length() const { return size() * 4; }
 

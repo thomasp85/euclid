@@ -409,7 +409,7 @@ exact_numeric exact_numeric::operator+(const exact_numeric& x) const {
 
   for (size_t i = 0; i < output_length; ++i) {
     if (!_storage[i % size()] || !x[i % x.size()]) {
-      result[i] = Exact_number::NA_value();
+      result.push_back(Exact_number::NA_value());
       continue;
     }
     result.push_back(_storage[i % size()] + x[i % x.size()]);
@@ -431,7 +431,7 @@ exact_numeric exact_numeric::operator-(const exact_numeric& x) const {
 
   for (size_t i = 0; i < output_length; ++i) {
     if (!_storage[i % size()] || !x[i % x.size()]) {
-      result[i] = Exact_number::NA_value();
+      result.push_back(Exact_number::NA_value());
       continue;
     }
     result.push_back(_storage[i % size()] - x[i % x.size()]);
@@ -451,7 +451,7 @@ exact_numeric exact_numeric::operator-() const {
 
   for (size_t i = 0; i < size(); ++i) {
     if (!_storage[i]) {
-      result[i] = Exact_number::NA_value();
+      result.push_back(Exact_number::NA_value());
       continue;
     }
     result.push_back(-_storage[i]);
@@ -473,7 +473,7 @@ exact_numeric exact_numeric::operator*(const exact_numeric& x) const {
 
   for (size_t i = 0; i < output_length; ++i) {
     if (!_storage[i % size()] || !x[i % x.size()]) {
-      result[i] = Exact_number::NA_value();
+      result.push_back(Exact_number::NA_value());
       continue;
     }
     result.push_back(_storage[i % size()] * x[i % x.size()]);
@@ -495,7 +495,7 @@ exact_numeric exact_numeric::operator/(const exact_numeric& x) const {
 
   for (size_t i = 0; i < output_length; ++i) {
     if (!_storage[i % size()] || !x[i % x.size()] || x[i % x.size()] == 0.0) {
-      result[i] = Exact_number::NA_value();
+      result.push_back(Exact_number::NA_value());
       continue;
     }
     result.push_back(_storage[i % size()] / x[i % x.size()]);
@@ -515,7 +515,7 @@ exact_numeric exact_numeric::abs() const {
 
   for (size_t i = 0; i < size(); ++i) {
     if (!_storage[i]) {
-      result[i] = Exact_number::NA_value();
+      result.push_back(Exact_number::NA_value());
       continue;
     }
     result.push_back(CGAL::abs(_storage[i].base()));

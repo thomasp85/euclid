@@ -12,6 +12,40 @@ is_triangle(x)
 
 as_triangle(x)
 }
+\arguments{
+\item{...}{Various input. See the Constructor section.}
+
+\item{default_dim}{The dimensionality when constructing an empty vector}
+
+\item{x}{A vector of triangles or an object to convert to it}
+}
+\value{
+An \code{euclid_triangle} vector
+}
 \description{
-Vector of triangles
+Triangles are sets of three vertices in either 2 or three dimensions. In
+three dimensions the order of the vertices determines the orientation of the
+triangle with vertices being in counter-clockwise order from the facing side.
+If the 3 vertices are colinear the triangle is considered to be
+\link[=is_degenerate]{degenerate}
+}
+\section{Constructors}{
+
+\strong{2 and 3 dimensional triangles}
+\itemize{
+\item Providing three points will construct triangles in the order the points are
+given.
+}
+}
+
+\examples{
+# Construction
+p <- point(sample(6), sample(6))
+triangle(p[1:2], p[3:4], p[5:6])
+
+# 3D triangles can be converted to planes
+p <- point(sample(6), sample(6), sample(6))
+t <- triangle(p[1:2], p[3:4], p[5:6])
+as_plane(t)
+
 }

@@ -20,15 +20,27 @@ inline T transform_impl(const T& geo, const Aff& trans) {
 }
 template<>
 inline Circle_2 transform_impl<Circle_2, Aff_transformation_2>(const Circle_2& geo, const Aff_transformation_2& trans) {
-  cpp11::stop("Circles cannot be transformed. Transform the center instead");
+  if (trans * trans.inverse() != Aff_transformation_2(CGAL::IDENTITY)) {
+    cpp11::warning("Circles can only be transformed by orthogonal matrices");
+    return Circle_2::NA_value();
+  }
+  return geo.orthogonal_transform(trans);
 }
 template<>
 inline Circle_3 transform_impl<Circle_3, Aff_transformation_3>(const Circle_3& geo, const Aff_transformation_3& trans) {
-  cpp11::stop("Circles cannot be transformed. Transform the center instead");
+  if (trans * trans.inverse() != Aff_transformation_3(CGAL::IDENTITY)) {
+    cpp11::warning("Circles can only be transformed by orthogonal matrices");
+    return Circle_3::NA_value();
+  }
+  return Circle_3(geo.center().transform(trans), geo.squared_radius(), geo.supporting_plane().transform(trans));
 }
 template<>
 inline Sphere transform_impl<Sphere, Aff_transformation_3>(const Sphere& geo, const Aff_transformation_3& trans) {
-  Rf_error("Circles cannot be transformed. Transform the center instead");
+  if (trans * trans.inverse() != Aff_transformation_3(CGAL::IDENTITY)) {
+    cpp11::warning("Spheres can only be transformed by orthogonal matrices");
+    return Sphere::NA_value();
+  }
+  return geo.orthogonal_transform(trans);
 }
 // Work around bug with transformation of weighted points in CGAL
 template<>
@@ -242,7 +254,7 @@ public:
         result[i] = T::NA_value();
         continue;
       }
-      result[i] = _storage[i].inverse();
+      result.push_back(_storage[i].inverse());
     }
 
     return {new_from_vector(result)};

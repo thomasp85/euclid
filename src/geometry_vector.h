@@ -17,6 +17,9 @@
 #include "transform.h"
 #include "bbox.h"
 #include "is_degenerate.h"
+#include "point_predicates.h"
+#include "geometry_measures.h"
+#include "geometry_projection.h"
 
 #include <sstream>
 #include <iomanip>
@@ -80,21 +83,40 @@ public:
 
   // Predicates
   virtual cpp11::writable::logicals is_degenerate() const = 0;
+  virtual cpp11::writable::logicals has_inside(const geometry_vector_base& points) const = 0;
+  virtual cpp11::writable::logicals has_on(const geometry_vector_base& points) const = 0;
+  virtual cpp11::writable::logicals has_outside(const geometry_vector_base& points) const = 0;
+  virtual cpp11::writable::logicals has_on_positive(const geometry_vector_base& points) const = 0;
+  virtual cpp11::writable::logicals has_on_negative(const geometry_vector_base& points) const = 0;
+
+  // Measures
+  virtual cpp11::writable::doubles length() const = 0;
+  virtual cpp11::writable::doubles area() const = 0;
+  virtual cpp11::writable::doubles volume() const = 0;
 
   // Common
   virtual cpp11::external_pointer<geometry_vector_base> transform(const transform_vector_base& affine) const = 0;
   virtual bbox_vector_base_p bbox() const = 0;
+
+  // Projections
+  virtual cpp11::external_pointer<geometry_vector_base> project_to_line(const geometry_vector_base& lines) const = 0;
+  virtual cpp11::external_pointer<geometry_vector_base> project_to_plane(const geometry_vector_base& planes) const = 0;
+  virtual cpp11::external_pointer<geometry_vector_base> map_to_plane(const geometry_vector_base& planes) const = 0;
 };
 typedef cpp11::external_pointer<geometry_vector_base> geometry_vector_base_p;
 
-template <typename T, size_t dim>
+
+// geometry_vector -------------------------------------------------------------
+
+template <typename T, size_t dim, typename U = T>
 class geometry_vector : public geometry_vector_base {
   typedef typename std::conditional<dim == 2, Aff_transformation_2, Aff_transformation_3>::type Aff;
+  typedef typename std::conditional<dim == 2, Point_2, Point_3>::type Point;
+  typedef typename std::conditional<dim == 2, Line_2, Line_3>::type Line;
   typedef typename std::conditional<dim == 2, Bbox_2, Bbox_3>::type Bbox;
   typedef typename std::conditional<dim == 2, bbox2, bbox3>::type bbox_vec;
 
 protected:
-
   std::vector<T> _storage;
 
 public:
@@ -200,11 +222,11 @@ public:
     if (typeid(*this) != typeid(other)) {
       for (size_t i = 0; i < size(); ++i) {
         result[i] = (Rboolean) false;
-        return result;
       }
+      return result;
     }
 
-    const geometry_vector<T, dim>* other_recast = dynamic_cast< const geometry_vector<T, dim>* >(&other);
+    const geometry_vector<T, dim, U>* other_recast = dynamic_cast< const geometry_vector<T, dim, U>* >(&other);
 
     for (size_t i = 0; i < output_length; ++i) {
       if (!_storage[i % size()] || !(*other_recast)[i % other_recast->size()]) {
@@ -224,11 +246,11 @@ public:
     if (typeid(*this) != typeid(other)) {
       for (size_t i = 0; i < size(); ++i) {
         result[i] = (Rboolean) true;
-        return result;
       }
+      return result;
     }
 
-    const geometry_vector<T, dim>* other_recast = dynamic_cast< const geometry_vector<T, dim>* >(&other);
+    const geometry_vector<T, dim, U>* other_recast = dynamic_cast< const geometry_vector<T, dim, U>* >(&other);
 
     for (size_t i = 0; i < output_length; ++i) {
       if (!_storage[i % size()] || !(*other_recast)[i % other_recast->size()]) {
@@ -254,6 +276,7 @@ public:
 
   // Subsetting, assignment, combining etc
   virtual geometry_vector_base* new_from_vector(std::vector<T> vec) const = 0;
+  virtual geometry_vector_base* new_2D_from_vector(std::vector<U> vec) const = 0;
   geometry_vector_base_p subset(cpp11::integers index) const {
     std::vector<T> new_storage;
     new_storage.reserve(size());
@@ -280,7 +303,7 @@ public:
       cpp11::stop("Incompatible assignment value type");
     }
 
-    const geometry_vector<T, dim>* value_recast = dynamic_cast< const geometry_vector<T, dim>* >(&value);
+    const geometry_vector<T, dim, U>* value_recast = dynamic_cast< const geometry_vector<T, dim, U>* >(&value);
 
     std::vector<T> new_storage(_storage);
     int max_size = *std::max_element(index.begin(), index.end());
@@ -303,7 +326,7 @@ public:
       if (typeid(*this) != typeid(*candidate)) {
         cpp11::stop("Incompatible vector types");
       }
-      const geometry_vector<T, dim>* candidate_recast = dynamic_cast< const geometry_vector<T, dim>* >(candidate);
+      const geometry_vector<T, dim, U>* candidate_recast = dynamic_cast< const geometry_vector<T, dim, U>* >(candidate);
       for (size_t j = 0; j < candidate_recast->size(); ++j) {
         new_storage.push_back((*candidate_recast)[j]);
       }
@@ -385,7 +408,7 @@ public:
       return results;
     }
 
-    const geometry_vector<T, dim>* table_recast = dynamic_cast< const geometry_vector<T, dim>* >(&table);
+    const geometry_vector<T, dim, U>* table_recast = dynamic_cast< const geometry_vector<T, dim, U>* >(&table);
 
     int NA_ind = -1;
 
@@ -444,8 +467,141 @@ public:
     cpp11::writable::logicals result;
     result.reserve(_storage.size());
     for (size_t i = 0; i < _storage.size(); ++i) {
+      if (!_storage[i]) {
+        result.push_back(NA_LOGICAL);
+        continue;
+      }
       result.push_back((Rboolean) is_degenerate_impl(_storage[i]));
     }
+    return result;
+  }
+  cpp11::writable::logicals has_inside(const geometry_vector_base& points) const {
+    if (dim != points.dimensions()) {
+      cpp11::stop("points must match dimensionality of geometry");
+    }
+    size_t output_length = std::max(size(), points.size());
+    cpp11::writable::logicals result;
+    result.reserve(output_length);
+    const geometry_vector<Point, dim, Point_2>* points_recast = dynamic_cast< const geometry_vector<Point, dim, Point_2>* >(&points);
+    for (size_t i = 0; i < output_length; ++i) {
+      if (!_storage[i % size()] || !(*points_recast)[i % points_recast->size()]) {
+        result.push_back(NA_LOGICAL);
+        continue;
+      }
+      result.push_back((Rboolean) has_inside_impl(_storage[i % size()], (*points_recast)[i % points_recast->size()]));
+    }
+    return result;
+  }
+  cpp11::writable::logicals has_on(const geometry_vector_base& points) const {
+    if (dim != points.dimensions()) {
+      cpp11::stop("points must match dimensionality of geometry");
+    }
+    size_t output_length = std::max(size(), points.size());
+    cpp11::writable::logicals result;
+    result.reserve(output_length);
+    const geometry_vector<Point, dim, Point_2>* points_recast = dynamic_cast< const geometry_vector<Point, dim, Point_2>* >(&points);
+    for (size_t i = 0; i < output_length; ++i) {
+      if (!_storage[i % size()] || !(*points_recast)[i % points_recast->size()]) {
+        result.push_back(NA_LOGICAL);
+        continue;
+      }
+      result.push_back((Rboolean) has_on_impl(_storage[i % size()], (*points_recast)[i % points_recast->size()]));
+    }
+    return result;
+  }
+  cpp11::writable::logicals has_outside(const geometry_vector_base& points) const {
+    if (dim != points.dimensions()) {
+      cpp11::stop("points must match dimensionality of geometry");
+    }
+    size_t output_length = std::max(size(), points.size());
+    cpp11::writable::logicals result;
+    result.reserve(output_length);
+    const geometry_vector<Point, dim, Point_2>* points_recast = dynamic_cast< const geometry_vector<Point, dim, Point_2>* >(&points);
+    for (size_t i = 0; i < output_length; ++i) {
+      if (!_storage[i % size()] || !(*points_recast)[i % points_recast->size()]) {
+        result.push_back(NA_LOGICAL);
+        continue;
+      }
+      result.push_back((Rboolean) has_outside_impl(_storage[i % size()], (*points_recast)[i % points_recast->size()]));
+    }
+    return result;
+  }
+  cpp11::writable::logicals has_on_positive(const geometry_vector_base& points) const {
+    if (dim != points.dimensions()) {
+      cpp11::stop("points must match dimensionality of geometry");
+    }
+    size_t output_length = std::max(size(), points.size());
+    cpp11::writable::logicals result;
+    result.reserve(output_length);
+    const geometry_vector<Point, dim, Point_2>* points_recast = dynamic_cast< const geometry_vector<Point, dim, Point_2>* >(&points);
+    for (size_t i = 0; i < output_length; ++i) {
+      if (!_storage[i % size()] || !(*points_recast)[i % points_recast->size()]) {
+        result.push_back(NA_LOGICAL);
+        continue;
+      }
+      result.push_back((Rboolean) has_on_positive_impl(_storage[i % size()], (*points_recast)[i % points_recast->size()]));
+    }
+    return result;
+  }
+  cpp11::writable::logicals has_on_negative(const geometry_vector_base& points) const {
+    if (dim != points.dimensions()) {
+      cpp11::stop("points must match dimensionality of geometry");
+    }
+    size_t output_length = std::max(size(), points.size());
+    cpp11::writable::logicals result;
+    result.reserve(output_length);
+    const geometry_vector<Point, dim, Point_2>* points_recast = dynamic_cast< const geometry_vector<Point, dim, Point_2>* >(&points);
+    for (size_t i = 0; i < output_length; ++i) {
+      if (!_storage[i % size()] || !(*points_recast)[i % points_recast->size()]) {
+        result.push_back(NA_LOGICAL);
+        continue;
+      }
+      result.push_back((Rboolean) has_on_negative_impl(_storage[i % size()], (*points_recast)[i % points_recast->size()]));
+    }
+    return result;
+  }
+
+  // Measures
+  cpp11::writable::doubles length() const {
+    cpp11::writable::doubles result;
+    result.reserve(size());
+
+    for (size_t i = 0; i < size(); ++i) {
+      if (!_storage[i]) {
+        result.push_back(R_NaReal);
+        continue;
+      }
+      result.push_back(length_impl(_storage[i]));
+    }
+
+    return result;
+  }
+  cpp11::writable::doubles area() const {
+    cpp11::writable::doubles result;
+    result.reserve(size());
+
+    for (size_t i = 0; i < size(); ++i) {
+      if (!_storage[i]) {
+        result.push_back(R_NaReal);
+        continue;
+      }
+      result.push_back(area_impl(_storage[i]));
+    }
+
+    return result;
+  }
+  cpp11::writable::doubles volume() const {
+    cpp11::writable::doubles result;
+    result.reserve(size());
+
+    for (size_t i = 0; i < size(); ++i) {
+      if (!_storage[i]) {
+        result.push_back(R_NaReal);
+        continue;
+      }
+      result.push_back(volume_impl(_storage[i]));
+    }
+
     return result;
   }
 
@@ -486,5 +642,67 @@ public:
     bbox_vec* vec(new bbox_vec(result));
 
     return {vec};
+  }
+
+  // Projections
+  geometry_vector_base_p project_to_line(const geometry_vector_base& lines) const {
+    if (dim != lines.dimensions()) {
+      cpp11::stop("Projection target must match dimensionality of geometry");
+    }
+    size_t output_length = std::max(size(), lines.size());
+
+    std::vector<T> result;
+    result.reserve(output_length);
+
+    const geometry_vector<Line, dim, Line_2>* lines_recast = dynamic_cast< const geometry_vector<Line, dim, Line_2>* >(&lines);
+    for (size_t i = 0; i < output_length; ++i) {
+      if (!_storage[i % size()] || !(*lines_recast)[i % lines_recast->size()]) {
+        result.push_back(T::NA_value());
+        continue;
+      }
+      result.push_back(project_to_line_impl(_storage[i % size()], (*lines_recast)[i % lines_recast->size()]));
+    }
+
+    return {new_from_vector(result)};
+  }
+  geometry_vector_base_p project_to_plane(const geometry_vector_base& planes) const {
+    if (dim != 3) {
+      cpp11::stop("Only 3 dimensional geometries can be projected to plane");
+    }
+    size_t output_length = std::max(size(), planes.size());
+
+    std::vector<T> result;
+    result.reserve(output_length);
+
+    const geometry_vector<Plane, dim>* planes_recast = dynamic_cast< const geometry_vector<Plane, dim>* >(&planes);
+    for (size_t i = 0; i < output_length; ++i) {
+      if (!_storage[i % size()] || !(*planes_recast)[i % planes_recast->size()]) {
+        result.push_back(T::NA_value());
+        continue;
+      }
+      result.push_back(project_to_plane_impl(_storage[i % size()], (*planes_recast)[i % planes_recast->size()]));
+    }
+
+    return {new_from_vector(result)};
+  }
+  geometry_vector_base_p map_to_plane(const geometry_vector_base& planes) const {
+    if (dim != 3) {
+      cpp11::stop("Only 3 dimensional geometries can be mapped to plane");
+    }
+    size_t output_length = std::max(size(), planes.size());
+
+    std::vector<U> result;
+    result.reserve(output_length);
+
+    const geometry_vector<Plane, dim>* planes_recast = dynamic_cast< const geometry_vector<Plane, dim>* >(&planes);
+    for (size_t i = 0; i < output_length; ++i) {
+      if (!_storage[i % size()] || !(*planes_recast)[i % planes_recast->size()]) {
+        result.push_back(U::NA_value());
+        continue;
+      }
+      result.push_back(map_to_plane_impl<T, U>(_storage[i % size()], (*planes_recast)[i % planes_recast->size()]));
+    }
+
+    return {new_2D_from_vector(result)};
   }
 };

@@ -1,6 +1,9 @@
 #' Vector of circles
 #'
-#' This function create circles from various combinations of input.
+#' A circle is defined by a center and a radius (given as the squared radius due
+#' to the inexactness of square roots). In 3 dimensions a circle is a disc and
+#' thus have an orientation given by an orthogonal direction. If the radius is 0
+#' the circle is considered [degenerate][is_degenerate].
 #'
 #' @param ... Various input. See the Constructor section.
 #' @param default_dim The dimensionality when constructing an empty vector
@@ -12,10 +15,25 @@
 #' **2 dimensional circles**
 #' - Providing one point and one numeric vector will construct circles centered
 #'   at the point with the **squared** radius given by the numeric.
-#' - Providing two point vectors will construct circles centered between the two
+#' - Providing two points will construct circles centered between the two
 #'   points with a radius of half the distance between the two points.
 #' - Providing three point vectors will construct the unique circle that pass
 #'   through the three points.
+#'
+#' **3 dimensional circles**
+#' - Providing three point vectors will construct the unique circle that pass
+#'   through the three points.
+#' - Providing a point, a numeric, and a plane will construct a circle centered
+#'   on the point with the squared radius given by the numeric and the
+#'   orientation given by the plane. The point must lie on the plane
+#' - Providing a point, a numeric, and a vector will construct a circle centered
+#'   on the point with the squared radius given by the numeric and the
+#'   orientation orthogonal to the vector
+#' - Providing two spheres will construct a circle given by the intersection of
+#'   the two spheres. The spheres must intersect
+#' - Providing a sphere and a plane will construct a circle given by the
+#'   intersection of the sphere and the plane. The sphere and plane must
+#'   intersect.
 #'
 #' @export
 #'
@@ -41,6 +59,21 @@
 #'
 #' # Construction with 3 points
 #' circle(point1, point2, point3)
+#'
+#' ## 3 Dimensions
+#'
+#' point1 <- point(runif(5), runif(5), runif(5))
+#' point2 <- point(runif(5), runif(5), runif(5))
+#' point3 <- point(runif(5), runif(5), runif(5))
+#'
+#' circ <- circle(point1, point2, point3)
+#'
+#' circle(point1, number, as_vec(point2))
+#'
+#' # Conversion
+#' as_plane(circ)
+#'
+#' as_sphere(circ)
 #'
 circle <- function(..., default_dim = 2) {
   inputs <- validate_constructor_input(...)

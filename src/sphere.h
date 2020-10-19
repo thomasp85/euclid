@@ -5,8 +5,9 @@
 #include "cgal_types.h"
 #include "geometry_vector.h"
 #include "exact_numeric.h"
+#include "circle.h"
 
-class sphere : public geometry_vector<Sphere, 3> {
+class sphere : public geometry_vector<Sphere, 3, Circle_2> {
 public:
   const Primitive geo_type = SPHERE;
 
@@ -18,6 +19,11 @@ public:
 
     copy->_storage.swap(vec);
 
+    return copy;
+  }
+
+  geometry_vector_base* new_2D_from_vector(std::vector<Circle_2> vec) const {
+    circle2* copy = new circle2(vec);
     return copy;
   }
 

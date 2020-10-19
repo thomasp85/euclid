@@ -21,6 +21,10 @@ public:
     return copy;
   }
 
+  geometry_vector_base* new_2D_from_vector(std::vector<Direction_2> vec) const {
+    return new_from_vector(vec);
+  }
+
   cpp11::writable::strings def_names() const {
     return {"dx", "dy"};
   }
@@ -45,7 +49,7 @@ public:
     result.reserve(size());
     for (size_t i = 0; i < size(); ++i) {
       if (!_storage[i]) {
-        result[i] = Direction_2::NA_value();
+        result.push_back(Direction_2::NA_value());
         continue;
       }
       result.push_back(-_storage[i]);
@@ -59,7 +63,7 @@ public:
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
-        result[i] = NA_LOGICAL;
+        result.push_back(NA_LOGICAL);
         continue;
       }
       result.push_back((Rboolean) (_storage[i % size()] < other[i % other.size()]));
@@ -72,7 +76,7 @@ public:
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
-        result[i] = NA_LOGICAL;
+        result.push_back(NA_LOGICAL);
         continue;
       }
       result.push_back((Rboolean) (_storage[i % size()] <= other[i % other.size()]));
@@ -85,7 +89,7 @@ public:
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
-        result[i] = NA_LOGICAL;
+        result.push_back(NA_LOGICAL);
         continue;
       }
       result.push_back((Rboolean) (_storage[i % size()] > other[i % other.size()]));
@@ -98,7 +102,7 @@ public:
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
-        result[i] = NA_LOGICAL;
+        result.push_back(NA_LOGICAL);
         continue;
       }
       result.push_back((Rboolean) (_storage[i % size()] >= other[i % other.size()]));
@@ -242,11 +246,24 @@ public:
 
     return {result};
   }
+  cpp11::writable::logicals between(const direction2& d1, const direction2& d2) const {
+    size_t final_size = std::max(std::max(size(), d1.size()), d2.size());
+    cpp11::writable::logicals result;
+    result.reserve(final_size);
+    for (size_t i = 0; i < final_size; ++i) {
+      if (!_storage[i % size()] || !d1[i % d1.size()] || !d2[i % d2.size()]) {
+        result.push_back(NA_LOGICAL);
+        continue;
+      }
+      result.push_back((Rboolean) _storage[i % size()].counterclockwise_in_between(d1[i % d1.size()], d2[i % d2.size()]));
+    }
+    return result;
+  }
 };
 
 typedef cpp11::external_pointer<direction2> direction2_p;
 
-class direction3 : public geometry_vector<Direction_3, 3> {
+class direction3 : public geometry_vector<Direction_3, 3, Direction_2> {
 public:
   const Primitive geo_type = DIRECTION;
 
@@ -258,6 +275,11 @@ public:
 
     copy->_storage.swap(vec);
 
+    return copy;
+  }
+
+  geometry_vector_base* new_2D_from_vector(std::vector<Direction_2> vec) const {
+    direction2* copy = new direction2(vec);
     return copy;
   }
 

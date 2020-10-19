@@ -5,7 +5,6 @@
 \alias{is_ray}
 \alias{as_ray}
 \alias{is_segment}
-\alias{as_segment}
 \title{Vector of rays}
 \usage{
 ray(..., default_dim = 2)
@@ -15,8 +14,6 @@ is_ray(x)
 as_ray(x)
 
 is_segment(x)
-
-as_segment(x)
 }
 \arguments{
 \item{...}{Various input. See the Constructor section.}
@@ -31,7 +28,9 @@ An \code{euclid_ray} vector
 \description{
 A ray is a directed line that starts at a given point and extends to
 infinity. As such it does not have a magnitude (like a vector) but only a
-beginning and a direction.
+beginning and a direction. A ray is considered to be
+\link[=is_degenerate]{degenerate} if constructed be two points that are equal (and
+thus have no direction). Rays can be flipped by taking their negative
 }
 \section{Constructors}{
 
@@ -41,6 +40,34 @@ beginning and a direction.
 going through the second
 \item Providing a point and a vector will construct rays starting at the point
 and moving in the direction of the vector.
+\item Providing a point and a direction will construct rays starting at the point
+and moving in the given direction.
+\item Providing a point and a line will construct rays starting at the point
+and moving in the direction of the line. Note that the point does not have
+lie on line.
 }
 }
 
+\examples{
+# Construction
+p <- point(sample(10, 2), sample(10, 2))
+r <- ray(p[1], p[2])
+r
+
+ray(p, -as_vec(p))
+
+ray(p, direction(7, -2))
+
+ray(p, line(3, 10, -8))
+
+# Flip direction
+-r
+
+# Convert to vector, direction, or lines
+as_vec(r)
+
+as_direction(r)
+
+as_line(r)
+
+}

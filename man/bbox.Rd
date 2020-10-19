@@ -5,8 +5,8 @@
 \alias{is_bbox}
 \alias{as_bbox}
 \alias{is_overlapping}
-\alias{\%X\%}
-\title{Create affine transformation matrices}
+\alias{\%overlaps\%}
+\title{Create a vector of bounding boxes}
 \usage{
 bbox(...)
 
@@ -16,46 +16,49 @@ as_bbox(x)
 
 is_overlapping(x, y)
 
-x \%X\% y
+x \%overlaps\% y
 }
 \arguments{
-\item{x}{An object that can be converted to an affine transformation matrix
-vector. Matrices and arrays can be converted provided they have the correct
-dimensions. List of matrices can be converted provided that all matrices have
-the same dimensions and that the dimensions is correct}
+\item{...}{Either a vector of geometries or a range of numeric vectors (4 for
+2D bounding boxes and 6 for 3D) interpreted in the order xmin, ymin, zmin,
+xmax, ymax, zmax.}
 
-\item{dim}{The dimensionality of the transformation matrix}
-
-\item{vec}{A vector of vectors or an object convertible to one}
-
-\item{fac}{A scaling factor to apply}
-
-\item{rho}{An angle in radians to rotate (counterclockwise)}
-
-\item{axis}{For 3 dimensional rotation, which axis to rotate around}
-
-\item{direction}{A direction vector or an object convertible to one}
-
-\item{yaw, pitch, roll}{Angles in radians for yaw, pitch, and roll rotation.}
+\item{x, y}{vectors of bounding boxes or geometries}
 }
 \value{
-An \code{euclid_affine_transformation} vector
+An \code{euclid_bbox} vector
 }
 \description{
-These functions allow you to create vectors of transformation matrices for
-affine transformation in 2 or 3 dimensions. Transformation matrices are used
-to apply transformations to geometries using \code{\link[=transform]{transform()}}. Transformations
-can be stacked by multiplying them together. This is generally more
-performant than applying transformations one by one to geometries.
-Transformations can be reversed by applying the inverse transformation to a
-geometry. The inverse transformation matrix can be obtained using
-\code{inverse()}. Affine transformation matrices have an additional column and row
-compared to linear transformation matrices. This means that matrices for 2
-dimensional transformations are 3x3 and matrices for 2 dimensional
-transformations are 4x4. In both cases the last row will consist of 0's and a
-final scaling factor (usually 1). Rotation is generally not possible to do
-while maintaining exactness as sine and cosine cannot be calculate to
-exactness. 3 dimensional rotation can either be done around an axis, around
-a direction, or be defining specific angles of rotation for yaw, pitch, and
-roll.
+Bounding boxes denote the exten of geometries. It follows that bounding boxes
+are only defined for geometries that are located in space and have finite
+extent. Thus, vectors, lines, directions, rays, etc. does not have bounding
+boxes, while e.g. spheres, circles, segments, etc has. Since the extent of
+geometries cannot always be given exact (e.g. for circles), bounding boxes
+are defined in regular floating point precision. Bounding boxes can be
+compared for equality and be tested for whether they overlap. Adding bounding
+boxes together will give the bounding box containing both.
+}
+\examples{
+# Construction
+bbox(10, -2, 15, 0)
+
+seg <- segment(point(sample(10, 4), sample(10, 4)),
+               point(sample(10, 4), sample(10, 4)))
+
+boxes <- bbox(seg)
+boxes
+
+# Comparison
+boxes[1] == boxes
+
+boxes[1:2] \%overlaps\% boxes[3:4]
+
+# Addition
+boxes[1] + boxes[2]
+
+cumsum(boxes)
+
+# Conversion
+as.matrix(boxes)
+
 }

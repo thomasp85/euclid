@@ -12,6 +12,43 @@ is_iso_rect(x)
 
 as_iso_rect(x)
 }
+\arguments{
+\item{...}{Various input. See the Constructor section.}
+
+\item{x}{A vector of iso rectangles or an object to convert to it}
+}
+\value{
+An \code{euclid_iso_rect} vector
+}
 \description{
-Vector of iso rectangles
+Iso rectangles are axis aligned rectangles mimicking bounding boxes but given
+by exact numerics (bounding boxes are defined by floats because not all
+geometries have exact defined extent). Internally they are stored as two
+points giving the bottom-left and top-right corner of the rectangle. Iso
+rectangles are considered \link[=is_degenerate]{degenerate} all its vertices are
+colinear.
+}
+\section{Constructors}{
+
+\strong{2 dimensional iso rectangles}
+\itemize{
+\item Providing a bbox will create iso rectangles matching the bbox
+\item Providing two points will create iso rectangles with the points as diagonal
+opposite vertices
+\item Providing 4 numeric will construct iso rectangles with the given extent,
+with the numerics being interpreted in the following order: left, bottom,
+right, top
+}
+}
+
+\examples{
+# Construction
+p <- point(sample(10, 2), sample(10, 2))
+iso_rect(p[1], p[2])
+
+iso_rect(4, 10, 7, 16)
+
+circ <- circle(point(5, 9), 13)
+iso_rect(bbox(circ))
+
 }

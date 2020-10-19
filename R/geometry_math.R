@@ -28,7 +28,7 @@ geometry_math_cummax.default <- function(x) {
 }
 
 #' @export
-Math.euclid_geometry <- function(x) {
+Math.euclid_geometry <- function(x, ...) {
   res <- switch(.Generic,
     "cumsum" = geometry_math_cumsum(x),
     "cumprod" = geometry_math_cumprod(x),

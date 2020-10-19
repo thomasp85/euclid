@@ -1,37 +1,45 @@
-#' Create affine transformation matrices
+#' Create a vector of bounding boxes
 #'
-#' These functions allow you to create vectors of transformation matrices for
-#' affine transformation in 2 or 3 dimensions. Transformation matrices are used
-#' to apply transformations to geometries using [transform()]. Transformations
-#' can be stacked by multiplying them together. This is generally more
-#' performant than applying transformations one by one to geometries.
-#' Transformations can be reversed by applying the inverse transformation to a
-#' geometry. The inverse transformation matrix can be obtained using
-#' `inverse()`. Affine transformation matrices have an additional column and row
-#' compared to linear transformation matrices. This means that matrices for 2
-#' dimensional transformations are 3x3 and matrices for 2 dimensional
-#' transformations are 4x4. In both cases the last row will consist of 0's and a
-#' final scaling factor (usually 1). Rotation is generally not possible to do
-#' while maintaining exactness as sine and cosine cannot be calculate to
-#' exactness. 3 dimensional rotation can either be done around an axis, around
-#' a direction, or be defining specific angles of rotation for yaw, pitch, and
-#' roll.
+#' Bounding boxes denote the exten of geometries. It follows that bounding boxes
+#' are only defined for geometries that are located in space and have finite
+#' extent. Thus, vectors, lines, directions, rays, etc. does not have bounding
+#' boxes, while e.g. spheres, circles, segments, etc has. Since the extent of
+#' geometries cannot always be given exact (e.g. for circles), bounding boxes
+#' are defined in regular floating point precision. Bounding boxes can be
+#' compared for equality and be tested for whether they overlap. Adding bounding
+#' boxes together will give the bounding box containing both.
 #'
-#' @param dim The dimensionality of the transformation matrix
-#' @param x An object that can be converted to an affine transformation matrix
-#' vector. Matrices and arrays can be converted provided they have the correct
-#' dimensions. List of matrices can be converted provided that all matrices have
-#' the same dimensions and that the dimensions is correct
-#' @param vec A vector of vectors or an object convertible to one
-#' @param fac A scaling factor to apply
-#' @param rho An angle in radians to rotate (counterclockwise)
-#' @param axis For 3 dimensional rotation, which axis to rotate around
-#' @param direction A direction vector or an object convertible to one
-#' @param yaw,pitch,roll Angles in radians for yaw, pitch, and roll rotation.
+#' @param ... Either a vector of geometries or a range of numeric vectors (4 for
+#' 2D bounding boxes and 6 for 3D) interpreted in the order xmin, ymin, zmin,
+#' xmax, ymax, zmax.
+#' @param x,y vectors of bounding boxes or geometries
 #'
-#' @return An `euclid_affine_transformation` vector
+#' @return An `euclid_bbox` vector
 #'
 #' @export
+#'
+#' @examples
+#' # Construction
+#' bbox(10, -2, 15, 0)
+#'
+#' seg <- segment(point(sample(10, 4), sample(10, 4)),
+#'                point(sample(10, 4), sample(10, 4)))
+#'
+#' boxes <- bbox(seg)
+#' boxes
+#'
+#' # Comparison
+#' boxes[1] == boxes
+#'
+#' boxes[1:2] %overlaps% boxes[3:4]
+#'
+#' # Addition
+#' boxes[1] + boxes[2]
+#'
+#' cumsum(boxes)
+#'
+#' # Conversion
+#' as.matrix(boxes)
 #'
 bbox <- function(...) {
   if (is_geometry(..1)) {
@@ -41,6 +49,7 @@ bbox <- function(...) {
     } else {
       return(new_bbox3(bboxes))
     }
+    create_bbox_2()
   }
   inputs <- validate_constructor_input(..., .convert_numerics = FALSE)
   inputs <- inputs[vapply(inputs, is.numeric, logical(1))]
@@ -68,7 +77,7 @@ as_bbox.euclid_bbox <- function(x) {
   x
 }
 #' @export
-as.matrix.euclid_bbox <- function(x) {
+as.matrix.euclid_bbox <- function(x, ...) {
   bbox_to_matrix(get_ptr(x))
 }
 #' @export
@@ -228,7 +237,7 @@ is_overlapping <- function(x, y) {
 }
 #' @rdname bbox
 #' @export
-`%X%` <- is_overlapping
+`%overlaps%` <- is_overlapping
 
 # Group generics ----------------------------------------------------------
 
@@ -256,7 +265,7 @@ Ops.euclid_bbox <- function(e1, e2) {
   res
 }
 #' @export
-Math.euclid_bbox <- function(x) {
+Math.euclid_bbox <- function(x, ...) {
   if (.Generic != "cumsum") {
     rlang::abort(paste0("`", .Generic, "` is not defined for bounding boxes"))
   }

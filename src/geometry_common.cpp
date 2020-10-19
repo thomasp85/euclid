@@ -9,6 +9,28 @@
 #include <cpp11/external_pointer.hpp>
 
 [[cpp11::register]]
+cpp11::writable::strings geometry_primitive_type(geometry_vector_base_p geometries) {
+  switch (geometries->geometry_type) {
+  case CIRCLE: return {"circle"};
+  case DIRECTION: return {"direction"};
+  case ISOCUBE: return {"iso_cube"};
+  case ISORECT: return {"iso_rect"};
+  case LINE: return {"line"};
+  case PLANE: return {"plane"};
+  case POINT: return {"point"};
+  case RAY: return {"ray"};
+  case SEGMENT: return {"segment"};
+  case SPHERE: return {"sphere"};
+  case TETRAHEDRON: return {"tetrahedron"};
+  case TRIANGLE: return {"triangle"};
+  case VECTOR: return {"vector"};
+  case WPOINT: return {"point_w"};
+  case VIRTUAL: return {"virtual"};
+  }
+  return {"virtual"};
+}
+
+[[cpp11::register]]
 int geometry_length(geometry_vector_base_p geometries) {
   return geometries->size();
 }
@@ -109,11 +131,6 @@ cpp11::writable::logicals geometry_is_equal(geometry_vector_base_p geometries1,
 cpp11::writable::logicals geometry_is_not_equal(geometry_vector_base_p geometries1,
                                                 geometry_vector_base_p geometries2) {
   return (*geometries1) != (*geometries2);
-}
-
-[[cpp11::register]]
-cpp11::writable::logicals geometry_is_degenerate(geometry_vector_base_p geometries) {
-  return geometries->is_degenerate();
 }
 
 [[cpp11::register]]

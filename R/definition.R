@@ -13,6 +13,8 @@
 #' the geometry should the definition be extracted for. If `NA` the definition
 #' for all elements will be returned and the length of the returned vector will
 #' be `sum(cardinality(x))` (matching the return of `as.matrix(x)`)
+#' @param i,j The row and column of the cell in the transformation to fetch.
+#' @param ... parameters to pass on
 #'
 #' @return An exact_numeric vector
 #'
@@ -23,7 +25,7 @@ definition <- function(x, ...) {
 }
 #' @rdname definition
 #' @export
-definition.euclid_geometry <- function(x, which, element = NA) {
+definition.euclid_geometry <- function(x, which, element = NA, ...) {
   def_names <- definition_names(x)
   if (length(which) != 1) {
     rlang::abort("It is only possible to select a single definition at a time")
@@ -52,7 +54,7 @@ definition.euclid_geometry <- function(x, which, element = NA) {
 }
 #' @rdname definition
 #' @export
-definition.euclid_affine_transformation <- function(x, i, j) {
+definition.euclid_affine_transformation <- function(x, i, j, ...) {
   n <- max(length(x), length(i), length(j))
   if (length(x) == 1) {
     x <- rep_len(x, n)

@@ -21,6 +21,10 @@ public:
     return copy;
   }
 
+  geometry_vector_base* new_2D_from_vector(std::vector<Vector_2> vec) const {
+    return new_from_vector(vec);
+  }
+
   cpp11::writable::strings def_names() const {
     return {"x", "y"};
   }
@@ -165,7 +169,7 @@ public:
 
 typedef cpp11::external_pointer<vector2> vector2_p;
 
-class vector3 : public geometry_vector<Vector_3, 3> {
+class vector3 : public geometry_vector<Vector_3, 3, Vector_2> {
 public:
   const Primitive geo_type = VECTOR;
 
@@ -177,6 +181,11 @@ public:
 
     copy->_storage.swap(vec);
 
+    return copy;
+  }
+
+  geometry_vector_base* new_2D_from_vector(std::vector<Vector_2> vec) const {
+    vector2* copy = new vector2(vec);
     return copy;
   }
 

@@ -154,7 +154,7 @@ as_affine_transformation.list <- function(x) {
   affine_matrix(x)
 }
 #' @export
-as.array.euclid_affine_transformation <- function(x) {
+as.array.euclid_affine_transformation <- function(x, ...) {
   transform_to_array(get_ptr(x))
 }
 #' @export
@@ -162,7 +162,7 @@ as.character.euclid_affine_transformation <- function(x, ...) {
   format(x, ...)
 }
 #' @export
-as.list.euclid_affine_transformation <- function(x) {
+as.list.euclid_affine_transformation <- function(x, ...) {
   array <- transform_to_array(get_ptr(x))
   x_dim <- dim(array)
   m_size <- prod(x_dim[1:2])
@@ -348,14 +348,14 @@ Ops.euclid_affine_transformation <- function(e1, e2) {
   res
 }
 #' @export
-Math.euclid_affine_transformation <- function(x) {
+Math.euclid_affine_transformation <- function(x, ...) {
   if (.Generic != "cumprod") {
     rlang::abort(paste0("`", .Generic, "` is not defined for transformation matrices"))
   }
   restore_euclid_vector(transform_cumprod(get_ptr(x)), x)
 }
 #' @export
-Ops.euclid_affine_transformation <- function(..., na.rm) {
+Summary.euclid_affine_transformation <- function(..., na.rm) {
   na.rm = isTRUE(na.rm)
   input <- do.call(c, list(...))
   if (.Generic != "prod") {
