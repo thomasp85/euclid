@@ -5,3 +5,6 @@
 ^CODE_OF_CONDUCT\.md$
 ^codecov\.yml$
 ^\.github$
+^_pkgdown\.yml$
+^docs$
+^pkgdown$

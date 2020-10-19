@@ -1,0 +1,10 @@
+destination: docs
+url: https://r-euclid.com
+
+authors:
+  Thomas Lin Pedersen:
+    href: https://data-imaginist.com
+
+template:
+  params:
+    bootswatch: cosmo
