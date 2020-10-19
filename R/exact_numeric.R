@@ -95,7 +95,7 @@ print.euclid_exact_numeric <- function(x, ...) {
 }
 #' @importFrom utils str
 #' @export
-str.euclid_geometry <- function(object, ...) {
+str.euclid_exact_numeric <- function(object, ...) {
   show <- min(5, length(object))
   if (length(object) == 0) {
     cat("exact num [0]")
