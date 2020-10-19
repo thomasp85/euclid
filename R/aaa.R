@@ -30,3 +30,8 @@ restore_euclid_vector <- function(x, old) {
   attributes(x) <- attributes(old)
   x
 }
+
+# rep_len is broken on R < 4.0
+rep_len <- function(x, length) {
+  rep(x, length.out = length)
+}
