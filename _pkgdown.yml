@@ -5,9 +5,25 @@ authors:
   Thomas Lin Pedersen:
     href: https://data-imaginist.com
 
+home:
+  title: >
+    euclid: A foundation for computational geometry in R
+  description: >
+    An R package that provides exact geometric data types in R, along with basic
+    operations and predicates on them. euclid builds upon the 2 and 3
+    dimensional linear geometry kernel from CGAL.
+
 template:
   params:
     bootswatch: cosmo
+  opengraph:
+    image:
+      src: man/figures/card.png
+      alt: "euclid: Exact compuational geometry in R"
+    twitter:
+      creator: "@thomasp85"
+      site: "@rstudio"
+      card: summary_large_image
 
 reference:
 - title: Geometry types
