@@ -8,3 +8,64 @@ authors:
 template:
   params:
     bootswatch: cosmo
+
+reference:
+- title: Geometry types
+  desc: >
+    The core of euclid is a range of new primitive vector types modelling
+    different types of geometries. When applicable, the types comes in both a
+    2 and 3 dimensional version. The vector types behaves much like regular R
+    vectors in terms of subsetting, equality, etc. When it makes sense they also
+    respond to arithmetic and sorting operations.
+  contents:
+  - is_geometry
+  - definition
+  - circle
+  - direction
+  - iso_cube
+  - iso_rect
+  - line
+  - plane
+  - point
+  - ray
+  - segment
+  - sphere
+  - tetrahedron
+  - triangle
+  - vec
+  - weighted_point
+- title: Other data types
+  desc: >
+    In addition to vectors of geometries euclid also provides a few other
+    primitive types to support geometric operations. As with the vectors of
+    geometries, these data types behaves much like normal R vectors.
+  contents:
+  - exact_numeric
+  - bbox
+  - affine_matrix
+- title: Predicates
+  desc: >
+    At the core of a lot of geometric algorithms lies predicates on geometries.
+    This is also a place where floating points often leads to failures since
+    e.g. a point constructed to lie on a plane may end up slightly off the plane
+    due to rounding and imprecisions. The euclid predicates are exact, however,
+    as long as the geometries have been constructed within the framework.
+  contents:
+  - is_degenerate
+  - has_on
+- title: Transformations
+  desc: >
+    Geometries can be transformed by affine transformation matrices using the
+    `transform()` method. In addition, other types of transformations are
+    available, such as projections to lines and planes.
+  contents:
+  - project
+- title: Measures
+  desc: >
+    Measures on geometries such as area, length, and volume, cannot always be
+    given in exact numbers due to reliance on square roots, pi, and other
+    inexact operations. Because of this they are here provided as approximate
+    measures in the sense that they are subjected to the imprecisions of
+    floating point arithmetic.
+  contents:
+  - approx_length
