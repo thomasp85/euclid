@@ -82,9 +82,9 @@
 </h1></div>
 <!-- badges: start -->
 
-<p><strong>WIP</strong></p>
-<p>euclid aims to provide a comprehensive interface to the CGAL library for computational geometry. At its core it provides new vector types for all of the geometric primitives defined for the 2 and 3 dimensional kernel. These vector types maps directly into C++ structures ensuring that no conversion back and forth between R and C++ takes place. This, in turn, ensures that geometric calculations remain exact and free of any rounding errors or issues with floating point arithmetic.</p>
-<p>The plan is to gradually expand the algorithms that euclid support once the vector foundation is established</p>
+<!-- badges: end -->
+<p>The purpose of euclid is to provide a new unified foundation for computational geometry in R. It provides new data types for common low level geometric concepts such as lines, planes, points, triangles, etc. as well as a core of functionality relates to these primitives. Specialised geometric algorithms are intended to extend this package so that e.g. Tessellation will live in it’s own package but use the foundation laid out in euclid.</p>
+<p>At its core euclid is an interface to the CGAL library for computational geometry. More specifically, it provides access to the functionality in the <a href="https://doc.cgal.org/4.14.3/Kernel_23/index.html">2D and 3D Linear Geometry Kernel</a>. The CGAL foundation means that computations with euclid are exact and free of the imprecision attached to working with floating point numbers. This is very important for geometry since floating point errors can compound and lead to failures in geometric predicates at the core of many geometric algorithms. To achieve this, data in euclid is never converted to R data structures but remain as pointers to CGAL structures unless specifically converted to numerics (in which case the floating point world kicks in)</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -93,74 +93,116 @@
 <span class="co"># install.packages("remotes")</span>
 <span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span><span class="op">(</span><span class="st">"thomasp85/euclid"</span><span class="op">)</span></pre></div>
 </div>
+<div id="data-types" class="section level2">
+<h2 class="hasAnchor">
+<a href="#data-types" class="anchor"></a>Data types</h2>
+<p>The core of euclid is a set of new primitive vector types that model 2 and 3 dimensional geometric objects. The following types are present:</p>
+<div id="2-and-3-dimensions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#2-and-3-dimensions" class="anchor"></a>2 and 3 dimensions</h3>
+<ul>
+<li><p>Circles</p></li>
+<li><p>Directions</p></li>
+<li><p>Lines</p></li>
+<li><p>Points</p></li>
+<li><p>Weighted Points</p></li>
+<li><p>Rays</p></li>
+<li><p>Segments</p></li>
+<li><p>Triangles</p></li>
+<li><p>Vectors</p></li>
+</ul>
+</div>
+<div id="2-dimensions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#2-dimensions" class="anchor"></a>2 dimensions</h3>
+<ul>
+<li>Iso rectangles</li>
+</ul>
+</div>
+<div id="3-dimensions" class="section level3">
+<h3 class="hasAnchor">
+<a href="#3-dimensions" class="anchor"></a>3 dimensions</h3>
+<ul>
+<li><p>Iso cubes</p></li>
+<li><p>Planes</p></li>
+<li><p>Spheres</p></li>
+<li><p>Tetrahedrons</p></li>
+</ul>
+</div>
+<div id="special-vector-types" class="section level3">
+<h3 class="hasAnchor">
+<a href="#special-vector-types" class="anchor"></a>Special vector types</h3>
+<p>In addition to the geometric data types, euclid also provides these primitive vector types:</p>
+<ul>
+<li><p>Exact numerics</p></li>
+<li><p>Bounding boxes</p></li>
+<li><p>Affine transformation matrices</p></li>
+</ul>
+</div>
+</div>
 <div id="example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#example" class="anchor"></a>Example</h2>
-<p>The package is still quite shallow but have rudimentary support for points and circles</p>
+<p>The following example shows how to work with the different data types:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/thomasp85/euclid">euclid</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'euclid'</span>
-<span class="co">#&gt; The following object is masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     line</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://r-euclid.com">euclid</a></span><span class="op">)</span>
 
 <span class="co"># Construct some exact numbers</span>
-<span class="va">random_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/exact_numeric.html">exact_numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">20</span>, max <span class="op">=</span> <span class="fl">10</span><span class="op">)</span><span class="op">)</span>
+<span class="va">random_num</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/exact_numeric.html">exact_numeric</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># Exact numbers behave much like R numerics (though not everything is possible)</span>
 <span class="va">random_num</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
 <span class="co">#&gt; &lt;Vector of exact numerics&gt;</span>
-<span class="co">#&gt; [1] 2.655087 3.721239 5.728534 9.082078 2.016819</span>
+<span class="co">#&gt; [1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">random_num</span><span class="op">)</span>
 <span class="co">#&gt; &lt;Vector of exact numerics&gt;</span>
-<span class="co">#&gt; [1] 9.919061</span>
-<span class="fu"><a href="https://rdrr.io/r/base/sort.html">sort</a></span><span class="op">(</span><span class="va">random_num</span><span class="op">)</span>
-<span class="co">#&gt; &lt;Vector of exact numerics&gt;</span>
-<span class="co">#&gt;  [1] 0.6178627 1.7655675 2.0168193 2.0597457 2.6550866 3.7212390 3.8003518</span>
-<span class="co">#&gt;  [8] 3.8410372 4.9769924 5.7285336 6.2911404 6.6079779 6.8702285 7.1761851</span>
-<span class="co">#&gt; [15] 7.6984142 7.7744522 8.9838968 9.0820779 9.4467527 9.9190609</span>
+<span class="co">#&gt; [1] 1.595281</span>
 <span class="va">random_num</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">*</span> <span class="fl">10</span>
 <span class="co">#&gt; &lt;Vector of exact numerics&gt;</span>
-<span class="co">#&gt; [1] 37.21239</span>
+<span class="co">#&gt; [1] 1.836433</span>
 <span class="va">random_num</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span> <span class="op">+</span> <span class="va">random_num</span><span class="op">[</span><span class="fl">16</span><span class="op">]</span>
 <span class="co">#&gt; &lt;Vector of exact numerics&gt;</span>
-<span class="co">#&gt; [1] 6.993812</span>
-<span class="fu"><a href="https://rdrr.io/r/base/cumsum.html">cumsum</a></span><span class="op">(</span><span class="va">random_num</span><span class="op">)</span>
+<span class="co">#&gt; [1] 0.2845742</span>
+<span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">random_num</span><span class="op">)</span>
 <span class="co">#&gt; &lt;Vector of exact numerics&gt;</span>
-<span class="co">#&gt;  [1]   2.655087   6.376326  12.104859  21.186937  23.203756  32.187653</span>
-<span class="co">#&gt;  [7]  41.634406  48.242384  54.533524  55.151387  57.211133  58.976700</span>
-<span class="co">#&gt; [13]  65.846929  69.687966  77.386380  82.363373  89.539558  99.458619</span>
-<span class="co">#&gt; [19] 103.258970 111.033423</span>
+<span class="co">#&gt; [1] 3.810478</span>
 
 <span class="co"># With exact numbers we can construct our geometries</span>
-
-<span class="co"># 2 dimensions</span>
-<span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/point.html">point</a></span><span class="op">(</span><span class="va">random_num</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, <span class="va">random_num</span><span class="op">[</span><span class="fl">6</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span><span class="op">)</span>
-<span class="va">p1</span>
+<span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/point.html">point</a></span><span class="op">(</span><span class="va">random_num</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, <span class="va">random_num</span><span class="op">[</span><span class="fl">11</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span><span class="op">)</span>
+<span class="va">p</span>
 <span class="co">#&gt; &lt;Vector of points in 2 dimensions&gt;</span>
-<span class="co">#&gt; [1] &lt;x:2.66, y:8.98&gt;  &lt;x:3.72, y:9.45&gt;  &lt;x:5.73, y:6.61&gt;  &lt;x:9.08, y:6.29&gt; </span>
-<span class="co">#&gt; [5] &lt;x:2.02, y:0.618&gt;</span>
+<span class="co">#&gt;  [1] &lt;x:-0.626, y:1.51&gt;   &lt;x:0.184, y:0.39&gt;    &lt;x:-0.836, y:-0.621&gt;</span>
+<span class="co">#&gt;  [4] &lt;x:1.6, y:-2.21&gt;     &lt;x:0.33, y:1.12&gt;     &lt;x:-0.82, y:-0.0449&gt;</span>
+<span class="co">#&gt;  [7] &lt;x:0.487, y:-0.0162&gt; &lt;x:0.738, y:0.944&gt;   &lt;x:0.576, y:0.821&gt;  </span>
+<span class="co">#&gt; [10] &lt;x:-0.305, y:0.594&gt;</span>
 
-<span class="co"># circle based on center and radius</span>
-<span class="fu"><a href="reference/circle.html">circle</a></span><span class="op">(</span><span class="va">p1</span>, <span class="va">random_num</span><span class="op">[</span><span class="fl">11</span><span class="op">:</span><span class="fl">15</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt; &lt;Vector of circles in 2 dimensions&gt;</span>
-<span class="co">#&gt; [1] &lt;x:2.66, y:8.98, r2:4.24&gt;  &lt;x:3.72, y:9.45, r2:3.12&gt; </span>
-<span class="co">#&gt; [3] &lt;x:5.73, y:6.61, r2:47.2&gt;  &lt;x:9.08, y:6.29, r2:14.8&gt; </span>
-<span class="co">#&gt; [5] &lt;x:2.02, y:0.618, r2:59.3&gt;</span>
+<span class="co"># Create a line based on a vector, going through the origin</span>
+<span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/line.html">line</a></span><span class="op">(</span><span class="fu"><a href="reference/point.html">point</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="reference/vec.html">vec</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span>
 
-<span class="co"># circle based on 2 points</span>
-<span class="fu"><a href="reference/circle.html">circle</a></span><span class="op">(</span><span class="va">p1</span>, <span class="fu"><a href="reference/point.html">point</a></span><span class="op">(</span><span class="va">random_num</span><span class="op">[</span><span class="fl">11</span><span class="op">:</span><span class="fl">15</span><span class="op">]</span>, <span class="va">random_num</span><span class="op">[</span><span class="fl">16</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
-<span class="co">#&gt; &lt;Vector of circles in 2 dimensions&gt;</span>
-<span class="co">#&gt; [1] &lt;x:2.36, y:6.98, r2:4.1&gt;  &lt;x:2.74, y:8.31, r2:2.25&gt;</span>
-<span class="co">#&gt; [3] &lt;x:6.3, y:8.26, r2:3.07&gt;  &lt;x:6.46, y:5.05, r2:8.42&gt;</span>
-<span class="co">#&gt; [5] &lt;x:4.86, y:4.2, r2:20.9&gt;</span>
+<span class="co"># Which points lies on the positive side of the line?</span>
+<span class="fu"><a href="reference/location_predicates.html">has_on_positive_side</a></span><span class="op">(</span><span class="va">l</span>, <span class="va">p</span><span class="op">)</span>
+<span class="co">#&gt;  [1]  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE</span>
 
-<span class="co"># 3 dimensions</span>
-<span class="fu"><a href="reference/point.html">point</a></span><span class="op">(</span><span class="va">random_num</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>, <span class="va">random_num</span><span class="op">[</span><span class="fl">6</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, <span class="va">random_num</span><span class="op">[</span><span class="fl">11</span><span class="op">:</span><span class="fl">15</span><span class="op">]</span><span class="op">)</span>
-<span class="co">#&gt; &lt;Vector of points in 3 dimensions&gt;</span>
-<span class="co">#&gt; [1] &lt;x:2.66, y:8.98, z:2.06&gt; &lt;x:3.72, y:9.45, z:1.77&gt; &lt;x:5.73, y:6.61, z:6.87&gt;</span>
-<span class="co">#&gt; [4] &lt;x:9.08, y:6.29, z:3.84&gt; &lt;x:2.02, y:0.618, z:7.7&gt;</span></pre></div>
+<span class="co"># Project points to line</span>
+<span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/geometry_projection.html">project</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">l</span><span class="op">)</span>
+
+<span class="co"># Do the projected points lie on the line?</span>
+<span class="va">p1</span> <span class="op">%is_on%</span> <span class="va">l</span>
+<span class="co">#&gt;  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE</span>
+
+<span class="co"># Construct a triangle from a random point to the extremes of the projected points</span>
+<span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/triangle.html">triangle</a></span><span class="op">(</span><span class="fu"><a href="reference/point.html">point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span><span class="op">)</span>
+<span class="va">t</span>
+<span class="co">#&gt; &lt;Vector of triangles in 2 dimensions&gt;</span>
+<span class="co">#&gt; [1] [&lt;x:0.919, y:0.782&gt;, &lt;x:-0.554, y:-1.29&gt;, &lt;x:0.458, y:1.07&gt;]</span>
+
+<span class="co"># Which points lies inside the triangle?</span>
+<span class="va">p</span> <span class="op">%is_inside%</span> <span class="va">t</span>
+<span class="co">#&gt;  [1] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE</span>
+
+<span class="co"># Area of t (cannot be given exact for all geometries so is returned as numerics)</span>
+<span class="fu"><a href="reference/geometry_measures.html">approx_area</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>
+<span class="co">#&gt; [1] -0.6897651</span></pre></div>
 </div>
 <div id="code-of-conduct" class="section level2">
 <h2 class="hasAnchor">
