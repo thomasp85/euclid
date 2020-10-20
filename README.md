@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# euclid <a href='https://euclid.data-imaginist.com'><img src='man/figures/logo.png' align="right" height="138.5" /></a>
+# euclid <a href='https://euclid.data-imaginist.com'><img src="man/figures/logo.png" align="right" height="138.5"/></a>
 
 <!-- badges: start -->
 
@@ -9,20 +9,28 @@
 coverage](https://codecov.io/gh/thomasp85/euclid/branch/master/graph/badge.svg)](https://codecov.io/gh/thomasp85/euclid?branch=master)
 [![R build
 status](https://github.com/thomasp85/euclid/workflows/R-CMD-check/badge.svg)](https://github.com/thomasp85/euclid/actions)
+
 <!-- badges: end -->
 
-**WIP**
+The purpose of euclid is to provide a new unified foundation for
+computational geometry in R. It provides new data types for common low
+level geometric concepts such as lines, planes, points, triangles, etc.
+as well as a core of functionality relates to these primitives.
+Specialised geometric algorithms are intended to extend this package so
+that e.g. Tessellation will live in it’s own package but use the
+foundation laid out in euclid.
 
-euclid aims to provide a comprehensive interface to the CGAL library for
-computational geometry. At its core it provides new vector types for all
-of the geometric primitives defined for the 2 and 3 dimensional kernel.
-These vector types maps directly into C++ structures ensuring that no
-conversion back and forth between R and C++ takes place. This, in turn,
-ensures that geometric calculations remain exact and free of any
-rounding errors or issues with floating point arithmetic.
-
-The plan is to gradually expand the algorithms that euclid support once
-the vector foundation is established
+At its core euclid is an interface to the CGAL library for computational
+geometry. More specifically, it provides access to the functionality in
+the [2D and 3D Linear Geometry
+Kernel](https://doc.cgal.org/4.14.3/Kernel_23/index.html). The CGAL
+foundation means that computations with euclid are exact and free of the
+imprecision attached to working with floating point numbers. This is
+very important for geometry since floating point errors can compound and
+lead to failures in geometric predicates at the core of many geometric
+algorithms. To achieve this, data in euclid is never converted to R data
+structures but remain as pointers to CGAL structures unless specifically
+converted to numerics (in which case the floating point world kicks in)
 
 ## Installation
 
@@ -33,75 +41,119 @@ For now, euclid can be installed from github using remotes:
 remotes::install_github("thomasp85/euclid")
 ```
 
+## Data types
+
+The core of euclid is a set of new primitive vector types that model 2
+and 3 dimensional geometric objects. The following types are present:
+
+### 2 and 3 dimensions
+
+  - Circles
+
+  - Directions
+
+  - Lines
+
+  - Points
+
+  - Weighted Points
+
+  - Rays
+
+  - Segments
+
+  - Triangles
+
+  - Vectors
+
+### 2 dimensions
+
+  - Iso rectangles
+
+### 3 dimensions
+
+  - Iso cubes
+
+  - Planes
+
+  - Spheres
+
+  - Tetrahedrons
+
+### Special vector types
+
+In addition to the geometric data types, euclid also provides these
+primitive vector types:
+
+  - Exact numerics
+
+  - Bounding boxes
+
+  - Affine transformation matrices
+
 ## Example
 
-The package is still quite shallow but have rudimentary support for
-points and circles
+The following example shows how to work with the different data types:
 
 ``` r
 library(euclid)
-#> 
-#> Attaching package: 'euclid'
-#> The following object is masked from 'package:stats':
-#> 
-#>     line
 
 # Construct some exact numbers
-random_num <- exact_numeric(runif(20, max = 10))
+random_num <- exact_numeric(rnorm(20))
 
 # Exact numbers behave much like R numerics (though not everything is possible)
 random_num[1:5]
 #> <Vector of exact numerics>
-#> [1] 2.655087 3.721239 5.728534 9.082078 2.016819
+#> [1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078
 max(random_num)
 #> <Vector of exact numerics>
-#> [1] 9.919061
-sort(random_num)
-#> <Vector of exact numerics>
-#>  [1] 0.6178627 1.7655675 2.0168193 2.0597457 2.6550866 3.7212390 3.8003518
-#>  [8] 3.8410372 4.9769924 5.7285336 6.2911404 6.6079779 6.8702285 7.1761851
-#> [15] 7.6984142 7.7744522 8.9838968 9.0820779 9.4467527 9.9190609
+#> [1] 1.595281
 random_num[2] * 10
 #> <Vector of exact numerics>
-#> [1] 37.21239
+#> [1] 1.836433
 random_num[5] + random_num[16]
 #> <Vector of exact numerics>
-#> [1] 6.993812
-cumsum(random_num)
+#> [1] 0.2845742
+sum(random_num)
 #> <Vector of exact numerics>
-#>  [1]   2.655087   6.376326  12.104859  21.186937  23.203756  32.187653
-#>  [7]  41.634406  48.242384  54.533524  55.151387  57.211133  58.976700
-#> [13]  65.846929  69.687966  77.386380  82.363373  89.539558  99.458619
-#> [19] 103.258970 111.033423
+#> [1] 3.810478
 
 # With exact numbers we can construct our geometries
-
-# 2 dimensions
-p1 <- point(random_num[1:5], random_num[6:10])
-p1
+p <- point(random_num[1:10], random_num[11:20])
+p
 #> <Vector of points in 2 dimensions>
-#> [1] <x:2.66, y:8.98>  <x:3.72, y:9.45>  <x:5.73, y:6.61>  <x:9.08, y:6.29> 
-#> [5] <x:2.02, y:0.618>
+#>  [1] <x:-0.626, y:1.51>   <x:0.184, y:0.39>    <x:-0.836, y:-0.621>
+#>  [4] <x:1.6, y:-2.21>     <x:0.33, y:1.12>     <x:-0.82, y:-0.0449>
+#>  [7] <x:0.487, y:-0.0162> <x:0.738, y:0.944>   <x:0.576, y:0.821>  
+#> [10] <x:-0.305, y:0.594>
 
-# circle based on center and radius
-circle(p1, random_num[11:15])
-#> <Vector of circles in 2 dimensions>
-#> [1] <x:2.66, y:8.98, r2:4.24>  <x:3.72, y:9.45, r2:3.12> 
-#> [3] <x:5.73, y:6.61, r2:47.2>  <x:9.08, y:6.29, r2:14.8> 
-#> [5] <x:2.02, y:0.618, r2:59.3>
+# Create a line based on a vector, going through the origin
+l <- line(point(0, 0), vec(3, 7))
 
-# circle based on 2 points
-circle(p1, point(random_num[11:15], random_num[16:20]))
-#> <Vector of circles in 2 dimensions>
-#> [1] <x:2.36, y:6.98, r2:4.1>  <x:2.74, y:8.31, r2:2.25>
-#> [3] <x:6.3, y:8.26, r2:3.07>  <x:6.46, y:5.05, r2:8.42>
-#> [5] <x:4.86, y:4.2, r2:20.9>
+# Which points lies on the positive side of the line?
+has_on_positive_side(l, p)
+#>  [1]  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE
 
-# 3 dimensions
-point(random_num[1:5], random_num[6:10], random_num[11:15])
-#> <Vector of points in 3 dimensions>
-#> [1] <x:2.66, y:8.98, z:2.06> <x:3.72, y:9.45, z:1.77> <x:5.73, y:6.61, z:6.87>
-#> [4] <x:9.08, y:6.29, z:3.84> <x:2.02, y:0.618, z:7.7>
+# Project points to line
+p1 <- project(p, l)
+
+# Do the projected points lie on the line?
+p1 %is_on% l
+#>  [1] TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE TRUE
+
+# Construct a triangle from a random point to the extremes of the projected points
+t <- triangle(point(rnorm(1), rnorm(1)), min(p1), max(p1))
+t
+#> <Vector of triangles in 2 dimensions>
+#> [1] [<x:0.919, y:0.782>, <x:-0.554, y:-1.29>, <x:0.458, y:1.07>]
+
+# Which points lies inside the triangle?
+p %is_inside% t
+#>  [1] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
+
+# Area of t (cannot be given exact for all geometries so is returned as numerics)
+approx_area(t)
+#> [1] -0.6897651
 ```
 
 ## Code of Conduct

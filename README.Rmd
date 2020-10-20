@@ -14,20 +14,20 @@ knitr::opts_chunk$set(
 set.seed(1)
 ```
 
-# euclid <a href='https://euclid.data-imaginist.com'><img src='man/figures/logo.png' align="right" height="138.5" /></a>
+# euclid <a href='https://euclid.data-imaginist.com'><img src="man/figures/logo.png" align="right" height="138.5"/></a>
 
 <!-- badges: start -->
-[![Codecov test coverage](https://codecov.io/gh/thomasp85/euclid/branch/master/graph/badge.svg)](https://codecov.io/gh/thomasp85/euclid?branch=master)
-[![R build status](https://github.com/thomasp85/euclid/workflows/R-CMD-check/badge.svg)](https://github.com/thomasp85/euclid/actions)
+
+[![Codecov test coverage](https://codecov.io/gh/thomasp85/euclid/branch/master/graph/badge.svg)](https://codecov.io/gh/thomasp85/euclid?branch=master) [![R build status](https://github.com/thomasp85/euclid/workflows/R-CMD-check/badge.svg)](https://github.com/thomasp85/euclid/actions)
+
 <!-- badges: end -->
 
-**WIP**
+The purpose of euclid is to provide a new unified foundation for computational geometry in R. It provides new data types for common low level geometric concepts such as lines, planes, points, triangles, etc. as well as a core of functionality relates to these primitives. Specialised geometric algorithms are intended to extend this package so that e.g. Tessellation will live in it's own package but use the foundation laid out in euclid.
 
-euclid aims to provide a comprehensive interface to the CGAL library for computational geometry. At its core it provides new vector types for all of the geometric primitives defined for the 2 and 3 dimensional kernel. These vector types maps directly into C++ structures ensuring that no conversion back and forth between R and C++ takes place. This, in turn, ensures that geometric calculations remain exact and free of any rounding errors or issues with floating point arithmetic.
-
-The plan is to gradually expand the algorithms that euclid support once the vector foundation is established
+At its core euclid is an interface to the CGAL library for computational geometry. More specifically, it provides access to the functionality in the [2D and 3D Linear Geometry Kernel](https://doc.cgal.org/4.14.3/Kernel_23/index.html). The CGAL foundation means that computations with euclid are exact and free of the imprecision attached to working with floating point numbers. This is very important for geometry since floating point errors can compound and lead to failures in geometric predicates at the core of many geometric algorithms. To achieve this, data in euclid is never converted to R data structures but remain as pointers to CGAL structures unless specifically converted to numerics (in which case the floating point world kicks in)
 
 ## Installation
+
 For now, euclid can be installed from github using remotes:
 
 ```{r, eval=FALSE}
@@ -35,41 +35,97 @@ For now, euclid can be installed from github using remotes:
 remotes::install_github("thomasp85/euclid")
 ```
 
-## Example
-The package is still quite shallow but have rudimentary support for points and circles
+## Data types
 
-```{r}
+The core of euclid is a set of new primitive vector types that model 2 and 3 dimensional geometric objects. The following types are present:
+
+### 2 and 3 dimensions
+
+-   Circles
+
+-   Directions
+
+-   Lines
+
+-   Points
+
+-   Weighted Points
+
+-   Rays
+
+-   Segments
+
+-   Triangles
+
+-   Vectors
+
+### 2 dimensions
+
+-   Iso rectangles
+
+### 3 dimensions
+
+-   Iso cubes
+
+-   Planes
+
+-   Spheres
+
+-   Tetrahedrons
+
+### Special vector types
+
+In addition to the geometric data types, euclid also provides these primitive vector types:
+
+-   Exact numerics
+
+-   Bounding boxes
+
+-   Affine transformation matrices
+
+## Example
+
+The following example shows how to work with the different data types:
+
+```{r, message=FALSE}
 library(euclid)
 
 # Construct some exact numbers
-random_num <- exact_numeric(runif(20, max = 10))
+random_num <- exact_numeric(rnorm(20))
 
 # Exact numbers behave much like R numerics (though not everything is possible)
 random_num[1:5]
 max(random_num)
-sort(random_num)
 random_num[2] * 10
 random_num[5] + random_num[16]
-cumsum(random_num)
+sum(random_num)
 
 # With exact numbers we can construct our geometries
+p <- point(random_num[1:10], random_num[11:20])
+p
 
-# 2 dimensions
-p1 <- point(random_num[1:5], random_num[6:10])
-p1
+# Create a line based on a vector, going through the origin
+l <- line(point(0, 0), vec(3, 7))
 
-# circle based on center and radius
-circle(p1, random_num[11:15])
+# Which points lies on the positive side of the line?
+has_on_positive_side(l, p)
 
-# circle based on 2 points
-circle(p1, point(random_num[11:15], random_num[16:20]))
+# Project points to line
+p1 <- project(p, l)
 
-# 3 dimensions
-point(random_num[1:5], random_num[6:10], random_num[11:15])
+# Do the projected points lie on the line?
+p1 %is_on% l
 
+# Construct a triangle from a random point to the extremes of the projected points
+t <- triangle(point(rnorm(1), rnorm(1)), min(p1), max(p1))
+t
 
+# Which points lies inside the triangle?
+p %is_inside% t
+
+# Area of t (cannot be given exact for all geometries so is returned as numerics)
+approx_area(t)
 ```
-
 
 ## Code of Conduct
 

@@ -27,7 +27,7 @@ SystemRequirements:
 Imports: 
     rlang,
     utils
-URL: https://github.com/thomasp85/euclid
+URL: https://r-euclid.com, https://github.com/thomasp85/euclid
 BugReports: https://github.com/thomasp85/euclid/issues
 Suggests: 
     covr
