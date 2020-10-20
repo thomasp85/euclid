@@ -129,8 +129,8 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-geometry-types" class="hasAnchor"><a href="#section-geometry-types" class="anchor"></a>Geometry types</h2>
+          <p class="section-desc"><p>The core of euclid is a range of new primitive vector types modelling different types of geometries. When applicable, the types comes in both a 2 and 3 dimensional version. The vector types behaves much like regular R vectors in terms of subsetting, equality, etc. When it makes sense they also respond to arithmetic and sorting operations.</p></p>
         </th>
       </tr>
       
@@ -141,21 +141,9 @@
       <tr>
         
         <td>
-          <p><code><a href="affine_transformation.html">affine_identity()</a></code> <code><a href="affine_transformation.html">affine_matrix()</a></code> <code><a href="affine_transformation.html">affine_translate()</a></code> <code><a href="affine_transformation.html">affine_scale()</a></code> <code><a href="affine_transformation.html">affine_rotate()</a></code> <code><a href="affine_transformation.html">is_affine_transformation()</a></code> <code><a href="affine_transformation.html">as_affine_transformation()</a></code> <code><a href="affine_transformation.html">inverse()</a></code> <code><a href="affine_transformation.html">is_reflecting()</a></code> </p>
+          <p><code><a href="euclid_geometry.html">is_geometry()</a></code> <code><a href="euclid_geometry.html">geometry_type()</a></code> <code><a href="euclid_geometry.html">cardinality()</a></code> <code><a href="euclid_geometry.html">definition_names()</a></code> </p>
         </td>
-        <td><p>Create affine transformation matrices</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="bbox.html">bbox()</a></code> <code><a href="bbox.html">is_bbox()</a></code> <code><a href="bbox.html">as_bbox()</a></code> <code><a href="bbox.html">is_overlapping()</a></code> <code><a href="bbox.html">`%overlaps%`</a></code> </p>
-        </td>
-        <td><p>Create a vector of bounding boxes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="circle.html">circle()</a></code> <code><a href="circle.html">is_circle()</a></code> <code><a href="circle.html">as_circle()</a></code> </p>
-        </td>
-        <td><p>Vector of circles</p></td>
+        <td><p>Vector of geometries</p></td>
       </tr><tr>
         
         <td>
@@ -165,39 +153,15 @@
       </tr><tr>
         
         <td>
+          <p><code><a href="circle.html">circle()</a></code> <code><a href="circle.html">is_circle()</a></code> <code><a href="circle.html">as_circle()</a></code> </p>
+        </td>
+        <td><p>Vector of circles</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="direction.html">direction()</a></code> <code><a href="direction.html">is_direction()</a></code> <code><a href="direction.html">between()</a></code> <code><a href="direction.html">as_direction()</a></code> </p>
         </td>
         <td><p>Vector of directions</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="euclid_geometry.html">is_geometry()</a></code> <code><a href="euclid_geometry.html">geometry_type()</a></code> <code><a href="euclid_geometry.html">cardinality()</a></code> <code><a href="euclid_geometry.html">definition_names()</a></code> </p>
-        </td>
-        <td><p>Vector of geometries</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="exact_numeric.html">exact_numeric()</a></code> <code><a href="exact_numeric.html">is_exact_numeric()</a></code> <code><a href="exact_numeric.html">as_exact_numeric()</a></code> </p>
-        </td>
-        <td><p>Exact numeric representation</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="geometry_measures.html">approx_length()</a></code> <code><a href="geometry_measures.html">approx_area()</a></code> <code><a href="geometry_measures.html">approx_volume()</a></code> </p>
-        </td>
-        <td><p>Approximate geometry measures</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="geometry_projection.html">project()</a></code> <code><a href="geometry_projection.html">map_to()</a></code> </p>
-        </td>
-        <td><p>Project geometries to lines and planes</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="is_degenerate.html">is_degenerate()</a></code> </p>
-        </td>
-        <td><p>Check if a geometry is degenerate</p></td>
       </tr><tr>
         
         <td>
@@ -219,19 +183,13 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="location_predicates.html">has_on()</a></code> <code><a href="location_predicates.html">`%is_on%`</a></code> <code><a href="location_predicates.html">has_inside()</a></code> <code><a href="location_predicates.html">`%is_inside%`</a></code> <code><a href="location_predicates.html">has_outside()</a></code> <code><a href="location_predicates.html">`%is_outside%`</a></code> <code><a href="location_predicates.html">has_on_positive_side()</a></code> <code><a href="location_predicates.html">`%is_on_positive_side%`</a></code> <code><a href="location_predicates.html">has_on_negative_side()</a></code> <code><a href="location_predicates.html">`%is_on_negative_side%`</a></code> </p>
-        </td>
-        <td><p>Query location of points relative to geometry</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="plane.html">plane()</a></code> <code><a href="plane.html">is_plane()</a></code> <code><a href="plane.html">as_plane()</a></code> </p>
         </td>
         <td><p>Vector of planes</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="point.html">point()</a></code> <code><a href="point.html">is_point()</a></code> <code><a href="point.html">as_point()</a></code> <code><a href="point.html">as_weighted_point()</a></code> </p>
+          <p><code><a href="point.html">point()</a></code> <code><a href="point.html">is_point()</a></code> <code><a href="point.html">as_point()</a></code> </p>
         </td>
         <td><p>Vector of points</p></td>
       </tr><tr>
@@ -273,9 +231,103 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="weighted_point.html">weighted_point()</a></code> <code><a href="weighted_point.html">is_weighted_point()</a></code> </p>
+          <p><code><a href="weighted_point.html">weighted_point()</a></code> <code><a href="weighted_point.html">is_weighted_point()</a></code> <code><a href="weighted_point.html">as_weighted_point()</a></code> </p>
         </td>
         <td><p>Vector of weighted points</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-other-data-types" class="hasAnchor"><a href="#section-other-data-types" class="anchor"></a>Other data types</h2>
+          <p class="section-desc"><p>In addition to vectors of geometries euclid also provides a few other primitive types to support geometric operations. As with the vectors of geometries, these data types behaves much like normal R vectors.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="exact_numeric.html">exact_numeric()</a></code> <code><a href="exact_numeric.html">is_exact_numeric()</a></code> <code><a href="exact_numeric.html">as_exact_numeric()</a></code> </p>
+        </td>
+        <td><p>Exact numeric representation</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="bbox.html">bbox()</a></code> <code><a href="bbox.html">is_bbox()</a></code> <code><a href="bbox.html">as_bbox()</a></code> <code><a href="bbox.html">is_overlapping()</a></code> <code><a href="bbox.html">`%overlaps%`</a></code> </p>
+        </td>
+        <td><p>Create a vector of bounding boxes</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="affine_transformation.html">affine_identity()</a></code> <code><a href="affine_transformation.html">affine_matrix()</a></code> <code><a href="affine_transformation.html">affine_translate()</a></code> <code><a href="affine_transformation.html">affine_scale()</a></code> <code><a href="affine_transformation.html">affine_rotate()</a></code> <code><a href="affine_transformation.html">is_affine_transformation()</a></code> <code><a href="affine_transformation.html">as_affine_transformation()</a></code> <code><a href="affine_transformation.html">inverse()</a></code> <code><a href="affine_transformation.html">is_reflecting()</a></code> </p>
+        </td>
+        <td><p>Create affine transformation matrices</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-predicates" class="hasAnchor"><a href="#section-predicates" class="anchor"></a>Predicates</h2>
+          <p class="section-desc"><p>At the core of a lot of geometric algorithms lies predicates on geometries. This is also a place where floating points often leads to failures since e.g. a point constructed to lie on a plane may end up slightly off the plane due to rounding and imprecisions. The euclid predicates are exact, however, as long as the geometries have been constructed within the framework.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="is_degenerate.html">is_degenerate()</a></code> </p>
+        </td>
+        <td><p>Check if a geometry is degenerate</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="location_predicates.html">has_on()</a></code> <code><a href="location_predicates.html">`%is_on%`</a></code> <code><a href="location_predicates.html">has_inside()</a></code> <code><a href="location_predicates.html">`%is_inside%`</a></code> <code><a href="location_predicates.html">has_outside()</a></code> <code><a href="location_predicates.html">`%is_outside%`</a></code> <code><a href="location_predicates.html">has_on_positive_side()</a></code> <code><a href="location_predicates.html">`%is_on_positive_side%`</a></code> <code><a href="location_predicates.html">has_on_negative_side()</a></code> <code><a href="location_predicates.html">`%is_on_negative_side%`</a></code> </p>
+        </td>
+        <td><p>Query location of points relative to geometry</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-transformations" class="hasAnchor"><a href="#section-transformations" class="anchor"></a>Transformations</h2>
+          <p class="section-desc"><p>Geometries can be transformed by affine transformation matrices using the <code><a href="https://rdrr.io/r/base/transform.html">transform()</a></code> method. In addition, other types of transformations are available, such as projections to lines and planes.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="geometry_projection.html">project()</a></code> <code><a href="geometry_projection.html">map_to()</a></code> </p>
+        </td>
+        <td><p>Project geometries to lines and planes</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-measures" class="hasAnchor"><a href="#section-measures" class="anchor"></a>Measures</h2>
+          <p class="section-desc"><p>Measures on geometries such as area, length, and volume, cannot always be given in exact numbers due to reliance on square roots, pi, and other inexact operations. Because of this they are here provided as approximate measures in the sense that they are subjected to the imprecisions of floating point arithmetic.</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="geometry_measures.html">approx_length()</a></code> <code><a href="geometry_measures.html">approx_area()</a></code> <code><a href="geometry_measures.html">approx_volume()</a></code> </p>
+        </td>
+        <td><p>Approximate geometry measures</p></td>
       </tr>
     </tbody>
     </table>

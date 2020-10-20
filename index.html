@@ -153,35 +153,35 @@
 <span class="co"># Exact numbers behave much like R numerics (though not everything is possible)</span>
 <span class="va">random_num</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>
 <span class="co">#&gt; &lt;Vector of exact numerics&gt;</span>
-<span class="co">#&gt; [1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078</span>
+<span class="co">#&gt; [1] -0.89691455  0.18484918  1.58784533 -1.13037567 -0.08025176</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">random_num</span><span class="op">)</span>
 <span class="co">#&gt; &lt;Vector of exact numerics&gt;</span>
-<span class="co">#&gt; [1] 1.595281</span>
+<span class="co">#&gt; [1] 1.984474</span>
 <span class="va">random_num</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span> <span class="op">*</span> <span class="fl">10</span>
 <span class="co">#&gt; &lt;Vector of exact numerics&gt;</span>
-<span class="co">#&gt; [1] 1.836433</span>
+<span class="co">#&gt; [1] 1.848492</span>
 <span class="va">random_num</span><span class="op">[</span><span class="fl">5</span><span class="op">]</span> <span class="op">+</span> <span class="va">random_num</span><span class="op">[</span><span class="fl">16</span><span class="op">]</span>
 <span class="co">#&gt; &lt;Vector of exact numerics&gt;</span>
-<span class="co">#&gt; [1] 0.2845742</span>
+<span class="co">#&gt; [1] -2.391321</span>
 <span class="fu"><a href="https://rdrr.io/r/base/sum.html">sum</a></span><span class="op">(</span><span class="va">random_num</span><span class="op">)</span>
 <span class="co">#&gt; &lt;Vector of exact numerics&gt;</span>
-<span class="co">#&gt; [1] 3.810478</span>
+<span class="co">#&gt; [1] 3.909221</span>
 
 <span class="co"># With exact numbers we can construct our geometries</span>
 <span class="va">p</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/point.html">point</a></span><span class="op">(</span><span class="va">random_num</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">]</span>, <span class="va">random_num</span><span class="op">[</span><span class="fl">11</span><span class="op">:</span><span class="fl">20</span><span class="op">]</span><span class="op">)</span>
 <span class="va">p</span>
 <span class="co">#&gt; &lt;Vector of points in 2 dimensions&gt;</span>
-<span class="co">#&gt;  [1] &lt;x:-0.626, y:1.51&gt;   &lt;x:0.184, y:0.39&gt;    &lt;x:-0.836, y:-0.621&gt;</span>
-<span class="co">#&gt;  [4] &lt;x:1.6, y:-2.21&gt;     &lt;x:0.33, y:1.12&gt;     &lt;x:-0.82, y:-0.0449&gt;</span>
-<span class="co">#&gt;  [7] &lt;x:0.487, y:-0.0162&gt; &lt;x:0.738, y:0.944&gt;   &lt;x:0.576, y:0.821&gt;  </span>
-<span class="co">#&gt; [10] &lt;x:-0.305, y:0.594&gt;</span>
+<span class="co">#&gt;  [1] &lt;x:-0.897, y:0.418&gt; &lt;x:0.185, y:0.982&gt;  &lt;x:1.59, y:-0.393&gt; </span>
+<span class="co">#&gt;  [4] &lt;x:-1.13, y:-1.04&gt;  &lt;x:-0.0803, y:1.78&gt; &lt;x:0.132, y:-2.31&gt; </span>
+<span class="co">#&gt;  [7] &lt;x:0.708, y:0.879&gt;  &lt;x:-0.24, y:0.0358&gt; &lt;x:1.98, y:1.01&gt;   </span>
+<span class="co">#&gt; [10] &lt;x:-0.139, y:0.432&gt;</span>
 
 <span class="co"># Create a line based on a vector, going through the origin</span>
 <span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/line.html">line</a></span><span class="op">(</span><span class="fu"><a href="reference/point.html">point</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">0</span><span class="op">)</span>, <span class="fu"><a href="reference/vec.html">vec</a></span><span class="op">(</span><span class="fl">3</span>, <span class="fl">7</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># Which points lies on the positive side of the line?</span>
-<span class="fu"><a href="reference/location_predicates.html">has_on_positive_side</a></span><span class="op">(</span><span class="va">l</span>, <span class="va">p</span><span class="op">)</span>
-<span class="co">#&gt;  [1]  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE</span>
+<span class="va">p</span> <span class="op">%is_on_positive_side%</span> <span class="va">l</span>
+<span class="co">#&gt;  [1]  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE  TRUE</span>
 
 <span class="co"># Project points to line</span>
 <span class="va">p1</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/geometry_projection.html">project</a></span><span class="op">(</span><span class="va">p</span>, <span class="va">l</span><span class="op">)</span>
@@ -194,15 +194,15 @@
 <span class="va">t</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/triangle.html">triangle</a></span><span class="op">(</span><span class="fu"><a href="reference/point.html">point</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">rnorm</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">p1</span><span class="op">)</span><span class="op">)</span>
 <span class="va">t</span>
 <span class="co">#&gt; &lt;Vector of triangles in 2 dimensions&gt;</span>
-<span class="co">#&gt; [1] [&lt;x:0.919, y:0.782&gt;, &lt;x:-0.554, y:-1.29&gt;, &lt;x:0.458, y:1.07&gt;]</span>
+<span class="co">#&gt; [1] [&lt;x:2.09, y:-1.2&gt;, &lt;x:-0.816, y:-1.9&gt;, &lt;x:0.675, y:1.57&gt;]</span>
 
 <span class="co"># Which points lies inside the triangle?</span>
 <span class="va">p</span> <span class="op">%is_inside%</span> <span class="va">t</span>
-<span class="co">#&gt;  [1] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE</span>
+<span class="co">#&gt;  [1] FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE</span>
 
 <span class="co"># Area of t (cannot be given exact for all geometries so is returned as numerics)</span>
 <span class="fu"><a href="reference/geometry_measures.html">approx_area</a></span><span class="op">(</span><span class="va">t</span><span class="op">)</span>
-<span class="co">#&gt; [1] -0.6897651</span></pre></div>
+<span class="co">#&gt; [1] -4.531123</span></pre></div>
 </div>
 <div id="code-of-conduct" class="section level2">
 <h2 class="hasAnchor">
