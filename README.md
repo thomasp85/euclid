@@ -104,35 +104,35 @@ random_num <- exact_numeric(rnorm(20))
 # Exact numbers behave much like R numerics (though not everything is possible)
 random_num[1:5]
 #> <Vector of exact numerics>
-#> [1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078
+#> [1] -0.89691455  0.18484918  1.58784533 -1.13037567 -0.08025176
 max(random_num)
 #> <Vector of exact numerics>
-#> [1] 1.595281
+#> [1] 1.984474
 random_num[2] * 10
 #> <Vector of exact numerics>
-#> [1] 1.836433
+#> [1] 1.848492
 random_num[5] + random_num[16]
 #> <Vector of exact numerics>
-#> [1] 0.2845742
+#> [1] -2.391321
 sum(random_num)
 #> <Vector of exact numerics>
-#> [1] 3.810478
+#> [1] 3.909221
 
 # With exact numbers we can construct our geometries
 p <- point(random_num[1:10], random_num[11:20])
 p
 #> <Vector of points in 2 dimensions>
-#>  [1] <x:-0.626, y:1.51>   <x:0.184, y:0.39>    <x:-0.836, y:-0.621>
-#>  [4] <x:1.6, y:-2.21>     <x:0.33, y:1.12>     <x:-0.82, y:-0.0449>
-#>  [7] <x:0.487, y:-0.0162> <x:0.738, y:0.944>   <x:0.576, y:0.821>  
-#> [10] <x:-0.305, y:0.594>
+#>  [1] <x:-0.897, y:0.418> <x:0.185, y:0.982>  <x:1.59, y:-0.393> 
+#>  [4] <x:-1.13, y:-1.04>  <x:-0.0803, y:1.78> <x:0.132, y:-2.31> 
+#>  [7] <x:0.708, y:0.879>  <x:-0.24, y:0.0358> <x:1.98, y:1.01>   
+#> [10] <x:-0.139, y:0.432>
 
 # Create a line based on a vector, going through the origin
 l <- line(point(0, 0), vec(3, 7))
 
 # Which points lies on the positive side of the line?
-has_on_positive_side(l, p)
-#>  [1]  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE FALSE  TRUE
+p %is_on_positive_side% l
+#>  [1]  TRUE  TRUE FALSE  TRUE  TRUE FALSE FALSE  TRUE FALSE  TRUE
 
 # Project points to line
 p1 <- project(p, l)
@@ -145,15 +145,15 @@ p1 %is_on% l
 t <- triangle(point(rnorm(1), rnorm(1)), min(p1), max(p1))
 t
 #> <Vector of triangles in 2 dimensions>
-#> [1] [<x:0.919, y:0.782>, <x:-0.554, y:-1.29>, <x:0.458, y:1.07>]
+#> [1] [<x:2.09, y:-1.2>, <x:-0.816, y:-1.9>, <x:0.675, y:1.57>]
 
 # Which points lies inside the triangle?
 p %is_inside% t
-#>  [1] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE
+#>  [1] FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
 
 # Area of t (cannot be given exact for all geometries so is returned as numerics)
 approx_area(t)
-#> [1] -0.6897651
+#> [1] -4.531123
 ```
 
 ## Code of Conduct

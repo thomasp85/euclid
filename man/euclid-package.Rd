@@ -16,6 +16,7 @@ Provides a rich framework for doing computation geometry by
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://r-euclid.com}
   \item \url{https://github.com/thomasp85/euclid}
   \item Report bugs at \url{https://github.com/thomasp85/euclid/issues}
 }

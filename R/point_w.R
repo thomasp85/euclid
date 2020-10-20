@@ -65,7 +65,7 @@ is_weighted_point <- function(x) inherits(x, "euclid_point_w")
 
 # Conversion --------------------------------------------------------------
 
-#' @rdname point
+#' @rdname weighted_point
 #' @export
 as_weighted_point <- function(x) {
   UseMethod("as_weighted_point")

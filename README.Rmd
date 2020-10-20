@@ -11,7 +11,7 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
-set.seed(1)
+set.seed(2)
 ```
 
 # euclid <a href='https://euclid.data-imaginist.com'><img src="man/figures/logo.png" align="right" height="138.5"/></a>
@@ -108,7 +108,7 @@ p
 l <- line(point(0, 0), vec(3, 7))
 
 # Which points lies on the positive side of the line?
-has_on_positive_side(l, p)
+p %is_on_positive_side% l
 
 # Project points to line
 p1 <- project(p, l)

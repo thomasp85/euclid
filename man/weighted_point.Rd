@@ -3,11 +3,14 @@
 \name{weighted_point}
 \alias{weighted_point}
 \alias{is_weighted_point}
+\alias{as_weighted_point}
 \title{Vector of weighted points}
 \usage{
 weighted_point(..., default_dim = 2)
 
 is_weighted_point(x)
+
+as_weighted_point(x)
 }
 \arguments{
 \item{...}{Various input. See the Constructor section.}
