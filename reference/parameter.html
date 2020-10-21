@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Vector of directions — direction • euclid</title>
+<title>Access the exact values that defines the geometries — parameter • euclid</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,14 +46,12 @@
 
 
 
-<meta property="og:title" content="Vector of directions — direction" />
-<meta property="og:description" content="Directions are vectors where you have forgot about the length. They are used
-mutch in the same way as normalised vectors (vectors with a magnitude of 1),
-but since vectors cannot be normalized while maintaining exactness it is
-preferable to simply have a data type where you ignore the magnitude. The
-direction can be flipped by taking the negative. 2 dimensional directions can
-be considered as angles and can thus be sorted and compared. The same is not
-true for directions in 3 dimensions." />
+<meta property="og:title" content="Access the exact values that defines the geometries — parameter" />
+<meta property="og:description" content="This function gives access to the underlying values defining the geometries
+in a vector. As such they return the same information as calling
+as.matrix() on a geometry vector except the return value is kept as an
+exact numeric and that you can extract from single elements if the
+cardinality of the geometry exceeds 1." />
 <meta property="og:image" content="https://r-euclid.com/reference/figures/card.png" />
 <meta property="og:image:alt" content="euclid: Exact compuational geometry in R" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -126,92 +124,60 @@ true for directions in 3 dimensions." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Vector of directions</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/direction.R'><code>R/direction.R</code></a></small>
-    <div class="hidden name"><code>direction.Rd</code></div>
+    <h1>Access the exact values that defines the geometries</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/definition.R'><code>R/definition.R</code></a></small>
+    <div class="hidden name"><code>parameter.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Directions are vectors where you have forgot about the length. They are used
-mutch in the same way as normalised vectors (vectors with a magnitude of 1),
-but since vectors cannot be normalized while maintaining exactness it is
-preferable to simply have a data type where you ignore the magnitude. The
-direction can be flipped by taking the negative. 2 dimensional directions can
-be considered as angles and can thus be sorted and compared. The same is not
-true for directions in 3 dimensions.</p>
+    <p>This function gives access to the underlying values defining the geometries
+in a vector. As such they return the same information as calling
+<code><a href='https://rdrr.io/r/base/matrix.html'>as.matrix()</a></code> on a geometry vector except the return value is kept as an
+exact numeric and that you can extract from single elements if the
+cardinality of the geometry exceeds 1.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>direction</span><span class='op'>(</span><span class='va'>...</span>, default_dim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>parameter</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>is_direction</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+<span class='co'># S3 method for euclid_geometry</span>
+<span class='fu'>parameter</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>which</span>, element <span class='op'>=</span> <span class='cn'>NA</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>between</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>d1</span>, <span class='va'>d2</span><span class='op'>)</span>
-
-<span class='fu'>as_direction</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+<span class='co'># S3 method for euclid_affine_transformation</span>
+<span class='fu'>parameter</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>i</span>, <span class='va'>j</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Various input. See the Constructor section.</p></td>
-    </tr>
-    <tr>
-      <th>default_dim</th>
-      <td><p>The dimensionality when constructing an empty vector</p></td>
-    </tr>
-    <tr>
       <th>x</th>
-      <td><p>A direction vector or an object to convert to it</p></td>
+      <td><p>A geometry vector</p></td>
     </tr>
     <tr>
-      <th>d1, d2</th>
-      <td><p>direction vectors to relate to</p></td>
+      <th>...</th>
+      <td><p>parameters to pass on</p></td>
+    </tr>
+    <tr>
+      <th>which</th>
+      <td><p>Either a name or the index of the definition to extract, as
+matched to <code><a href='euclid_geometry.html'>definition_names(x)</a></code></p></td>
+    </tr>
+    <tr>
+      <th>element</th>
+      <td><p>For geometries with a cardinality above 1, which element of
+the geometry should the definition be extracted for. If <code>NA</code> the definition
+for all elements will be returned and the length of the returned vector will
+be <code><a href='https://rdrr.io/r/base/sum.html'>sum(cardinality(x))</a></code> (matching the return of <code><a href='https://rdrr.io/r/base/matrix.html'>as.matrix(x)</a></code>)</p></td>
+    </tr>
+    <tr>
+      <th>i, j</th>
+      <td><p>The row and column of the cell in the transformation to fetch.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <code>euclid_direction</code> vector</p>
-    <h2 class="hasAnchor" id="constructors"><a class="anchor" href="#constructors"></a>Constructors</h2>
+    <p>An exact_numeric vector</p>
 
-    
-
-<p><strong>2 and 3 dimensional directions</strong></p><ul>
-<li><p>Providing 2 or 3 numerics will create directions with the given delta
-values. (2 numerics will give 2 dimensional directions, 3 will give 3
-dimensional directions).</p></li>
-<li><p>Providing vectors will construct directions as the direction of the given
-vectors.</p></li>
-<li><p>Providing lines will construct directions as the direction of the given
-lines.</p></li>
-<li><p>Providing rays will construct directions as the direction of the given
-rays.</p></li>
-<li><p>Providing segments will construct directions as the direction of the given
-segments.</p></li>
-</ul>
-
-
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Constructions</span>
-<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'>direction</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>3</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
-
-<span class='co'># flipping the direction</span>
-<span class='op'>-</span><span class='va'>d</span>
-</div><div class='output co'>#&gt; &lt;Vector of directions in 2 dimensions&gt;
-#&gt; [1] &lt;dx:-9, dy:-7&gt; &lt;dx:-2, dy:-6&gt; &lt;dx:-6, dy:-9&gt;</div><div class='input'>
-<span class='co'># Relations</span>
-<span class='va'>d</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>&lt;</span> <span class='va'>d</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of directions in 2 dimensions&gt;
-#&gt; [1] &lt;dx:9, dy:7&gt;</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of directions in 2 dimensions&gt;
-#&gt; [1] &lt;dx:9, dy:7&gt; &lt;dx:6, dy:9&gt; &lt;dx:2, dy:6&gt;</div><div class='input'>
-<span class='fu'>between</span><span class='op'>(</span><span class='va'>d</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>d</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>d</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
