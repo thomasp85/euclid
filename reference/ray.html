@@ -188,30 +188,30 @@ lie on line.</p></li>
 <span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'>ray</span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>
 <span class='va'>r</span>
 </div><div class='output co'>#&gt; &lt;Vector of rays in 2 dimensions&gt;
-#&gt; [1] &lt;x:7, y:1, dx:-3, dy:8&gt;</div><div class='input'>
+#&gt; [1] &lt;x:6, y:10, dx:-4, dy:-8&gt;</div><div class='input'>
 <span class='fu'>ray</span><span class='op'>(</span><span class='va'>p</span>, <span class='op'>-</span><span class='fu'><a href='vec.html'>as_vec</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;Vector of rays in 2 dimensions&gt;
-#&gt; [1] &lt;x:7, y:1, dx:-7, dy:-1&gt; &lt;x:4, y:9, dx:-4, dy:-9&gt;</div><div class='input'>
+#&gt; [1] &lt;x:6, y:10, dx:-6, dy:-10&gt; &lt;x:2, y:2, dx:-2, dy:-2&gt;  </div><div class='input'>
 <span class='fu'>ray</span><span class='op'>(</span><span class='va'>p</span>, <span class='fu'><a href='direction.html'>direction</a></span><span class='op'>(</span><span class='fl'>7</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;Vector of rays in 2 dimensions&gt;
-#&gt; [1] &lt;x:7, y:1, dx:7, dy:-2&gt; &lt;x:4, y:9, dx:7, dy:-2&gt;</div><div class='input'>
+#&gt; [1] &lt;x:6, y:10, dx:7, dy:-2&gt; &lt;x:2, y:2, dx:7, dy:-2&gt; </div><div class='input'>
 <span class='fu'>ray</span><span class='op'>(</span><span class='va'>p</span>, <span class='fu'><a href='line.html'>line</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>10</span>, <span class='op'>-</span><span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;Vector of rays in 2 dimensions&gt;
-#&gt; [1] &lt;x:7, y:1, dx:10, dy:-3&gt; &lt;x:4, y:9, dx:10, dy:-3&gt;</div><div class='input'>
+#&gt; [1] &lt;x:6, y:10, dx:10, dy:-3&gt; &lt;x:2, y:2, dx:10, dy:-3&gt; </div><div class='input'>
 <span class='co'># Flip direction</span>
 <span class='op'>-</span><span class='va'>r</span>
 </div><div class='output co'>#&gt; &lt;Vector of rays in 2 dimensions&gt;
-#&gt; [1] &lt;x:7, y:1, dx:3, dy:-8&gt;</div><div class='input'>
+#&gt; [1] &lt;x:6, y:10, dx:4, dy:8&gt;</div><div class='input'>
 <span class='co'># Convert to vector, direction, or lines</span>
 <span class='fu'><a href='vec.html'>as_vec</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;Vector of vectors in 2 dimensions&gt;
-#&gt; [1] &lt;x:-3, y:8&gt;</div><div class='input'>
+#&gt; [1] &lt;x:-4, y:-8&gt;</div><div class='input'>
 <span class='fu'><a href='direction.html'>as_direction</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;Vector of directions in 2 dimensions&gt;
-#&gt; [1] &lt;dx:-3, dy:8&gt;</div><div class='input'>
+#&gt; [1] &lt;dx:-4, dy:-8&gt;</div><div class='input'>
 <span class='fu'><a href='line.html'>as_line</a></span><span class='op'>(</span><span class='va'>r</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;Vector of lines in 2 dimensions&gt;
-#&gt; [1] &lt;a:-8, b:-3, c:59&gt;</div><div class='input'>
+#&gt; [1] &lt;a:8, b:-4, c:-8&gt;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

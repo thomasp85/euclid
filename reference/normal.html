@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Vector of weighted points — weighted_point • euclid</title>
+<title>Get the normal of a geometry — normal • euclid</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,13 +46,13 @@
 
 
 
-<meta property="og:title" content="Vector of weighted points — weighted_point" />
-<meta property="og:description" content="This class is an extension (but not a subclass of) point(). It simply
-attaches a numeric weight to the point that is carried along with it.
-However, most of the functionality of points are lost with this vector class
-as all the a math and sorting operations are gone due to ambiguity on whether
-to operate on the point or the weight. Weighted points can easily be
-converted to points however." />
+<meta property="og:title" content="Get the normal of a geometry — normal" />
+<meta property="og:description" content="A normal is a direction perpendicular to a geometry. Since normals doesn't
+have any magnitude they are returned as directions rather than vectors.
+Normals are not given for all geometries. In 2 dimensions they are defined
+for line-like geometries (directions, vectors, lines, rays, and segments),
+while in 3 dimensions they are given for plane-like geometries (circles,
+triangles, and planes)." />
 <meta property="og:image" content="https://r-euclid.com/reference/figures/card.png" />
 <meta property="og:image:alt" content="euclid: Exact compuational geometry in R" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -125,81 +125,49 @@ converted to points however." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Vector of weighted points</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/point_w.R'><code>R/point_w.R</code></a></small>
-    <div class="hidden name"><code>weighted_point.Rd</code></div>
+    <h1>Get the normal of a geometry</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/geometry_projection.R'><code>R/geometry_projection.R</code></a></small>
+    <div class="hidden name"><code>normal.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This class is an extension (but not a subclass of) <code><a href='point.html'>point()</a></code>. It simply
-attaches a numeric weight to the point that is carried along with it.
-However, most of the functionality of points are lost with this vector class
-as all the a math and sorting operations are gone due to ambiguity on whether
-to operate on the point or the weight. Weighted points can easily be
-converted to points however.</p>
+    <p>A normal is a direction perpendicular to a geometry. Since normals doesn't
+have any magnitude they are returned as directions rather than vectors.
+Normals are not given for all geometries. In 2 dimensions they are defined
+for line-like geometries (directions, vectors, lines, rays, and segments),
+while in 3 dimensions they are given for plane-like geometries (circles,
+triangles, and planes).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>weighted_point</span><span class='op'>(</span><span class='va'>...</span>, default_dim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-
-<span class='fu'>is_weighted_point</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-
-<span class='fu'>as_weighted_point</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>normal</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Various input. See the Constructor section.</p></td>
-    </tr>
-    <tr>
-      <th>default_dim</th>
-      <td><p>The dimensionality when constructing an empty vector</p></td>
-    </tr>
-    <tr>
       <th>x</th>
-      <td><p>A point vector or an object to convert to it</p></td>
+      <td><p>A geometry vector</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <code>euclid_point_w</code> vector</p>
-    <h2 class="hasAnchor" id="constructors"><a class="anchor" href="#constructors"></a>Constructors</h2>
-
-    
-
-<p><strong>2 dimensional weighted points</strong></p><ul>
-<li><p>Providing three numeric vector will construct points with those x and y
-coordinate and a weight.</p></li>
-<li><p>Providing a point and a numeric will construct points with the given weight</p></li>
-</ul>
-
-<p><strong>3 dimensional weighted points</strong></p><ul>
-<li><p>Providing four numeric vector will construct points with those x, y and z
-coordinate and a weight.</p></li>
-<li><p>Providing a point and a numeric will construct points with the given weight</p></li>
-</ul>
-
+    <p>A vector of directions with the same dimensionality as the input</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Construction</span>
-<span class='va'>wp</span> <span class='op'>&lt;-</span> <span class='fu'>weighted_point</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>wp</span>
-</div><div class='output co'>#&gt; &lt;Vector of point_ws in 2 dimensions&gt;
-#&gt; [1] &lt;x:3, y:3, w:0.749&gt; &lt;x:4, y:4, w:0.913&gt; &lt;x:5, y:2, w:0.204&gt;
-#&gt; [4] &lt;x:2, y:5, w:0.472&gt; &lt;x:1, y:1, w:0.385&gt;</div><div class='input'>
-<span class='co'># Convert to point</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>as_point</a></span><span class='op'>(</span><span class='va'>wp</span><span class='op'>)</span>
-<span class='va'>p</span>
-</div><div class='output co'>#&gt; &lt;Vector of points in 2 dimensions&gt;
-#&gt; [1] &lt;x:3, y:3&gt; &lt;x:4, y:4&gt; &lt;x:5, y:2&gt; &lt;x:2, y:5&gt; &lt;x:1, y:1&gt;</div><div class='input'>
-<span class='co'># Construct from point and weight</span>
-
-<span class='fu'>weighted_point</span><span class='op'>(</span><span class='va'>p</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of point_ws in 2 dimensions&gt;
-#&gt; [1] &lt;x:3, y:3, w:1&gt; &lt;x:4, y:4, w:2&gt; &lt;x:5, y:2, w:3&gt; &lt;x:2, y:5, w:4&gt;
-#&gt; [5] &lt;x:1, y:1, w:5&gt;</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='co'># Get normals to a vector of directions</span>
+<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='direction.html'>direction</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>normal</span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of directions in 2 dimensions&gt;
+#&gt; [1] &lt;dx:-4, dy:8&gt;  &lt;dx:-8, dy:4&gt;  &lt;dx:-2, dy:1&gt;  &lt;dx:-7, dy:10&gt; &lt;dx:-1, dy:5&gt; </div><div class='input'>
+<span class='co'># Get the normal of a triangle</span>
+<span class='va'>t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='triangle.html'>triangle</a></span><span class='op'>(</span><span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>7</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>9</span>, <span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>6</span>, <span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>normal</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of directions in 3 dimensions&gt;
+#&gt; [1] &lt;dx:-35, dy:-35, dz:-20&gt;</div><div class='input'>
+<span class='co'># equivalent to the normal of the supporting plane</span>
+<span class='fu'>normal</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'>normal</span><span class='op'>(</span><span class='fu'><a href='plane.html'>as_plane</a></span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
