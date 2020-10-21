@@ -31,9 +31,6 @@
     <loc>https://r-euclid.com/reference/geometry_measures.html</loc>
   </url>
   <url>
-    <loc>https://r-euclid.com/reference/geometry_projection.html</loc>
-  </url>
-  <url>
     <loc>https://r-euclid.com/reference/is_degenerate.html</loc>
   </url>
   <url>
@@ -49,6 +46,9 @@
     <loc>https://r-euclid.com/reference/location_predicates.html</loc>
   </url>
   <url>
+    <loc>https://r-euclid.com/reference/map_to.html</loc>
+  </url>
+  <url>
     <loc>https://r-euclid.com/reference/parameter.html</loc>
   </url>
   <url>
@@ -56,6 +56,9 @@
   </url>
   <url>
     <loc>https://r-euclid.com/reference/point.html</loc>
+  </url>
+  <url>
+    <loc>https://r-euclid.com/reference/project.html</loc>
   </url>
   <url>
     <loc>https://r-euclid.com/reference/ray.html</loc>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Vector of weighted points — weighted_point • euclid</title>
+<title>Project geometries to lines and planes — project • euclid</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,13 +46,18 @@
 
 
 
-<meta property="og:title" content="Vector of weighted points — weighted_point" />
-<meta property="og:description" content="This class is an extension (but not a subclass of) point(). It simply
-attaches a numeric weight to the point that is carried along with it.
-However, most of the functionality of points are lost with this vector class
-as all the a math and sorting operations are gone due to ambiguity on whether
-to operate on the point or the weight. Weighted points can easily be
-converted to points however." />
+<meta property="og:title" content="Project geometries to lines and planes — project" />
+<meta property="og:description" content="Projecting geometries to lines and planes transforms the geometries to lie on
+the given line or plane by movement orthogonal to the line or plane. The
+geometry of the result of the projection is the same as the input. Not all
+geometries can be projected to lines and planes. Specifically, iso rectangles
+and iso cubes cannot do either and only 3 dimensional geometries can be
+projected to a plane. Circles and spheres are special in the sense that no
+ellipse and ellipsoid primitives exist. Because of this, projections will
+retain the radius and circularity of the primitives despite this not being
+geometrically sound. Projecting a 3D circle to a line will keep the
+orientation of the circle, while projecting it to a plane will adopt the
+orientation of the plane." />
 <meta property="og:image" content="https://r-euclid.com/reference/figures/card.png" />
 <meta property="og:image:alt" content="euclid: Exact compuational geometry in R" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -125,81 +130,59 @@ converted to points however." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Vector of weighted points</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/point_w.R'><code>R/point_w.R</code></a></small>
-    <div class="hidden name"><code>weighted_point.Rd</code></div>
+    <h1>Project geometries to lines and planes</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/geometry_projection.R'><code>R/geometry_projection.R</code></a></small>
+    <div class="hidden name"><code>project.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This class is an extension (but not a subclass of) <code><a href='point.html'>point()</a></code>. It simply
-attaches a numeric weight to the point that is carried along with it.
-However, most of the functionality of points are lost with this vector class
-as all the a math and sorting operations are gone due to ambiguity on whether
-to operate on the point or the weight. Weighted points can easily be
-converted to points however.</p>
+    <p>Projecting geometries to lines and planes transforms the geometries to lie on
+the given line or plane by movement orthogonal to the line or plane. The
+geometry of the result of the projection is the same as the input. Not all
+geometries can be projected to lines and planes. Specifically, iso rectangles
+and iso cubes cannot do either and only 3 dimensional geometries can be
+projected to a plane. Circles and spheres are special in the sense that no
+ellipse and ellipsoid primitives exist. Because of this, projections will
+retain the radius and circularity of the primitives despite this not being
+geometrically sound. Projecting a 3D circle to a line will keep the
+orientation of the circle, while projecting it to a plane will adopt the
+orientation of the plane.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>weighted_point</span><span class='op'>(</span><span class='va'>...</span>, default_dim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-
-<span class='fu'>is_weighted_point</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-
-<span class='fu'>as_weighted_point</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>project</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>target</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Various input. See the Constructor section.</p></td>
-    </tr>
-    <tr>
-      <th>default_dim</th>
-      <td><p>The dimensionality when constructing an empty vector</p></td>
-    </tr>
-    <tr>
       <th>x</th>
-      <td><p>A point vector or an object to convert to it</p></td>
+      <td><p>A vector of geometries to project or map</p></td>
+    </tr>
+    <tr>
+      <th>target</th>
+      <td><p>A vector of lines or planes</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <code>euclid_point_w</code> vector</p>
-    <h2 class="hasAnchor" id="constructors"><a class="anchor" href="#constructors"></a>Constructors</h2>
-
-    
-
-<p><strong>2 dimensional weighted points</strong></p><ul>
-<li><p>Providing three numeric vector will construct points with those x and y
-coordinate and a weight.</p></li>
-<li><p>Providing a point and a numeric will construct points with the given weight</p></li>
-</ul>
-
-<p><strong>3 dimensional weighted points</strong></p><ul>
-<li><p>Providing four numeric vector will construct points with those x, y and z
-coordinate and a weight.</p></li>
-<li><p>Providing a point and a numeric will construct points with the given weight</p></li>
-</ul>
-
+    <p>A vector of geometries of the same class as <code>x</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Construction</span>
-<span class='va'>wp</span> <span class='op'>&lt;-</span> <span class='fu'>weighted_point</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>wp</span>
-</div><div class='output co'>#&gt; &lt;Vector of point_ws in 2 dimensions&gt;
-#&gt; [1] &lt;x:4, y:2, w:0.553&gt; &lt;x:5, y:5, w:0.219&gt; &lt;x:1, y:1, w:0.647&gt;
-#&gt; [4] &lt;x:2, y:4, w:0.728&gt; &lt;x:3, y:3, w:0.873&gt;</div><div class='input'>
-<span class='co'># Convert to point</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>as_point</a></span><span class='op'>(</span><span class='va'>wp</span><span class='op'>)</span>
-<span class='va'>p</span>
-</div><div class='output co'>#&gt; &lt;Vector of points in 2 dimensions&gt;
-#&gt; [1] &lt;x:4, y:2&gt; &lt;x:5, y:5&gt; &lt;x:1, y:1&gt; &lt;x:2, y:4&gt; &lt;x:3, y:3&gt;</div><div class='input'>
-<span class='co'># Construct from point and weight</span>
+    <pre class="examples"><div class='input'><span class='co'># Project a collection of segments to a line</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='segment.html'>segment</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>6</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span><span class='op'>)</span>
 
-<span class='fu'>weighted_point</span><span class='op'>(</span><span class='va'>p</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of point_ws in 2 dimensions&gt;
-#&gt; [1] &lt;x:4, y:2, w:1&gt; &lt;x:5, y:5, w:2&gt; &lt;x:1, y:1, w:3&gt; &lt;x:2, y:4, w:4&gt;
-#&gt; [5] &lt;x:3, y:3, w:5&gt;</div><div class='input'>
+<span class='fu'>project</span><span class='op'>(</span><span class='va'>s</span>, <span class='fu'><a href='line.html'>line</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of segments in 2 dimensions&gt;
+#&gt; [1] [&lt;x:-0.5, y:7.5&gt;, &lt;x:0.1, y:5.7&gt;] [&lt;x:1.8, y:0.6&gt;, &lt;x:-0.1, y:6.3&gt;]
+#&gt; [3] [&lt;x:0.7, y:3.9&gt;, &lt;x:1.1, y:2.7&gt;]  [&lt;x:2, y:0&gt;, &lt;x:0.7, y:3.9&gt;]     
+#&gt; [5] [&lt;x:0.6, y:4.2&gt;, &lt;x:0.6, y:4.2&gt;] </div><div class='input'>
+<span class='co'># Project a line to the x plane</span>
+<span class='fu'>project</span><span class='op'>(</span><span class='fu'><a href='line.html'>line</a></span><span class='op'>(</span><span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>7</span>, <span class='op'>-</span><span class='fl'>3</span><span class='op'>)</span>, <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>2</span>, <span class='fl'>6</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>,
+        <span class='fu'><a href='plane.html'>plane</a></span><span class='op'>(</span><span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>, <span class='fu'><a href='vec.html'>vec</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of lines in 3 dimensions&gt;
+#&gt; [1] &lt;x:0, y:7, z:-3, dx:0, dy:-1, dz:3&gt;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

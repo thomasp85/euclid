@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Vector of weighted points — weighted_point • euclid</title>
+<title>Map 3D geometries to 2D based on plane — map_to • euclid</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,13 +46,14 @@
 
 
 
-<meta property="og:title" content="Vector of weighted points — weighted_point" />
-<meta property="og:description" content="This class is an extension (but not a subclass of) point(). It simply
-attaches a numeric weight to the point that is carried along with it.
-However, most of the functionality of points are lost with this vector class
-as all the a math and sorting operations are gone due to ambiguity on whether
-to operate on the point or the weight. Weighted points can easily be
-converted to points however." />
+<meta property="og:title" content="Map 3D geometries to 2D based on plane — map_to" />
+<meta property="og:description" content="3 dimensional geometries can be converted to 2 dimensions by mapping them to
+a plane. Not all 3 dimensional geometries can be converted to 2 dimensions as
+it requires for them to have a 2 dimensional counterpart. This rules out iso
+cubes, planes, and tetrahedrons. Spheres are a special case that will get
+converted to circles with the same radius. As no ellipsoid geometry exist
+the plane of circles is ignored and mapping a 3D circles thus creates a 2D
+circle of the same radius irrespective of the supporting plane of the circle." />
 <meta property="og:image" content="https://r-euclid.com/reference/figures/card.png" />
 <meta property="og:image:alt" content="euclid: Exact compuational geometry in R" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -125,81 +126,48 @@ converted to points however." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Vector of weighted points</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/point_w.R'><code>R/point_w.R</code></a></small>
-    <div class="hidden name"><code>weighted_point.Rd</code></div>
+    <h1>Map 3D geometries to 2D based on plane</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/geometry_projection.R'><code>R/geometry_projection.R</code></a></small>
+    <div class="hidden name"><code>map_to.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This class is an extension (but not a subclass of) <code><a href='point.html'>point()</a></code>. It simply
-attaches a numeric weight to the point that is carried along with it.
-However, most of the functionality of points are lost with this vector class
-as all the a math and sorting operations are gone due to ambiguity on whether
-to operate on the point or the weight. Weighted points can easily be
-converted to points however.</p>
+    <p>3 dimensional geometries can be converted to 2 dimensions by mapping them to
+a plane. Not all 3 dimensional geometries can be converted to 2 dimensions as
+it requires for them to have a 2 dimensional counterpart. This rules out iso
+cubes, planes, and tetrahedrons. Spheres are a special case that will get
+converted to circles with the same radius. As no ellipsoid geometry exist
+the plane of circles is ignored and mapping a 3D circles thus creates a 2D
+circle of the same radius irrespective of the supporting plane of the circle.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>weighted_point</span><span class='op'>(</span><span class='va'>...</span>, default_dim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-
-<span class='fu'>is_weighted_point</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-
-<span class='fu'>as_weighted_point</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>map_to</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>target</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Various input. See the Constructor section.</p></td>
-    </tr>
-    <tr>
-      <th>default_dim</th>
-      <td><p>The dimensionality when constructing an empty vector</p></td>
-    </tr>
-    <tr>
       <th>x</th>
-      <td><p>A point vector or an object to convert to it</p></td>
+      <td><p>A vector of geometries to project or map</p></td>
+    </tr>
+    <tr>
+      <th>target</th>
+      <td><p>A vector of planes</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <code>euclid_point_w</code> vector</p>
-    <h2 class="hasAnchor" id="constructors"><a class="anchor" href="#constructors"></a>Constructors</h2>
-
-    
-
-<p><strong>2 dimensional weighted points</strong></p><ul>
-<li><p>Providing three numeric vector will construct points with those x and y
-coordinate and a weight.</p></li>
-<li><p>Providing a point and a numeric will construct points with the given weight</p></li>
-</ul>
-
-<p><strong>3 dimensional weighted points</strong></p><ul>
-<li><p>Providing four numeric vector will construct points with those x, y and z
-coordinate and a weight.</p></li>
-<li><p>Providing a point and a numeric will construct points with the given weight</p></li>
-</ul>
-
+    <p>A vector of geometries in 2 dimensions</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Construction</span>
-<span class='va'>wp</span> <span class='op'>&lt;-</span> <span class='fu'>weighted_point</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>wp</span>
-</div><div class='output co'>#&gt; &lt;Vector of point_ws in 2 dimensions&gt;
-#&gt; [1] &lt;x:4, y:2, w:0.553&gt; &lt;x:5, y:5, w:0.219&gt; &lt;x:1, y:1, w:0.647&gt;
-#&gt; [4] &lt;x:2, y:4, w:0.728&gt; &lt;x:3, y:3, w:0.873&gt;</div><div class='input'>
-<span class='co'># Convert to point</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>as_point</a></span><span class='op'>(</span><span class='va'>wp</span><span class='op'>)</span>
-<span class='va'>p</span>
+    <pre class="examples"><div class='input'><span class='co'># Map a 3D point cloud to a plane defined by three random points</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>support</span> <span class='op'>&lt;-</span> <span class='va'>p</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>3</span><span class='op'>)</span><span class='op'>]</span>
+<span class='fu'>map_to</span><span class='op'>(</span><span class='va'>p</span>, <span class='fu'><a href='plane.html'>plane</a></span><span class='op'>(</span><span class='va'>support</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>support</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>support</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;Vector of points in 2 dimensions&gt;
-#&gt; [1] &lt;x:4, y:2&gt; &lt;x:5, y:5&gt; &lt;x:1, y:1&gt; &lt;x:2, y:4&gt; &lt;x:3, y:3&gt;</div><div class='input'>
-<span class='co'># Construct from point and weight</span>
-
-<span class='fu'>weighted_point</span><span class='op'>(</span><span class='va'>p</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of point_ws in 2 dimensions&gt;
-#&gt; [1] &lt;x:4, y:2, w:1&gt; &lt;x:5, y:5, w:2&gt; &lt;x:1, y:1, w:3&gt; &lt;x:2, y:4, w:4&gt;
-#&gt; [5] &lt;x:3, y:3, w:5&gt;</div><div class='input'>
+#&gt;  [1] &lt;x:10, y:-1.8&gt; &lt;x:8, y:-1.4&gt;  &lt;x:6, y:-2&gt;    &lt;x:1, y:-5&gt;    &lt;x:4, y:-3&gt;   
+#&gt;  [6] &lt;x:9, y:0&gt;     &lt;x:3, y:-1.2&gt;  &lt;x:2, y:-3.2&gt;  &lt;x:5, y:-3.2&gt;  &lt;x:7, y:-2.2&gt; </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
