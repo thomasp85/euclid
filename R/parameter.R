@@ -20,20 +20,20 @@
 #'
 #' @export
 #'
-definition <- function(x, ...) {
-  UseMethod("definition")
+parameter <- function(x, ...) {
+  UseMethod("parameter")
 }
-#' @rdname definition
+#' @rdname parameter
 #' @export
-definition.euclid_geometry <- function(x, which, element = NA, ...) {
+parameter.euclid_geometry <- function(x, which, element = NA, ...) {
   def_names <- definition_names(x)
   if (length(which) != 1) {
-    rlang::abort("It is only possible to select a single definition at a time")
+    rlang::abort("It is only possible to select a single parameter at a time")
   }
   if (is.character(which)) {
     index <- match(which, def_names)
     if (is.na(index)) {
-      rlang::abort(paste0(which, " does not name a definition in the geometry"))
+      rlang::abort(paste0(which, " does not name a parameter in the geometry"))
     }
   } else {
     index <- as.integer(which)
@@ -52,9 +52,9 @@ definition.euclid_geometry <- function(x, which, element = NA, ...) {
   }
   new_exact_numeric(geometry_definition(get_ptr(x), index - 1L, element - 1L))
 }
-#' @rdname definition
+#' @rdname parameter
 #' @export
-definition.euclid_affine_transformation <- function(x, i, j, ...) {
+parameter.euclid_affine_transformation <- function(x, i, j, ...) {
   n <- max(length(x), length(i), length(j))
   if (length(x) == 1) {
     x <- rep_len(x, n)
