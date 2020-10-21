@@ -516,6 +516,10 @@ geometry_map_to_plane <- function(geometries, planes) {
   .Call("_euclid_geometry_map_to_plane", geometries, planes, PACKAGE = "euclid")
 }
 
+geometry_normal <- function(geometries) {
+  .Call("_euclid_geometry_normal", geometries, PACKAGE = "euclid")
+}
+
 create_iso_cube_empty <- function() {
   .Call("_euclid_create_iso_cube_empty", PACKAGE = "euclid")
 }

@@ -907,6 +907,13 @@ extern "C" SEXP _euclid_geometry_map_to_plane(SEXP geometries, SEXP planes) {
     return cpp11::as_sexp(geometry_map_to_plane(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries), cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(planes)));
   END_CPP11
 }
+// geometry_projection.cpp
+geometry_vector_base_p geometry_normal(geometry_vector_base_p geometries);
+extern "C" SEXP _euclid_geometry_normal(SEXP geometries) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_normal(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries)));
+  END_CPP11
+}
 // iso_cube.cpp
 iso_cube_p create_iso_cube_empty();
 extern "C" SEXP _euclid_create_iso_cube_empty() {
@@ -2259,6 +2266,7 @@ extern SEXP _euclid_geometry_is_not_equal(SEXP, SEXP);
 extern SEXP _euclid_geometry_length(SEXP);
 extern SEXP _euclid_geometry_map_to_plane(SEXP, SEXP);
 extern SEXP _euclid_geometry_match(SEXP, SEXP);
+extern SEXP _euclid_geometry_normal(SEXP);
 extern SEXP _euclid_geometry_primitive_type(SEXP);
 extern SEXP _euclid_geometry_project_to_line(SEXP, SEXP);
 extern SEXP _euclid_geometry_project_to_plane(SEXP, SEXP);
@@ -2552,6 +2560,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_geometry_length",                     (DL_FUNC) &_euclid_geometry_length,                     1},
     {"_euclid_geometry_map_to_plane",               (DL_FUNC) &_euclid_geometry_map_to_plane,               2},
     {"_euclid_geometry_match",                      (DL_FUNC) &_euclid_geometry_match,                      2},
+    {"_euclid_geometry_normal",                     (DL_FUNC) &_euclid_geometry_normal,                     1},
     {"_euclid_geometry_primitive_type",             (DL_FUNC) &_euclid_geometry_primitive_type,             1},
     {"_euclid_geometry_project_to_line",            (DL_FUNC) &_euclid_geometry_project_to_line,            2},
     {"_euclid_geometry_project_to_plane",           (DL_FUNC) &_euclid_geometry_project_to_plane,           2},

@@ -23,6 +23,7 @@
 #include "get_vertex.h"
 #include "match.h"
 #include "constant_in.h"
+#include "normal.h"
 
 #include <sstream>
 #include <iomanip>
@@ -106,6 +107,7 @@ public:
   virtual cpp11::external_pointer<geometry_vector_base> project_to_line(const geometry_vector_base& lines) const = 0;
   virtual cpp11::external_pointer<geometry_vector_base> project_to_plane(const geometry_vector_base& planes) const = 0;
   virtual cpp11::external_pointer<geometry_vector_base> map_to_plane(const geometry_vector_base& planes) const = 0;
+  virtual cpp11::external_pointer<geometry_vector_base> normal() const = 0;
 };
 typedef cpp11::external_pointer<geometry_vector_base> geometry_vector_base_p;
 
@@ -116,6 +118,10 @@ template<>
 geometry_vector_base_p create_geometry_vector(std::vector<Point_2>& input);
 template<>
 geometry_vector_base_p create_geometry_vector(std::vector<Point_3>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Direction_2>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Direction_3>& input);
 
 // geometry_vector -------------------------------------------------------------
 
@@ -126,6 +132,7 @@ class geometry_vector : public geometry_vector_base {
   typedef typename std::conditional<dim == 2, Line_2, Line_3>::type Line;
   typedef typename std::conditional<dim == 2, Bbox_2, Bbox_3>::type Bbox;
   typedef typename std::conditional<dim == 2, bbox2, bbox3>::type bbox_vec;
+  typedef typename std::conditional<dim == 2, Direction_2, Direction_3>::type Direction;
 
 protected:
   std::vector<T> _storage;
@@ -709,5 +716,18 @@ public:
     }
 
     return {new_2D_from_vector(result)};
+  }
+  geometry_vector_base_p normal() const {
+    std::vector<Direction> result;
+    result.reserve(size());
+    for (size_t i = 0; i < size(); ++i) {
+      if (!_storage[i]) {
+        result.push_back(Direction::NA_value());
+        continue;
+      }
+      result.push_back(normal_impl<T, Direction>(_storage[i]));
+    }
+
+    return create_geometry_vector(result);
   }
 };

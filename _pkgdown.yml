@@ -84,6 +84,7 @@ reference:
   contents:
   - project
   - map_to
+  - normal
 - title: Measures
   desc: >
     Measures on geometries such as area, length, and volume, cannot always be

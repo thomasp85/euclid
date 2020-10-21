@@ -81,3 +81,37 @@ map_to <- function(x, target) {
   }
   new_geometry_vector(geometry_map_to_plane(get_ptr(x), get_ptr(target)))
 }
+
+#' Get the normal of a geometry
+#'
+#' A normal is a direction perpendicular to a geometry. Since normals doesn't
+#' have any magnitude they are returned as directions rather than vectors.
+#' Normals are not given for all geometries. In 2 dimensions they are defined
+#' for line-like geometries (directions, vectors, lines, rays, and segments),
+#' while in 3 dimensions they are given for plane-like geometries (circles,
+#' triangles, and planes).
+#'
+#' @param x A geometry vector
+#'
+#' @return A vector of directions with the same dimensionality as the input
+#'
+#' @export
+#'
+#' @examples
+#' # Get normals to a vector of directions
+#' d <- direction(sample(10, 5), sample(10,5))
+#' normal(d)
+#'
+#' # Get the normal of a triangle
+#' t <- triangle(point(4, 7, 1), point(9, 2, 1), point(1, 6, 8))
+#' normal(t)
+#'
+#' # equivalent to the normal of the supporting plane
+#' normal(t) == normal(as_plane(t))
+#'
+normal <- function(x) {
+  if (!is_geometry(x)) {
+    rlang::abort("The normal can only be derived from geometries")
+  }
+  new_geometry_vector(geometry_normal(get_ptr(x)))
+}
