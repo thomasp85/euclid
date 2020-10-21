@@ -1,4 +1,5 @@
 #include "exact_numeric.h"
+#include "match.h"
 
 #include <CGAL/number_utils.h>
 #include <CGAL/utils_classes.h>
@@ -369,38 +370,7 @@ cpp11::writable::integers exact_numeric_rank(exact_numeric_p ex_n) {
 }
 
 cpp11::writable::integers exact_numeric::match(const exact_numeric& table) const {
-  std::map<Exact_number, size_t> lookup;
-
-  int NA_ind = -1;
-  for (size_t i = 0; i < table.size(); ++i) {
-    if (!table[i]) {
-      if (NA_ind == -1) NA_ind = i;
-      continue;
-    }
-    if (lookup.find(table[i]) == lookup.end()) {
-      lookup[table[i]] = i;
-    }
-  }
-  cpp11::writable::integers result;
-  result.reserve(size());
-  for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
-    if (!iter->is_valid()) {
-      if (NA_ind == -1) {
-        result.push_back(R_NaInt);
-      } else {
-        result.push_back(NA_ind + 1);
-      }
-      continue;
-    }
-    auto match = lookup.find(*iter);
-    if (match == lookup.end()) {
-      result.push_back(R_NaInt);
-    } else {
-      result.push_back(match->second + 1);
-    }
-  }
-
-  return result;
+  return match_impl(_storage, table._storage);
 }
 [[cpp11::register]]
 cpp11::writable::integers exact_numeric_match(exact_numeric_p ex_n, exact_numeric_p table) {

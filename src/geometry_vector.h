@@ -21,6 +21,7 @@
 #include "geometry_measures.h"
 #include "geometry_projection.h"
 #include "get_vertex.h"
+#include "match.h"
 
 #include <sstream>
 #include <iomanip>
@@ -430,38 +431,7 @@ public:
 
     const geometry_vector<T, dim, U>* table_recast = dynamic_cast< const geometry_vector<T, dim, U>* >(&table);
 
-    int NA_ind = -1;
-
-    std::vector<T> lookup;
-    lookup.reserve(table_recast->size());
-    for (size_t i = 0; i < table_recast->size(); ++i) {
-      if (NA_ind == -1 && !(*table_recast)[i]) {
-        NA_ind = i;
-      }
-      lookup.push_back((*table_recast)[i]);
-    }
-
-    cpp11::writable::integers result;
-    result.reserve(size());
-    auto start = lookup.begin();
-    for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
-      if (!iter->is_valid()) {
-        if (NA_ind == -1) {
-          result.push_back(R_NaInt);
-        } else {
-          result.push_back(NA_ind + 1);
-        }
-        continue;
-      }
-      auto match = std::find(lookup.begin(), lookup.end(), *iter);
-      if (match == lookup.end()) {
-        result.push_back(R_NaInt);
-      } else {
-        result.push_back((match - start) + 1);
-      }
-    }
-
-    return result;
+    return match_impl(_storage, table_recast->_storage);
   }
   cpp11::writable::logicals is_na() const {
     cpp11::writable::logicals result;
