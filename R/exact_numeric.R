@@ -26,23 +26,23 @@
 #' # Standard use
 #' exact_numeric(runif(5))
 #'
-#' # Non-finite numbers not allowed
-#' try(exact_numeric(NaN))
+#' # Non-finite numbers are all converted to NA
+#' exact_numeric(NaN)
 #'
-#' # this also rules out division by zero
-#' try(exact_numeric(runif(5)) / 0)
+#' # this is also true for division by zero
+#' exact_numeric(runif(5)) / 0
 #'
 #' # Exact numerics are more limited on operations but doesn't have the
 #' # weirdness of floating point arithmetic:
-#' identical(
-#'   1/10 + 2/10,
-#'   3/10
-#' )
+#' float <- c(1, 2, 3)
+#' identical(float[1] + float[2], float[3])
+#' float <- float / 10
+#' identical((float[1] + float[2]) * 10, float[3] * 10)
 #'
-#' identical(
-#'   as.numeric(exact_numeric(1)/10 + exact_numeric(2)/10),
-#'   as.numeric(exact_numeric(3)/10)
-#' )
+#' exact <- exact_numeric(c(1, 2, 3))
+#' identical(as.numeric(exact[1] + exact[2]), as.numeric(exact[3]))
+#' exact <- exact / 10
+#' identical(as.numeric((exact[1] + exact[2]) * 10), as.numeric(exact[3] * 10))
 #'
 #' # This only holds if the input are exact to begin with
 #' identical(
