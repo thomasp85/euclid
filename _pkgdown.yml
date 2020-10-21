@@ -83,6 +83,7 @@ reference:
     available, such as projections to lines and planes.
   contents:
   - project
+  - map_to
 - title: Measures
   desc: >
     Measures on geometries such as area, length, and volume, cannot always be
