@@ -8,8 +8,6 @@
 
 class vector2 : public geometry_vector<Vector_2, 2> {
 public:
-  const Primitive geo_type = VECTOR;
-
   using geometry_vector::geometry_vector;
   ~vector2() = default;
 
@@ -28,6 +26,8 @@ public:
   cpp11::writable::strings def_names() const {
     return {"x", "y"};
   }
+
+  Primitive geometry_type() const { return VECTOR; }
 
   Exact_number get_single_definition(size_t i, int which, int element) const {
     switch(which) {
@@ -171,8 +171,6 @@ typedef cpp11::external_pointer<vector2> vector2_p;
 
 class vector3 : public geometry_vector<Vector_3, 3, Vector_2> {
 public:
-  const Primitive geo_type = VECTOR;
-
   using geometry_vector::geometry_vector;
   ~vector3() = default;
 
@@ -188,6 +186,8 @@ public:
     vector2* copy = new vector2(vec);
     return copy;
   }
+
+  Primitive geometry_type() const { return VECTOR; }
 
   cpp11::writable::strings def_names() const {
     return {"x", "y", "z"};

@@ -75,18 +75,15 @@ as_iso_rect.euclid_iso_rect <- function(x) x
 
 # Internal Constructors ---------------------------------------------------
 
-new_iso_rect <- function(x) {
-  new_geometry_vector(x, class = "euclid_iso_rect")
-}
 new_iso_rect_empty <- function() {
-  new_iso_rect(create_iso_rect_empty())
+  new_geometry_vector(create_iso_rect_empty())
 }
 new_iso_rect_from_bbox <- function(bbox) {
-  new_iso_rect(create_iso_rect_bbox(get_ptr(bbox)))
+  new_geometry_vector(create_iso_rect_bbox(get_ptr(bbox)))
 }
 new_iso_rect_from_2_points <- function(p, q) {
-  new_iso_rect(create_iso_rect_pq(get_ptr(p), get_ptr(q)))
+  new_geometry_vector(create_iso_rect_pq(get_ptr(p), get_ptr(q)))
 }
 new_iso_rect_from_4_numbers <- function(l, b, r, t) {
-  new_iso_rect(create_iso_rect_minmax(get_ptr(l), get_ptr(b), get_ptr(r), get_ptr(t)))
+  new_geometry_vector(create_iso_rect_minmax(get_ptr(l), get_ptr(b), get_ptr(r), get_ptr(t)))
 }

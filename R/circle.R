@@ -135,47 +135,41 @@ as_plane.euclid_circle3 <- function(x) {
 
 # Internal Constructors ---------------------------------------------------
 
-new_circle2 <- function(x) {
-  new_geometry_vector(x, class = c("euclid_circle2", "euclid_circle"))
-}
-new_circle3 <- function(x) {
-  new_geometry_vector(x, class = c("euclid_circle3", "euclid_circle"))
-}
 new_circle_empty <- function(dim) {
   if (dim == 2) {
-    new_circle2(create_circle_2_empty())
+    new_geometry_vector(create_circle_2_empty())
   } else {
-    new_circle3(create_circle_3_empty())
+    new_geometry_vector(create_circle_3_empty())
   }
 }
 new_circle_from_point_number <- function(center, r) {
   if (dim(center) != 2) {
     rlang::abort("Circles in 3 dimensions cannot be constructed from center and radius")
   }
-  new_circle2(create_circle_2_center_radius(get_ptr(center), get_ptr(r)))
+  new_geometry_vector(create_circle_2_center_radius(get_ptr(center), get_ptr(r)))
 }
 new_circle_from_point_number_plane <- function(center, r, p) {
-  new_circle3(create_circle_3_center_radius_plane(get_ptr(center), get_ptr(r), get_ptr(p)))
+  new_geometry_vector(create_circle_3_center_radius_plane(get_ptr(center), get_ptr(r), get_ptr(p)))
 }
 new_circle_from_point_number_vec <- function(center, r, v) {
-  new_circle3(create_circle_3_center_radius_vec(get_ptr(center), get_ptr(r), get_ptr(v)))
+  new_geometry_vector(create_circle_3_center_radius_vec(get_ptr(center), get_ptr(r), get_ptr(v)))
 }
 new_circle_from_3_points <- function(p, q, r) {
   if (dim(p) == 2) {
-    new_circle2(create_circle_2_3_point(get_ptr(p), get_ptr(q), get_ptr(r)))
+    new_geometry_vector(create_circle_2_3_point(get_ptr(p), get_ptr(q), get_ptr(r)))
   } else {
-    new_circle3(create_circle_3_3_point(get_ptr(p), get_ptr(q), get_ptr(r)))
+    new_geometry_vector(create_circle_3_3_point(get_ptr(p), get_ptr(q), get_ptr(r)))
   }
 }
 new_circle_from_2_points <- function(p, q) {
   if (dim(p) != 2) {
     rlang::abort("Circles in 3 dimensions cannot be constructed from 2 points")
   }
-  new_circle2(create_circle_2_2_point(get_ptr(p), get_ptr(q)))
+  new_geometry_vector(create_circle_2_2_point(get_ptr(p), get_ptr(q)))
 }
 new_circle_from_2_spheres <- function(s1, s2) {
-  new_circle3(create_circle_3_sphere_sphere(get_ptr(s1), get_ptr(s2)))
+  new_geometry_vector(create_circle_3_sphere_sphere(get_ptr(s1), get_ptr(s2)))
 }
 new_circle_from_sphere_plane <- function(s, p) {
-  new_circle3(create_circle_3_sphere_plane(get_ptr(s), get_ptr(p)))
+  new_geometry_vector(create_circle_3_sphere_plane(get_ptr(s), get_ptr(p)))
 }

@@ -102,30 +102,24 @@ geometry_op_minus.euclid_segment <- function(e1, e2) {
 
 # Internal Constructors ---------------------------------------------------
 
-new_segment2 <- function(x) {
-  new_geometry_vector(x, class = c("euclid_segment2", "euclid_segment"))
-}
-new_segment3 <- function(x) {
-  new_geometry_vector(x, class = c("euclid_segment3", "euclid_segment"))
-}
 new_segment_empty <- function(dim) {
   if (dim == 2) {
-    new_segment2(create_segment_2_empty())
+    new_geometry_vector(create_segment_2_empty())
   } else {
-    new_segment3(create_segment_3_empty())
+    new_geometry_vector(create_segment_3_empty())
   }
 }
 new_segment_from_2_points <- function(p, q) {
   if (dim(p) == 2) {
-    new_segment2(create_segment_2_p_q(get_ptr(p), get_ptr(q)))
+    new_geometry_vector(create_segment_2_p_q(get_ptr(p), get_ptr(q)))
   } else {
-    new_segment3(create_segment_3_p_q(get_ptr(p), get_ptr(q)))
+    new_geometry_vector(create_segment_3_p_q(get_ptr(p), get_ptr(q)))
   }
 }
 new_segment_from_point_vector <- function(p, v) {
   if (dim(p) == 2) {
-    new_segment2(create_segment_2_p_v(get_ptr(p), get_ptr(v)))
+    new_geometry_vector(create_segment_2_p_v(get_ptr(p), get_ptr(v)))
   } else {
-    new_segment3(create_segment_3_p_v(get_ptr(p), get_ptr(v)))
+    new_geometry_vector(create_segment_3_p_v(get_ptr(p), get_ptr(v)))
   }
 }

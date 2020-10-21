@@ -8,8 +8,6 @@
 
 class iso_rect : public geometry_vector<Iso_rectangle, 2> {
 public:
-  const Primitive geo_type = ISORECT;
-
   using geometry_vector::geometry_vector;
   ~iso_rect() = default;
 
@@ -24,6 +22,8 @@ public:
   geometry_vector_base* new_2D_from_vector(std::vector<Iso_rectangle> vec) const {
     return new_from_vector(vec);
   }
+
+  Primitive geometry_type() const { return ISORECT; }
 
   size_t cardinality(size_t i) const { return 4; }
   size_t long_length() const { return size() * 4; }

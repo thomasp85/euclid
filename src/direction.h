@@ -8,8 +8,6 @@
 
 class direction2 : public geometry_vector<Direction_2, 2> {
 public:
-  const Primitive geo_type = DIRECTION;
-
   using geometry_vector::geometry_vector;
   ~direction2() = default;
 
@@ -24,6 +22,8 @@ public:
   geometry_vector_base* new_2D_from_vector(std::vector<Direction_2> vec) const {
     return new_from_vector(vec);
   }
+
+  Primitive geometry_type() const { return DIRECTION; }
 
   cpp11::writable::strings def_names() const {
     return {"dx", "dy"};
@@ -265,8 +265,6 @@ typedef cpp11::external_pointer<direction2> direction2_p;
 
 class direction3 : public geometry_vector<Direction_3, 3, Direction_2> {
 public:
-  const Primitive geo_type = DIRECTION;
-
   using geometry_vector::geometry_vector;
   ~direction3() = default;
 
@@ -282,6 +280,8 @@ public:
     direction2* copy = new direction2(vec);
     return copy;
   }
+
+  Primitive geometry_type() const { return DIRECTION; }
 
   cpp11::writable::strings def_names() const {
     return {"dx", "dy", "dz"};

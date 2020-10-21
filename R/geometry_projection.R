@@ -56,18 +56,5 @@ map_to <- function(x, target) {
   if (!is_plane(target)) {
     rlang::abort("Only planes can be used as mapping target")
   }
-  result <- geometry_map_to_plane(get_ptr(x), get_ptr(target))
-  switch(geometry_type(x),
-    circle = new_circle2(result),
-    direction = new_direction2(result),
-    line = new_line2(result),
-    point_w = new_point_w2(result),
-    point = new_point2(result),
-    ray = new_ray2(result),
-    segment = new_segment2(result),
-    sphere = new_circle2(result),
-    triangle = new_triangle2(result),
-    vector = new_vector2(result),
-    rlang::abort("Unknown geometry")
-  )
+  new_geometry_vector(geometry_map_to_plane(get_ptr(x), get_ptr(target)))
 }

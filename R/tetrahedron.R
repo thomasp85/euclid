@@ -59,12 +59,9 @@ as_tetrahedron.euclid_tetrahedron <- function(x) x
 
 # Internal Constructors ---------------------------------------------------
 
-new_tetrahedron <- function(x) {
-  new_geometry_vector(x, class = "euclid_tetrahedron")
-}
 new_tetrahedron_empty <- function() {
-  new_tetrahedron(create_tetrahedron_empty())
+  new_geometry_vector(create_tetrahedron_empty())
 }
 new_tetrahedron_from_4_points <- function(p, q, r, s) {
-  new_tetrahedron(create_tetrahedron_4points(get_ptr(p), get_ptr(q), get_ptr(r), get_ptr(s)))
+  new_geometry_vector(create_tetrahedron_4points(get_ptr(p), get_ptr(q), get_ptr(r), get_ptr(s)))
 }

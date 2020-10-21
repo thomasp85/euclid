@@ -8,8 +8,6 @@
 
 class triangle2 : public geometry_vector<Triangle_2, 2> {
 public:
-  const Primitive geo_type = TRIANGLE;
-
   using geometry_vector::geometry_vector;
   ~triangle2() = default;
 
@@ -24,6 +22,8 @@ public:
   geometry_vector_base* new_2D_from_vector(std::vector<Triangle_2> vec) const {
     return new_from_vector(vec);
   }
+
+  Primitive geometry_type() const { return TRIANGLE; }
 
   size_t cardinality(size_t i) const { return 3; }
   size_t long_length() const { return size() * 3; }
@@ -52,8 +52,6 @@ typedef cpp11::external_pointer<triangle2> triangle2_p;
 
 class triangle3 : public geometry_vector<Triangle_3, 3, Triangle_2> {
 public:
-  const Primitive geo_type = TRIANGLE;
-
   using geometry_vector::geometry_vector;
   ~triangle3() = default;
 
@@ -69,6 +67,8 @@ public:
     triangle2* copy = new triangle2(vec);
     return copy;
   }
+
+  Primitive geometry_type() const { return TRIANGLE; }
 
   size_t cardinality(size_t i) const { return 3; }
   size_t long_length() const { return size() * 3; }

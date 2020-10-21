@@ -8,8 +8,6 @@
 
 class tetrahedron : public geometry_vector<Tetrahedron, 3> {
   public:
-    const Primitive geo_type = TETRAHEDRON;
-
     using geometry_vector::geometry_vector;
     ~tetrahedron() = default;
 
@@ -24,6 +22,8 @@ class tetrahedron : public geometry_vector<Tetrahedron, 3> {
     geometry_vector_base* new_2D_from_vector(std::vector<Tetrahedron> vec) const {
       cpp11::stop("Tetrahedrons cannot be mapped to 2D");
     }
+
+    Primitive geometry_type() const { return TETRAHEDRON; }
 
     size_t cardinality(size_t i) const { return 4; }
     size_t long_length() const { return size() * 4; }

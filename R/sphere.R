@@ -84,24 +84,21 @@ as_sphere.euclid_sphere <- function(x) x
 
 # Internal Constructors ---------------------------------------------------
 
-new_sphere <- function(x) {
-  new_geometry_vector(x, class = "euclid_sphere")
-}
 new_sphere_empty <- function() {
-  new_sphere(create_sphere_empty())
+  new_geometry_vector(create_sphere_empty())
 }
 new_sphere_from_2_points <- function(p, q) {
-  new_sphere(create_sphere_2_point(get_ptr(p), get_ptr(q)))
+  new_geometry_vector(create_sphere_2_point(get_ptr(p), get_ptr(q)))
 }
 new_sphere_from_3_points <- function(p, q, r) {
-  new_sphere(create_sphere_3_point(get_ptr(p), get_ptr(q), get_ptr(r)))
+  new_geometry_vector(create_sphere_3_point(get_ptr(p), get_ptr(q), get_ptr(r)))
 }
 new_sphere_from_4_points <- function(p, q, r, s) {
-  new_sphere(create_sphere_4_point(get_ptr(p), get_ptr(q), get_ptr(r), get_ptr(s)))
+  new_geometry_vector(create_sphere_4_point(get_ptr(p), get_ptr(q), get_ptr(r), get_ptr(s)))
 }
 new_sphere_from_center_radius <- function(center, r2) {
-  new_sphere(create_sphere_center_radius(get_ptr(center), get_ptr(r2)))
+  new_geometry_vector(create_sphere_center_radius(get_ptr(center), get_ptr(r2)))
 }
 new_sphere_from_circle <- function(circ) {
-  new_sphere(create_sphere_circle(get_ptr(circ)))
+  new_geometry_vector(create_sphere_circle(get_ptr(circ)))
 }

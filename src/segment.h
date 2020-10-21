@@ -8,8 +8,6 @@
 
 class segment2 : public geometry_vector<Segment_2, 2> {
 public:
-  const Primitive geo_type = SEGMENT;
-
   using geometry_vector::geometry_vector;
   ~segment2() = default;
 
@@ -24,6 +22,8 @@ public:
   geometry_vector_base* new_2D_from_vector(std::vector<Segment_2> vec) const {
     return new_from_vector(vec);
   }
+
+  Primitive geometry_type() const { return SEGMENT; }
 
   size_t cardinality(size_t i) const { return 2; }
   size_t long_length() const { return size() * 2; }
@@ -65,8 +65,6 @@ typedef cpp11::external_pointer<segment2> segment2_p;
 
 class segment3 : public geometry_vector<Segment_3, 3, Segment_2> {
 public:
-  const Primitive geo_type = SEGMENT;
-
   using geometry_vector::geometry_vector;
   ~segment3() = default;
 
@@ -83,6 +81,8 @@ public:
 
     return copy;
   }
+
+  Primitive geometry_type() const { return SEGMENT; }
 
   size_t cardinality(size_t i) const { return 2; }
   size_t long_length() const { return size() * 2; }

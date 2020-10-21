@@ -8,8 +8,6 @@
 
 class ray2 : public geometry_vector<Ray_2, 2> {
 public:
-  const Primitive geo_type = RAY;
-
   using geometry_vector::geometry_vector;
   ~ray2() = default;
 
@@ -24,6 +22,8 @@ public:
   geometry_vector_base* new_2D_from_vector(std::vector<Ray_2> vec) const {
     return new_from_vector(vec);
   }
+
+  Primitive geometry_type() const { return RAY; }
 
   cpp11::writable::strings def_names() const {
     return {"x", "y", "dx", "dy"};
@@ -66,8 +66,6 @@ typedef cpp11::external_pointer<ray2> ray2_p;
 
 class ray3 : public geometry_vector<Ray_3, 3, Ray_2> {
 public:
-  const Primitive geo_type = RAY;
-
   using geometry_vector::geometry_vector;
   ~ray3() = default;
 
@@ -83,6 +81,8 @@ public:
     ray2* copy = new ray2(vec);
     return copy;
   }
+
+  Primitive geometry_type() const { return RAY; }
 
   cpp11::writable::strings def_names() const {
     return {"x", "y", "z", "dx", "dy", "dz"};

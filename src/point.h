@@ -9,8 +9,6 @@
 
 class point2 : public geometry_vector<Point_2, 2> {
 public:
-  const Primitive geo_type = POINT;
-
   using geometry_vector::geometry_vector;
   ~point2() = default;
 
@@ -25,6 +23,8 @@ public:
   geometry_vector_base* new_2D_from_vector(std::vector<Point_2> vec) const {
     return new_from_vector(vec);
   }
+
+  Primitive geometry_type() const { return POINT; }
 
   cpp11::writable::strings def_names() const {
     return {"x", "y"};
@@ -279,8 +279,6 @@ typedef cpp11::external_pointer<point2> point2_p;
 
 class point3 : public geometry_vector<Point_3, 3, Point_2> {
 public:
-  const Primitive geo_type = POINT;
-
   using geometry_vector::geometry_vector;
   ~point3() = default;
 
@@ -296,6 +294,8 @@ public:
     point2* copy = new point2(vec);
     return copy;
   }
+
+  Primitive geometry_type() const { return POINT; }
 
   cpp11::writable::strings def_names() const {
     return {"x", "y", "z"};

@@ -95,36 +95,33 @@ as_plane.euclid_plane <- function(x) x
 
 # Internal Constructors ---------------------------------------------------
 
-new_plane <- function(x) {
-  new_geometry_vector(x, class = "euclid_plane")
-}
 new_plane_empty <- function() {
-  new_plane(create_plane_empty())
+  new_geometry_vector(create_plane_empty())
 }
 new_plane_from_abcd <- function(a, b, c, d) {
-  new_plane(create_plane_abcd(get_ptr(a), get_ptr(b), get_ptr(c), get_ptr(d)))
+  new_geometry_vector(create_plane_abcd(get_ptr(a), get_ptr(b), get_ptr(c), get_ptr(d)))
 }
 new_plane_from_3_points <- function(p, q, r) {
-  new_plane(create_plane_pqr(get_ptr(p), get_ptr(q), get_ptr(r)))
+  new_geometry_vector(create_plane_pqr(get_ptr(p), get_ptr(q), get_ptr(r)))
 }
 new_plane_from_point_vector <- function(p, v) {
-  new_plane(create_plane_pv(get_ptr(p), get_ptr(v)))
+  new_geometry_vector(create_plane_pv(get_ptr(p), get_ptr(v)))
 }
 new_plane_from_point_direction <- function(p, d) {
-  new_plane(create_plane_pd(get_ptr(p), get_ptr(d)))
+  new_geometry_vector(create_plane_pd(get_ptr(p), get_ptr(d)))
 }
 new_plane_from_point_line <- function(p, l) {
-  new_plane(create_plane_pl(get_ptr(p), get_ptr(l)))
+  new_geometry_vector(create_plane_pl(get_ptr(p), get_ptr(l)))
 }
 new_plane_from_point_ray <- function(p, r) {
-  new_plane(create_plane_pr(get_ptr(p), get_ptr(r)))
+  new_geometry_vector(create_plane_pr(get_ptr(p), get_ptr(r)))
 }
 new_plane_from_point_segment <- function(p, s) {
-  new_plane(create_plane_ps(get_ptr(p), get_ptr(s)))
+  new_geometry_vector(create_plane_ps(get_ptr(p), get_ptr(s)))
 }
 new_plane_from_circle <- function(circ) {
-  new_plane(create_plane_circle(get_ptr(circ)))
+  new_geometry_vector(create_plane_circle(get_ptr(circ)))
 }
 new_plane_from_triangle <- function(tri) {
-  new_plane(create_plane_triangle(get_ptr(tri)))
+  new_geometry_vector(create_plane_triangle(get_ptr(tri)))
 }

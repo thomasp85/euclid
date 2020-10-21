@@ -120,44 +120,38 @@ geometry_op_minus.euclid_ray <- function(e1, e2) {
 
 # Internal Constructors ---------------------------------------------------
 
-new_ray2 <- function(x) {
-  new_geometry_vector(x, class = c("euclid_ray2", "euclid_ray"))
-}
-new_ray3 <- function(x) {
-  new_geometry_vector(x, class = c("euclid_ray3", "euclid_ray"))
-}
 new_ray_empty <- function(dim) {
   if (dim == 2) {
-    new_ray2(create_ray_2_empty())
+    new_geometry_vector(create_ray_2_empty())
   } else {
-    new_ray3(create_ray_3_empty())
+    new_geometry_vector(create_ray_3_empty())
   }
 }
 new_ray_from_2_points <- function(p, q) {
   if (dim(p) == 2) {
-    new_ray2(create_ray_2_p_q(get_ptr(p), get_ptr(q)))
+    new_geometry_vector(create_ray_2_p_q(get_ptr(p), get_ptr(q)))
   } else {
-    new_ray3(create_ray_3_p_q(get_ptr(p), get_ptr(q)))
+    new_geometry_vector(create_ray_3_p_q(get_ptr(p), get_ptr(q)))
   }
 }
 new_ray_from_point_direction <- function(p, d) {
   if (dim(p) == 2) {
-    new_ray2(create_ray_2_p_d(get_ptr(p), get_ptr(d)))
+    new_geometry_vector(create_ray_2_p_d(get_ptr(p), get_ptr(d)))
   } else {
-    new_ray3(create_ray_3_p_d(get_ptr(p), get_ptr(d)))
+    new_geometry_vector(create_ray_3_p_d(get_ptr(p), get_ptr(d)))
   }
 }
 new_ray_from_point_vector <- function(p, v) {
   if (dim(p) == 2) {
-    new_ray2(create_ray_2_p_v(get_ptr(p), get_ptr(v)))
+    new_geometry_vector(create_ray_2_p_v(get_ptr(p), get_ptr(v)))
   } else {
-    new_ray3(create_ray_3_p_v(get_ptr(p), get_ptr(v)))
+    new_geometry_vector(create_ray_3_p_v(get_ptr(p), get_ptr(v)))
   }
 }
 new_ray_from_point_line <- function(p, l) {
   if (dim(p) == 2) {
-    new_ray2(create_ray_2_p_l(get_ptr(p), get_ptr(l)))
+    new_geometry_vector(create_ray_2_p_l(get_ptr(p), get_ptr(l)))
   } else {
-    new_ray3(create_ray_3_p_l(get_ptr(p), get_ptr(l)))
+    new_geometry_vector(create_ray_3_p_l(get_ptr(p), get_ptr(l)))
   }
 }

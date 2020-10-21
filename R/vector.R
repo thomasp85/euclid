@@ -230,43 +230,37 @@ geometry_math_cumsum.euclid_vector <- function(x) {
 
 # Internal Constructors ---------------------------------------------------
 
-new_vector2 <- function(x) {
-  new_geometry_vector(x, class = c("euclid_vector2", "euclid_vector"))
-}
-new_vector3 <- function(x) {
-  new_geometry_vector(x, class = c("euclid_vector3", "euclid_vector"))
-}
 new_vector_empty <- function(dim) {
   if (dim == 2) {
-    new_vector2(create_vector_2_empty())
+    new_geometry_vector(create_vector_2_empty())
   } else {
-    new_vector3(create_vector_3_empty())
+    new_geometry_vector(create_vector_3_empty())
   }
 }
 new_vector_from_point <- function(p) {
   if (dim(p) == 2) {
-    new_vector2(create_vector_2_point(get_ptr(p)))
+    new_geometry_vector(create_vector_2_point(get_ptr(p)))
   } else {
-    new_vector3(create_vector_3_point(get_ptr(p)))
+    new_geometry_vector(create_vector_3_point(get_ptr(p)))
   }
 }
 new_vector_from_ray <- function(r) {
   if (dim(r) == 2) {
-    new_vector2(create_vector_2_ray(get_ptr(r)))
+    new_geometry_vector(create_vector_2_ray(get_ptr(r)))
   } else {
-    new_vector3(create_vector_3_ray(get_ptr(r)))
+    new_geometry_vector(create_vector_3_ray(get_ptr(r)))
   }
 }
 new_vector_from_segment <- function(s) {
   if (dim(s) == 2) {
-    new_vector2(create_vector_2_segment(get_ptr(s)))
+    new_geometry_vector(create_vector_2_segment(get_ptr(s)))
   } else {
-    new_vector3(create_vector_3_segment(get_ptr(s)))
+    new_geometry_vector(create_vector_3_segment(get_ptr(s)))
   }
 }
 new_vector_from_xy <- function(x, y) {
-  new_vector2(create_vector_2_x_y(get_ptr(x), get_ptr(y)))
+  new_geometry_vector(create_vector_2_x_y(get_ptr(x), get_ptr(y)))
 }
 new_vector_from_xyz <- function(x, y, z) {
-  new_vector3(create_vector_3_x_y_z(get_ptr(x), get_ptr(y), get_ptr(z)))
+  new_geometry_vector(create_vector_3_x_y_z(get_ptr(x), get_ptr(y), get_ptr(z)))
 }

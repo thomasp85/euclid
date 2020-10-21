@@ -70,23 +70,17 @@ as_plane.euclid_triangle <- function(x) {
 
 # Internal Constructors ---------------------------------------------------
 
-new_triangle2 <- function(x) {
-  new_geometry_vector(x, class = c("euclid_triangle2", "euclid_triangle"))
-}
-new_triangle3 <- function(x) {
-  new_geometry_vector(x, class = c("euclid_triangle3", "euclid_triangle"))
-}
 new_triangle_empty <- function(dim) {
   if (dim == 2) {
-    new_triangle2(create_triangle_2_empty())
+    new_geometry_vector(create_triangle_2_empty())
   } else {
-    new_triangle3(create_triangle_3_empty())
+    new_geometry_vector(create_triangle_3_empty())
   }
 }
 new_triangle_from_3_points <- function(p, q, r) {
   if (dim(p) == 2) {
-    new_triangle2(create_triangle_2_3points(get_ptr(p), get_ptr(q), get_ptr(r)))
+    new_geometry_vector(create_triangle_2_3points(get_ptr(p), get_ptr(q), get_ptr(r)))
   } else {
-    new_triangle3(create_triangle_3_3points(get_ptr(p), get_ptr(q), get_ptr(r)))
+    new_geometry_vector(create_triangle_3_3points(get_ptr(p), get_ptr(q), get_ptr(r)))
   }
 }

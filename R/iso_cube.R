@@ -74,18 +74,15 @@ as_iso_cube.euclid_iso_cube <- function(x) x
 
 # Internal Constructors ---------------------------------------------------
 
-new_iso_cube <- function(x) {
-  new_geometry_vector(x, class = "euclid_iso_cube")
-}
 new_iso_cube_empty <- function() {
-  new_iso_cube(create_iso_cube_empty())
+  new_geometry_vector(create_iso_cube_empty())
 }
 new_iso_cube_from_bbox <- function(bbox) {
-  new_iso_cube(create_iso_cube_bbox(get_ptr(bbox)))
+  new_geometry_vector(create_iso_cube_bbox(get_ptr(bbox)))
 }
 new_iso_cube_from_2_points <- function(p, q) {
-  new_iso_cube(create_iso_cube_pq(get_ptr(p), get_ptr(q)))
+  new_geometry_vector(create_iso_cube_pq(get_ptr(p), get_ptr(q)))
 }
 new_iso_cube_from_6_numbers <- function(x0, y0, z0, x1, y1, z1) {
-  new_iso_cube(create_iso_cube_minmax(get_ptr(x0), get_ptr(y0), get_ptr(z0), get_ptr(x1), get_ptr(y1), get_ptr(z1)))
+  new_geometry_vector(create_iso_cube_minmax(get_ptr(x0), get_ptr(y0), get_ptr(z0), get_ptr(x1), get_ptr(y1), get_ptr(z1)))
 }

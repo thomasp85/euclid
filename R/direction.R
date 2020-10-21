@@ -218,7 +218,7 @@ sort.euclid_direction <- function(x, decreasing = FALSE, na.last = NA, ...) {
   if (dim(x) != 2) {
     rlang::abort("`sort()` is only defined in 2 dimensions")
   }
-  direction_2_sort(get_ptr(x), decreasing, na.last)
+  restore_euclid_vector(direction_2_sort(get_ptr(x), decreasing, na.last), x)
 }
 #' @export
 xtfrm.euclid_direction <- function(x) {
@@ -235,50 +235,44 @@ range.euclid_direction <- function(..., na.rm = FALSE) {
 
 # Internal Constructors ---------------------------------------------------
 
-new_direction2 <- function(x) {
-  new_geometry_vector(x, class = c("euclid_direction2", "euclid_direction"))
-}
-new_direction3 <- function(x) {
-  new_geometry_vector(x, class = c("euclid_direction3", "euclid_direction"))
-}
 new_direction_empty <- function(dim) {
   if (dim == 2) {
-    new_direction2(create_direction_2_empty())
+    new_geometry_vector(create_direction_2_empty())
   } else {
-    new_direction3(create_direction_3_empty())
+    new_geometry_vector(create_direction_3_empty())
   }
 }
 new_direction_from_vec <- function(v) {
   if (dim(v) == 2) {
-    new_direction2(create_direction_2_vec(get_ptr(v)))
+    new_geometry_vector(create_direction_2_vec(get_ptr(v)))
   } else {
-    new_direction3(create_direction_3_vec(get_ptr(v)))
+    new_geometry_vector(create_direction_3_vec(get_ptr(v)))
   }
 }
 new_direction_from_line <- function(l) {
   if (dim(l) == 2) {
-    new_direction2(create_direction_2_line(get_ptr(l)))
+    new_geometry_vector(create_direction_2_line(get_ptr(l)))
   } else {
-    new_direction3(create_direction_3_line(get_ptr(l)))
+    new_geometry_vector(create_direction_3_line(get_ptr(l)))
   }
 }
 new_direction_from_ray <- function(r) {
   if (dim(r) == 2) {
-    new_direction2(create_direction_2_ray(get_ptr(r)))
+    new_geometry_vector(create_direction_2_ray(get_ptr(r)))
   } else {
-    new_direction3(create_direction_3_ray(get_ptr(r)))
+    new_geometry_vector(create_direction_3_ray(get_ptr(r)))
   }
 }
 new_direction_from_segment <- function(s) {
   if (dim(s) == 2) {
-    new_direction2(create_direction_2_segment(get_ptr(s)))
+    new_geometry_vector(create_direction_2_segment(get_ptr(s)))
   } else {
-    new_direction3(create_direction_3_segment(get_ptr(s)))
+    new_geometry_vector(create_direction_3_segment(get_ptr(s)))
   }
 }
 new_direction_from_x_y <- function(x, y) {
-  new_direction2(create_direction_2_xy(get_ptr(x), get_ptr(y)))
+  new_geometry_vector(create_direction_2_xy(get_ptr(x), get_ptr(y)))
 }
 new_direction_from_x_y_z <- function(x, y, z) {
-  new_direction3(create_direction_3_xyz(get_ptr(x), get_ptr(y), get_ptr(z)))
+  new_geometry_vector(create_direction_3_xyz(get_ptr(x), get_ptr(y), get_ptr(z)))
 }

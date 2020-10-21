@@ -44,8 +44,6 @@ enum Primitive {
 
 class geometry_vector_base {
 public:
-  const Primitive geometry_type = VIRTUAL;
-
   geometry_vector_base() {}
   virtual ~geometry_vector_base() = default;
 
@@ -61,6 +59,7 @@ public:
   // Dimensions
   virtual size_t size() const = 0;
   virtual size_t dimensions() const = 0;
+  virtual Primitive geometry_type() const = 0;
   virtual cpp11::writable::strings def_names() const = 0;
   virtual exact_numeric definition(int which, cpp11::integers element) const = 0;
   virtual Exact_number get_single_definition(size_t i, int which, int element) const = 0;

@@ -10,7 +10,7 @@
 
 [[cpp11::register]]
 cpp11::writable::strings geometry_primitive_type(geometry_vector_base_p geometries) {
-  switch (geometries->geometry_type) {
+  switch (geometries->geometry_type()) {
   case CIRCLE: return {"circle"};
   case DIRECTION: return {"direction"};
   case ISOCUBE: return {"iso_cube"};
@@ -27,7 +27,7 @@ cpp11::writable::strings geometry_primitive_type(geometry_vector_base_p geometri
   case WPOINT: return {"point_w"};
   case VIRTUAL: return {"virtual"};
   }
-  return {"virtual"};
+  return {"unknown"};
 }
 
 [[cpp11::register]]

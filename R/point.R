@@ -147,13 +147,13 @@ geometry_op_minus.euclid_point <- function(e1, e2) {
   }
   if (dim(e1) == 2) {
     if (is_point(e2)) {
-      new_vector2(point_2_sub_point(get_ptr(e1), get_ptr(e2)))
+      new_geometry_vector(point_2_sub_point(get_ptr(e1), get_ptr(e2)))
     } else {
       restore_euclid_vector(point_2_sub_vector(get_ptr(e1), get_ptr(e2)), e1)
     }
   } else {
     if (is_point(e2)) {
-      new_vector3(point_3_sub_point(get_ptr(e1), get_ptr(e2)))
+      new_geometry_vector(point_3_sub_point(get_ptr(e1), get_ptr(e2)))
     } else {
       restore_euclid_vector(point_3_sub_vector(get_ptr(e1), get_ptr(e2)), e1)
     }
@@ -292,36 +292,30 @@ range.euclid_point <- function(..., na.rm = FALSE) {
 
 # Internal constructors ---------------------------------------------------
 
-new_point2 <- function(x) {
-  new_geometry_vector(x, class = c("euclid_point2", "euclid_point"))
-}
-new_point3 <- function(x) {
-  new_geometry_vector(x, class = c("euclid_point3", "euclid_point"))
-}
 new_point_empty <- function(dim) {
   if (dim == 2) {
-    new_point2(create_point_2_empty())
+    new_geometry_vector(create_point_2_empty())
   } else {
-    new_point3(create_point_3_empty())
+    new_geometry_vector(create_point_3_empty())
   }
 }
 new_point_from_xy <- function(x, y) {
-  new_point2(create_point_2_x_y(get_ptr(x), get_ptr(y)))
+  new_geometry_vector(create_point_2_x_y(get_ptr(x), get_ptr(y)))
 }
 new_point_from_xyz <- function(x, y, z) {
-  new_point3(create_point_3_x_y_z(get_ptr(x), get_ptr(y), get_ptr(z)))
+  new_geometry_vector(create_point_3_x_y_z(get_ptr(x), get_ptr(y), get_ptr(z)))
 }
 new_point_from_vec <- function(p) {
   if (dim(p) == 2) {
-    new_point2(create_point_2_vec(get_ptr(p)))
+    new_geometry_vector(create_point_2_vec(get_ptr(p)))
   } else {
-    new_point3(create_point_3_vec(get_ptr(p)))
+    new_geometry_vector(create_point_3_vec(get_ptr(p)))
   }
 }
 new_point_from_wp <- function(p) {
   if (dim(p) == 2) {
-    new_point2(create_point_2_wp(get_ptr(p)))
+    new_geometry_vector(create_point_2_wp(get_ptr(p)))
   } else {
-    new_point3(create_point_3_wp(get_ptr(p)))
+    new_geometry_vector(create_point_3_wp(get_ptr(p)))
   }
 }

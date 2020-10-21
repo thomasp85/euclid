@@ -84,29 +84,23 @@ as_point.euclid_point_w <- function(x) {
 
 # Internal constructors ---------------------------------------------------
 
-new_point_w2 <- function(x) {
-  new_geometry_vector(x, class = c("euclid_point_w2", "euclid_point_w"))
-}
-new_point_w3 <- function(x) {
-  new_geometry_vector(x, class = c("euclid_point_w3", "euclid_point_w"))
-}
 new_point_w_empty <- function(dim) {
   if (dim == 2) {
-    new_point_w2(create_point_w_2_empty())
+    new_geometry_vector(create_point_w_2_empty())
   } else {
-    new_point_w3(create_point_w_3_empty())
+    new_geometry_vector(create_point_w_3_empty())
   }
 }
 new_point_w_from_xyw <- function(x, y, w) {
-  new_point_w2(create_point_w_2_x_y_w(get_ptr(x), get_ptr(y), get_ptr(w)))
+  new_geometry_vector(create_point_w_2_x_y_w(get_ptr(x), get_ptr(y), get_ptr(w)))
 }
 new_point_w_from_xyzw <- function(x, y, z, w) {
-  new_point_w3(create_point_w_3_x_y_z_w(get_ptr(x), get_ptr(y), get_ptr(z), get_ptr(w)))
+  new_geometry_vector(create_point_w_3_x_y_z_w(get_ptr(x), get_ptr(y), get_ptr(z), get_ptr(w)))
 }
 new_point_w_from_pw <- function(p, w) {
   if (dim(p) == 2) {
-    new_point_w2(create_point_w_2_p_w(get_ptr(p), get_ptr(w)))
+    new_geometry_vector(create_point_w_2_p_w(get_ptr(p), get_ptr(w)))
   } else {
-    new_point_w3(create_point_w_3_p_w(get_ptr(p), get_ptr(w)))
+    new_geometry_vector(create_point_w_3_p_w(get_ptr(p), get_ptr(w)))
   }
 }

@@ -8,8 +8,6 @@
 
 class iso_cube : public geometry_vector<Iso_cuboid, 3> {
 public:
-  const Primitive geo_type = ISOCUBE;
-
   using geometry_vector::geometry_vector;
   ~iso_cube() = default;
 
@@ -24,6 +22,7 @@ public:
     cpp11::stop("Iso cuboids cannot be mapped to 2D");
   }
 
+  Primitive geometry_type() const { return ISOCUBE; }
   size_t cardinality(size_t i) const { return 8; }
   size_t long_length() const { return size() * 8; }
 

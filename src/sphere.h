@@ -9,8 +9,6 @@
 
 class sphere : public geometry_vector<Sphere, 3, Circle_2> {
 public:
-  const Primitive geo_type = SPHERE;
-
   using geometry_vector::geometry_vector;
   ~sphere() = default;
 
@@ -26,6 +24,8 @@ public:
     circle2* copy = new circle2(vec);
     return copy;
   }
+
+  Primitive geometry_type() const { return SPHERE; }
 
   cpp11::writable::strings def_names() const {
     return {"x", "y", "z", "r2"};

@@ -56,10 +56,31 @@
 #'
 NULL
 
-new_geometry_vector <- function(x, class) {
+new_geometry_vector <- function(x) {
+  cl <- get_class(geometry_primitive_type(x), geometry_dimension(x))
   x <- list(x)
-  class(x) <-  c(class, "euclid_geometry")
+  class(x) <-  c(cl, "euclid_geometry")
   x
+}
+get_class <- function(type, dim) {
+  base <- paste0("euclid_", type)
+  switch(type,
+    circle = c(paste0("euclid_", type, dim), base),
+    direction = c(paste0("euclid_", type, dim), base),
+    iso_cube = base,
+    iso_rect = base,
+    line = c(paste0("euclid_", type, dim), base),
+    plane = base,
+    point = c(paste0("euclid_", type, dim), base),
+    ray = c(paste0("euclid_", type, dim), base),
+    segment = c(paste0("euclid_", type, dim), base),
+    sphere = base,
+    tetrahedron = base,
+    triangle = c(paste0("euclid_", type, dim), base),
+    vector = c(paste0("euclid_", type, dim), base),
+    point_w = c(paste0("euclid_", type, dim), base),
+    rlang::abort(paste0("Unknown geometry type: ", type, "<", dim, ">"))
+  )
 }
 
 #' @rdname euclid_geometry

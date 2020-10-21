@@ -8,8 +8,6 @@
 
 class line2 : public geometry_vector<Line_2, 2> {
 public:
-  const Primitive geo_type = LINE;
-
   using geometry_vector::geometry_vector;
   ~line2() = default;
 
@@ -24,6 +22,8 @@ public:
   geometry_vector_base* new_2D_from_vector(std::vector<Line_2> vec) const {
     return new_from_vector(vec);
   }
+
+  Primitive geometry_type() const { return LINE; }
 
   cpp11::writable::strings def_names() const {
     return {"a", "b", "c"};
@@ -51,8 +51,6 @@ typedef cpp11::external_pointer<line2> line2_p;
 
 class line3 : public geometry_vector<Line_3, 3, Line_2> {
 public:
-  const Primitive geo_type = LINE;
-
   using geometry_vector::geometry_vector;
   ~line3() = default;
 
@@ -68,6 +66,8 @@ public:
     line2* copy = new line2(vec);
     return copy;
   }
+
+  Primitive geometry_type() const { return LINE; }
 
   cpp11::writable::strings def_names() const {
     return {"x", "y", "z", "dx", "dy", "dz"};
