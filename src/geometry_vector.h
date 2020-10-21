@@ -22,6 +22,7 @@
 #include "geometry_projection.h"
 #include "get_vertex.h"
 #include "match.h"
+#include "constant_in.h"
 
 #include <sstream>
 #include <iomanip>
@@ -90,6 +91,7 @@ public:
   virtual cpp11::writable::logicals has_outside(const geometry_vector_base& points) const = 0;
   virtual cpp11::writable::logicals has_on_positive(const geometry_vector_base& points) const = 0;
   virtual cpp11::writable::logicals has_on_negative(const geometry_vector_base& points) const = 0;
+  virtual cpp11::writable::logicals constant_in(cpp11::integers coord) const = 0;
 
   // Measures
   virtual cpp11::writable::doubles length() const = 0;
@@ -547,6 +549,19 @@ public:
         continue;
       }
       result.push_back((Rboolean) has_on_negative_impl(_storage[i % size()], (*points_recast)[i % points_recast->size()]));
+    }
+    return result;
+  }
+  cpp11::writable::logicals constant_in(cpp11::integers coord) const {
+    size_t output_length = std::max(size(), (size_t) coord.size());
+    cpp11::writable::logicals result;
+    result.reserve(output_length);
+    for (size_t i = 0; i < output_length; ++i) {
+      if (!_storage[i % size()] || coord[i % coord.size()] == R_NaInt) {
+        result.push_back(NA_LOGICAL);
+        continue;
+      }
+      result.push_back(constant_in_impl<T>(_storage[i % size()], coord[i % coord.size()]));
     }
     return result;
   }

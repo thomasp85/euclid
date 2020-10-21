@@ -114,3 +114,78 @@ has_on_negative_side <- function(x, y) {
 #' @rdname location_predicates
 #' @export
 `%is_on_negative_side%` <- function(y, x) has_on_negative_side(x, y)
+
+#' Check geometries for axis alignment
+#'
+#' These predicate functions checks for whether a geometry varies along a given
+#' axis. While it is common in 2 dimensions to ask whether something is vertical
+#' or horizontal that notion does not scale well to 3 dimensions and euclid
+#' instead elects to check for whether a given geometry is constant in a
+#' specific coordinate value. As such, e.g. `has_constant_x()` is equivalent to
+#' asking whether a given 2 dimensional geometry is vertical but also works for
+#' 3 dimensional geometries.
+#'
+#' @param x A geometry vector
+#' @param axis One or more specifications of the axes to check against as `"x"`,
+#' `"y"`, `"z"` or `1`, `2`, `3`
+#'
+#' @return A logical vector
+#'
+#' @rdname constant_in
+#' @name constant_in
+#'
+#' @examples
+#' # Check for horizontal vector
+#' v <- vec(1, -2:2)
+#' has_constant_y(v)
+#'
+#' # Use recycling to check all axes
+#' is_constant_in(vec(2, 0, -5), c("x", "y", "z"))
+#'
+NULL
+
+#' @rdname constant_in
+#' @export
+is_constant_in <- function(x, axis) {
+  if (!is_geometry(x)) {
+    rlang::abort("`is_constant_in()` is only defined for geometries")
+  }
+  if (is.character(axis)) {
+    axis <- match(axis, c("x", "y", "z"))
+    if (anyNA(axis)) {
+      rlang::abort("`axis` must be one of `x`, `y`, or `z`")
+    }
+  }
+  axis <- as.integer(axis - 1)
+  if (any(axis < 0 | axis >= dim(x))) {
+    rlang::abort("`axis` must enumerate an axis in the geometries coordinate system")
+  }
+  geometry_constant_in(get_ptr(x), axis)
+}
+#' @rdname constant_in
+#' @export
+has_constant_x <- function(x) {
+  if (!is_geometry(x)) {
+    rlang::abort("`has_constant_x()` is only defined for geometries")
+  }
+  geometry_constant_in(get_ptr(x), 0L)
+}
+#' @rdname constant_in
+#' @export
+has_constant_y <- function(x) {
+  if (!is_geometry(x)) {
+    rlang::abort("`has_constant_y()` is only defined for geometries")
+  }
+  geometry_constant_in(get_ptr(x), 1L)
+}
+#' @rdname constant_in
+#' @export
+has_constant_z <- function(x) {
+  if (!is_geometry(x)) {
+    rlang::abort("`has_constant_z()` is only defined for geometries")
+  }
+  if (dim(x) != 3) {
+    rlang::abort("`has_constant_z()` is only defined for 3 dimensional geometries")
+  }
+  geometry_constant_in(get_ptr(x), 2L)
+}

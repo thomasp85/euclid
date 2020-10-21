@@ -1,5 +1,6 @@
 #include "geometry_vector.h"
 
+#include <cpp11/integers.hpp>
 #include <cpp11/logicals.hpp>
 
 [[cpp11::register]]
@@ -30,4 +31,9 @@ cpp11::writable::logicals geometry_has_point_on_positive(geometry_vector_base_p 
 [[cpp11::register]]
 cpp11::writable::logicals geometry_has_point_on_negative(geometry_vector_base_p geometries, geometry_vector_base_p points) {
   return geometries->has_on_negative(*points);
+}
+
+[[cpp11::register]]
+cpp11::writable::logicals geometry_constant_in(geometry_vector_base_p geometries, cpp11::integers coord) {
+  return geometries->constant_in(coord);
 }
