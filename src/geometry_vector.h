@@ -20,6 +20,7 @@
 #include "point_predicates.h"
 #include "geometry_measures.h"
 #include "geometry_projection.h"
+#include "get_vertex.h"
 
 #include <sstream>
 #include <iomanip>
@@ -62,6 +63,7 @@ public:
   virtual Primitive geometry_type() const = 0;
   virtual cpp11::writable::strings def_names() const = 0;
   virtual exact_numeric definition(int which, cpp11::integers element) const = 0;
+  virtual cpp11::external_pointer<geometry_vector_base> vertex(cpp11::integers which) const = 0;
   virtual Exact_number get_single_definition(size_t i, int which, int element) const = 0;
   virtual size_t cardinality(size_t i) const = 0;
   virtual size_t long_length() const = 0;
@@ -104,6 +106,13 @@ public:
 };
 typedef cpp11::external_pointer<geometry_vector_base> geometry_vector_base_p;
 
+// General constructor
+template<typename T>
+geometry_vector_base_p create_geometry_vector(std::vector<T>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Point_2>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Point_3>& input);
 
 // geometry_vector -------------------------------------------------------------
 
@@ -210,6 +219,18 @@ public:
     }
 
     return {result};
+  }
+  cpp11::external_pointer<geometry_vector_base> vertex(cpp11::integers which) const {
+    std::vector<Point> vertices;
+    size_t max_size = std::max(size(), (size_t) which.size());
+    vertices.reserve(max_size);
+    for (size_t i = 0; i < max_size; ++i) {
+      if (!_storage[i % size()] || which[i % which.size()] == R_NaInt) {
+        vertices.push_back(Point::NA_value());
+      }
+      vertices.push_back(get_vertex_impl<T, Point>(_storage[i % size()], which[i % which.size()]));
+    }
+    return create_geometry_vector(vertices);
   }
 
   // Equality

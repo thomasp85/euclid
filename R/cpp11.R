@@ -392,6 +392,10 @@ geometry_definition <- function(geometries, which, element) {
   .Call("_euclid_geometry_definition", geometries, which, element, PACKAGE = "euclid")
 }
 
+geometry_vertex <- function(geometries, which) {
+  .Call("_euclid_geometry_vertex", geometries, which, PACKAGE = "euclid")
+}
+
 geometry_cardinality <- function(geometries) {
   .Call("_euclid_geometry_cardinality", geometries, PACKAGE = "euclid")
 }

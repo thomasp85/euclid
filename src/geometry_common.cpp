@@ -55,6 +55,11 @@ exact_numeric_p geometry_definition(geometry_vector_base_p geometries, int which
 }
 
 [[cpp11::register]]
+geometry_vector_base_p geometry_vertex(geometry_vector_base_p geometries, cpp11::integers which) {
+  return geometries->vertex(which);
+}
+
+[[cpp11::register]]
 cpp11::writable::integers geometry_cardinality(geometry_vector_base_p geometries) {
   cpp11::writable::integers result;
   result.reserve(geometries->size());

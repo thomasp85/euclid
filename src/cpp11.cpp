@@ -691,6 +691,13 @@ extern "C" SEXP _euclid_geometry_definition(SEXP geometries, SEXP which, SEXP el
   END_CPP11
 }
 // geometry_common.cpp
+geometry_vector_base_p geometry_vertex(geometry_vector_base_p geometries, cpp11::integers which);
+extern "C" SEXP _euclid_geometry_vertex(SEXP geometries, SEXP which) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_vertex(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(which)));
+  END_CPP11
+}
+// geometry_common.cpp
 cpp11::writable::integers geometry_cardinality(geometry_vector_base_p geometries);
 extern "C" SEXP _euclid_geometry_cardinality(SEXP geometries) {
   BEGIN_CPP11
@@ -2251,6 +2258,7 @@ extern SEXP _euclid_geometry_subset(SEXP, SEXP);
 extern SEXP _euclid_geometry_to_matrix(SEXP);
 extern SEXP _euclid_geometry_transform(SEXP, SEXP);
 extern SEXP _euclid_geometry_unique(SEXP);
+extern SEXP _euclid_geometry_vertex(SEXP, SEXP);
 extern SEXP _euclid_point_2_add_vector(SEXP, SEXP);
 extern SEXP _euclid_point_2_cummax(SEXP);
 extern SEXP _euclid_point_2_cummin(SEXP);
@@ -2542,6 +2550,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_geometry_to_matrix",                  (DL_FUNC) &_euclid_geometry_to_matrix,                  1},
     {"_euclid_geometry_transform",                  (DL_FUNC) &_euclid_geometry_transform,                  2},
     {"_euclid_geometry_unique",                     (DL_FUNC) &_euclid_geometry_unique,                     1},
+    {"_euclid_geometry_vertex",                     (DL_FUNC) &_euclid_geometry_vertex,                     2},
     {"_euclid_point_2_add_vector",                  (DL_FUNC) &_euclid_point_2_add_vector,                  2},
     {"_euclid_point_2_cummax",                      (DL_FUNC) &_euclid_point_2_cummax,                      1},
     {"_euclid_point_2_cummin",                      (DL_FUNC) &_euclid_point_2_cummin,                      1},
