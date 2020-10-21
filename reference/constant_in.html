@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Access the exact values that defines the geometries — parameter • euclid</title>
+<title>Check geometries for axis alignment — constant_in • euclid</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,12 +46,14 @@
 
 
 
-<meta property="og:title" content="Access the exact values that defines the geometries — parameter" />
-<meta property="og:description" content="This function gives access to the underlying values defining the geometries
-in a vector. As such they return the same information as calling
-as.matrix() on a geometry vector except the return value is kept as an
-exact numeric and that you can extract from single elements if the
-cardinality of the geometry exceeds 1." />
+<meta property="og:title" content="Check geometries for axis alignment — constant_in" />
+<meta property="og:description" content="These predicate functions checks for whether a geometry varies along a given
+axis. While it is common in 2 dimensions to ask whether something is vertical
+or horizontal that notion does not scale well to 3 dimensions and euclid
+instead elects to check for whether a given geometry is constant in a
+specific coordinate value. As such, e.g. has_constant_x() is equivalent to
+asking whether a given 2 dimensional geometry is vertical but also works for
+3 dimensional geometries." />
 <meta property="og:image" content="https://r-euclid.com/reference/figures/card.png" />
 <meta property="og:image:alt" content="euclid: Exact compuational geometry in R" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -124,26 +126,28 @@ cardinality of the geometry exceeds 1." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Access the exact values that defines the geometries</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/parameter.R'><code>R/parameter.R</code></a></small>
-    <div class="hidden name"><code>parameter.Rd</code></div>
+    <h1>Check geometries for axis alignment</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/geometry_predicates.R'><code>R/geometry_predicates.R</code></a></small>
+    <div class="hidden name"><code>constant_in.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function gives access to the underlying values defining the geometries
-in a vector. As such they return the same information as calling
-<code><a href='https://rdrr.io/r/base/matrix.html'>as.matrix()</a></code> on a geometry vector except the return value is kept as an
-exact numeric and that you can extract from single elements if the
-cardinality of the geometry exceeds 1.</p>
+    <p>These predicate functions checks for whether a geometry varies along a given
+axis. While it is common in 2 dimensions to ask whether something is vertical
+or horizontal that notion does not scale well to 3 dimensions and euclid
+instead elects to check for whether a given geometry is constant in a
+specific coordinate value. As such, e.g. <code>has_constant_x()</code> is equivalent to
+asking whether a given 2 dimensional geometry is vertical but also works for
+3 dimensional geometries.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>parameter</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>is_constant_in</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>axis</span><span class='op'>)</span>
 
-<span class='co'># S3 method for euclid_geometry</span>
-<span class='fu'>parameter</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>which</span>, element <span class='op'>=</span> <span class='cn'>NA</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>has_constant_x</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='co'># S3 method for euclid_affine_transformation</span>
-<span class='fu'>parameter</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>i</span>, <span class='va'>j</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>has_constant_y</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>has_constant_z</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -153,31 +157,25 @@ cardinality of the geometry exceeds 1.</p>
       <td><p>A geometry vector</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>parameters to pass on</p></td>
-    </tr>
-    <tr>
-      <th>which</th>
-      <td><p>Either a name or the index of the definition to extract, as
-matched to <code><a href='euclid_geometry.html'>definition_names(x)</a></code></p></td>
-    </tr>
-    <tr>
-      <th>element</th>
-      <td><p>For geometries with a cardinality above 1, which element of
-the geometry should the definition be extracted for. If <code>NA</code> the definition
-for all elements will be returned and the length of the returned vector will
-be <code><a href='https://rdrr.io/r/base/sum.html'>sum(cardinality(x))</a></code> (matching the return of <code><a href='https://rdrr.io/r/base/matrix.html'>as.matrix(x)</a></code>)</p></td>
-    </tr>
-    <tr>
-      <th>i, j</th>
-      <td><p>The row and column of the cell in the transformation to fetch.</p></td>
+      <th>axis</th>
+      <td><p>One or more specifications of the axes to check against as <code>"x"</code>,
+<code>"y"</code>, <code>"z"</code> or <code>1</code>, <code>2</code>, <code>3</code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An exact_numeric vector</p>
+    <p>A logical vector</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Check for horizontal vector</span>
+<span class='va'>v</span> <span class='op'>&lt;-</span> <span class='fu'><a href='vec.html'>vec</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'>has_constant_y</span><span class='op'>(</span><span class='va'>v</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE FALSE  TRUE FALSE FALSE</div><div class='input'>
+<span class='co'># Use recycling to check all axes</span>
+<span class='fu'>is_constant_in</span><span class='op'>(</span><span class='fu'><a href='vec.html'>vec</a></span><span class='op'>(</span><span class='fl'>2</span>, <span class='fl'>0</span>, <span class='op'>-</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"x"</span>, <span class='st'>"y"</span>, <span class='st'>"z"</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE  TRUE FALSE</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
