@@ -12,18 +12,6 @@ public:
   using geometry_vector::geometry_vector;
   ~plane() = default;
 
-  geometry_vector_base* new_from_vector(std::vector<Plane> vec) const {
-    plane* copy = new plane();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
-
-  geometry_vector_base* new_2D_from_vector(std::vector<Plane> vec) const {
-    cpp11::stop("Planes cannot be mapped to 2D");
-  }
-
   Primitive geometry_type() const { return PLANE; }
 
   cpp11::writable::strings def_names() const {

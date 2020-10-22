@@ -12,18 +12,6 @@ public:
   using geometry_vector::geometry_vector;
   ~ray2() = default;
 
-  geometry_vector_base* new_from_vector(std::vector<Ray_2> vec) const {
-    ray2* copy = new ray2();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
-
-  geometry_vector_base* new_2D_from_vector(std::vector<Ray_2> vec) const {
-    return new_from_vector(vec);
-  }
-
   Primitive geometry_type() const { return RAY; }
 
   cpp11::writable::strings def_names() const {
@@ -84,19 +72,6 @@ class ray3 : public geometry_vector<Ray_3, 3, Ray_2> {
 public:
   using geometry_vector::geometry_vector;
   ~ray3() = default;
-
-  geometry_vector_base* new_from_vector(std::vector<Ray_3> vec) const {
-    ray3* copy = new ray3();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
-
-  geometry_vector_base* new_2D_from_vector(std::vector<Ray_2> vec) const {
-    ray2* copy = new ray2(vec);
-    return copy;
-  }
 
   Primitive geometry_type() const { return RAY; }
 

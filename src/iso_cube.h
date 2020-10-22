@@ -12,17 +12,6 @@ public:
   using geometry_vector::geometry_vector;
   ~iso_cube() = default;
 
-  geometry_vector_base* new_from_vector(std::vector<Iso_cuboid> vec) const {
-    iso_cube* copy = new iso_cube();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
-  geometry_vector_base* new_2D_from_vector(std::vector<Iso_cuboid> vec) const {
-    cpp11::stop("Iso cuboids cannot be mapped to 2D");
-  }
-
   Primitive geometry_type() const { return ISOCUBE; }
   size_t cardinality(size_t i) const { return 8; }
   size_t long_length() const { return size() * 8; }

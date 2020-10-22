@@ -353,14 +353,14 @@ public:
       return result;
     }
 
-    const geometry_vector<T, dim, U>* other_recast = dynamic_cast< const geometry_vector<T, dim, U>* >(&other);
+    auto other_vec = get_vector_of_geo<T>(other);
 
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !(*other_recast)[i % other_recast->size()]) {
+      if (!_storage[i % size()] || !other_vec[i % other_vec.size()]) {
         result[i] = NA_LOGICAL;
         continue;
       }
-      result[i] = (Rboolean) (_storage[i % size()] == (*other_recast)[i % other_recast->size()]);
+      result[i] = (Rboolean) (_storage[i % size()] == other_vec[i % other_vec.size()]);
     }
 
     return result;
@@ -377,14 +377,14 @@ public:
       return result;
     }
 
-    const geometry_vector<T, dim, U>* other_recast = dynamic_cast< const geometry_vector<T, dim, U>* >(&other);
+    auto other_vec = get_vector_of_geo<T>(other);
 
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !(*other_recast)[i % other_recast->size()]) {
+      if (!_storage[i % size()] || !other_vec[i % other_vec.size()]) {
         result[i] = NA_LOGICAL;
         continue;
       }
-      result[i] = (Rboolean) (_storage[i % size()] != (*other_recast)[i % other_recast->size()]);
+      result[i] = (Rboolean) (_storage[i % size()] != other_vec[i % other_vec.size()]);
     }
 
     return result;
@@ -402,8 +402,6 @@ public:
   size_t long_length() const { return size(); }
 
   // Subsetting, assignment, combining etc
-  virtual geometry_vector_base* new_from_vector(std::vector<T> vec) const = 0;
-  virtual geometry_vector_base* new_2D_from_vector(std::vector<U> vec) const = 0;
   geometry_vector_base_p subset(cpp11::integers index) const {
     std::vector<T> new_storage;
     new_storage.reserve(size());
@@ -414,13 +412,13 @@ public:
         new_storage.push_back(_storage[index[i] - 1]);
       }
     }
-    return {new_from_vector(new_storage)};
+    return create_geometry_vector(new_storage);
   }
   geometry_vector_base_p copy() const {
     std::vector<T> new_storage;
     new_storage.reserve(size());
     new_storage.insert(new_storage.begin(), _storage.begin(), _storage.end());
-    return {new_from_vector(new_storage)};
+    return create_geometry_vector(new_storage);
   }
   geometry_vector_base_p assign(cpp11::integers index, const geometry_vector_base& value) const {
     if (index.size() != value.size()) {
@@ -430,7 +428,7 @@ public:
       cpp11::stop("Incompatible assignment value type");
     }
 
-    const geometry_vector<T, dim, U>* value_recast = dynamic_cast< const geometry_vector<T, dim, U>* >(&value);
+    auto value_vec = get_vector_of_geo<T>(value);
 
     std::vector<T> new_storage(_storage);
     int max_size = *std::max_element(index.begin(), index.end());
@@ -441,9 +439,9 @@ public:
       }
     }
     for (R_xlen_t i = 0; i < index.size(); ++i) {
-      new_storage[index[i] - 1] = (*value_recast)[i];
+      new_storage[index[i] - 1] = value_vec[i];
     }
-    return {new_from_vector(new_storage)};
+    return create_geometry_vector(new_storage);
   }
   geometry_vector_base_p combine(cpp11::list_of< geometry_vector_base_p > extra) const {
     std::vector<T> new_storage(_storage);
@@ -453,13 +451,13 @@ public:
       if (typeid(*this) != typeid(*candidate)) {
         cpp11::stop("Incompatible vector types");
       }
-      const geometry_vector<T, dim, U>* candidate_recast = dynamic_cast< const geometry_vector<T, dim, U>* >(candidate);
-      for (size_t j = 0; j < candidate_recast->size(); ++j) {
-        new_storage.push_back((*candidate_recast)[j]);
+      auto candidate_vec = get_vector_of_geo<T>(*candidate);
+      for (size_t j = 0; j < candidate_vec.size(); ++j) {
+        new_storage.push_back(candidate_vec[j]);
       }
     }
 
-    return {new_from_vector(new_storage)};
+    return create_geometry_vector(new_storage);
   }
 
   // Self-similarity
@@ -479,7 +477,7 @@ public:
       }
     }
 
-    return {new_from_vector(new_storage)};
+    return create_geometry_vector(new_storage);
   };
   cpp11::writable::logicals duplicated() const {
     std::vector<T> uniques;
@@ -535,9 +533,9 @@ public:
       return results;
     }
 
-    const geometry_vector<T, dim, U>* table_recast = dynamic_cast< const geometry_vector<T, dim, U>* >(&table);
+    auto table_vec = get_vector_of_geo<T>(table);
 
-    return match_impl(_storage, table_recast->_storage);
+    return match_impl(_storage, table_vec);
   }
   cpp11::writable::logicals is_na() const {
     cpp11::writable::logicals result;
@@ -578,13 +576,13 @@ public:
     size_t output_length = std::max(size(), points.size());
     cpp11::writable::logicals result;
     result.reserve(output_length);
-    const geometry_vector<Point, dim, Point_2>* points_recast = dynamic_cast< const geometry_vector<Point, dim, Point_2>* >(&points);
+    auto points_vec = get_vector_of_geo<Point>(points);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !(*points_recast)[i % points_recast->size()]) {
+      if (!_storage[i % size()] || !points_vec[i % points_vec.size()]) {
         result.push_back(NA_LOGICAL);
         continue;
       }
-      result.push_back((Rboolean) has_inside_impl(_storage[i % size()], (*points_recast)[i % points_recast->size()]));
+      result.push_back((Rboolean) has_inside_impl(_storage[i % size()], points_vec[i % points_vec.size()]));
     }
     return result;
   }
@@ -595,13 +593,13 @@ public:
     size_t output_length = std::max(size(), points.size());
     cpp11::writable::logicals result;
     result.reserve(output_length);
-    const geometry_vector<Point, dim, Point_2>* points_recast = dynamic_cast< const geometry_vector<Point, dim, Point_2>* >(&points);
+    auto points_vec = get_vector_of_geo<Point>(points);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !(*points_recast)[i % points_recast->size()]) {
+      if (!_storage[i % size()] || !points_vec[i % points_vec.size()]) {
         result.push_back(NA_LOGICAL);
         continue;
       }
-      result.push_back((Rboolean) has_on_impl(_storage[i % size()], (*points_recast)[i % points_recast->size()]));
+      result.push_back((Rboolean) has_on_impl(_storage[i % size()], points_vec[i % points_vec.size()]));
     }
     return result;
   }
@@ -612,13 +610,13 @@ public:
     size_t output_length = std::max(size(), points.size());
     cpp11::writable::logicals result;
     result.reserve(output_length);
-    const geometry_vector<Point, dim, Point_2>* points_recast = dynamic_cast< const geometry_vector<Point, dim, Point_2>* >(&points);
+    auto points_vec = get_vector_of_geo<Point>(points);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !(*points_recast)[i % points_recast->size()]) {
+      if (!_storage[i % size()] || !points_vec[i % points_vec.size()]) {
         result.push_back(NA_LOGICAL);
         continue;
       }
-      result.push_back((Rboolean) has_outside_impl(_storage[i % size()], (*points_recast)[i % points_recast->size()]));
+      result.push_back((Rboolean) has_outside_impl(_storage[i % size()], points_vec[i % points_vec.size()]));
     }
     return result;
   }
@@ -629,13 +627,13 @@ public:
     size_t output_length = std::max(size(), points.size());
     cpp11::writable::logicals result;
     result.reserve(output_length);
-    const geometry_vector<Point, dim, Point_2>* points_recast = dynamic_cast< const geometry_vector<Point, dim, Point_2>* >(&points);
+    auto points_vec = get_vector_of_geo<Point>(points);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !(*points_recast)[i % points_recast->size()]) {
+      if (!_storage[i % size()] || !points_vec[i % points_vec.size()]) {
         result.push_back(NA_LOGICAL);
         continue;
       }
-      result.push_back((Rboolean) has_on_positive_impl(_storage[i % size()], (*points_recast)[i % points_recast->size()]));
+      result.push_back((Rboolean) has_on_positive_impl(_storage[i % size()], points_vec[i % points_vec.size()]));
     }
     return result;
   }
@@ -646,13 +644,13 @@ public:
     size_t output_length = std::max(size(), points.size());
     cpp11::writable::logicals result;
     result.reserve(output_length);
-    const geometry_vector<Point, dim, Point_2>* points_recast = dynamic_cast< const geometry_vector<Point, dim, Point_2>* >(&points);
+    auto points_vec = get_vector_of_geo<Point>(points);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !(*points_recast)[i % points_recast->size()]) {
+      if (!_storage[i % size()] || !points_vec[i % points_vec.size()]) {
         result.push_back(NA_LOGICAL);
         continue;
       }
-      result.push_back((Rboolean) has_on_negative_impl(_storage[i % size()], (*points_recast)[i % points_recast->size()]));
+      result.push_back((Rboolean) has_on_negative_impl(_storage[i % size()], points_vec[i % points_vec.size()]));
     }
     return result;
   }
@@ -733,7 +731,7 @@ public:
       result.push_back(transform_impl(_storage[i % size()], (*affine_recast)[i % affine_recast->size()]));
     }
 
-    return {new_from_vector(result)};
+    return create_geometry_vector(result);
   }
 
   bbox_vector_base_p bbox() const {
@@ -763,16 +761,16 @@ public:
     std::vector<T> result;
     result.reserve(output_length);
 
-    const geometry_vector<Line, dim, Line_2>* lines_recast = dynamic_cast< const geometry_vector<Line, dim, Line_2>* >(&lines);
+    auto lines_vec = get_vector_of_geo<Line>(lines);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !(*lines_recast)[i % lines_recast->size()]) {
+      if (!_storage[i % size()] || !lines_vec[i % lines_vec.size()]) {
         result.push_back(T::NA_value());
         continue;
       }
-      result.push_back(project_to_line_impl(_storage[i % size()], (*lines_recast)[i % lines_recast->size()]));
+      result.push_back(project_to_line_impl(_storage[i % size()], lines_vec[i % lines_vec.size()]));
     }
 
-    return {new_from_vector(result)};
+    return create_geometry_vector(result);
   }
   geometry_vector_base_p project_to_plane(const geometry_vector_base& planes) const {
     if (dim != 3) {
@@ -783,16 +781,16 @@ public:
     std::vector<T> result;
     result.reserve(output_length);
 
-    const geometry_vector<Plane, dim>* planes_recast = dynamic_cast< const geometry_vector<Plane, dim>* >(&planes);
+    auto planes_vec = get_vector_of_geo<Plane>(planes);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !(*planes_recast)[i % planes_recast->size()]) {
+      if (!_storage[i % size()] || !planes_vec[i % planes_vec.size()]) {
         result.push_back(T::NA_value());
         continue;
       }
-      result.push_back(project_to_plane_impl(_storage[i % size()], (*planes_recast)[i % planes_recast->size()]));
+      result.push_back(project_to_plane_impl(_storage[i % size()], planes_vec[i % planes_vec.size()]));
     }
 
-    return {new_from_vector(result)};
+    return create_geometry_vector(result);
   }
   geometry_vector_base_p map_to_plane(const geometry_vector_base& planes) const {
     if (dim != 3) {
@@ -803,16 +801,16 @@ public:
     std::vector<U> result;
     result.reserve(output_length);
 
-    const geometry_vector<Plane, dim>* planes_recast = dynamic_cast< const geometry_vector<Plane, dim>* >(&planes);
+    auto planes_vec = get_vector_of_geo<Plane>(planes);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !(*planes_recast)[i % planes_recast->size()]) {
+      if (!_storage[i % size()] || !planes_vec[i % planes_vec.size()]) {
         result.push_back(U::NA_value());
         continue;
       }
-      result.push_back(map_to_plane_impl<T, U>(_storage[i % size()], (*planes_recast)[i % planes_recast->size()]));
+      result.push_back(map_to_plane_impl<T, U>(_storage[i % size()], planes_vec[i % planes_vec.size()]));
     }
 
-    return {new_2D_from_vector(result)};
+    return create_geometry_vector(result);
   }
   geometry_vector_base_p normal() const {
     std::vector<Direction> result;

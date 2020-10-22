@@ -12,18 +12,6 @@ public:
   using geometry_vector::geometry_vector;
   ~segment2() = default;
 
-  geometry_vector_base* new_from_vector(std::vector<Segment_2> vec) const {
-    segment2* copy = new segment2();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
-
-  geometry_vector_base* new_2D_from_vector(std::vector<Segment_2> vec) const {
-    return new_from_vector(vec);
-  }
-
   Primitive geometry_type() const { return SEGMENT; }
 
   size_t cardinality(size_t i) const { return 2; }
@@ -83,20 +71,6 @@ class segment3 : public geometry_vector<Segment_3, 3, Segment_2> {
 public:
   using geometry_vector::geometry_vector;
   ~segment3() = default;
-
-  geometry_vector_base* new_from_vector(std::vector<Segment_3> vec) const {
-    segment3* copy = new segment3();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
-
-  geometry_vector_base* new_2D_from_vector(std::vector<Segment_2> vec) const {
-    segment2* copy = new segment2(vec);
-
-    return copy;
-  }
 
   Primitive geometry_type() const { return SEGMENT; }
 

@@ -95,6 +95,22 @@ public:
 
 typedef cpp11::external_pointer<transform_vector_base> transform_vector_base_p;
 
+// General constructor
+template<typename T>
+transform_vector_base_p create_transform_vector(std::vector<T>& input);
+template<>
+transform_vector_base_p create_transform_vector(std::vector<Aff_transformation_2>& input);
+template<>
+transform_vector_base_p create_transform_vector(std::vector<Aff_transformation_3>& input);
+
+// General extractors
+template<typename T>
+const std::vector<T> get_vector_of_trans(const transform_vector_base& transforms);
+template<>
+const std::vector<Aff_transformation_2> get_vector_of_trans(const transform_vector_base& transforms);
+template<>
+const std::vector<Aff_transformation_3> get_vector_of_trans(const transform_vector_base& transforms);
+
 template <typename T, size_t dim>
 class transform_vector : public transform_vector_base {
 protected:
@@ -244,7 +260,7 @@ public:
       result.push_back(_storage[i % size()] * (*other_recast)[i % other_recast->size()]);
     }
 
-    return {new_from_vector(result)};
+    return create_transform_vector(result);
   }
   transform_vector_base_p inverse() const {
     std::vector<T> result;
@@ -258,7 +274,7 @@ public:
       result.push_back(_storage[i].inverse());
     }
 
-    return {new_from_vector(result)};
+    return create_transform_vector(result);
   }
 
   // Utility
@@ -271,7 +287,6 @@ public:
   };
 
   // Subsetting, assignment, combining etc
-  virtual transform_vector_base* new_from_vector(std::vector<T> vec) const = 0;
   transform_vector_base_p subset(cpp11::integers index) const {
     std::vector<T> new_storage;
     new_storage.reserve(size());
@@ -282,13 +297,13 @@ public:
         new_storage.push_back(_storage[index[i] - 1]);
       }
     }
-    return {new_from_vector(new_storage)};
+    return create_transform_vector(new_storage);
   }
   transform_vector_base_p copy() const {
     std::vector<T> new_storage;
     new_storage.reserve(size());
     new_storage.insert(new_storage.begin(), _storage.begin(), _storage.end());
-    return {new_from_vector(new_storage)};
+    return create_transform_vector(new_storage);
   }
   transform_vector_base_p assign(cpp11::integers index, const transform_vector_base& value) const {
     if (index.size() != value.size()) {
@@ -311,7 +326,7 @@ public:
     for (R_xlen_t i = 0; i < index.size(); ++i) {
       new_storage[index[i] - 1] = (*value_recast)[i];
     }
-    return {new_from_vector(new_storage)};
+    return create_transform_vector(new_storage);
   }
   transform_vector_base_p combine(cpp11::list_of< transform_vector_base_p > extra) const {
     std::vector<T> new_storage(_storage);
@@ -327,7 +342,7 @@ public:
       }
     }
 
-    return {new_from_vector(new_storage)};
+    return create_transform_vector(new_storage);
   }
 
   // Self-similarity
@@ -347,7 +362,7 @@ public:
       }
     }
 
-    return {new_from_vector(new_storage)};
+    return create_transform_vector(new_storage);
   };
   cpp11::writable::logicals duplicated() const {
     std::vector<T> uniques;
@@ -457,7 +472,7 @@ public:
     std::vector<T> result;
     result.push_back(total);
 
-    return {new_from_vector(result)};
+    return create_transform_vector(result);
   }
   transform_vector_base_p cumprod() const {
     std::vector<T> result;
@@ -477,7 +492,7 @@ public:
       result.push_back(cum_prod);
     }
 
-    return {new_from_vector(result)};
+    return create_transform_vector(result);
   }
 };
 
@@ -485,28 +500,12 @@ class transform2: public transform_vector<Aff_transformation_2, 2> {
 public:
   using transform_vector::transform_vector;
   ~transform2() = default;
-
-  transform_vector_base* new_from_vector(std::vector<Aff_transformation_2> vec) const {
-    transform2* copy = new transform2();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
 };
 typedef cpp11::external_pointer<transform2> transform2_p;
 
 class transform3: public transform_vector<Aff_transformation_3, 3> {
-  public:
-    using transform_vector::transform_vector;
-    ~transform3() = default;
-
-    transform_vector_base* new_from_vector(std::vector<Aff_transformation_3> vec) const {
-      transform3* copy = new transform3();
-
-      copy->_storage.swap(vec);
-
-      return copy;
-    }
+public:
+  using transform_vector::transform_vector;
+  ~transform3() = default;
 };
 typedef cpp11::external_pointer<transform3> transform3_p;

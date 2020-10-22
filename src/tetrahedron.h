@@ -11,18 +11,6 @@ class tetrahedron : public geometry_vector<Tetrahedron, 3> {
     using geometry_vector::geometry_vector;
     ~tetrahedron() = default;
 
-    geometry_vector_base* new_from_vector(std::vector<Tetrahedron> vec) const {
-      tetrahedron* copy = new tetrahedron();
-
-      copy->_storage.swap(vec);
-
-      return copy;
-    }
-
-    geometry_vector_base* new_2D_from_vector(std::vector<Tetrahedron> vec) const {
-      cpp11::stop("Tetrahedrons cannot be mapped to 2D");
-    }
-
     Primitive geometry_type() const { return TETRAHEDRON; }
 
     size_t cardinality(size_t i) const { return 4; }

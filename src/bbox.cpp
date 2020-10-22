@@ -8,6 +8,33 @@
 #include <cpp11/list_of.hpp>
 #include <cpp11/external_pointer.hpp>
 
+template<>
+bbox_vector_base_p create_bbox_vector(std::vector<Bbox_2>& input) {
+  bbox2* vec = new bbox2(input);
+  return {vec};
+}
+template<>
+bbox_vector_base_p create_bbox_vector(std::vector<Bbox_3>& input) {
+  bbox3* vec = new bbox3(input);
+  return {vec};
+}
+template<>
+const std::vector<Bbox_2> get_vector_of_bbox(const bbox_vector_base& bboxes) {
+  if (bboxes.dimensions() != 2) {
+    cpp11::stop("Bounding boxes must be in 2 dimensions");
+  }
+  auto recast = dynamic_cast< const bbox_vector<Bbox_2, 2>* >(&bboxes);
+  return recast->get_storage();
+}
+template<>
+const std::vector<Bbox_3> get_vector_of_bbox(const bbox_vector_base& bboxes) {
+  if (bboxes.dimensions() != 3) {
+    cpp11::stop("Bounding boxes must be in 3 dimensions");
+  }
+  auto recast = dynamic_cast< const bbox_vector<Bbox_3, 3>* >(&bboxes);
+  return recast->get_storage();
+}
+
 [[cpp11::register]]
 bbox2_p create_bbox_2(cpp11::doubles xmin, cpp11::doubles ymin, cpp11::doubles xmax, cpp11::doubles ymax) {
   std::vector<Bbox_2> vec;

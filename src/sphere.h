@@ -13,19 +13,6 @@ public:
   using geometry_vector::geometry_vector;
   ~sphere() = default;
 
-  geometry_vector_base* new_from_vector(std::vector<Sphere> vec) const {
-    sphere* copy = new sphere();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
-
-  geometry_vector_base* new_2D_from_vector(std::vector<Circle_2> vec) const {
-    circle2* copy = new circle2(vec);
-    return copy;
-  }
-
   Primitive geometry_type() const { return SPHERE; }
 
   cpp11::writable::strings def_names() const {

@@ -12,18 +12,6 @@ public:
   using geometry_vector::geometry_vector;
   ~triangle2() = default;
 
-  geometry_vector_base* new_from_vector(std::vector<Triangle_2> vec) const {
-    triangle2* copy = new triangle2();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
-
-  geometry_vector_base* new_2D_from_vector(std::vector<Triangle_2> vec) const {
-    return new_from_vector(vec);
-  }
-
   Primitive geometry_type() const { return TRIANGLE; }
 
   size_t cardinality(size_t i) const { return 3; }
@@ -70,19 +58,6 @@ class triangle3 : public geometry_vector<Triangle_3, 3, Triangle_2> {
 public:
   using geometry_vector::geometry_vector;
   ~triangle3() = default;
-
-  geometry_vector_base* new_from_vector(std::vector<Triangle_3> vec) const {
-    triangle3* copy = new triangle3();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
-
-  geometry_vector_base* new_2D_from_vector(std::vector<Triangle_2> vec) const {
-    triangle2* copy = new triangle2(vec);
-    return copy;
-  }
 
   Primitive geometry_type() const { return TRIANGLE; }
 

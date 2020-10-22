@@ -12,6 +12,33 @@
 
 #include "vector.h"
 
+template<>
+transform_vector_base_p create_transform_vector(std::vector<Aff_transformation_2>& input) {
+  transform2* vec = new transform2(input);
+  return {vec};
+}
+template<>
+transform_vector_base_p create_transform_vector(std::vector<Aff_transformation_3>& input) {
+  transform3* vec = new transform3(input);
+  return {vec};
+}
+template<>
+const std::vector<Aff_transformation_2> get_vector_of_trans(const transform_vector_base& transforms) {
+  if (transforms.dimensions() != 2) {
+    cpp11::stop("Transformation matrices must be in 2 dimensions");
+  }
+  auto recast = dynamic_cast< const transform_vector<Aff_transformation_2, 2>* >(&transforms);
+  return recast->get_storage();
+}
+template<>
+const std::vector<Aff_transformation_3> get_vector_of_trans(const transform_vector_base& transforms) {
+  if (transforms.dimensions() != 3) {
+    cpp11::stop("Transformation matrices must be in 3 dimensions");
+  }
+  auto recast = dynamic_cast< const transform_vector<Aff_transformation_3, 3>* >(&transforms);
+  return recast->get_storage();
+}
+
 [[cpp11::register]]
 transform2_p create_transform_2_identity(int n) {
   std::vector<Aff_transformation_2> vec;

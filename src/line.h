@@ -12,18 +12,6 @@ public:
   using geometry_vector::geometry_vector;
   ~line2() = default;
 
-  geometry_vector_base* new_from_vector(std::vector<Line_2> vec) const {
-    line2* copy = new line2();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
-
-  geometry_vector_base* new_2D_from_vector(std::vector<Line_2> vec) const {
-    return new_from_vector(vec);
-  }
-
   Primitive geometry_type() const { return LINE; }
 
   cpp11::writable::strings def_names() const {
@@ -69,19 +57,6 @@ class line3 : public geometry_vector<Line_3, 3, Line_2> {
 public:
   using geometry_vector::geometry_vector;
   ~line3() = default;
-
-  geometry_vector_base* new_from_vector(std::vector<Line_3> vec) const {
-    line3* copy = new line3();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
-
-  geometry_vector_base* new_2D_from_vector(std::vector<Line_2> vec) const {
-    line2* copy = new line2(vec);
-    return copy;
-  }
 
   Primitive geometry_type() const { return LINE; }
 

@@ -97,6 +97,22 @@ public:
 
 typedef cpp11::external_pointer<bbox_vector_base> bbox_vector_base_p;
 
+// General constructor
+template<typename T>
+bbox_vector_base_p create_bbox_vector(std::vector<T>& input);
+template<>
+bbox_vector_base_p create_bbox_vector(std::vector<Bbox_2>& input);
+template<>
+bbox_vector_base_p create_bbox_vector(std::vector<Bbox_3>& input);
+
+// General extractors
+template<typename T>
+const std::vector<T> get_vector_of_bbox(const bbox_vector_base& bboxes);
+template<>
+const std::vector<Bbox_2> get_vector_of_bbox(const bbox_vector_base& bboxes);
+template<>
+const std::vector<Bbox_3> get_vector_of_bbox(const bbox_vector_base& bboxes);
+
 template <typename T, size_t dim>
 class bbox_vector : public bbox_vector_base {
 protected:
@@ -237,7 +253,7 @@ public:
       result.push_back(_storage[i % size()] + (*other_recast)[i % other_recast->size()]);
     }
 
-    return {new_from_vector(result)};
+    return create_bbox_vector(result);
   }
 
   // Utility
@@ -250,7 +266,6 @@ public:
   };
 
   // Subsetting, assignment, combining etc
-  virtual bbox_vector_base* new_from_vector(std::vector<T> vec) const = 0;
   bbox_vector_base_p subset(cpp11::integers index) const {
     std::vector<T> new_storage;
     new_storage.reserve(size());
@@ -261,13 +276,13 @@ public:
         new_storage.push_back(_storage[index[i] - 1]);
       }
     }
-    return {new_from_vector(new_storage)};
+    return create_bbox_vector(new_storage);
   }
   bbox_vector_base_p copy() const {
     std::vector<T> new_storage;
     new_storage.reserve(size());
     new_storage.insert(new_storage.begin(), _storage.begin(), _storage.end());
-    return {new_from_vector(new_storage)};
+    return create_bbox_vector(new_storage);
   }
   bbox_vector_base_p assign(cpp11::integers index, const bbox_vector_base& value) const {
     if (index.size() != value.size()) {
@@ -290,7 +305,7 @@ public:
     for (R_xlen_t i = 0; i < index.size(); ++i) {
       new_storage[index[i] - 1] = (*value_recast)[i];
     }
-    return {new_from_vector(new_storage)};
+    return create_bbox_vector(new_storage);
   }
   bbox_vector_base_p combine(cpp11::list_of< bbox_vector_base_p > extra) const {
     std::vector<T> new_storage(_storage);
@@ -306,7 +321,7 @@ public:
       }
     }
 
-    return {new_from_vector(new_storage)};
+    return create_bbox_vector(new_storage);
   }
 
   // Self-similarity
@@ -327,7 +342,7 @@ public:
       }
     }
 
-    return {new_from_vector(new_storage)};
+    return create_bbox_vector(new_storage);
   };
   cpp11::writable::logicals duplicated() const {
     std::vector<T> uniques;
@@ -444,7 +459,7 @@ public:
     std::vector<T> result;
     result.push_back(total);
 
-    return {new_from_vector(result)};
+    return create_bbox_vector(result);
   }
   bbox_vector_base_p cumsum() const {
     std::vector<T> result;
@@ -464,7 +479,7 @@ public:
       result.push_back(cum_sum);
     }
 
-    return {new_from_vector(result)};
+    return create_bbox_vector(result);
   }
 };
 
@@ -472,14 +487,6 @@ class bbox2: public bbox_vector<Bbox_2, 2> {
 public:
   using bbox_vector::bbox_vector;
   ~bbox2() = default;
-
-  bbox_vector_base* new_from_vector(std::vector<Bbox_2> vec) const {
-    bbox2* copy = new bbox2();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
 };
 typedef cpp11::external_pointer<bbox2> bbox2_p;
 
@@ -487,13 +494,5 @@ class bbox3: public bbox_vector<Bbox_3, 3> {
 public:
   using bbox_vector::bbox_vector;
   ~bbox3() = default;
-
-  bbox_vector_base* new_from_vector(std::vector<Bbox_3> vec) const {
-    bbox3* copy = new bbox3();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
 };
 typedef cpp11::external_pointer<bbox3> bbox3_p;

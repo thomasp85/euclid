@@ -13,18 +13,6 @@ public:
   using geometry_vector::geometry_vector;
   ~circle2() = default;
 
-  geometry_vector_base* new_from_vector(std::vector<Circle_2> vec) const {
-    circle2* copy = new circle2();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
-
-  geometry_vector_base* new_2D_from_vector(std::vector<Circle_2> vec) const {
-    return new_from_vector(vec);
-  }
-
   Primitive geometry_type() const { return CIRCLE; }
 
   cpp11::writable::strings def_names() const {
@@ -67,19 +55,6 @@ class circle3 : public geometry_vector<Circle_3, 3, Circle_2> {
 public:
   using geometry_vector::geometry_vector;
   ~circle3() = default;
-
-  geometry_vector_base* new_from_vector(std::vector<Circle_3> vec) const {
-    circle3* copy = new circle3();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
-
-  geometry_vector_base* new_2D_from_vector(std::vector<Circle_2> vec) const {
-    circle2* copy = new circle2(vec);
-    return copy;
-  }
 
   Primitive geometry_type() const { return CIRCLE; }
 

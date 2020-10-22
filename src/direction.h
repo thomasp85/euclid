@@ -11,18 +11,6 @@ public:
   using geometry_vector::geometry_vector;
   ~direction2() = default;
 
-  geometry_vector_base* new_from_vector(std::vector<Direction_2> vec) const {
-    direction2* copy = new direction2();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
-
-  geometry_vector_base* new_2D_from_vector(std::vector<Direction_2> vec) const {
-    return new_from_vector(vec);
-  }
-
   Primitive geometry_type() const { return DIRECTION; }
 
   cpp11::writable::strings def_names() const {
@@ -271,19 +259,6 @@ class direction3 : public geometry_vector<Direction_3, 3, Direction_2> {
 public:
   using geometry_vector::geometry_vector;
   ~direction3() = default;
-
-  geometry_vector_base* new_from_vector(std::vector<Direction_3> vec) const {
-    direction3* copy = new direction3();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
-
-  geometry_vector_base* new_2D_from_vector(std::vector<Direction_2> vec) const {
-    direction2* copy = new direction2(vec);
-    return copy;
-  }
 
   Primitive geometry_type() const { return DIRECTION; }
 

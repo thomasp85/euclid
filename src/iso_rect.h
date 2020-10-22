@@ -12,18 +12,6 @@ public:
   using geometry_vector::geometry_vector;
   ~iso_rect() = default;
 
-  geometry_vector_base* new_from_vector(std::vector<Iso_rectangle> vec) const {
-    iso_rect* copy = new iso_rect();
-
-    copy->_storage.swap(vec);
-
-    return copy;
-  }
-
-  geometry_vector_base* new_2D_from_vector(std::vector<Iso_rectangle> vec) const {
-    return new_from_vector(vec);
-  }
-
   Primitive geometry_type() const { return ISORECT; }
 
   size_t cardinality(size_t i) const { return 4; }
