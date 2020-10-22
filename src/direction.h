@@ -44,6 +44,10 @@ public:
     };
   }
 
+  cpp11::writable::list intersection(const geometry_vector_base& other) const {
+    cpp11::stop("Don't know how to calculate the intersection of these geometries");
+  }
+
   std::vector<Direction_2> operator-() const {
     std::vector<Direction_2> result;
     result.reserve(size());
@@ -302,6 +306,10 @@ public:
       CGAL::to_double(_storage[i].dy().exact()),
       CGAL::to_double(_storage[i].dz().exact())
     };
+  }
+
+  cpp11::writable::list intersection(const geometry_vector_base& other) const {
+    cpp11::stop("Don't know how to calculate the intersection of these geometries");
   }
 
   std::vector<Direction_3> operator-() const {

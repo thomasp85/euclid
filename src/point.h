@@ -4,6 +4,7 @@
 #include "cgal_types.h"
 #include "geometry_vector.h"
 #include "exact_numeric.h"
+#include "intersection.h"
 
 #include <vector>
 
@@ -43,6 +44,22 @@ public:
       CGAL::to_double(_storage[i].x().exact()),
       CGAL::to_double(_storage[i].y().exact())
     };
+  }
+
+  cpp11::writable::list intersection(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    switch (other.geometry_type()) {
+    case CIRCLE: return intersection_impl(get_vector_of_geo<Circle_2>(other), _storage);
+    case ISORECT: return intersection_impl(get_vector_of_geo<Iso_rectangle>(other), _storage);
+    case LINE: return intersection_impl(get_vector_of_geo<Line_2>(other), _storage);
+    case POINT: return intersection_impl(_storage, get_vector_of_geo<Point_2>(other));
+    case RAY: return intersection_impl(_storage, get_vector_of_geo<Ray_2>(other));
+    case SEGMENT: return intersection_impl(_storage, get_vector_of_geo<Segment_2>(other));
+    case TRIANGLE: return intersection_impl(_storage, get_vector_of_geo<Triangle_2>(other));
+    default: cpp11::stop("Don't know how to calculate the intersection of these geometries");
+    }
   }
 
   std::vector<Point_2> operator+(const std::vector<Vector_2>& other) const {
@@ -316,6 +333,23 @@ public:
       CGAL::to_double(_storage[i].y().exact()),
       CGAL::to_double(_storage[i].z().exact())
     };
+  }
+
+  cpp11::writable::list intersection(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    switch (other.geometry_type()) {
+    case LINE: return intersection_impl(get_vector_of_geo<Line_3>(other),_storage);
+    case PLANE: return intersection_impl(get_vector_of_geo<Plane>(other), _storage);
+    case POINT: return intersection_impl(_storage, get_vector_of_geo<Point_3>(other));
+    case RAY: return intersection_impl(_storage, get_vector_of_geo<Ray_3>(other));
+    case SEGMENT: return intersection_impl(_storage, get_vector_of_geo<Segment_3>(other));
+    case SPHERE: return intersection_impl(_storage, get_vector_of_geo<Sphere>(other));
+    case TRIANGLE: return intersection_impl(_storage, get_vector_of_geo<Triangle_3>(other));
+    default:
+      cpp11::stop("Don't know how to calculate the intersection of these geometries");
+    }
   }
 
   std::vector<Point_3> operator+(const std::vector<Vector_3>& other) const {

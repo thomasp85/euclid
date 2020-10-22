@@ -914,6 +914,13 @@ extern "C" SEXP _euclid_geometry_normal(SEXP geometries) {
     return cpp11::as_sexp(geometry_normal(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries)));
   END_CPP11
 }
+// intersection.cpp
+cpp11::writable::list geometry_intersection(geometry_vector_base_p geo1, geometry_vector_base_p geo2);
+extern "C" SEXP _euclid_geometry_intersection(SEXP geo1, SEXP geo2) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_intersection(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geo1), cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geo2)));
+  END_CPP11
+}
 // iso_cube.cpp
 iso_cube_p create_iso_cube_empty();
 extern "C" SEXP _euclid_create_iso_cube_empty() {
@@ -2259,6 +2266,7 @@ extern SEXP _euclid_geometry_has_point_on(SEXP, SEXP);
 extern SEXP _euclid_geometry_has_point_on_negative(SEXP, SEXP);
 extern SEXP _euclid_geometry_has_point_on_positive(SEXP, SEXP);
 extern SEXP _euclid_geometry_has_point_outside(SEXP, SEXP);
+extern SEXP _euclid_geometry_intersection(SEXP, SEXP);
 extern SEXP _euclid_geometry_is_degenerate(SEXP);
 extern SEXP _euclid_geometry_is_equal(SEXP, SEXP);
 extern SEXP _euclid_geometry_is_na(SEXP);
@@ -2553,6 +2561,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_geometry_has_point_on_negative",      (DL_FUNC) &_euclid_geometry_has_point_on_negative,      2},
     {"_euclid_geometry_has_point_on_positive",      (DL_FUNC) &_euclid_geometry_has_point_on_positive,      2},
     {"_euclid_geometry_has_point_outside",          (DL_FUNC) &_euclid_geometry_has_point_outside,          2},
+    {"_euclid_geometry_intersection",               (DL_FUNC) &_euclid_geometry_intersection,               2},
     {"_euclid_geometry_is_degenerate",              (DL_FUNC) &_euclid_geometry_is_degenerate,              1},
     {"_euclid_geometry_is_equal",                   (DL_FUNC) &_euclid_geometry_is_equal,                   2},
     {"_euclid_geometry_is_na",                      (DL_FUNC) &_euclid_geometry_is_na,                      1},

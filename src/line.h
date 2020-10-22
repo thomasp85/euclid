@@ -5,6 +5,7 @@
 #include "cgal_types.h"
 #include "geometry_vector.h"
 #include "exact_numeric.h"
+#include "intersection.h"
 
 class line2 : public geometry_vector<Line_2, 2> {
 public:
@@ -44,6 +45,21 @@ public:
       CGAL::to_double(_storage[i].b().exact()),
       CGAL::to_double(_storage[i].c().exact())
     };
+  }
+
+  cpp11::writable::list intersection(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    switch (other.geometry_type()) {
+    case ISORECT: return intersection_impl(get_vector_of_geo<Iso_rectangle>(other), _storage);
+    case LINE: return intersection_impl(_storage, get_vector_of_geo<Line_2>(other));
+    case POINT: return intersection_impl(_storage, get_vector_of_geo<Point_2>(other));
+    case RAY: return intersection_impl(_storage, get_vector_of_geo<Ray_2>(other));
+    case SEGMENT: return intersection_impl(_storage, get_vector_of_geo<Segment_2>(other));
+    case TRIANGLE: return intersection_impl(_storage, get_vector_of_geo<Triangle_2>(other));
+    default: cpp11::stop("Don't know how to calculate the intersection of these geometries");
+    }
   }
 };
 
@@ -94,6 +110,21 @@ public:
       CGAL::to_double(_storage[i].direction().dy().exact()),
       CGAL::to_double(_storage[i].direction().dz().exact())
     };
+  }
+
+  cpp11::writable::list intersection(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    switch (other.geometry_type()) {
+    case LINE: return intersection_impl(_storage, get_vector_of_geo<Line_3>(other));
+    case PLANE: return intersection_impl(_storage, get_vector_of_geo<Plane>(other));
+    case POINT: return intersection_impl(_storage, get_vector_of_geo<Point_3>(other));
+    case RAY: return intersection_impl(_storage, get_vector_of_geo<Ray_3>(other));
+    case SEGMENT: return intersection_impl(_storage, get_vector_of_geo<Segment_3>(other));
+    case TRIANGLE: return intersection_impl(_storage, get_vector_of_geo<Triangle_3>(other));
+    default: cpp11::stop("Don't know how to calculate the intersection of these geometries");
+    }
   }
 };
 

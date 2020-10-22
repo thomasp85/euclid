@@ -4,6 +4,7 @@
 #include <cpp11/logicals.hpp>
 #include "cgal_types.h"
 #include "geometry_vector.h"
+#include "intersection.h"
 
 #include <vector>
 
@@ -48,6 +49,16 @@ public:
       CGAL::to_double(circ.squared_radius().exact())
     };
   }
+
+  cpp11::writable::list intersection(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    switch (other.geometry_type()) {
+    case POINT: return intersection_impl(_storage, get_vector_of_geo<Point_2>(other));
+    default: cpp11::stop("Don't know how to calculate the intersection of these geometries");
+    }
+  }
 };
 
 typedef cpp11::external_pointer<circle2> circle2_p;
@@ -91,14 +102,18 @@ public:
 
   std::vector<double> get_row(size_t i, size_t j) const {
     return {
-    CGAL::to_double(_storage[i].center().x().exact()),
-    CGAL::to_double(_storage[i].center().y().exact()),
-    CGAL::to_double(_storage[i].center().z().exact()),
-    CGAL::to_double(_storage[i].squared_radius().exact()),
-    CGAL::to_double(_storage[i].supporting_plane().orthogonal_direction().dx().exact()),
-    CGAL::to_double(_storage[i].supporting_plane().orthogonal_direction().dy().exact()),
-    CGAL::to_double(_storage[i].supporting_plane().orthogonal_direction().dz().exact())
-  };
+      CGAL::to_double(_storage[i].center().x().exact()),
+      CGAL::to_double(_storage[i].center().y().exact()),
+      CGAL::to_double(_storage[i].center().z().exact()),
+      CGAL::to_double(_storage[i].squared_radius().exact()),
+      CGAL::to_double(_storage[i].supporting_plane().orthogonal_direction().dx().exact()),
+      CGAL::to_double(_storage[i].supporting_plane().orthogonal_direction().dy().exact()),
+      CGAL::to_double(_storage[i].supporting_plane().orthogonal_direction().dz().exact())
+    };
+  }
+
+  cpp11::writable::list intersection(const geometry_vector_base& other) const {
+    cpp11::stop("Don't know how to calculate the intersection of these geometries");
   }
 };
 

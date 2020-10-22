@@ -108,6 +108,9 @@ public:
   virtual cpp11::external_pointer<geometry_vector_base> project_to_plane(const geometry_vector_base& planes) const = 0;
   virtual cpp11::external_pointer<geometry_vector_base> map_to_plane(const geometry_vector_base& planes) const = 0;
   virtual cpp11::external_pointer<geometry_vector_base> normal() const = 0;
+
+  // Intersections
+  virtual cpp11::writable::list intersection(const geometry_vector_base& other) const = 0;
 };
 typedef cpp11::external_pointer<geometry_vector_base> geometry_vector_base_p;
 
@@ -115,13 +118,107 @@ typedef cpp11::external_pointer<geometry_vector_base> geometry_vector_base_p;
 template<typename T>
 geometry_vector_base_p create_geometry_vector(std::vector<T>& input);
 template<>
-geometry_vector_base_p create_geometry_vector(std::vector<Point_2>& input);
+geometry_vector_base_p create_geometry_vector(std::vector<Circle_2>& input);
 template<>
-geometry_vector_base_p create_geometry_vector(std::vector<Point_3>& input);
+geometry_vector_base_p create_geometry_vector(std::vector<Circle_3>& input);
 template<>
 geometry_vector_base_p create_geometry_vector(std::vector<Direction_2>& input);
 template<>
 geometry_vector_base_p create_geometry_vector(std::vector<Direction_3>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Iso_cuboid>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Iso_rectangle>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Line_2>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Line_3>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Plane>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Point_2>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Point_3>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Ray_2>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Ray_3>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Segment_2>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Segment_3>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Sphere>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Tetrahedron>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Triangle_2>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Triangle_3>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Vector_2>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Vector_3>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Weighted_point_2>& input);
+template<>
+geometry_vector_base_p create_geometry_vector(std::vector<Weighted_point_3>& input);
+
+template<typename T>
+geometry_vector_base_p create_scalar_geometry(const T& val) {
+  std::vector<T> scalar = {val};
+  return create_geometry_vector(scalar);
+}
+
+// General extractors
+template<typename T>
+const std::vector<T> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Circle_2> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Circle_3> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Direction_2> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Direction_3> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Iso_cuboid> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Iso_rectangle> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Line_2> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Line_3> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Plane> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Point_2> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Point_3> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Ray_2> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Ray_3> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Segment_2> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Segment_3> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Sphere> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Tetrahedron> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Triangle_2> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Triangle_3> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Vector_2> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Vector_3> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Weighted_point_2> get_vector_of_geo(const geometry_vector_base& geometries);
+template<>
+const std::vector<Weighted_point_3> get_vector_of_geo(const geometry_vector_base& geometries);
 
 // geometry_vector -------------------------------------------------------------
 

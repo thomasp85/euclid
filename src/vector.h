@@ -44,6 +44,10 @@ public:
     };
   }
 
+  cpp11::writable::list intersection(const geometry_vector_base& other) const {
+    cpp11::stop("Don't know how to calculate the intersection of these geometries");
+  }
+
   std::vector<Vector_2> operator+(const std::vector<Vector_2>& other) const {
     size_t final_size = std::max(size(), other.size());
     std::vector<Vector_2> result;
@@ -208,6 +212,10 @@ public:
       CGAL::to_double(_storage[i].y().exact()),
       CGAL::to_double(_storage[i].z().exact())
     };
+  }
+
+  cpp11::writable::list intersection(const geometry_vector_base& other) const {
+    cpp11::stop("Don't know how to calculate the intersection of these geometries");
   }
 
   std::vector<Vector_3> operator+(const std::vector<Vector_3>& other) const {

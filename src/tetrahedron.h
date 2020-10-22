@@ -43,10 +43,14 @@ class tetrahedron : public geometry_vector<Tetrahedron, 3> {
 
     std::vector<double> get_row(size_t i, size_t j) const {
       return {
-      CGAL::to_double(_storage[i].vertex(j).x().exact()),
-      CGAL::to_double(_storage[i].vertex(j).y().exact()),
-      CGAL::to_double(_storage[i].vertex(j).z().exact())
-    };
+        CGAL::to_double(_storage[i].vertex(j).x().exact()),
+        CGAL::to_double(_storage[i].vertex(j).y().exact()),
+        CGAL::to_double(_storage[i].vertex(j).z().exact())
+      };
+    }
+
+    cpp11::writable::list intersection(const geometry_vector_base& other) const {
+      cpp11::stop("Don't know how to calculate the intersection of these geometries");
     }
 };
 

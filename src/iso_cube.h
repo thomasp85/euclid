@@ -5,6 +5,7 @@
 #include "cgal_types.h"
 #include "geometry_vector.h"
 #include "exact_numeric.h"
+#include "intersection.h"
 
 class iso_cube : public geometry_vector<Iso_cuboid, 3> {
 public:
@@ -45,6 +46,10 @@ public:
       CGAL::to_double(_storage[i].vertex(j).y().exact()),
       CGAL::to_double(_storage[i].vertex(j).z().exact())
     };
+  }
+
+  cpp11::writable::list intersection(const geometry_vector_base& other) const {
+    cpp11::stop("Don't know how to calculate the intersection of these geometries");
   }
 };
 

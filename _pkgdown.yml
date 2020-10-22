@@ -85,6 +85,13 @@ reference:
   - project
   - map_to
   - normal
+- title: Intersections
+  desc: >
+    Intersection of geometries is at the heart of many algorithms and is
+    complicated by their unpredictable output type. Further, not all
+    intersections can be represented exactly.
+  contents:
+  - intersection
 - title: Measures
   desc: >
     Measures on geometries such as area, length, and volume, cannot always be

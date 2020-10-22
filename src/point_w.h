@@ -46,6 +46,10 @@ public:
       CGAL::to_double(_storage[i].weight().exact())
     };
   }
+
+  cpp11::writable::list intersection(const geometry_vector_base& other) const {
+    cpp11::stop("Don't know how to calculate the intersection of these geometries");
+  }
 };
 
 typedef cpp11::external_pointer<point_w2> point_w2_p;
@@ -91,6 +95,10 @@ public:
       CGAL::to_double(_storage[i].z().exact()),
       CGAL::to_double(_storage[i].weight().exact())
     };
+  }
+
+  cpp11::writable::list intersection(const geometry_vector_base& other) const {
+    cpp11::stop("Don't know how to calculate the intersection of these geometries");
   }
 };
 
