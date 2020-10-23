@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate intersections between geometries — intersection • euclid</title>
+<title>Query whether geometries intersect — has_intersection • euclid</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,19 +46,14 @@
 
 
 
-<meta property="og:title" content="Calculate intersections between geometries — intersection" />
-<meta property="og:description" content="An intersection between two geometries is defined as the geometry that is
-contained in both geometries. In other words all points laying on the
-intersection is also part of the two incoming geometries. It follows that the
-result of calculating intersections can be varied, even between the same
-combination of geometries. For example, The intersection between a triangle
-and a plane can be NULL, a point, a segment, or a triangle depending on
-their relative position and orientation. Because of this, and to avoid
-confusion around the return type intersection() always return a list of
-scalar geometries or NULLs. Intersections can only be calculated between
-geometries located in space, which rules out vectors and directions. Further,
-not all combinations of geometries have exact intersections defined (circles
-and spheres are especially limited)." />
+<meta property="og:title" content="Query whether geometries intersect — has_intersection" />
+<meta property="og:description" content="While it is sometimes necessary to get the actual intersection geometry, it
+may other times only be necessary to query whether an intersection exists.
+This is in general much faster than checking if intersection() returns
+NULL. Further, it is not bounded by the same constraint that an exact
+intersection must be constructable so a wider range of geometries are
+supported for the predicate. If the query is not possible it will return NA
+rather than an error" />
 <meta property="og:image" content="https://r-euclid.com/reference/figures/card.png" />
 <meta property="og:image:alt" content="euclid: Exact compuational geometry in R" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -131,27 +126,24 @@ and spheres are especially limited)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate intersections between geometries</h1>
+    <h1>Query whether geometries intersect</h1>
     <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/geometry_intersection.R'><code>R/geometry_intersection.R</code></a></small>
-    <div class="hidden name"><code>intersection.Rd</code></div>
+    <div class="hidden name"><code>has_intersection.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>An intersection between two geometries is defined as the geometry that is
-contained in both geometries. In other words all points laying on the
-intersection is also part of the two incoming geometries. It follows that the
-result of calculating intersections can be varied, even between the same
-combination of geometries. For example, The intersection between a triangle
-and a plane can be <code>NULL</code>, a point, a segment, or a triangle depending on
-their relative position and orientation. Because of this, and to avoid
-confusion around the return type <code>intersection()</code> always return a list of
-scalar geometries or <code>NULL</code>s. Intersections can only be calculated between
-geometries located in space, which rules out vectors and directions. Further,
-not all combinations of geometries have exact intersections defined (circles
-and spheres are especially limited).</p>
+    <p>While it is sometimes necessary to get the actual intersection geometry, it
+may other times only be necessary to query whether an intersection exists.
+This is in general much faster than checking if <code><a href='intersection.html'>intersection()</a></code> returns
+<code>NULL</code>. Further, it is not bounded by the same constraint that an exact
+intersection must be constructable so a wider range of geometries are
+supported for the predicate. If the query is not possible it will return <code>NA</code>
+rather than an error</p>
     </div>
 
-    <pre class="usage"><span class='fu'>intersection</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>has_intersection</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+
+<span class='va'>x</span> <span class='op'>%is_intersecting%</span> <span class='va'>y</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,38 +156,20 @@ and spheres are especially limited).</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a list of scalar geometry vectors and <code>NULL</code>s depending on the result
-of the intersection query.</p>
+    <p>a logical vector</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Example of the difference in output</span>
+    <pre class="examples"><div class='input'><span class='co'># Example of the predicate</span>
 <span class='va'>t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='triangle.html'>triangle</a></span><span class='op'>(</span><span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>, <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>l</span> <span class='op'>&lt;-</span> <span class='fu'><a href='line.html'>line</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>intersection</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>l</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt; &lt;Vector of segments in 2 dimensions&gt;
-#&gt; [1] [&lt;x:1, y:1&gt;, &lt;x:0, y:0&gt;]
-#&gt; 
-#&gt; [[2]]
-#&gt; &lt;Vector of points in 2 dimensions&gt;
-#&gt; [1] &lt;x:0, y:1&gt;
-#&gt; 
-#&gt; [[3]]
-#&gt; NULL
-#&gt; </div><div class='input'>
-<span class='co'># Input is symmetric</span>
-<span class='fu'>intersection</span><span class='op'>(</span><span class='va'>l</span>, <span class='va'>t</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [[1]]
-#&gt; &lt;Vector of segments in 2 dimensions&gt;
-#&gt; [1] [&lt;x:1, y:1&gt;, &lt;x:0, y:0&gt;]
-#&gt; 
-#&gt; [[2]]
-#&gt; &lt;Vector of points in 2 dimensions&gt;
-#&gt; [1] &lt;x:0, y:1&gt;
-#&gt; 
-#&gt; [[3]]
-#&gt; NULL
-#&gt; </div><div class='input'>
+<span class='fu'>has_intersection</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>l</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  TRUE  TRUE FALSE</div><div class='input'>
+<span class='co'># Use binary operator instead</span>
+<span class='va'>t</span> <span class='op'>%is_intersecting%</span> <span class='va'>l</span>
+</div><div class='output co'>#&gt; [1]  TRUE  TRUE FALSE</div><div class='input'>
+<span class='co'># 2 dimensional circles are better supported</span>
+<span class='va'>l</span> <span class='op'>%is_intersecting%</span> <span class='fu'><a href='circle.html'>circle</a></span><span class='op'>(</span><span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>7</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='fl'>9</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  TRUE  TRUE FALSE</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

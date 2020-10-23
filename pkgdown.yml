@@ -2,7 +2,7 @@ pandoc: 2.7.3
 pkgdown: 1.6.1
 pkgdown_sha: ~
 articles: {}
-last_built: 2020-10-22T13:12Z
+last_built: 2020-10-23T08:57Z
 urls:
   reference: https://r-euclid.com/reference
   article: https://r-euclid.com/articles
