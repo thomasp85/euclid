@@ -193,39 +193,39 @@ the ray</p></li>
 
 <span class='co'># Vectors can be added and subtracted</span>
 <span class='va'>v1</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>+</span> <span class='va'>v1</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; &lt;Vector of vectors in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D vectors [1]&gt;
 #&gt; [1] &lt;x:3, y:9&gt;</div><div class='input'>
 <span class='va'>v1</span><span class='op'>[</span><span class='fl'>5</span><span class='op'>]</span> <span class='op'>-</span> <span class='va'>v1</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; &lt;Vector of vectors in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D vectors [1]&gt;
 #&gt; [1] &lt;x:2, y:2&gt;</div><div class='input'>
 <span class='co'># You can invert a vector by taking its negative</span>
 <span class='op'>-</span><span class='va'>v1</span>
-</div><div class='output co'>#&gt; &lt;Vector of vectors in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D vectors [5]&gt;
 #&gt; [1] &lt;x:-1, y:-4&gt; &lt;x:-2, y:-5&gt; &lt;x:-3, y:-6&gt; &lt;x:-4, y:-7&gt; &lt;x:-5, y:-8&gt;</div><div class='input'>
 <span class='co'># As vectors can be added you can also use sum() and cumsum()</span>
 <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>v1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of vectors in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D vectors [1]&gt;
 #&gt; [1] &lt;x:15, y:30&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>v1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of vectors in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D vectors [5]&gt;
 #&gt; [1] &lt;x:1, y:4&gt;   &lt;x:3, y:9&gt;   &lt;x:6, y:15&gt;  &lt;x:10, y:22&gt; &lt;x:15, y:30&gt;</div><div class='input'>
 <span class='co'># Multiplying and dividing a vector by a numeric changes its magnitude</span>
 <span class='va'>v1</span> <span class='op'>*</span> <span class='fl'>10</span>
-</div><div class='output co'>#&gt; &lt;Vector of vectors in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D vectors [5]&gt;
 #&gt; [1] &lt;x:10, y:40&gt; &lt;x:20, y:50&gt; &lt;x:30, y:60&gt; &lt;x:40, y:70&gt; &lt;x:50, y:80&gt;</div><div class='input'><span class='va'>v1</span> <span class='op'>/</span> <span class='fl'>2.5</span>
 </div><div class='output co'>#&gt; [[1]]
-#&gt; &lt;pointer: 0x7f8ecce0e420&gt;
+#&gt; &lt;pointer: 0x7f9a174bbbf0&gt;
 #&gt; </div><div class='input'>
 <span class='co'># Multiplying two vectors gives the inner product of the two</span>
 <span class='va'>v1</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>*</span> <span class='va'>v1</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; &lt;Vector of exact numerics&gt;
+</div><div class='output co'>#&gt; &lt;exact numerics [ 2 ]&gt;
 #&gt; [1] 27 43</div><div class='input'>
 <span class='co'># Vectors can be converted to points, directions and transformation matrices</span>
 <span class='fu'><a href='point.html'>as_point</a></span><span class='op'>(</span><span class='va'>v1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of points in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D points [5]&gt;
 #&gt; [1] &lt;x:1, y:4&gt; &lt;x:2, y:5&gt; &lt;x:3, y:6&gt; &lt;x:4, y:7&gt; &lt;x:5, y:8&gt;</div><div class='input'><span class='fu'><a href='direction.html'>as_direction</a></span><span class='op'>(</span><span class='va'>v1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of directions in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D directions [5]&gt;
 #&gt; [1] &lt;dx:1, dy:4&gt; &lt;dx:2, dy:5&gt; &lt;dx:3, dy:6&gt; &lt;dx:4, dy:7&gt; &lt;dx:5, dy:8&gt;</div><div class='input'><span class='fu'><a href='affine_transformation.html'>as_affine_transformation</a></span><span class='op'>(</span><span class='va'>v1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of affine transformation matrices in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D affine transformation matrices [5]&gt;
 #&gt; [1] [&lt;1, 0, 1&gt;/&lt;0, 1, 4&gt;] [&lt;1, 0, 2&gt;/&lt;0, 1, 5&gt;] [&lt;1, 0, 3&gt;/&lt;0, 1, 6&gt;]
 #&gt; [4] [&lt;1, 0, 4&gt;/&lt;0, 1, 7&gt;] [&lt;1, 0, 5&gt;/&lt;0, 1, 8&gt;]</div><div class='input'>
 </div></pre>

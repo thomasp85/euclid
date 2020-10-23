@@ -201,31 +201,31 @@ intersect.</p></li>
 
 <span class='co'># Construction with center and radius</span>
 <span class='fu'>circle</span><span class='op'>(</span><span class='va'>point1</span>, <span class='va'>number</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of circles in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D circles [5]&gt;
 #&gt; [1] &lt;x:0.196, y:0.696, r2:1&gt;  &lt;x:0.981, y:0.689, r2:2&gt; 
 #&gt; [3] &lt;x:0.742, y:0.0312, r2:3&gt; &lt;x:0.0514, y:0.226, r2:4&gt;
 #&gt; [5] &lt;x:0.53, y:0.301, r2:5&gt;  </div><div class='input'>
 <span class='co'># integers and numerics are converted automatically</span>
 <span class='fu'>circle</span><span class='op'>(</span><span class='va'>point1</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of circles in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D circles [5]&gt;
 #&gt; [1] &lt;x:0.196, y:0.696, r2:1&gt;  &lt;x:0.981, y:0.689, r2:2&gt; 
 #&gt; [3] &lt;x:0.742, y:0.0312, r2:3&gt; &lt;x:0.0514, y:0.226, r2:4&gt;
 #&gt; [5] &lt;x:0.53, y:0.301, r2:5&gt;  </div><div class='input'>
 <span class='co'># You are free to name the input for readability</span>
 <span class='fu'>circle</span><span class='op'>(</span>center <span class='op'>=</span> <span class='va'>point1</span>, radius <span class='op'>=</span> <span class='va'>number</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of circles in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D circles [5]&gt;
 #&gt; [1] &lt;x:0.196, y:0.696, r2:1&gt;  &lt;x:0.981, y:0.689, r2:2&gt; 
 #&gt; [3] &lt;x:0.742, y:0.0312, r2:3&gt; &lt;x:0.0514, y:0.226, r2:4&gt;
 #&gt; [5] &lt;x:0.53, y:0.301, r2:5&gt;  </div><div class='input'>
 <span class='co'># Construction with 2 points</span>
 <span class='fu'>circle</span><span class='op'>(</span><span class='va'>point1</span>, <span class='va'>point2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of circles in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D circles [5]&gt;
 #&gt; [1] &lt;x:0.416, y:0.438, r2:0.115&gt;  &lt;x:0.73, y:0.453, r2:0.118&gt;  
 #&gt; [3] &lt;x:0.587, y:0.356, r2:0.129&gt;  &lt;x:0.379, y:0.362, r2:0.126&gt; 
 #&gt; [5] &lt;x:0.739, y:0.471, r2:0.0728&gt;</div><div class='input'>
 <span class='co'># Construction with 3 points</span>
 <span class='fu'>circle</span><span class='op'>(</span><span class='va'>point1</span>, <span class='va'>point2</span>, <span class='va'>point3</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of circles in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D circles [5]&gt;
 #&gt; [1] &lt;x:0.579, y:0.578, r2:0.161&gt; &lt;x:0.476, y:0.722, r2:0.256&gt;
 #&gt; [3] &lt;x:0.399, y:0.266, r2:0.173&gt; &lt;x:0.408, y:0.293, r2:0.132&gt;
 #&gt; [5] &lt;x:0.803, y:0.393, r2:0.083&gt;</div><div class='input'>
@@ -238,7 +238,7 @@ intersect.</p></li>
 <span class='va'>circ</span> <span class='op'>&lt;-</span> <span class='fu'>circle</span><span class='op'>(</span><span class='va'>point1</span>, <span class='va'>point2</span>, <span class='va'>point3</span><span class='op'>)</span>
 
 <span class='fu'>circle</span><span class='op'>(</span><span class='va'>point1</span>, <span class='va'>number</span>, <span class='fu'><a href='vec.html'>as_vec</a></span><span class='op'>(</span><span class='va'>point2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of circles in 3 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;3D circles [5]&gt;
 #&gt; [1] &lt;x:0.532, y:0.0652, z:0.336, r2:1, dx:0.545, dy:0.466, dz:0.857&gt;
 #&gt; [2] &lt;x:0.494, y:0.354, z:0.596, r2:2, dx:0.279, dy:0.39, dz:0.385&gt;  
 #&gt; [3] &lt;x:0.779, y:0.825, z:0.192, r2:3, dx:0.447, dy:0.0201, dz:0.528&gt;
@@ -246,14 +246,14 @@ intersect.</p></li>
 #&gt; [5] &lt;x:0.713, y:0.57, z:0.542, r2:5, dx:0.0281, dy:0.56, dz:0.261&gt;  </div><div class='input'>
 <span class='co'># Conversion</span>
 <span class='fu'><a href='plane.html'>as_plane</a></span><span class='op'>(</span><span class='va'>circ</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of euclid_planes in 3 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;3D euclid_planes [5]&gt;
 #&gt; [1] &lt;a:-0.112, b:-0.133, c:0.105, d:0.0329&gt;     
 #&gt; [2] &lt;a:-0.0581, b:0.0291, c:0.0641, d:-0.0198&gt;  
 #&gt; [3] &lt;a:-0.0979, b:0.0639, c:0.0561, d:0.0128&gt;   
 #&gt; [4] &lt;a:-0.0847, b:-0.00117, c:-0.0412, d:0.0566&gt;
 #&gt; [5] &lt;a:-0.0174, b:0.341, c:0.0302, d:-0.198&gt;    </div><div class='input'>
 <span class='fu'><a href='sphere.html'>as_sphere</a></span><span class='op'>(</span><span class='va'>circ</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of euclid_spheres in 3 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;3D euclid_spheres [5]&gt;
 #&gt; [1] &lt;x:0.293, y:0.397, z:0.502, r2:0.194&gt; 
 #&gt; [2] &lt;x:0.317, y:0.159, z:0.525, r2:0.0742&gt;
 #&gt; [3] &lt;x:1.05, y:0.516, z:1.02, r2:0.847&gt;   

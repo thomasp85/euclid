@@ -177,13 +177,13 @@ given.</p></li>
     <pre class="examples"><div class='input'><span class='co'># Construction</span>
 <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>triangle</span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>5</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of triangles in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D triangles [2]&gt;
 #&gt; [1] [&lt;x:4, y:1&gt;, &lt;x:1, y:4&gt;, &lt;x:2, y:6&gt;] [&lt;x:6, y:2&gt;, &lt;x:3, y:5&gt;, &lt;x:5, y:3&gt;]</div><div class='input'>
 <span class='co'># 3D triangles can be converted to planes</span>
 <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>
 <span class='va'>t</span> <span class='op'>&lt;-</span> <span class='fu'>triangle</span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>5</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span><span class='op'>)</span>
 <span class='fu'><a href='plane.html'>as_plane</a></span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of euclid_planes in 3 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;3D euclid_planes [2]&gt;
 #&gt; [1] &lt;a:-9, b:6, c:-3, d:-3&gt;  &lt;a:-3, b:-3, c:-3, d:33&gt;</div><div class='input'>
 </div></pre>
   </div>

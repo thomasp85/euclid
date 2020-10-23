@@ -175,14 +175,14 @@ xmax, ymax, zmax.</p></td>
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Construction</span>
 <span class='fu'>bbox</span><span class='op'>(</span><span class='fl'>10</span>, <span class='op'>-</span><span class='fl'>2</span>, <span class='fl'>15</span>, <span class='fl'>0</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of bounding boxes in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D bounding boxes [1]&gt;
 #&gt; [1] &lt;&lt;10, -2&gt;, &lt;15, 0&gt;&gt;</div><div class='input'>
 <span class='va'>seg</span> <span class='op'>&lt;-</span> <span class='fu'><a href='segment.html'>segment</a></span><span class='op'>(</span><span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>,
                <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='va'>boxes</span> <span class='op'>&lt;-</span> <span class='fu'>bbox</span><span class='op'>(</span><span class='va'>seg</span><span class='op'>)</span>
 <span class='va'>boxes</span>
-</div><div class='output co'>#&gt; &lt;Vector of bounding boxes in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D bounding boxes [4]&gt;
 #&gt; [1] &lt;&lt;5, 2&gt;, &lt;7, 4&gt;&gt;   &lt;&lt;5, 6&gt;, &lt;8, 7&gt;&gt;   &lt;&lt;6, 1&gt;, &lt;7, 3&gt;&gt;   &lt;&lt;10, 5&gt;, &lt;10, 6&gt;&gt;</div><div class='input'>
 <span class='co'># Comparison</span>
 <span class='va'>boxes</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>==</span> <span class='va'>boxes</span>
@@ -191,10 +191,10 @@ xmax, ymax, zmax.</p></td>
 </div><div class='output co'>#&gt; [1]  TRUE FALSE</div><div class='input'>
 <span class='co'># Addition</span>
 <span class='va'>boxes</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span> <span class='op'>+</span> <span class='va'>boxes</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; &lt;Vector of bounding boxes in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D bounding boxes [1]&gt;
 #&gt; [1] &lt;&lt;5, 2&gt;, &lt;8, 7&gt;&gt;</div><div class='input'>
 <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>boxes</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of bounding boxes in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D bounding boxes [4]&gt;
 #&gt; [1] &lt;&lt;5, 2&gt;, &lt;7, 4&gt;&gt;  &lt;&lt;5, 2&gt;, &lt;8, 7&gt;&gt;  &lt;&lt;5, 1&gt;, &lt;8, 7&gt;&gt;  &lt;&lt;5, 1&gt;, &lt;10, 7&gt;&gt;</div><div class='input'>
 <span class='co'># Conversion</span>
 <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='va'>boxes</span><span class='op'>)</span>

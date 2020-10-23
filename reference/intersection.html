@@ -199,11 +199,11 @@ of the intersection query, or a vector of geometries as requested.</p>
 <span class='va'>l</span> <span class='op'>&lt;-</span> <span class='fu'><a href='line.html'>line</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>1</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>intersection</span><span class='op'>(</span><span class='va'>t</span>, <span class='va'>l</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
-#&gt; &lt;Vector of segments in 2 dimensions&gt;
+#&gt; &lt;2D segments [1]&gt;
 #&gt; [1] [&lt;x:1, y:1&gt;, &lt;x:0, y:0&gt;]
 #&gt; 
 #&gt; [[2]]
-#&gt; &lt;Vector of points in 2 dimensions&gt;
+#&gt; &lt;2D points [1]&gt;
 #&gt; [1] &lt;x:0, y:1&gt;
 #&gt; 
 #&gt; [[3]]
@@ -212,11 +212,11 @@ of the intersection query, or a vector of geometries as requested.</p>
 <span class='co'># Input is symmetric</span>
 <span class='fu'>intersection</span><span class='op'>(</span><span class='va'>l</span>, <span class='va'>t</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; [[1]]
-#&gt; &lt;Vector of segments in 2 dimensions&gt;
+#&gt; &lt;2D segments [1]&gt;
 #&gt; [1] [&lt;x:1, y:1&gt;, &lt;x:0, y:0&gt;]
 #&gt; 
 #&gt; [[2]]
-#&gt; &lt;Vector of points in 2 dimensions&gt;
+#&gt; &lt;2D points [1]&gt;
 #&gt; [1] &lt;x:0, y:1&gt;
 #&gt; 
 #&gt; [[3]]
@@ -224,7 +224,7 @@ of the intersection query, or a vector of geometries as requested.</p>
 #&gt; </div><div class='input'>
 <span class='co'># Request only segment intersections</span>
 <span class='fu'>intersection_segment</span><span class='op'>(</span><span class='va'>l</span>, <span class='va'>t</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of segments in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D segments [3]&gt;
 #&gt; [1] [&lt;x:1, y:1&gt;, &lt;x:0, y:0&gt;] &lt;NA&gt;                     &lt;NA&gt;                    </div><div class='input'>
 </div></pre>
   </div>

@@ -172,19 +172,19 @@ the output is defined according to the below:</p><ul>
     <pre class="examples"><div class='input'><span class='co'># Get the source vertex in a segment</span>
 <span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='segment.html'>segment</a></span><span class='op'>(</span><span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>6</span><span class='op'>)</span>, <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>vertex</span><span class='op'>(</span><span class='va'>s</span>, <span class='fl'>1</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of points in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D points [1]&gt;
 #&gt; [1] &lt;x:3, y:6&gt;</div><div class='input'>
 <span class='co'># And the target</span>
 <span class='fu'>vertex</span><span class='op'>(</span><span class='va'>s</span>, <span class='fl'>2</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of points in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D points [1]&gt;
 #&gt; [1] &lt;x:1, y:-7&gt;</div><div class='input'>
 <span class='co'># Arguments are recycled</span>
 <span class='fu'>vertex</span><span class='op'>(</span><span class='va'>s</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of points in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D points [1]&gt;
 #&gt; [1] &lt;x:3, y:6&gt;</div><div class='input'>
 <span class='co'># Get a point on a line</span>
 <span class='fu'>vertex</span><span class='op'>(</span><span class='fu'><a href='line.html'>line</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>7</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of points in 2 dimensions&gt;
+</div><div class='output co'>#&gt; &lt;2D points [1]&gt;
 #&gt; [1] &lt;x:1, y:-0.429&gt;</div><div class='input'>
 </div></pre>
   </div>
