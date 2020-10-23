@@ -156,26 +156,6 @@ cpp11::writable::logicals exact_numeric_is_equal(exact_numeric_p ex_n, exact_num
   return (*ex_n) == (*ex_n2);
 }
 
-cpp11::writable::logicals exact_numeric::operator!=(const exact_numeric& x) const {
-  size_t output_length = std::max(size(), x.size());
-
-  cpp11::writable::logicals result(output_length);
-
-  for (size_t i = 0; i < output_length; ++i) {
-    if (!_storage[i % size()] || !x[i % x.size()]) {
-      result[i] = NA_LOGICAL;
-      continue;
-    }
-    result[i] = (Rboolean) (_storage[i % size()] != x[i % x.size()]);
-  }
-
-  return result;
-}
-[[cpp11::register]]
-cpp11::writable::logicals exact_numeric_is_not_equal(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
-  return (*ex_n) != (*ex_n2);
-}
-
 cpp11::writable::logicals exact_numeric::operator<(const exact_numeric& x) const {
   size_t output_length = std::max(size(), x.size());
 
@@ -194,26 +174,6 @@ cpp11::writable::logicals exact_numeric::operator<(const exact_numeric& x) const
 [[cpp11::register]]
 cpp11::writable::logicals exact_numeric_less(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
   return (*ex_n) < (*ex_n2);
-}
-
-cpp11::writable::logicals exact_numeric::operator<=(const exact_numeric& x) const {
-  size_t output_length = std::max(size(), x.size());
-
-  cpp11::writable::logicals result(output_length);
-
-  for (size_t i = 0; i < output_length; ++i) {
-    if (!_storage[i % size()] || !x[i % x.size()]) {
-      result[i] = NA_LOGICAL;
-      continue;
-    }
-    result[i] = (Rboolean) (_storage[i % size()] <= x[i % x.size()]);
-  }
-
-  return result;
-}
-[[cpp11::register]]
-cpp11::writable::logicals exact_numeric_less_equal(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
-  return (*ex_n) <= (*ex_n2);
 }
 
 
@@ -235,26 +195,6 @@ cpp11::writable::logicals exact_numeric::operator>(const exact_numeric& x) const
 [[cpp11::register]]
 cpp11::writable::logicals exact_numeric_greater(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
   return (*ex_n) > (*ex_n2);
-}
-
-cpp11::writable::logicals exact_numeric::operator>=(const exact_numeric& x) const {
-  size_t output_length = std::max(size(), x.size());
-
-  cpp11::writable::logicals result(output_length);
-
-  for (size_t i = 0; i < output_length; ++i) {
-    if (!_storage[i % size()] || !x[i % x.size()]) {
-      result[i] = NA_LOGICAL;
-      continue;
-    }
-    result[i] = (Rboolean) (_storage[i % size()] >= x[i % x.size()]);
-  }
-
-  return result;
-}
-[[cpp11::register]]
-cpp11::writable::logicals exact_numeric_greater_equal(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
-  return (*ex_n) >= (*ex_n2);
 }
 
 exact_numeric exact_numeric::unique() const {

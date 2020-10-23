@@ -143,11 +143,6 @@ cpp11::writable::logicals bbox_is_equal(bbox_vector_base_p bboxes1, bbox_vector_
 }
 
 [[cpp11::register]]
-cpp11::writable::logicals bbox_is_not_equal(bbox_vector_base_p bboxes1, bbox_vector_base_p bboxes2) {
-  return (*bboxes1) != (*bboxes2);
-}
-
-[[cpp11::register]]
 bbox_vector_base_p bbox_plus(bbox_vector_base_p bboxes, bbox_vector_base_p other) {
   return (*bboxes) + (*other);
 }

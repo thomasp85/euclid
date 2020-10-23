@@ -109,18 +109,8 @@ cpp11::writable::logicals direction_2_less(direction2_p x, direction2_p y) {
 }
 
 [[cpp11::register]]
-cpp11::writable::logicals direction_2_less_equal(direction2_p x, direction2_p y) {
-  return (*x) <= y->get_storage();
-}
-
-[[cpp11::register]]
 cpp11::writable::logicals direction_2_greater(direction2_p x, direction2_p y) {
   return (*x) > y->get_storage();
-}
-
-[[cpp11::register]]
-cpp11::writable::logicals direction_2_greater_equal(direction2_p x, direction2_p y) {
-  return (*x) >= y->get_storage();
 }
 
 [[cpp11::register]]

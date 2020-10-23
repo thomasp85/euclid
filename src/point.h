@@ -147,19 +147,6 @@ public:
     }
     return result;
   }
-  cpp11::writable::logicals operator<=(const std::vector<Point_2>& other) const {
-    size_t final_size = std::max(size(), other.size());
-    cpp11::writable::logicals result;
-    result.reserve(final_size);
-    for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
-        result.push_back(NA_LOGICAL);
-        continue;
-      }
-      result.push_back((Rboolean) (_storage[i % size()] <= other[i % other.size()]));
-    }
-    return result;
-  }
   cpp11::writable::logicals operator>(const std::vector<Point_2>& other) const {
     size_t final_size = std::max(size(), other.size());
     cpp11::writable::logicals result;
@@ -170,19 +157,6 @@ public:
         continue;
       }
       result.push_back((Rboolean) (_storage[i % size()] > other[i % other.size()]));
-    }
-    return result;
-  }
-  cpp11::writable::logicals operator>=(const std::vector<Point_2>& other) const {
-    size_t final_size = std::max(size(), other.size());
-    cpp11::writable::logicals result;
-    result.reserve(final_size);
-    for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
-        result.push_back(NA_LOGICAL);
-        continue;
-      }
-      result.push_back((Rboolean) (_storage[i % size()] >= other[i % other.size()]));
     }
     return result;
   }
@@ -474,19 +448,6 @@ public:
     }
     return result;
   }
-  cpp11::writable::logicals operator<=(const std::vector<Point_3>& other) const {
-    size_t final_size = std::max(size(), other.size());
-    cpp11::writable::logicals result;
-    result.reserve(final_size);
-    for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
-        result.push_back(NA_LOGICAL);
-        continue;
-      }
-      result.push_back((Rboolean) (_storage[i % size()] <= other[i % other.size()]));
-    }
-    return result;
-  }
   cpp11::writable::logicals operator>(const std::vector<Point_3>& other) const {
     size_t final_size = std::max(size(), other.size());
     cpp11::writable::logicals result;
@@ -497,19 +458,6 @@ public:
         continue;
       }
       result.push_back((Rboolean) (_storage[i % size()] > other[i % other.size()]));
-    }
-    return result;
-  }
-  cpp11::writable::logicals operator>=(const std::vector<Point_3>& other) const {
-    size_t final_size = std::max(size(), other.size());
-    cpp11::writable::logicals result;
-    result.reserve(final_size);
-    for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
-        result.push_back(NA_LOGICAL);
-        continue;
-      }
-      result.push_back((Rboolean) (_storage[i % size()] >= other[i % other.size()]));
     }
     return result;
   }

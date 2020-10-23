@@ -177,26 +177,9 @@ geometry_op_less.euclid_point <- function(e1, e2) {
   }
 }
 #' @export
-geometry_op_less_equal.euclid_point <- function(e1, e2) {
-  if (!is_point(e2)) {
-    rlang::abort("`<` is only defined for points")
-  }
-  if (dim(e1) != dim(e2)) {
-    rlang::abort("`e1` and `e2` must have the same number of dimensions")
-  }
-  if (length(e1) == 0 || length(e2) == 0) {
-    return(logical(0))
-  }
-  if (dim(e1) == 2) {
-    point_2_less_equal(get_ptr(e1), get_ptr(e2))
-  } else {
-    point_3_less_equal(get_ptr(e1), get_ptr(e2))
-  }
-}
-#' @export
 geometry_op_greater.euclid_point <- function(e1, e2) {
   if (!is_point(e2)) {
-    rlang::abort("`<` is only defined for points")
+    rlang::abort("`>` is only defined for points")
   }
   if (dim(e1) != dim(e2)) {
     rlang::abort("`e1` and `e2` must have the same number of dimensions")
@@ -208,23 +191,6 @@ geometry_op_greater.euclid_point <- function(e1, e2) {
     point_2_greater(get_ptr(e1), get_ptr(e2))
   } else {
     point_3_greater(get_ptr(e1), get_ptr(e2))
-  }
-}
-#' @export
-geometry_op_greater_equal.euclid_point <- function(e1, e2) {
-  if (!is_point(e2)) {
-    rlang::abort("`<` is only defined for points")
-  }
-  if (dim(e1) != dim(e2)) {
-    rlang::abort("`e1` and `e2` must have the same number of dimensions")
-  }
-  if (length(e1) == 0 || length(e2) == 0) {
-    return(logical(0))
-  }
-  if (dim(e1) == 2) {
-    point_2_greater_equal(get_ptr(e1), get_ptr(e2))
-  } else {
-    point_3_greater_equal(get_ptr(e1), get_ptr(e2))
   }
 }
 

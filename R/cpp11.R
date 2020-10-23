@@ -68,10 +68,6 @@ bbox_is_equal <- function(bboxes1, bboxes2) {
   .Call("_euclid_bbox_is_equal", bboxes1, bboxes2, PACKAGE = "euclid")
 }
 
-bbox_is_not_equal <- function(bboxes1, bboxes2) {
-  .Call("_euclid_bbox_is_not_equal", bboxes1, bboxes2, PACKAGE = "euclid")
-}
-
 bbox_plus <- function(bboxes, other) {
   .Call("_euclid_bbox_plus", bboxes, other, PACKAGE = "euclid")
 }
@@ -160,16 +156,8 @@ direction_2_less <- function(x, y) {
   .Call("_euclid_direction_2_less", x, y, PACKAGE = "euclid")
 }
 
-direction_2_less_equal <- function(x, y) {
-  .Call("_euclid_direction_2_less_equal", x, y, PACKAGE = "euclid")
-}
-
 direction_2_greater <- function(x, y) {
   .Call("_euclid_direction_2_greater", x, y, PACKAGE = "euclid")
-}
-
-direction_2_greater_equal <- function(x, y) {
-  .Call("_euclid_direction_2_greater_equal", x, y, PACKAGE = "euclid")
 }
 
 direction_2_sort <- function(x, decreasing, na_last) {
@@ -272,24 +260,12 @@ exact_numeric_is_equal <- function(ex_n, ex_n2) {
   .Call("_euclid_exact_numeric_is_equal", ex_n, ex_n2, PACKAGE = "euclid")
 }
 
-exact_numeric_is_not_equal <- function(ex_n, ex_n2) {
-  .Call("_euclid_exact_numeric_is_not_equal", ex_n, ex_n2, PACKAGE = "euclid")
-}
-
 exact_numeric_less <- function(ex_n, ex_n2) {
   .Call("_euclid_exact_numeric_less", ex_n, ex_n2, PACKAGE = "euclid")
 }
 
-exact_numeric_less_equal <- function(ex_n, ex_n2) {
-  .Call("_euclid_exact_numeric_less_equal", ex_n, ex_n2, PACKAGE = "euclid")
-}
-
 exact_numeric_greater <- function(ex_n, ex_n2) {
   .Call("_euclid_exact_numeric_greater", ex_n, ex_n2, PACKAGE = "euclid")
-}
-
-exact_numeric_greater_equal <- function(ex_n, ex_n2) {
-  .Call("_euclid_exact_numeric_greater_equal", ex_n, ex_n2, PACKAGE = "euclid")
 }
 
 exact_numeric_unique <- function(ex_n) {
@@ -458,10 +434,6 @@ geometry_format <- function(geometries) {
 
 geometry_is_equal <- function(geometries1, geometries2) {
   .Call("_euclid_geometry_is_equal", geometries1, geometries2, PACKAGE = "euclid")
-}
-
-geometry_is_not_equal <- function(geometries1, geometries2) {
-  .Call("_euclid_geometry_is_not_equal", geometries1, geometries2, PACKAGE = "euclid")
 }
 
 geometry_transform <- function(geometries, affine) {
@@ -716,16 +688,8 @@ point_2_less <- function(x, y) {
   .Call("_euclid_point_2_less", x, y, PACKAGE = "euclid")
 }
 
-point_2_less_equal <- function(x, y) {
-  .Call("_euclid_point_2_less_equal", x, y, PACKAGE = "euclid")
-}
-
 point_2_greater <- function(x, y) {
   .Call("_euclid_point_2_greater", x, y, PACKAGE = "euclid")
-}
-
-point_2_greater_equal <- function(x, y) {
-  .Call("_euclid_point_2_greater_equal", x, y, PACKAGE = "euclid")
 }
 
 point_2_sort <- function(x, decreasing, na_last) {
@@ -784,16 +748,8 @@ point_3_less <- function(x, y) {
   .Call("_euclid_point_3_less", x, y, PACKAGE = "euclid")
 }
 
-point_3_less_equal <- function(x, y) {
-  .Call("_euclid_point_3_less_equal", x, y, PACKAGE = "euclid")
-}
-
 point_3_greater <- function(x, y) {
   .Call("_euclid_point_3_greater", x, y, PACKAGE = "euclid")
-}
-
-point_3_greater_equal <- function(x, y) {
-  .Call("_euclid_point_3_greater_equal", x, y, PACKAGE = "euclid")
 }
 
 point_3_sort <- function(x, decreasing, na_last) {

@@ -245,11 +245,11 @@ Ops.euclid_exact_numeric <- function(e1, e2) {
     "*" = exact_numeric_times(get_ptr(e1), get_ptr(e2)),
     "/" = exact_numeric_divided(get_ptr(e1), get_ptr(e2)),
     "==" = exact_numeric_is_equal(get_ptr(e1), get_ptr(e2)),
-    "!=" = exact_numeric_is_not_equal(get_ptr(e1), get_ptr(e2)),
+    "!=" = !exact_numeric_is_equal(get_ptr(e1), get_ptr(e2)),
     "<" = exact_numeric_less(get_ptr(e1), get_ptr(e2)),
-    "<=" = exact_numeric_less_equal(get_ptr(e1), get_ptr(e2)),
+    "<=" = !exact_numeric_greater(get_ptr(e1), get_ptr(e2)),
     ">" = exact_numeric_greater(get_ptr(e1), get_ptr(e2)),
-    ">=" = exact_numeric_greater_equal(get_ptr(e1), get_ptr(e2)),
+    ">=" = !exact_numeric_less(get_ptr(e1), get_ptr(e2)),
     rlang::abort(paste0("The `", .Generic, "` operator is not defined for exact numerics"))
   )
   if (.Generic %in% c("+", "-", "*", "/")) {

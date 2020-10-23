@@ -58,7 +58,6 @@ public:
 
   // Equality
   virtual cpp11::writable::logicals operator==(const geometry_vector_base& other) const = 0;
-  virtual cpp11::writable::logicals operator!=(const geometry_vector_base& other) const = 0;
 
   // Dimensions
   virtual size_t size() const = 0;
@@ -364,30 +363,6 @@ public:
         continue;
       }
       result[i] = (Rboolean) (_storage[i % size()] == other_vec[i % other_vec.size()]);
-    }
-
-    return result;
-  }
-  cpp11::writable::logicals operator!=(const geometry_vector_base& other) const {
-    size_t output_length = std::max(size(), other.size());
-
-    cpp11::writable::logicals result(output_length);
-
-    if (typeid(*this) != typeid(other)) {
-      for (size_t i = 0; i < size(); ++i) {
-        result[i] = (Rboolean) true;
-      }
-      return result;
-    }
-
-    auto other_vec = get_vector_of_geo<T>(other);
-
-    for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !other_vec[i % other_vec.size()]) {
-        result[i] = NA_LOGICAL;
-        continue;
-      }
-      result[i] = (Rboolean) (_storage[i % size()] != other_vec[i % other_vec.size()]);
     }
 
     return result;

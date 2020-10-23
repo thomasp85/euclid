@@ -90,18 +90,8 @@ cpp11::writable::logicals point_2_less(point2_p x, point2_p y) {
 }
 
 [[cpp11::register]]
-cpp11::writable::logicals point_2_less_equal(point2_p x, point2_p y) {
-  return (*x) <= y->get_storage();
-}
-
-[[cpp11::register]]
 cpp11::writable::logicals point_2_greater(point2_p x, point2_p y) {
   return (*x) > y->get_storage();
-}
-
-[[cpp11::register]]
-cpp11::writable::logicals point_2_greater_equal(point2_p x, point2_p y) {
-  return (*x) >= y->get_storage();
 }
 
 [[cpp11::register]]
@@ -229,18 +219,8 @@ cpp11::writable::logicals point_3_less(point3_p x, point3_p y) {
 }
 
 [[cpp11::register]]
-cpp11::writable::logicals point_3_less_equal(point3_p x, point3_p y) {
-  return (*x) <= y->get_storage();
-}
-
-[[cpp11::register]]
 cpp11::writable::logicals point_3_greater(point3_p x, point3_p y) {
   return (*x) > y->get_storage();
-}
-
-[[cpp11::register]]
-cpp11::writable::logicals point_3_greater_equal(point3_p x, point3_p y) {
-  return (*x) >= y->get_storage();
 }
 
 [[cpp11::register]]

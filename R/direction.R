@@ -138,19 +138,6 @@ geometry_op_less.euclid_direction <- function(e1, e2) {
   direction_2_less(get_ptr(e1), get_ptr(e2))
 }
 #' @export
-geometry_op_less_equal.euclid_direction <- function(e1, e2) {
-  if (!is_direction(e2)) {
-    rlang::abort("`<=` is only defined for directions")
-  }
-  if (dim(e1) != 2 || dim(e2) != 2) {
-    rlang::abort("`<=` is only defined in 2 dimensions")
-  }
-  if (length(e1) == 0 || length(e2) == 0) {
-    return(logical(0))
-  }
-  direction_2_less_equal(get_ptr(e1), get_ptr(e2))
-}
-#' @export
 geometry_op_greater.euclid_direction <- function(e1, e2) {
   if (!is_direction(e2)) {
     rlang::abort("`>` is only defined for directions")
@@ -162,19 +149,6 @@ geometry_op_greater.euclid_direction <- function(e1, e2) {
     return(logical(0))
   }
   direction_2_greater(get_ptr(e1), get_ptr(e2))
-}
-#' @export
-geometry_op_greater_equal.euclid_direction <- function(e1, e2) {
-  if (!is_direction(e2)) {
-    rlang::abort("`>=` is only defined for directions")
-  }
-  if (dim(e1) != 2 || dim(e2) != 2) {
-    rlang::abort("`>=` is only defined in 2 dimensions")
-  }
-  if (length(e1) == 0 || length(e2) == 0) {
-    return(logical(0))
-  }
-  direction_2_greater_equal(get_ptr(e1), get_ptr(e2))
 }
 
 # Summaries ---------------------------------------------------------------

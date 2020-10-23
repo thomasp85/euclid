@@ -140,12 +140,6 @@ cpp11::writable::logicals geometry_is_equal(geometry_vector_base_p geometries1,
 }
 
 [[cpp11::register]]
-cpp11::writable::logicals geometry_is_not_equal(geometry_vector_base_p geometries1,
-                                                geometry_vector_base_p geometries2) {
-  return (*geometries1) != (*geometries2);
-}
-
-[[cpp11::register]]
 geometry_vector_base_p geometry_transform(geometry_vector_base_p geometries, transform_vector_base_p affine) {
   return geometries->transform(*affine);
 }

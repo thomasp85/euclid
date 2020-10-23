@@ -124,13 +124,6 @@ extern "C" SEXP _euclid_bbox_is_equal(SEXP bboxes1, SEXP bboxes2) {
   END_CPP11
 }
 // bbox.cpp
-cpp11::writable::logicals bbox_is_not_equal(bbox_vector_base_p bboxes1, bbox_vector_base_p bboxes2);
-extern "C" SEXP _euclid_bbox_is_not_equal(SEXP bboxes1, SEXP bboxes2) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(bbox_is_not_equal(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes1), cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes2)));
-  END_CPP11
-}
-// bbox.cpp
 bbox_vector_base_p bbox_plus(bbox_vector_base_p bboxes, bbox_vector_base_p other);
 extern "C" SEXP _euclid_bbox_plus(SEXP bboxes, SEXP other) {
   BEGIN_CPP11
@@ -285,24 +278,10 @@ extern "C" SEXP _euclid_direction_2_less(SEXP x, SEXP y) {
   END_CPP11
 }
 // direction.cpp
-cpp11::writable::logicals direction_2_less_equal(direction2_p x, direction2_p y);
-extern "C" SEXP _euclid_direction_2_less_equal(SEXP x, SEXP y) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(direction_2_less_equal(cpp11::as_cpp<cpp11::decay_t<direction2_p>>(x), cpp11::as_cpp<cpp11::decay_t<direction2_p>>(y)));
-  END_CPP11
-}
-// direction.cpp
 cpp11::writable::logicals direction_2_greater(direction2_p x, direction2_p y);
 extern "C" SEXP _euclid_direction_2_greater(SEXP x, SEXP y) {
   BEGIN_CPP11
     return cpp11::as_sexp(direction_2_greater(cpp11::as_cpp<cpp11::decay_t<direction2_p>>(x), cpp11::as_cpp<cpp11::decay_t<direction2_p>>(y)));
-  END_CPP11
-}
-// direction.cpp
-cpp11::writable::logicals direction_2_greater_equal(direction2_p x, direction2_p y);
-extern "C" SEXP _euclid_direction_2_greater_equal(SEXP x, SEXP y) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(direction_2_greater_equal(cpp11::as_cpp<cpp11::decay_t<direction2_p>>(x), cpp11::as_cpp<cpp11::decay_t<direction2_p>>(y)));
   END_CPP11
 }
 // direction.cpp
@@ -481,13 +460,6 @@ extern "C" SEXP _euclid_exact_numeric_is_equal(SEXP ex_n, SEXP ex_n2) {
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::writable::logicals exact_numeric_is_not_equal(exact_numeric_p ex_n, exact_numeric_p ex_n2);
-extern "C" SEXP _euclid_exact_numeric_is_not_equal(SEXP ex_n, SEXP ex_n2) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_is_not_equal(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n2)));
-  END_CPP11
-}
-// exact_numeric.cpp
 cpp11::writable::logicals exact_numeric_less(exact_numeric_p ex_n, exact_numeric_p ex_n2);
 extern "C" SEXP _euclid_exact_numeric_less(SEXP ex_n, SEXP ex_n2) {
   BEGIN_CPP11
@@ -495,24 +467,10 @@ extern "C" SEXP _euclid_exact_numeric_less(SEXP ex_n, SEXP ex_n2) {
   END_CPP11
 }
 // exact_numeric.cpp
-cpp11::writable::logicals exact_numeric_less_equal(exact_numeric_p ex_n, exact_numeric_p ex_n2);
-extern "C" SEXP _euclid_exact_numeric_less_equal(SEXP ex_n, SEXP ex_n2) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_less_equal(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n2)));
-  END_CPP11
-}
-// exact_numeric.cpp
 cpp11::writable::logicals exact_numeric_greater(exact_numeric_p ex_n, exact_numeric_p ex_n2);
 extern "C" SEXP _euclid_exact_numeric_greater(SEXP ex_n, SEXP ex_n2) {
   BEGIN_CPP11
     return cpp11::as_sexp(exact_numeric_greater(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n2)));
-  END_CPP11
-}
-// exact_numeric.cpp
-cpp11::writable::logicals exact_numeric_greater_equal(exact_numeric_p ex_n, exact_numeric_p ex_n2);
-extern "C" SEXP _euclid_exact_numeric_greater_equal(SEXP ex_n, SEXP ex_n2) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(exact_numeric_greater_equal(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(ex_n2)));
   END_CPP11
 }
 // exact_numeric.cpp
@@ -807,13 +765,6 @@ cpp11::writable::logicals geometry_is_equal(geometry_vector_base_p geometries1, 
 extern "C" SEXP _euclid_geometry_is_equal(SEXP geometries1, SEXP geometries2) {
   BEGIN_CPP11
     return cpp11::as_sexp(geometry_is_equal(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries1), cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries2)));
-  END_CPP11
-}
-// geometry_common.cpp
-cpp11::writable::logicals geometry_is_not_equal(geometry_vector_base_p geometries1, geometry_vector_base_p geometries2);
-extern "C" SEXP _euclid_geometry_is_not_equal(SEXP geometries1, SEXP geometries2) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(geometry_is_not_equal(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries1), cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries2)));
   END_CPP11
 }
 // geometry_common.cpp
@@ -1258,24 +1209,10 @@ extern "C" SEXP _euclid_point_2_less(SEXP x, SEXP y) {
   END_CPP11
 }
 // point.cpp
-cpp11::writable::logicals point_2_less_equal(point2_p x, point2_p y);
-extern "C" SEXP _euclid_point_2_less_equal(SEXP x, SEXP y) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(point_2_less_equal(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<point2_p>>(y)));
-  END_CPP11
-}
-// point.cpp
 cpp11::writable::logicals point_2_greater(point2_p x, point2_p y);
 extern "C" SEXP _euclid_point_2_greater(SEXP x, SEXP y) {
   BEGIN_CPP11
     return cpp11::as_sexp(point_2_greater(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<point2_p>>(y)));
-  END_CPP11
-}
-// point.cpp
-cpp11::writable::logicals point_2_greater_equal(point2_p x, point2_p y);
-extern "C" SEXP _euclid_point_2_greater_equal(SEXP x, SEXP y) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(point_2_greater_equal(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<point2_p>>(y)));
   END_CPP11
 }
 // point.cpp
@@ -1377,24 +1314,10 @@ extern "C" SEXP _euclid_point_3_less(SEXP x, SEXP y) {
   END_CPP11
 }
 // point.cpp
-cpp11::writable::logicals point_3_less_equal(point3_p x, point3_p y);
-extern "C" SEXP _euclid_point_3_less_equal(SEXP x, SEXP y) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(point_3_less_equal(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<point3_p>>(y)));
-  END_CPP11
-}
-// point.cpp
 cpp11::writable::logicals point_3_greater(point3_p x, point3_p y);
 extern "C" SEXP _euclid_point_3_greater(SEXP x, SEXP y) {
   BEGIN_CPP11
     return cpp11::as_sexp(point_3_greater(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<point3_p>>(y)));
-  END_CPP11
-}
-// point.cpp
-cpp11::writable::logicals point_3_greater_equal(point3_p x, point3_p y);
-extern "C" SEXP _euclid_point_3_greater_equal(SEXP x, SEXP y) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(point_3_greater_equal(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<point3_p>>(y)));
   END_CPP11
 }
 // point.cpp
@@ -2090,7 +2013,6 @@ extern SEXP _euclid_bbox_duplicated(SEXP);
 extern SEXP _euclid_bbox_format(SEXP);
 extern SEXP _euclid_bbox_is_equal(SEXP, SEXP);
 extern SEXP _euclid_bbox_is_na(SEXP);
-extern SEXP _euclid_bbox_is_not_equal(SEXP, SEXP);
 extern SEXP _euclid_bbox_length(SEXP);
 extern SEXP _euclid_bbox_match(SEXP, SEXP);
 extern SEXP _euclid_bbox_overlaps(SEXP, SEXP);
@@ -2222,9 +2144,7 @@ extern SEXP _euclid_direction_2_between(SEXP, SEXP, SEXP);
 extern SEXP _euclid_direction_2_cummax(SEXP);
 extern SEXP _euclid_direction_2_cummin(SEXP);
 extern SEXP _euclid_direction_2_greater(SEXP, SEXP);
-extern SEXP _euclid_direction_2_greater_equal(SEXP, SEXP);
 extern SEXP _euclid_direction_2_less(SEXP, SEXP);
-extern SEXP _euclid_direction_2_less_equal(SEXP, SEXP);
 extern SEXP _euclid_direction_2_max(SEXP, SEXP);
 extern SEXP _euclid_direction_2_min(SEXP, SEXP);
 extern SEXP _euclid_direction_2_negate(SEXP);
@@ -2244,13 +2164,10 @@ extern SEXP _euclid_exact_numeric_diff(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_divided(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_duplicated(SEXP);
 extern SEXP _euclid_exact_numeric_greater(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_greater_equal(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_is_equal(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_is_na(SEXP);
-extern SEXP _euclid_exact_numeric_is_not_equal(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_length(SEXP);
 extern SEXP _euclid_exact_numeric_less(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_less_equal(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_match(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_max(SEXP, SEXP);
 extern SEXP _euclid_exact_numeric_min(SEXP, SEXP);
@@ -2293,7 +2210,6 @@ extern SEXP _euclid_geometry_intersection(SEXP, SEXP);
 extern SEXP _euclid_geometry_is_degenerate(SEXP);
 extern SEXP _euclid_geometry_is_equal(SEXP, SEXP);
 extern SEXP _euclid_geometry_is_na(SEXP);
-extern SEXP _euclid_geometry_is_not_equal(SEXP, SEXP);
 extern SEXP _euclid_geometry_length(SEXP);
 extern SEXP _euclid_geometry_map_to_plane(SEXP, SEXP);
 extern SEXP _euclid_geometry_match(SEXP, SEXP);
@@ -2311,9 +2227,7 @@ extern SEXP _euclid_point_2_add_vector(SEXP, SEXP);
 extern SEXP _euclid_point_2_cummax(SEXP);
 extern SEXP _euclid_point_2_cummin(SEXP);
 extern SEXP _euclid_point_2_greater(SEXP, SEXP);
-extern SEXP _euclid_point_2_greater_equal(SEXP, SEXP);
 extern SEXP _euclid_point_2_less(SEXP, SEXP);
-extern SEXP _euclid_point_2_less_equal(SEXP, SEXP);
 extern SEXP _euclid_point_2_max(SEXP, SEXP);
 extern SEXP _euclid_point_2_min(SEXP, SEXP);
 extern SEXP _euclid_point_2_rank(SEXP);
@@ -2324,9 +2238,7 @@ extern SEXP _euclid_point_3_add_vector(SEXP, SEXP);
 extern SEXP _euclid_point_3_cummax(SEXP);
 extern SEXP _euclid_point_3_cummin(SEXP);
 extern SEXP _euclid_point_3_greater(SEXP, SEXP);
-extern SEXP _euclid_point_3_greater_equal(SEXP, SEXP);
 extern SEXP _euclid_point_3_less(SEXP, SEXP);
-extern SEXP _euclid_point_3_less_equal(SEXP, SEXP);
 extern SEXP _euclid_point_3_max(SEXP, SEXP);
 extern SEXP _euclid_point_3_min(SEXP, SEXP);
 extern SEXP _euclid_point_3_rank(SEXP);
@@ -2388,7 +2300,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_bbox_format",                         (DL_FUNC) &_euclid_bbox_format,                         1},
     {"_euclid_bbox_is_equal",                       (DL_FUNC) &_euclid_bbox_is_equal,                       2},
     {"_euclid_bbox_is_na",                          (DL_FUNC) &_euclid_bbox_is_na,                          1},
-    {"_euclid_bbox_is_not_equal",                   (DL_FUNC) &_euclid_bbox_is_not_equal,                   2},
     {"_euclid_bbox_length",                         (DL_FUNC) &_euclid_bbox_length,                         1},
     {"_euclid_bbox_match",                          (DL_FUNC) &_euclid_bbox_match,                          2},
     {"_euclid_bbox_overlaps",                       (DL_FUNC) &_euclid_bbox_overlaps,                       2},
@@ -2520,9 +2431,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_direction_2_cummax",                  (DL_FUNC) &_euclid_direction_2_cummax,                  1},
     {"_euclid_direction_2_cummin",                  (DL_FUNC) &_euclid_direction_2_cummin,                  1},
     {"_euclid_direction_2_greater",                 (DL_FUNC) &_euclid_direction_2_greater,                 2},
-    {"_euclid_direction_2_greater_equal",           (DL_FUNC) &_euclid_direction_2_greater_equal,           2},
     {"_euclid_direction_2_less",                    (DL_FUNC) &_euclid_direction_2_less,                    2},
-    {"_euclid_direction_2_less_equal",              (DL_FUNC) &_euclid_direction_2_less_equal,              2},
     {"_euclid_direction_2_max",                     (DL_FUNC) &_euclid_direction_2_max,                     2},
     {"_euclid_direction_2_min",                     (DL_FUNC) &_euclid_direction_2_min,                     2},
     {"_euclid_direction_2_negate",                  (DL_FUNC) &_euclid_direction_2_negate,                  1},
@@ -2542,13 +2451,10 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_exact_numeric_divided",               (DL_FUNC) &_euclid_exact_numeric_divided,               2},
     {"_euclid_exact_numeric_duplicated",            (DL_FUNC) &_euclid_exact_numeric_duplicated,            1},
     {"_euclid_exact_numeric_greater",               (DL_FUNC) &_euclid_exact_numeric_greater,               2},
-    {"_euclid_exact_numeric_greater_equal",         (DL_FUNC) &_euclid_exact_numeric_greater_equal,         2},
     {"_euclid_exact_numeric_is_equal",              (DL_FUNC) &_euclid_exact_numeric_is_equal,              2},
     {"_euclid_exact_numeric_is_na",                 (DL_FUNC) &_euclid_exact_numeric_is_na,                 1},
-    {"_euclid_exact_numeric_is_not_equal",          (DL_FUNC) &_euclid_exact_numeric_is_not_equal,          2},
     {"_euclid_exact_numeric_length",                (DL_FUNC) &_euclid_exact_numeric_length,                1},
     {"_euclid_exact_numeric_less",                  (DL_FUNC) &_euclid_exact_numeric_less,                  2},
-    {"_euclid_exact_numeric_less_equal",            (DL_FUNC) &_euclid_exact_numeric_less_equal,            2},
     {"_euclid_exact_numeric_match",                 (DL_FUNC) &_euclid_exact_numeric_match,                 2},
     {"_euclid_exact_numeric_max",                   (DL_FUNC) &_euclid_exact_numeric_max,                   2},
     {"_euclid_exact_numeric_min",                   (DL_FUNC) &_euclid_exact_numeric_min,                   2},
@@ -2591,7 +2497,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_geometry_is_degenerate",              (DL_FUNC) &_euclid_geometry_is_degenerate,              1},
     {"_euclid_geometry_is_equal",                   (DL_FUNC) &_euclid_geometry_is_equal,                   2},
     {"_euclid_geometry_is_na",                      (DL_FUNC) &_euclid_geometry_is_na,                      1},
-    {"_euclid_geometry_is_not_equal",               (DL_FUNC) &_euclid_geometry_is_not_equal,               2},
     {"_euclid_geometry_length",                     (DL_FUNC) &_euclid_geometry_length,                     1},
     {"_euclid_geometry_map_to_plane",               (DL_FUNC) &_euclid_geometry_map_to_plane,               2},
     {"_euclid_geometry_match",                      (DL_FUNC) &_euclid_geometry_match,                      2},
@@ -2609,9 +2514,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_point_2_cummax",                      (DL_FUNC) &_euclid_point_2_cummax,                      1},
     {"_euclid_point_2_cummin",                      (DL_FUNC) &_euclid_point_2_cummin,                      1},
     {"_euclid_point_2_greater",                     (DL_FUNC) &_euclid_point_2_greater,                     2},
-    {"_euclid_point_2_greater_equal",               (DL_FUNC) &_euclid_point_2_greater_equal,               2},
     {"_euclid_point_2_less",                        (DL_FUNC) &_euclid_point_2_less,                        2},
-    {"_euclid_point_2_less_equal",                  (DL_FUNC) &_euclid_point_2_less_equal,                  2},
     {"_euclid_point_2_max",                         (DL_FUNC) &_euclid_point_2_max,                         2},
     {"_euclid_point_2_min",                         (DL_FUNC) &_euclid_point_2_min,                         2},
     {"_euclid_point_2_rank",                        (DL_FUNC) &_euclid_point_2_rank,                        1},
@@ -2622,9 +2525,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_point_3_cummax",                      (DL_FUNC) &_euclid_point_3_cummax,                      1},
     {"_euclid_point_3_cummin",                      (DL_FUNC) &_euclid_point_3_cummin,                      1},
     {"_euclid_point_3_greater",                     (DL_FUNC) &_euclid_point_3_greater,                     2},
-    {"_euclid_point_3_greater_equal",               (DL_FUNC) &_euclid_point_3_greater_equal,               2},
     {"_euclid_point_3_less",                        (DL_FUNC) &_euclid_point_3_less,                        2},
-    {"_euclid_point_3_less_equal",                  (DL_FUNC) &_euclid_point_3_less_equal,                  2},
     {"_euclid_point_3_max",                         (DL_FUNC) &_euclid_point_3_max,                         2},
     {"_euclid_point_3_min",                         (DL_FUNC) &_euclid_point_3_min,                         2},
     {"_euclid_point_3_rank",                        (DL_FUNC) &_euclid_point_3_rank,                        1},

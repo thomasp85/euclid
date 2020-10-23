@@ -4,5 +4,6 @@
 configure.log
 src/*.o
 src/*.so
-O
 docs
+src/Makevars
+man/.DS_Store

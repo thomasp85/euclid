@@ -61,11 +61,8 @@ public:
 
   // Relation
   cpp11::writable::logicals operator==(const exact_numeric& x) const;
-  cpp11::writable::logicals operator!=(const exact_numeric& x) const;
   cpp11::writable::logicals operator<(const exact_numeric& x) const;
-  cpp11::writable::logicals operator<=(const exact_numeric& x) const;
   cpp11::writable::logicals operator>(const exact_numeric& x) const;
-  cpp11::writable::logicals operator>=(const exact_numeric& x) const;
   exact_numeric unique() const;
   cpp11::writable::logicals duplicated() const;
   int any_duplicated() const;
