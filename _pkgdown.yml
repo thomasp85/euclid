@@ -76,6 +76,7 @@ reference:
   - is_degenerate
   - has_on
   - constant_in
+  - has_intersection
 - title: Transformations
   desc: >
     Geometries can be transformed by affine transformation matrices using the
@@ -92,6 +93,7 @@ reference:
     intersections can be represented exactly.
   contents:
   - intersection
+  - has_intersection
 - title: Measures
   desc: >
     Measures on geometries such as area, length, and volume, cannot always be

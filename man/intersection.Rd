@@ -7,7 +7,7 @@
 intersection(x, y)
 }
 \arguments{
-\item{x, y}{Geometry vectors}
+\item{x, y}{Geometry vectors or bounding boxes}
 }
 \value{
 a list of scalar geometry vectors and \code{NULL}s depending on the result

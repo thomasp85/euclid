@@ -38,6 +38,10 @@ public:
   cpp11::writable::list intersection(const geometry_vector_base& other) const {
     cpp11::stop("Don't know how to calculate the intersection of these geometries");
   }
+
+  cpp11::writable::logicals do_intersect(const geometry_vector_base& other) const {
+    cpp11::stop("Don't know how to calculate the intersection of these geometries");
+  }
 };
 
 typedef cpp11::external_pointer<point_w2> point_w2_p;
@@ -73,6 +77,10 @@ public:
   }
 
   cpp11::writable::list intersection(const geometry_vector_base& other) const {
+    cpp11::stop("Don't know how to calculate the intersection of these geometries");
+  }
+
+  cpp11::writable::logicals do_intersect(const geometry_vector_base& other) const {
     cpp11::stop("Don't know how to calculate the intersection of these geometries");
   }
 };

@@ -524,6 +524,10 @@ geometry_intersection <- function(geo1, geo2) {
   .Call("_euclid_geometry_intersection", geo1, geo2, PACKAGE = "euclid")
 }
 
+geometry_do_intersect <- function(geo1, geo2) {
+  .Call("_euclid_geometry_do_intersect", geo1, geo2, PACKAGE = "euclid")
+}
+
 create_iso_cube_empty <- function() {
   .Call("_euclid_create_iso_cube_empty", PACKAGE = "euclid")
 }

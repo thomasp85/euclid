@@ -921,6 +921,13 @@ extern "C" SEXP _euclid_geometry_intersection(SEXP geo1, SEXP geo2) {
     return cpp11::as_sexp(geometry_intersection(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geo1), cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geo2)));
   END_CPP11
 }
+// intersection.cpp
+cpp11::writable::logicals geometry_do_intersect(geometry_vector_base_p geo1, geometry_vector_base_p geo2);
+extern "C" SEXP _euclid_geometry_do_intersect(SEXP geo1, SEXP geo2) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_do_intersect(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geo1), cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geo2)));
+  END_CPP11
+}
 // iso_cube.cpp
 iso_cube_p create_iso_cube_empty();
 extern "C" SEXP _euclid_create_iso_cube_empty() {
@@ -2259,6 +2266,7 @@ extern SEXP _euclid_geometry_copy(SEXP);
 extern SEXP _euclid_geometry_definition(SEXP, SEXP, SEXP);
 extern SEXP _euclid_geometry_definition_names(SEXP);
 extern SEXP _euclid_geometry_dimension(SEXP);
+extern SEXP _euclid_geometry_do_intersect(SEXP, SEXP);
 extern SEXP _euclid_geometry_duplicated(SEXP);
 extern SEXP _euclid_geometry_format(SEXP);
 extern SEXP _euclid_geometry_has_point_inside(SEXP, SEXP);
@@ -2554,6 +2562,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_geometry_definition",                 (DL_FUNC) &_euclid_geometry_definition,                 3},
     {"_euclid_geometry_definition_names",           (DL_FUNC) &_euclid_geometry_definition_names,           1},
     {"_euclid_geometry_dimension",                  (DL_FUNC) &_euclid_geometry_dimension,                  1},
+    {"_euclid_geometry_do_intersect",               (DL_FUNC) &_euclid_geometry_do_intersect,               2},
     {"_euclid_geometry_duplicated",                 (DL_FUNC) &_euclid_geometry_duplicated,                 1},
     {"_euclid_geometry_format",                     (DL_FUNC) &_euclid_geometry_format,                     1},
     {"_euclid_geometry_has_point_inside",           (DL_FUNC) &_euclid_geometry_has_point_inside,           2},

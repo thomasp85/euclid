@@ -111,6 +111,7 @@ public:
 
   // Intersections
   virtual cpp11::writable::list intersection(const geometry_vector_base& other) const = 0;
+  virtual cpp11::writable::logicals do_intersect(const geometry_vector_base& other) const = 0;
 };
 typedef cpp11::external_pointer<geometry_vector_base> geometry_vector_base_p;
 

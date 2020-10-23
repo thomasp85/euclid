@@ -77,3 +77,23 @@ inline cpp11::writable::list intersection_impl(const std::vector<T>& geo1, const
   }
   return result;
 }
+
+template<typename T, typename U>
+inline cpp11::writable::logicals do_intersect_impl(const std::vector<T>& geo1, const std::vector<U>& geo2) {
+  size_t output_size = std::max(geo1.size(), geo2.size());
+  cpp11::writable::logicals result;
+  result.reserve(output_size);
+  for (size_t i = 0; i < output_size; ++i) {
+    bool overlap = CGAL::do_intersect(geo1[i % geo1.size()], geo2[i % geo2.size()]);
+    result.push_back((Rboolean) overlap);
+  }
+  return result;
+}
+
+inline cpp11::writable::logicals unknown_intersect_impl(size_t size) {
+  cpp11::writable::logicals res(size);
+  for (R_xlen_t i = 0; i < size; ++i) {
+    res[i] = NA_LOGICAL;
+  }
+  return res;
+}
