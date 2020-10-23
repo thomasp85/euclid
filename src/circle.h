@@ -5,6 +5,7 @@
 #include "cgal_types.h"
 #include "geometry_vector.h"
 #include "intersection.h"
+#include "distance.h"
 
 #include <vector>
 
@@ -60,6 +61,20 @@ public:
     default: return unknown_intersect_impl(std::max(size(), other.size()));
     }
   }
+
+  std::vector<Exact_number> squared_distance(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    return unknown_squared_distance_impl(std::max(size(), other.size()));
+  }
+
+  cpp11::writable::doubles_matrix distance_matrix(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    return unknown_distance_matrix_impl(size(), other.size());
+  }
 };
 
 typedef cpp11::external_pointer<circle2> circle2_p;
@@ -109,6 +124,20 @@ public:
       cpp11::stop("Only geometries of the same dimensionality can intersect");
     }
     return unknown_intersect_impl(std::max(size(), other.size()));
+  }
+
+  std::vector<Exact_number> squared_distance(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    return unknown_squared_distance_impl(std::max(size(), other.size()));
+  }
+
+  cpp11::writable::doubles_matrix distance_matrix(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    return unknown_distance_matrix_impl(size(), other.size());
   }
 };
 

@@ -50,7 +50,8 @@ cpp11::writable::strings geometry_definition_names(geometry_vector_base_p geomet
 
 [[cpp11::register]]
 exact_numeric_p geometry_definition(geometry_vector_base_p geometries, int which, cpp11::integers element) {
-  exact_numeric* vec(new exact_numeric(geometries->definition(which, element)));
+  std::vector<Exact_number> res = geometries->definition(which, element);
+  exact_numeric* vec(new exact_numeric(res));
   return {vec};
 }
 

@@ -92,7 +92,7 @@ inline cpp11::writable::logicals do_intersect_impl(const std::vector<T>& geo1, c
 
 inline cpp11::writable::logicals unknown_intersect_impl(size_t size) {
   cpp11::writable::logicals res(size);
-  for (R_xlen_t i = 0; i < size; ++i) {
+  for (size_t i = 0; i < size; ++i) {
     res[i] = NA_LOGICAL;
   }
   return res;

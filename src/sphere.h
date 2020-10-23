@@ -7,6 +7,7 @@
 #include "exact_numeric.h"
 #include "circle.h"
 #include "intersection.h"
+#include "distance.h"
 
 class sphere : public geometry_vector<Sphere, 3, Circle_2> {
 public:
@@ -66,6 +67,20 @@ public:
     case TRIANGLE: return do_intersect_impl(_storage, get_vector_of_geo<Triangle_3>(other));
     default: return unknown_intersect_impl(std::max(size(), other.size()));
     }
+  }
+
+  std::vector<Exact_number> squared_distance(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    return unknown_squared_distance_impl(std::max(size(), other.size()));
+  }
+
+  cpp11::writable::doubles_matrix distance_matrix(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    return unknown_distance_matrix_impl(size(), other.size());
   }
 };
 

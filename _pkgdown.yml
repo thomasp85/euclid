@@ -100,6 +100,8 @@ reference:
     given in exact numbers due to reliance on square roots, pi, and other
     inexact operations. Because of this they are here provided as approximate
     measures in the sense that they are subjected to the imprecisions of
-    floating point arithmetic.
+    floating point arithmetic. Further, pairwise measures such as distance is
+    given as well.
   contents:
   - approx_length
+  - distance_squared

@@ -40,3 +40,60 @@ approx_volume <- function(x) {
   }
   geometry_approx_volume(get_ptr(x))
 }
+
+#' Calculate distances between geometries
+#'
+#' The minimum distance between two arbitrary geometries is non-trivial and is
+#' only exactly defined for non-circular geometries. `distance_squared()` will
+#' return the exact squared distance between geometries with `x` and `y` being
+#' recycled to the maximum length of either. `distance_matrix` will return a
+#' matrix of distances given as numerics (and thus not exact), with the
+#' geometries of `x` in the rows and the geometries of `y` in the columns so
+#' that the value of `mat[i, j]` corresponds to the distance between `x[i]` and
+#' `y[j]`.
+#'
+#' @param x,y eometry vectors or bounding boxes
+#'
+#' @return A `euclid_exact_numeric` vector for `distance_squared()` and a
+#' numeric matrix for `distance_matrix()`
+#'
+#' @export
+#'
+#' @examples
+#' # Calculate distances between lines and rays in 3D
+#' p <- point(sample(100, 20), sample(100, 20), sample(100, 20))
+#' l <- line(p[1:5], p[6:10])
+#' r <- ray(p[11:15], p[16:20])
+#'
+#' # Pairwise exact distance
+#' distance_squared(l, r)
+#'
+#' # All distances
+#' distance_matrix(l, r)
+#'
+distance_squared <- function(x, y) {
+  if (!is_geometry(x) || !is_geometry(y)) {
+    rlang::abort("distance can only be calculated between two geometries")
+  }
+  if (is_weighted_point(x)) {
+    x <- as_point(x)
+  }
+  if (is_weighted_point(y)) {
+    y <- as_point(y)
+  }
+  new_exact_numeric(geometry_squared_distance(get_ptr(x), get_ptr(y)))
+}
+#' @rdname distance_squared
+#' @export
+distance_matrix <- function(x, y) {
+  if (!is_geometry(x) || !is_geometry(y)) {
+    rlang::abort("distance can only be calculated between two geometries")
+  }
+  if (is_weighted_point(x)) {
+    x <- as_point(x)
+  }
+  if (is_weighted_point(y)) {
+    y <- as_point(y)
+  }
+  geometry_distance_matrix(get_ptr(x), get_ptr(y))
+}

@@ -65,7 +65,7 @@ public:
   virtual size_t dimensions() const = 0;
   virtual Primitive geometry_type() const = 0;
   virtual cpp11::writable::strings def_names() const = 0;
-  virtual exact_numeric definition(int which, cpp11::integers element) const = 0;
+  virtual std::vector<Exact_number> definition(int which, cpp11::integers element) const = 0;
   virtual cpp11::external_pointer<geometry_vector_base> vertex(cpp11::integers which) const = 0;
   virtual Exact_number get_single_definition(size_t i, int which, int element) const = 0;
   virtual size_t cardinality(size_t i) const = 0;
@@ -98,6 +98,8 @@ public:
   virtual cpp11::writable::doubles length() const = 0;
   virtual cpp11::writable::doubles area() const = 0;
   virtual cpp11::writable::doubles volume() const = 0;
+  virtual std::vector<Exact_number> squared_distance(const geometry_vector_base& other) const = 0;
+  virtual cpp11::writable::doubles_matrix distance_matrix(const geometry_vector_base& other) const = 0;
 
   // Common
   virtual cpp11::external_pointer<geometry_vector_base> transform(const transform_vector_base& affine) const = 0;
@@ -311,7 +313,7 @@ public:
 
     return result;
   }
-  exact_numeric definition(int which, cpp11::integers element) const {
+  std::vector<Exact_number> definition(int which, cpp11::integers element) const {
     bool get_all = element[0] == R_NaInt;
     std::vector<Exact_number> result;
     result.reserve(get_all ? long_length() : size());
@@ -326,7 +328,7 @@ public:
       }
     }
 
-    return {result};
+    return result;
   }
   cpp11::external_pointer<geometry_vector_base> vertex(cpp11::integers which) const {
     std::vector<Point> vertices;

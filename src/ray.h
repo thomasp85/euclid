@@ -6,6 +6,7 @@
 #include "geometry_vector.h"
 #include "exact_numeric.h"
 #include "intersection.h"
+#include "distance.h"
 
 class ray2 : public geometry_vector<Ray_2, 2> {
 public:
@@ -64,6 +65,34 @@ public:
     case SEGMENT: return do_intersect_impl(_storage, get_vector_of_geo<Segment_2>(other));
     case TRIANGLE: return do_intersect_impl(_storage, get_vector_of_geo<Triangle_2>(other));
     default: return unknown_intersect_impl(std::max(size(), other.size()));
+    }
+  }
+
+  std::vector<Exact_number> squared_distance(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    switch (other.geometry_type()) {
+    case LINE: return squared_distance_impl(get_vector_of_geo<Line_2>(other), _storage);
+    case POINT: return squared_distance_impl(get_vector_of_geo<Point_2>(other), _storage);
+    case RAY: return squared_distance_impl(_storage, get_vector_of_geo<Ray_2>(other));
+    case SEGMENT: return squared_distance_impl(_storage, get_vector_of_geo<Segment_2>(other));
+    case TRIANGLE: return squared_distance_impl(_storage, get_vector_of_geo<Triangle_2>(other));
+    default: return unknown_squared_distance_impl(std::max(size(), other.size()));
+    }
+  }
+
+  cpp11::writable::doubles_matrix distance_matrix(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    switch (other.geometry_type()) {
+    case LINE: return distance_matrix_impl(get_vector_of_geo<Line_2>(other), _storage);
+    case POINT: return distance_matrix_impl(get_vector_of_geo<Point_2>(other), _storage);
+    case RAY: return distance_matrix_impl(_storage, get_vector_of_geo<Ray_2>(other));
+    case SEGMENT: return distance_matrix_impl(_storage, get_vector_of_geo<Segment_2>(other));
+    case TRIANGLE: return distance_matrix_impl(_storage, get_vector_of_geo<Triangle_2>(other));
+    default: return unknown_distance_matrix_impl(size(), other.size());
     }
   }
 
@@ -148,6 +177,34 @@ public:
     case TETRAHEDRON: return do_intersect_impl(_storage, get_vector_of_geo<Tetrahedron>(other));
     case TRIANGLE: return do_intersect_impl(_storage, get_vector_of_geo<Triangle_3>(other));
     default: return unknown_intersect_impl(std::max(size(), other.size()));
+    }
+  }
+
+  std::vector<Exact_number> squared_distance(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    switch (other.geometry_type()) {
+    case LINE: return squared_distance_impl(get_vector_of_geo<Line_3>(other), _storage);
+    case PLANE: return squared_distance_impl(get_vector_of_geo<Plane>(other), _storage);
+    case POINT: return squared_distance_impl(get_vector_of_geo<Point_3>(other), _storage);
+    case RAY: return squared_distance_impl(_storage, get_vector_of_geo<Ray_3>(other));
+    case SEGMENT: return squared_distance_impl(_storage, get_vector_of_geo<Segment_3>(other));
+    default: return unknown_squared_distance_impl(std::max(size(), other.size()));
+    }
+  }
+
+  cpp11::writable::doubles_matrix distance_matrix(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    switch (other.geometry_type()) {
+    case LINE: return distance_matrix_impl(get_vector_of_geo<Line_3>(other), _storage);
+    case PLANE: return distance_matrix_impl(get_vector_of_geo<Plane>(other), _storage);
+    case POINT: return distance_matrix_impl(get_vector_of_geo<Point_3>(other), _storage);
+    case RAY: return distance_matrix_impl(_storage, get_vector_of_geo<Ray_3>(other));
+    case SEGMENT: return distance_matrix_impl(_storage, get_vector_of_geo<Segment_3>(other));
+    default: return unknown_distance_matrix_impl(size(), other.size());
     }
   }
 

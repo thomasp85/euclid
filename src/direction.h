@@ -5,6 +5,8 @@
 #include "cgal_types.h"
 #include "geometry_vector.h"
 #include "exact_numeric.h"
+#include "intersection.h"
+#include "distance.h"
 
 class direction2 : public geometry_vector<Direction_2, 2> {
 public:
@@ -37,7 +39,24 @@ public:
   }
 
   cpp11::writable::logicals do_intersect(const geometry_vector_base& other) const {
-    cpp11::stop("Don't know how to calculate the intersection of these geometries");
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    return unknown_intersect_impl(std::max(size(), other.size()));
+  }
+
+  std::vector<Exact_number> squared_distance(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    return unknown_squared_distance_impl(std::max(size(), other.size()));
+  }
+
+  cpp11::writable::doubles_matrix distance_matrix(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    return unknown_distance_matrix_impl(size(), other.size());
   }
 
   std::vector<Direction_2> operator-() const {
@@ -292,7 +311,24 @@ public:
   }
 
   cpp11::writable::logicals do_intersect(const geometry_vector_base& other) const {
-    cpp11::stop("Don't know how to calculate the intersection of these geometries");
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    return unknown_intersect_impl(std::max(size(), other.size()));
+  }
+
+  std::vector<Exact_number> squared_distance(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    return unknown_squared_distance_impl(std::max(size(), other.size()));
+  }
+
+  cpp11::writable::doubles_matrix distance_matrix(const geometry_vector_base& other) const {
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    return unknown_distance_matrix_impl(size(), other.size());
   }
 
   std::vector<Direction_3> operator-() const {
