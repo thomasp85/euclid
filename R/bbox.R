@@ -102,7 +102,7 @@ format.euclid_bbox <- function(x, ...) {
 }
 #' @export
 print.euclid_bbox <- function(x, ...) {
-  cat("<Vector of bounding boxes in ", dim(x), " dimensions>\n", sep = "")
+  cat("<", dim(x), "D bounding boxes [", length(x), "]>\n", sep = "")
   if (length(x) == 0) {
     cat("[empty]")
   } else {

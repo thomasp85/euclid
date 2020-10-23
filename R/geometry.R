@@ -127,7 +127,7 @@ format.euclid_geometry <- function(x, ...) {
 }
 #' @export
 print.euclid_geometry <- function(x, ...) {
-  cat("<Vector of ", sub("euclid_(.*)\\d", "\\1", class(x)[1]), "s in ", dim(x), " dimensions>\n", sep = "")
+  cat("<", dim(x), "D ", sub("euclid_(.*)\\d", "\\1", class(x)[1]), "s [", length(x), "]>\n", sep = "")
   if (length(x) == 0) {
     cat("[empty]")
   } else {

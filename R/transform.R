@@ -179,7 +179,7 @@ format.euclid_affine_transformation <- function(x, ...) {
 }
 #' @export
 print.euclid_affine_transformation <- function(x, ...) {
-  cat("<Vector of affine transformation matrices in ", dim(x), " dimensions>\n", sep = "")
+  cat("<", dim(x), "D affine transformation matrices [", length(x), "]>\n", sep = "")
   if (length(x) == 0) {
     cat("[empty]")
   } else {
