@@ -38,7 +38,17 @@ public:
   }
 
   cpp11::writable::list intersection(const geometry_vector_base& other) const {
-    cpp11::stop("Don't know how to calculate the intersection of these geometries");
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    switch (other.geometry_type()) {
+    case ISOCUBE: return intersection_impl(_storage, get_vector_of_geo<Iso_cuboid>(other));
+    case LINE: return intersection_impl(_storage, get_vector_of_geo<Line_3>(other));
+    case POINT: return intersection_impl(_storage, get_vector_of_geo<Point_3>(other));
+    case RAY: return intersection_impl(_storage, get_vector_of_geo<Ray_3>(other));
+    case SEGMENT: return intersection_impl(_storage, get_vector_of_geo<Segment_3>(other));
+    default: cpp11::stop("Don't know how to calculate the intersection of these geometries");
+    }
   }
 
   cpp11::writable::logicals do_intersect(const geometry_vector_base& other) const {

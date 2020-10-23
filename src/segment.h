@@ -118,6 +118,7 @@ public:
       cpp11::stop("Only geometries of the same dimensionality can intersect");
     }
     switch (other.geometry_type()) {
+    case ISOCUBE: return intersection_impl(get_vector_of_geo<Iso_cuboid>(other), _storage);
     case LINE: return intersection_impl(get_vector_of_geo<Line_3>(other), _storage);
     case PLANE: return intersection_impl(get_vector_of_geo<Plane>(other), _storage);
     case POINT: return intersection_impl(get_vector_of_geo<Point_3>(other), _storage);

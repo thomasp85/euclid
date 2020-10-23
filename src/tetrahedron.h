@@ -39,7 +39,13 @@ public:
   }
 
   cpp11::writable::list intersection(const geometry_vector_base& other) const {
-    cpp11::stop("Don't know how to calculate the intersection of these geometries");
+    if (other.dimensions() != dimensions()) {
+      cpp11::stop("Only geometries of the same dimensionality can intersect");
+    }
+    switch (other.geometry_type()) {
+    case POINT: return intersection_impl(get_vector_of_geo<Point_3>(other), _storage);
+    default: cpp11::stop("Don't know how to calculate the intersection of these geometries");
+    }
   }
 
   cpp11::writable::logicals do_intersect(const geometry_vector_base& other) const {
