@@ -11,12 +11,16 @@
 #' scalar geometries or `NULL`s. Intersections can only be calculated between
 #' geometries located in space, which rules out vectors and directions. Further,
 #' not all combinations of geometries have exact intersections defined (circles
-#' and spheres are especially limited).
+#' and spheres are especially limited). euclid also provides a list of type-safe
+#' intersection functions that allways returns a vector of geometries of the
+#' requested type. Intersections that doesn't match the requested type are
+#' returned as `NA`, as are non-intersecting pairs. It is thus not possible to
+#' determine if an intersection occurs using these functions.
 #'
 #' @param x,y Geometry vectors or bounding boxes
 #'
 #' @return a list of scalar geometry vectors and `NULL`s depending on the result
-#' of the intersection query.
+#' of the intersection query, or a vector of geometries as requested.
 #'
 #' @export
 #'
@@ -28,6 +32,9 @@
 #'
 #' # Input is symmetric
 #' intersection(l, t)
+#'
+#' # Request only segment intersections
+#' intersection_segment(l, t)
 #'
 intersection <- function(x, y) {
   if (is_bbox(x)) {
@@ -51,6 +58,59 @@ intersection <- function(x, y) {
     if (is.null(g)) return(g)
     new_geometry_vector(g)
   })
+}
+
+intersection_type_safe <- function(x, y, pred, val) {
+  overlaps <- intersection(x, y)
+  res <- rep(val[NA], length.out = length(overlaps))
+  keep <- vapply(overlaps, pred, logical(1))
+  res[keep] <- do.call(c, overlaps[keep])
+  res
+}
+#' @rdname intersection
+#' @export
+intersection_circle <- function(x, y) {
+  intersection_type_safe(x, y, is_circle, circle(default_dim = dim(x)))
+}
+#' @rdname intersection
+#' @export
+intersection_iso_rect <- function(x, y) {
+  intersection_type_safe(x, y, is_iso_rect, iso_rect())
+}
+#' @rdname intersection
+#' @export
+intersection_plane <- function(x, y) {
+  intersection_type_safe(x, y, is_plane, plane())
+}
+#' @rdname intersection
+#' @export
+intersection_point <- function(x, y) {
+  intersection_type_safe(x, y, is_point, point(default_dim = dim(x)))
+}
+#' @rdname intersection
+#' @export
+intersection_line <- function(x, y) {
+  intersection_type_safe(x, y, is_line, line(default_dim = dim(x)))
+}
+#' @rdname intersection
+#' @export
+intersection_ray <- function(x, y) {
+  intersection_type_safe(x, y, is_ray, ray(default_dim = dim(x)))
+}
+#' @rdname intersection
+#' @export
+intersection_segment <- function(x, y) {
+  intersection_type_safe(x, y, is_segment, segment(default_dim = dim(x)))
+}
+#' @rdname intersection
+#' @export
+intersection_sphere <- function(x, y) {
+  intersection_type_safe(x, y, is_sphere, sphere())
+}
+#' @rdname intersection
+#' @export
+intersection_triangle <- function(x, y) {
+  intersection_type_safe(x, y, is_triangle, triangle(default_dim = dim(x)))
 }
 
 #' Query whether geometries intersect
