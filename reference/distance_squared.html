@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Vector of segments — segment • euclid</title>
+<title>Calculate distances between geometries — distance_squared • euclid</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,10 +46,15 @@
 
 
 
-<meta property="og:title" content="Vector of segments — segment" />
-<meta property="og:description" content="A segment is a finite directed line going from one point to another. If the
-two points are equal it is considered to be degenerate. A
-segment can be flipped be taking its negative." />
+<meta property="og:title" content="Calculate distances between geometries — distance_squared" />
+<meta property="og:description" content="The minimum distance between two arbitrary geometries is non-trivial and is
+only exactly defined for non-circular geometries. distance_squared() will
+return the exact squared distance between geometries with x and y being
+recycled to the maximum length of either. distance_matrix will return a
+matrix of distances given as numerics (and thus not exact), with the
+geometries of x in the rows and the geometries of y in the columns so
+that the value of mat[i, j] corresponds to the distance between x[i] and
+y[j]." />
 <meta property="og:image" content="https://r-euclid.com/reference/figures/card.png" />
 <meta property="og:image:alt" content="euclid: Exact compuational geometry in R" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -122,77 +127,58 @@ segment can be flipped be taking its negative." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Vector of segments</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/segment.R'><code>R/segment.R</code></a></small>
-    <div class="hidden name"><code>segment.Rd</code></div>
+    <h1>Calculate distances between geometries</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/geometry_measures.R'><code>R/geometry_measures.R</code></a></small>
+    <div class="hidden name"><code>distance_squared.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A segment is a finite directed line going from one point to another. If the
-two points are equal it is considered to be <a href='is_degenerate.html'>degenerate</a>. A
-segment can be flipped be taking its negative.</p>
+    <p>The minimum distance between two arbitrary geometries is non-trivial and is
+only exactly defined for non-circular geometries. <code>distance_squared()</code> will
+return the exact squared distance between geometries with <code>x</code> and <code>y</code> being
+recycled to the maximum length of either. <code>distance_matrix</code> will return a
+matrix of distances given as numerics (and thus not exact), with the
+geometries of <code>x</code> in the rows and the geometries of <code>y</code> in the columns so
+that the value of <code>mat[i, j]</code> corresponds to the distance between <code>x[i]</code> and
+<code>y[j]</code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>segment</span><span class='op'>(</span><span class='va'>...</span>, default_dim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>distance_squared</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
 
-<span class='fu'>as_segment</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+<span class='fu'>distance_matrix</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Various input. See the Constructor section.</p></td>
-    </tr>
-    <tr>
-      <th>default_dim</th>
-      <td><p>The dimensionality when constructing an empty vector</p></td>
-    </tr>
-    <tr>
-      <th>x</th>
-      <td><p>A vector of segments or an object to convert to it</p></td>
+      <th>x, y</th>
+      <td><p>eometry vectors or bounding boxes</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An <code>euclid_segment</code> vector</p>
-    <h2 class="hasAnchor" id="constructors"><a class="anchor" href="#constructors"></a>Constructors</h2>
-
-    
-
-<p><strong>2 and 3 dimensional segments</strong></p><ul>
-<li><p>Providing two points will construct segments starting at the first point
-and ending at the second</p></li>
-<li><p>Providing a point and a vector will construct segments starting at the
-point and ending at the point defined by the start point plus the vector</p></li>
-</ul>
-
+    <p>A <code>euclid_exact_numeric</code> vector for <code>distance_squared()</code> and a
+numeric matrix for <code>distance_matrix()</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Construction</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'>segment</span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>)</span>
-<span class='va'>s</span>
-</div><div class='output co'>#&gt; &lt;Vector of segments in 2 dimensions&gt;
-#&gt; [1] [&lt;x:3, y:2&gt;, &lt;x:1, y:4&gt;] [&lt;x:4, y:1&gt;, &lt;x:2, y:3&gt;]</div><div class='input'>
-<span class='fu'>segment</span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>, <span class='fu'><a href='vec.html'>as_vec</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of segments in 2 dimensions&gt;
-#&gt; [1] [&lt;x:3, y:2&gt;, &lt;x:4, y:6&gt;] [&lt;x:4, y:1&gt;, &lt;x:6, y:4&gt;]</div><div class='input'>
-<span class='co'># Flip segments</span>
-<span class='op'>-</span><span class='va'>s</span>
-</div><div class='output co'>#&gt; &lt;Vector of segments in 2 dimensions&gt;
-#&gt; [1] [&lt;x:1, y:4&gt;, &lt;x:3, y:2&gt;] [&lt;x:2, y:3&gt;, &lt;x:4, y:1&gt;]</div><div class='input'>
-<span class='co'># Segments can be converted to vectors, directions and lines</span>
-<span class='fu'><a href='vec.html'>as_vec</a></span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of vectors in 2 dimensions&gt;
-#&gt; [1] &lt;x:-2, y:2&gt; &lt;x:-2, y:2&gt;</div><div class='input'>
-<span class='fu'><a href='direction.html'>as_direction</a></span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of directions in 2 dimensions&gt;
-#&gt; [1] &lt;dx:-2, dy:2&gt; &lt;dx:-2, dy:2&gt;</div><div class='input'>
-<span class='fu'><a href='line.html'>as_line</a></span><span class='op'>(</span><span class='va'>s</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;Vector of lines in 2 dimensions&gt;
-#&gt; [1] &lt;a:-2, b:-2, c:10&gt; &lt;a:-2, b:-2, c:10&gt;</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='co'># Calculate distances between lines and rays in 3D</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>20</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>20</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>100</span>, <span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>l</span> <span class='op'>&lt;-</span> <span class='fu'><a href='line.html'>line</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>6</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>r</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ray.html'>ray</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>11</span><span class='op'>:</span><span class='fl'>15</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>16</span><span class='op'>:</span><span class='fl'>20</span><span class='op'>]</span><span class='op'>)</span>
+
+<span class='co'># Pairwise exact distance</span>
+<span class='fu'>distance_squared</span><span class='op'>(</span><span class='va'>l</span>, <span class='va'>r</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of exact numerics&gt;
+#&gt; [1] 1474.994501 1629.334423   59.766520  606.591709    5.747695</div><div class='input'>
+<span class='co'># All distances</span>
+<span class='fu'>distance_matrix</span><span class='op'>(</span><span class='va'>l</span>, <span class='va'>r</span><span class='op'>)</span>
+</div><div class='output co'>#&gt;          [,1]     [,2]      [,3]      [,4]      [,5]
+#&gt; [1,] 38.40566  9.23392 72.079460  1.767814 25.586575
+#&gt; [2,] 35.24003 40.36501 13.836364  5.752415  7.905694
+#&gt; [3,] 36.43700 54.53745  7.730881 16.497652 33.998153
+#&gt; [4,] 30.08244 61.29187  5.851933 24.629083 37.694289
+#&gt; [5,] 18.77114 22.76209 19.166734 14.156715  2.397435</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
