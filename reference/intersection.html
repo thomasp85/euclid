@@ -58,7 +58,11 @@ confusion around the return type intersection() always return a list of
 scalar geometries or NULLs. Intersections can only be calculated between
 geometries located in space, which rules out vectors and directions. Further,
 not all combinations of geometries have exact intersections defined (circles
-and spheres are especially limited)." />
+and spheres are especially limited). euclid also provides a list of type-safe
+intersection functions that allways returns a vector of geometries of the
+requested type. Intersections that doesn't match the requested type are
+returned as NA, as are non-intersecting pairs. It is thus not possible to
+determine if an intersection occurs using these functions." />
 <meta property="og:image" content="https://r-euclid.com/reference/figures/card.png" />
 <meta property="og:image:alt" content="euclid: Exact compuational geometry in R" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -148,10 +152,32 @@ confusion around the return type <code>intersection()</code> always return a lis
 scalar geometries or <code>NULL</code>s. Intersections can only be calculated between
 geometries located in space, which rules out vectors and directions. Further,
 not all combinations of geometries have exact intersections defined (circles
-and spheres are especially limited).</p>
+and spheres are especially limited). euclid also provides a list of type-safe
+intersection functions that allways returns a vector of geometries of the
+requested type. Intersections that doesn't match the requested type are
+returned as <code>NA</code>, as are non-intersecting pairs. It is thus not possible to
+determine if an intersection occurs using these functions.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>intersection</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>intersection</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+
+<span class='fu'>intersection_circle</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+
+<span class='fu'>intersection_iso_rect</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+
+<span class='fu'>intersection_plane</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+
+<span class='fu'>intersection_point</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+
+<span class='fu'>intersection_line</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+
+<span class='fu'>intersection_ray</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+
+<span class='fu'>intersection_segment</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+
+<span class='fu'>intersection_sphere</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>
+
+<span class='fu'>intersection_triangle</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -165,7 +191,7 @@ and spheres are especially limited).</p>
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>a list of scalar geometry vectors and <code>NULL</code>s depending on the result
-of the intersection query.</p>
+of the intersection query, or a vector of geometries as requested.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Example of the difference in output</span>
@@ -196,6 +222,10 @@ of the intersection query.</p>
 #&gt; [[3]]
 #&gt; NULL
 #&gt; </div><div class='input'>
+<span class='co'># Request only segment intersections</span>
+<span class='fu'>intersection_segment</span><span class='op'>(</span><span class='va'>l</span>, <span class='va'>t</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;Vector of segments in 2 dimensions&gt;
+#&gt; [1] [&lt;x:1, y:1&gt;, &lt;x:0, y:0&gt;] &lt;NA&gt;                     &lt;NA&gt;                    </div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
