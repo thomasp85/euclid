@@ -195,7 +195,7 @@ equidistant_line <- function(x, y, z = NULL) {
   }
 }
 
-#' Calculate radical line of two circles or radical plane of two spheres
+#' Calculate radical point, line, or plane of two circles or spheres
 #'
 #' The radical line or plane is the line (or plane) perpendicular to the line
 #' connecting the two circles or spheres and positioned such that at any point

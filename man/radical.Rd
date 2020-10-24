@@ -2,7 +2,7 @@
 % Please edit documentation in R/geometry_locations.R
 \name{radical}
 \alias{radical}
-\title{Calculate radical line of two circles or radical plane of two spheres}
+\title{Calculate radical point, line, or plane of two circles or spheres}
 \usage{
 radical(x, y, z = NULL)
 }
