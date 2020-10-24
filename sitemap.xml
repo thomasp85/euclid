@@ -7,10 +7,22 @@
     <loc>https://r-euclid.com/reference/affine_transformation.html</loc>
   </url>
   <url>
+    <loc>https://r-euclid.com/reference/barycenter.html</loc>
+  </url>
+  <url>
     <loc>https://r-euclid.com/reference/bbox.html</loc>
   </url>
   <url>
+    <loc>https://r-euclid.com/reference/bisector.html</loc>
+  </url>
+  <url>
+    <loc>https://r-euclid.com/reference/centroid.html</loc>
+  </url>
+  <url>
     <loc>https://r-euclid.com/reference/circle.html</loc>
+  </url>
+  <url>
+    <loc>https://r-euclid.com/reference/circumcenter.html</loc>
   </url>
   <url>
     <loc>https://r-euclid.com/reference/constant_in.html</loc>
@@ -20,6 +32,9 @@
   </url>
   <url>
     <loc>https://r-euclid.com/reference/distance_squared.html</loc>
+  </url>
+  <url>
+    <loc>https://r-euclid.com/reference/equidistant_line.html</loc>
   </url>
   <url>
     <loc>https://r-euclid.com/reference/euclid-package.html</loc>
@@ -71,6 +86,9 @@
   </url>
   <url>
     <loc>https://r-euclid.com/reference/project.html</loc>
+  </url>
+  <url>
+    <loc>https://r-euclid.com/reference/radical.html</loc>
   </url>
   <url>
     <loc>https://r-euclid.com/reference/ray.html</loc>
