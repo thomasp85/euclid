@@ -51,7 +51,9 @@
 connecting the two circles or spheres and positioned such that at any point
 the tangent lines drawn to the two circles or spheres will have equal length.
 If the circles or sphere cross the radical will be positioned at the crossing
-points. It is not defined for cocentric circles and spheres." />
+points. It is not defined for cocentric circles and spheres. The radical
+point is defined as the intersection point of the three radical lines of
+three circles, or three radical planes of three spheres." />
 <meta property="og:image" content="https://r-euclid.com/reference/figures/card.png" />
 <meta property="og:image:alt" content="euclid: Exact compuational geometry in R" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -134,17 +136,20 @@ points. It is not defined for cocentric circles and spheres." />
 connecting the two circles or spheres and positioned such that at any point
 the tangent lines drawn to the two circles or spheres will have equal length.
 If the circles or sphere cross the radical will be positioned at the crossing
-points. It is not defined for cocentric circles and spheres.</p>
+points. It is not defined for cocentric circles and spheres. The radical
+point is defined as the intersection point of the three radical lines of
+three circles, or three radical planes of three spheres.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>radical</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>radical</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, z <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>x, y</th>
-      <td><p>vector of circles in 2D or spheres</p></td>
+      <th>x, y, z</th>
+      <td><p>vector of circles in 2D or spheres. If <code>z</code> is given the radical
+point will be computed</p></td>
     </tr>
     </table>
 
