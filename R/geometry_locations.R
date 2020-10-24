@@ -201,9 +201,12 @@ equidistant_line <- function(x, y, z = NULL) {
 #' connecting the two circles or spheres and positioned such that at any point
 #' the tangent lines drawn to the two circles or spheres will have equal length.
 #' If the circles or sphere cross the radical will be positioned at the crossing
-#' points. It is not defined for cocentric circles and spheres.
+#' points. It is not defined for cocentric circles and spheres. The radical
+#' point is defined as the intersection point of the three radical lines of
+#' three circles, or three radical planes of three spheres.
 #'
-#' @param x,y vector of circles in 2D or spheres
+#' @param x,y,z vector of circles in 2D or spheres. If `z` is given the radical
+#' point will be computed
 #'
 #' @return A vector of lines or planes depending on the input
 #'
@@ -222,6 +225,15 @@ equidistant_line <- function(x, y, z = NULL) {
 #'   sphere(point(-6, 2, 7), 3)
 #' )
 #'
-radical <- function(x, y) {
-  new_geometry_vector(geometry_radical_geometry(get_ptr(x), get_ptr(y)))
+radical <- function(x, y, z = NULL) {
+  r <- new_geometry_vector(geometry_radical_geometry(get_ptr(x), get_ptr(y)))
+  if (is.null(z)) {
+    return(r)
+  }
+  r2 <- new_geometry_vector(geometry_radical_geometry(get_ptr(x), get_ptr(z)))
+  if (dim(x) == 2) {
+    return(intersection_point(r, r2))
+  }
+  r3 <- new_geometry_vector(geometry_radical_geometry(get_ptr(y), get_ptr(z)))
+  intersection_point(intersection_line(r, r2), r3)
 }

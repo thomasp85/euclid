@@ -4,10 +4,11 @@
 \alias{radical}
 \title{Calculate radical line of two circles or radical plane of two spheres}
 \usage{
-radical(x, y)
+radical(x, y, z = NULL)
 }
 \arguments{
-\item{x, y}{vector of circles in 2D or spheres}
+\item{x, y, z}{vector of circles in 2D or spheres. If \code{z} is given the radical
+point will be computed}
 }
 \value{
 A vector of lines or planes depending on the input
@@ -17,7 +18,9 @@ The radical line or plane is the line (or plane) perpendicular to the line
 connecting the two circles or spheres and positioned such that at any point
 the tangent lines drawn to the two circles or spheres will have equal length.
 If the circles or sphere cross the radical will be positioned at the crossing
-points. It is not defined for cocentric circles and spheres.
+points. It is not defined for cocentric circles and spheres. The radical
+point is defined as the intersection point of the three radical lines of
+three circles, or three radical planes of three spheres.
 }
 \examples{
 # Radical line
