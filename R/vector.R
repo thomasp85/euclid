@@ -200,9 +200,9 @@ geometry_op_divide.euclid_vector <- function(e1, e2) {
   }
   e2 <- as_exact_numeric(e2)
   if (dim(e1) == 2) {
-    restore_euclid_vector(vector_2_divide_numeric(get_ptr(e1), get_ptr(e2)), vec)
+    restore_euclid_vector(vector_2_divide_numeric(get_ptr(e1), get_ptr(e2)), e1)
   } else {
-    restore_euclid_vector(vector_3_divide_numeric(get_ptr(e1), get_ptr(e2)), vec)
+    restore_euclid_vector(vector_3_divide_numeric(get_ptr(e1), get_ptr(e2)), e1)
   }
 }
 
