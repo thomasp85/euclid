@@ -13,6 +13,10 @@ inline std::vector<Exact_number> squared_distance_impl(const std::vector<T>& geo
   std::vector<Exact_number> res;
   res.reserve(output_size);
   for (size_t i = 0; i < output_size; ++i) {
+    if (!geo1[i % geo1.size()] || !geo2[i % geo2.size()]) {
+      res.push_back(Exact_number::NA_value());
+      continue;
+    }
     Exact_number dist2 = CGAL::squared_distance(geo1[i % geo1.size()], geo2[i % geo2.size()]);
     res.push_back(dist2);
   }
@@ -33,6 +37,10 @@ inline cpp11::writable::doubles_matrix distance_matrix_impl(const std::vector<T>
   cpp11::writable::doubles_matrix res(geo1.size(), geo2.size());
   for (size_t i = 0; i < geo1.size(); ++i) {
     for (size_t j = 0; j < geo2.size(); ++j) {
+      if (!geo1[i] || !geo2[j]) {
+        res(i, j) = R_NaReal;
+        continue;
+      }
       res(i, j) = CGAL::sqrt(CGAL::to_double(CGAL::squared_distance(geo1[i], geo2[j])));
     }
   }

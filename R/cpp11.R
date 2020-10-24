@@ -592,6 +592,42 @@ create_line_3_ray <- function(r) {
   .Call("_euclid_create_line_3_ray", r, PACKAGE = "euclid")
 }
 
+geometry_barycenter_2 <- function(p1, p2) {
+  .Call("_euclid_geometry_barycenter_2", p1, p2, PACKAGE = "euclid")
+}
+
+geometry_barycenter_3 <- function(p1, p2, p3) {
+  .Call("_euclid_geometry_barycenter_3", p1, p2, p3, PACKAGE = "euclid")
+}
+
+geometry_barycenter_4 <- function(p1, p2, p3, p4) {
+  .Call("_euclid_geometry_barycenter_4", p1, p2, p3, p4, PACKAGE = "euclid")
+}
+
+geometry_bisector <- function(geo1, geo2) {
+  .Call("_euclid_geometry_bisector", geo1, geo2, PACKAGE = "euclid")
+}
+
+geometry_centroid_1 <- function(geo) {
+  .Call("_euclid_geometry_centroid_1", geo, PACKAGE = "euclid")
+}
+
+geometry_centroid_3 <- function(p1, p2, p3) {
+  .Call("_euclid_geometry_centroid_3", p1, p2, p3, PACKAGE = "euclid")
+}
+
+geometry_centroid_4 <- function(p1, p2, p3, p4) {
+  .Call("_euclid_geometry_centroid_4", p1, p2, p3, p4, PACKAGE = "euclid")
+}
+
+geometry_equidistant_line <- function(p1, p2, p3) {
+  .Call("_euclid_geometry_equidistant_line", p1, p2, p3, PACKAGE = "euclid")
+}
+
+geometry_radical_geometry <- function(geo1, geo2) {
+  .Call("_euclid_geometry_radical_geometry", geo1, geo2, PACKAGE = "euclid")
+}
+
 create_plane_empty <- function() {
   .Call("_euclid_create_plane_empty", PACKAGE = "euclid")
 }
@@ -630,6 +666,30 @@ create_plane_circle <- function(circle) {
 
 create_plane_triangle <- function(triangle) {
   .Call("_euclid_create_plane_triangle", triangle, PACKAGE = "euclid")
+}
+
+create_point_w_2_empty <- function() {
+  .Call("_euclid_create_point_w_2_empty", PACKAGE = "euclid")
+}
+
+create_point_w_2_x_y_w <- function(x, y, w) {
+  .Call("_euclid_create_point_w_2_x_y_w", x, y, w, PACKAGE = "euclid")
+}
+
+create_point_w_2_p_w <- function(p, w) {
+  .Call("_euclid_create_point_w_2_p_w", p, w, PACKAGE = "euclid")
+}
+
+create_point_w_3_empty <- function() {
+  .Call("_euclid_create_point_w_3_empty", PACKAGE = "euclid")
+}
+
+create_point_w_3_x_y_z_w <- function(x, y, z, w) {
+  .Call("_euclid_create_point_w_3_x_y_z_w", x, y, z, w, PACKAGE = "euclid")
+}
+
+create_point_w_3_p_w <- function(p, w) {
+  .Call("_euclid_create_point_w_3_p_w", p, w, PACKAGE = "euclid")
 }
 
 create_point_2_empty <- function() {
@@ -750,30 +810,6 @@ point_3_cummin <- function(x) {
 
 point_3_cummax <- function(x) {
   .Call("_euclid_point_3_cummax", x, PACKAGE = "euclid")
-}
-
-create_point_w_2_empty <- function() {
-  .Call("_euclid_create_point_w_2_empty", PACKAGE = "euclid")
-}
-
-create_point_w_2_x_y_w <- function(x, y, w) {
-  .Call("_euclid_create_point_w_2_x_y_w", x, y, w, PACKAGE = "euclid")
-}
-
-create_point_w_2_p_w <- function(p, w) {
-  .Call("_euclid_create_point_w_2_p_w", p, w, PACKAGE = "euclid")
-}
-
-create_point_w_3_empty <- function() {
-  .Call("_euclid_create_point_w_3_empty", PACKAGE = "euclid")
-}
-
-create_point_w_3_x_y_z_w <- function(x, y, z, w) {
-  .Call("_euclid_create_point_w_3_x_y_z_w", x, y, z, w, PACKAGE = "euclid")
-}
-
-create_point_w_3_p_w <- function(p, w) {
-  .Call("_euclid_create_point_w_3_p_w", p, w, PACKAGE = "euclid")
 }
 
 create_ray_2_empty <- function() {

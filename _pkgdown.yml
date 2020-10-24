@@ -105,3 +105,15 @@ reference:
   contents:
   - approx_length
   - distance_squared
+- title: Locations
+  desc: >
+    Single geometries or collections of them can define specific locations in
+    space, often points, but also lines and planes. euclid provides a range of
+    functionality for calculating these.
+  contents:
+  - centroid
+  - circumcenter
+  - barycenter
+  - bisector
+  - equidistant_line
+  - radical

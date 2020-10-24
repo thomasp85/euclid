@@ -68,6 +68,10 @@ inline cpp11::writable::list intersection_impl(const std::vector<T>& geo1, const
   cpp11::writable::list result;
   result.reserve(output_size);
   for (size_t i = 0; i < output_size; ++i) {
+    if (!geo1[i % geo1.size()] || !geo2[i % geo2.size()]) {
+      result.push_back(R_NilValue);
+      continue;
+    }
     auto overlap = CGAL::intersection(geo1[i % geo1.size()], geo2[i % geo2.size()]);
     if (overlap) {
       result.push_back(boost::apply_visitor(Intersection_visitor(), *overlap));
@@ -84,6 +88,10 @@ inline cpp11::writable::logicals do_intersect_impl(const std::vector<T>& geo1, c
   cpp11::writable::logicals result;
   result.reserve(output_size);
   for (size_t i = 0; i < output_size; ++i) {
+    if (!geo1[i % geo1.size()] || !geo2[i % geo2.size()]) {
+      result.push_back(NA_LOGICAL);
+      continue;
+    }
     bool overlap = CGAL::do_intersect(geo1[i % geo1.size()], geo2[i % geo2.size()]);
     result.push_back((Rboolean) overlap);
   }
