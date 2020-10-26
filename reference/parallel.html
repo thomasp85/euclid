@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Vector of lines — line • euclid</title>
+<title>Check geometries for parallelity — parallel • euclid</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,11 +46,13 @@
 
 
 
-<meta property="og:title" content="Vector of lines — line" />
-<meta property="og:description" content="A line is an undirected infinite line. For 2D it can be defined by the line
-equation ax + by + c = 0 whereas for 3D it is usually defined by a point
-and a direction in the same way as rays, but implicitly extending to infinity
-in the opposite direction as well." />
+<meta property="og:title" content="Check geometries for parallelity — parallel" />
+<meta property="og:description" content="If two geometries are parallel they have the same orientation. euclid allows
+assessing parallelity of a broad range of geometries. If x and y are
+surfaces the parallelity of their supporting plane is returned. If x and
+y are curves, the parallelity of their supporting line is returned. If it
+is a mix of surface and curve, the parallelity is calculated as whether the
+supporting plane and supporting line intersects at a point." />
 <meta property="og:image" content="https://r-euclid.com/reference/figures/card.png" />
 <meta property="og:image:alt" content="euclid: Exact compuational geometry in R" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -123,88 +125,49 @@ in the opposite direction as well." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Vector of lines</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/line.R'><code>R/line.R</code></a></small>
-    <div class="hidden name"><code>line.Rd</code></div>
+    <h1>Check geometries for parallelity</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/geometry_predicates.R'><code>R/geometry_predicates.R</code></a></small>
+    <div class="hidden name"><code>parallel.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A line is an undirected infinite line. For 2D it can be defined by the line
-equation <code>ax + by + c = 0</code> whereas for 3D it is usually defined by a point
-and a direction in the same way as rays, but implicitly extending to infinity
-in the opposite direction as well.</p>
+    <p>If two geometries are parallel they have the same orientation. euclid allows
+assessing parallelity of a broad range of geometries. If <code>x</code> and <code>y</code> are
+surfaces the parallelity of their supporting plane is returned. If <code>x</code> and
+<code>y</code> are curves, the parallelity of their supporting line is returned. If it
+is a mix of surface and curve, the parallelity is calculated as whether the
+supporting plane and supporting line intersects at a point.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>line</span><span class='op'>(</span><span class='va'>...</span>, default_dim <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
-
-<span class='fu'>is_line</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
-
-<span class='fu'>as_line</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>parallel</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>...</th>
-      <td><p>Various input. See the Constructor section.</p></td>
-    </tr>
-    <tr>
-      <th>default_dim</th>
-      <td><p>The dimensionality when constructing an empty vector</p></td>
-    </tr>
-    <tr>
-      <th>x</th>
-      <td><p>A vector of lines or an object to convert to it</p></td>
+      <th>x, y</th>
+      <td><p>vectors of geometries</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>An <code>euclid_line</code> vector</p>
-    <h2 class="hasAnchor" id="constructors"><a class="anchor" href="#constructors"></a>Constructors</h2>
-
-    
-
-<p><strong>2 dimensional rays</strong></p><ul>
-<li><p>Providing 3 numerics will create lines with the given line equation</p></li>
-<li><p>Providing two points will construct lines going through those</p></li>
-<li><p>Providing a point and a vector will construct lines going through the point
-and extending in the direction of the vector.</p></li>
-<li><p>Providing a point and a direction will construct lines going through the
-point and extending in the given direction.</p></li>
-<li><p>Providing a ray will construct the supporting line for the ray</p></li>
-<li><p>Providing a segment will construct the supporting line for the segment</p></li>
-</ul>
-
-<p><strong>3 dimensional rays</strong></p><ul>
-<li><p>Providing two points will construct lines going through those</p></li>
-<li><p>Providing a point and a vector will construct lines going through the point
-and extending in the direction of the vector.</p></li>
-<li><p>Providing a point and a direction will construct lines going through the
-point and extending in the given direction.</p></li>
-<li><p>Providing a ray will construct the supporting line for the ray</p></li>
-<li><p>Providing a segment will construct the supporting line for the segment</p></li>
-</ul>
-
+    <p>a logical vector giving the parallelity of the input</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Construction</span>
-<span class='va'>l</span> <span class='op'>&lt;-</span> <span class='fu'>line</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>2</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>2</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>l</span>
-</div><div class='output co'>#&gt; &lt;2D lines [2]&gt;
-#&gt; [1] &lt;a:5, b:6, c:1&gt;  &lt;a:10, b:3, c:8&gt;</div><div class='input'>
-<span class='co'># 3D lines cannot be constructed from coefficients</span>
-<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>line</span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>4</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;3D lines [3]&gt;
-#&gt; [1] &lt;x:6, y:4, z:2, dx:-1, dy:1, dz:1&gt;  &lt;x:3, y:3, z:5, dx:-2, dy:-1, dz:1&gt;
-#&gt; [3] &lt;x:2, y:6, z:4, dx:2, dy:-5, dz:-3&gt;</div><div class='input'>
-<span class='co'># Construction from point and vector</span>
-<span class='fu'>line</span><span class='op'>(</span><span class='va'>p</span>, <span class='fu'><a href='vec.html'>vec</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='op'>-</span><span class='fl'>2</span>, <span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;3D lines [6]&gt;
-#&gt; [1] &lt;x:6, y:4, z:2, dx:4, dy:-2, dz:0&gt; &lt;x:3, y:3, z:5, dx:4, dy:-2, dz:0&gt;
-#&gt; [3] &lt;x:2, y:6, z:4, dx:4, dy:-2, dz:0&gt; &lt;x:5, y:5, z:3, dx:4, dy:-2, dz:0&gt;
-#&gt; [5] &lt;x:1, y:2, z:6, dx:4, dy:-2, dz:0&gt; &lt;x:4, y:1, z:1, dx:4, dy:-2, dz:0&gt;</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='co'># Are two triangles parallel (only meaningful in 3D)</span>
+<span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>6</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>6</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>20</span>, <span class='fl'>6</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>t1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='triangle.html'>triangle</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>t2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='triangle.html'>triangle</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>4</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>5</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>6</span><span class='op'>]</span><span class='op'>)</span>
+
+<span class='fu'>parallel</span><span class='op'>(</span><span class='va'>t1</span>, <span class='va'>t2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
+<span class='co'># Same as:</span>
+<span class='fu'>parallel</span><span class='op'>(</span><span class='fu'><a href='plane.html'>as_plane</a></span><span class='op'>(</span><span class='va'>t1</span><span class='op'>)</span>, <span class='fu'><a href='plane.html'>as_plane</a></span><span class='op'>(</span><span class='va'>t2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
+<span class='co'># Parallelity of surface and curve</span>
+<span class='fu'>parallel</span><span class='op'>(</span><span class='va'>t1</span>, <span class='fu'><a href='line.html'>line</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>5</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>6</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] FALSE</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

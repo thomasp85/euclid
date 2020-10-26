@@ -25,6 +25,9 @@
     <loc>https://r-euclid.com/reference/circumcenter.html</loc>
   </url>
   <url>
+    <loc>https://r-euclid.com/reference/collinear.html</loc>
+  </url>
+  <url>
     <loc>https://r-euclid.com/reference/constant_in.html</loc>
   </url>
   <url>
@@ -46,10 +49,19 @@
     <loc>https://r-euclid.com/reference/exact_numeric.html</loc>
   </url>
   <url>
+    <loc>https://r-euclid.com/reference/geometry_class.html</loc>
+  </url>
+  <url>
     <loc>https://r-euclid.com/reference/geometry_measures.html</loc>
   </url>
   <url>
+    <loc>https://r-euclid.com/reference/geometry_turns.html</loc>
+  </url>
+  <url>
     <loc>https://r-euclid.com/reference/has_intersection.html</loc>
+  </url>
+  <url>
+    <loc>https://r-euclid.com/reference/in_order.html</loc>
   </url>
   <url>
     <loc>https://r-euclid.com/reference/intersection.html</loc>
@@ -74,6 +86,9 @@
   </url>
   <url>
     <loc>https://r-euclid.com/reference/normal.html</loc>
+  </url>
+  <url>
+    <loc>https://r-euclid.com/reference/parallel.html</loc>
   </url>
   <url>
     <loc>https://r-euclid.com/reference/parameter.html</loc>
