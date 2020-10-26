@@ -127,8 +127,8 @@ geometry_vector_base_p geometry_barycenter_4(geometry_vector_base_p p1, geometry
 
 [[cpp11::register]]
 geometry_vector_base_p geometry_bisector(geometry_vector_base_p geo1, geometry_vector_base_p geo2) {
+  size_t output_size = std::max(geo1->size(), geo2->size());
   if (geo1->dimensions() == 2) {
-    size_t output_size = std::max(geo1->size(), geo2->size());
     std::vector<Line_2> result;
     result.reserve(output_size);
     switch (geo1->geometry_type()) {
@@ -159,7 +159,6 @@ geometry_vector_base_p geometry_bisector(geometry_vector_base_p geo1, geometry_v
     }
     return create_geometry_vector(result);
   } else {
-    size_t output_size = std::max(geo1->size(), geo2->size());
     std::vector<Plane> result;
     result.reserve(output_size);
     switch (geo1->geometry_type()) {

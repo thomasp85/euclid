@@ -851,6 +851,13 @@ extern "C" SEXP _euclid_geometry_constant_in(SEXP geometries, SEXP coord) {
     return cpp11::as_sexp(geometry_constant_in(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(coord)));
   END_CPP11
 }
+// geometry_predicates.cpp
+cpp11::writable::logicals geometry_parallel(geometry_vector_base_p geo1, geometry_vector_base_p geo2);
+extern "C" SEXP _euclid_geometry_parallel(SEXP geo1, SEXP geo2) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_parallel(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geo1), cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geo2)));
+  END_CPP11
+}
 // geometry_projection.cpp
 geometry_vector_base_p geometry_project_to_line(geometry_vector_base_p geometries, geometry_vector_base_p lines);
 extern "C" SEXP _euclid_geometry_project_to_line(SEXP geometries, SEXP lines) {
@@ -1423,6 +1430,55 @@ point3_p point_3_cummax(point3_p x);
 extern "C" SEXP _euclid_point_3_cummax(SEXP x) {
   BEGIN_CPP11
     return cpp11::as_sexp(point_3_cummax(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x)));
+  END_CPP11
+}
+// point.cpp
+cpp11::writable::logicals point_collinear(geometry_vector_base_p x, geometry_vector_base_p y, geometry_vector_base_p z);
+extern "C" SEXP _euclid_point_collinear(SEXP x, SEXP y, SEXP z) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(point_collinear(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(x), cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(y), cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(z)));
+  END_CPP11
+}
+// point.cpp
+cpp11::writable::logicals point_coplanar(point3_p x, point3_p y, point3_p z, point3_p t);
+extern "C" SEXP _euclid_point_coplanar(SEXP x, SEXP y, SEXP z, SEXP t) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(point_coplanar(cpp11::as_cpp<cpp11::decay_t<point3_p>>(x), cpp11::as_cpp<cpp11::decay_t<point3_p>>(y), cpp11::as_cpp<cpp11::decay_t<point3_p>>(z), cpp11::as_cpp<cpp11::decay_t<point3_p>>(t)));
+  END_CPP11
+}
+// point.cpp
+cpp11::writable::logicals point_ordered(geometry_vector_base_p x, geometry_vector_base_p y, geometry_vector_base_p z);
+extern "C" SEXP _euclid_point_ordered(SEXP x, SEXP y, SEXP z) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(point_ordered(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(x), cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(y), cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(z)));
+  END_CPP11
+}
+// point.cpp
+cpp11::writable::logicals point_ordered_along(geometry_vector_base_p x);
+extern "C" SEXP _euclid_point_ordered_along(SEXP x) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(point_ordered_along(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(x)));
+  END_CPP11
+}
+// point.cpp
+cpp11::writable::logicals point_turns_left(point2_p x, point2_p y, point2_p z);
+extern "C" SEXP _euclid_point_turns_left(SEXP x, SEXP y, SEXP z) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(point_turns_left(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<point2_p>>(y), cpp11::as_cpp<cpp11::decay_t<point2_p>>(z)));
+  END_CPP11
+}
+// point.cpp
+cpp11::writable::logicals point_turns_right(point2_p x, point2_p y, point2_p z);
+extern "C" SEXP _euclid_point_turns_right(SEXP x, SEXP y, SEXP z) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(point_turns_right(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x), cpp11::as_cpp<cpp11::decay_t<point2_p>>(y), cpp11::as_cpp<cpp11::decay_t<point2_p>>(z)));
+  END_CPP11
+}
+// point.cpp
+cpp11::writable::integers point_turns(point2_p x);
+extern "C" SEXP _euclid_point_turns(SEXP x) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(point_turns(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x)));
   END_CPP11
 }
 // ray.cpp
@@ -2285,6 +2341,7 @@ extern SEXP _euclid_geometry_length(SEXP);
 extern SEXP _euclid_geometry_map_to_plane(SEXP, SEXP);
 extern SEXP _euclid_geometry_match(SEXP, SEXP);
 extern SEXP _euclid_geometry_normal(SEXP);
+extern SEXP _euclid_geometry_parallel(SEXP, SEXP);
 extern SEXP _euclid_geometry_primitive_type(SEXP);
 extern SEXP _euclid_geometry_project_to_line(SEXP, SEXP);
 extern SEXP _euclid_geometry_project_to_plane(SEXP, SEXP);
@@ -2317,6 +2374,13 @@ extern SEXP _euclid_point_3_rank(SEXP);
 extern SEXP _euclid_point_3_sort(SEXP, SEXP, SEXP);
 extern SEXP _euclid_point_3_sub_point(SEXP, SEXP);
 extern SEXP _euclid_point_3_sub_vector(SEXP, SEXP);
+extern SEXP _euclid_point_collinear(SEXP, SEXP, SEXP);
+extern SEXP _euclid_point_coplanar(SEXP, SEXP, SEXP, SEXP);
+extern SEXP _euclid_point_ordered(SEXP, SEXP, SEXP);
+extern SEXP _euclid_point_ordered_along(SEXP);
+extern SEXP _euclid_point_turns(SEXP);
+extern SEXP _euclid_point_turns_left(SEXP, SEXP, SEXP);
+extern SEXP _euclid_point_turns_right(SEXP, SEXP, SEXP);
 extern SEXP _euclid_ray_2_negate(SEXP);
 extern SEXP _euclid_ray_3_negate(SEXP);
 extern SEXP _euclid_segment_2_negate(SEXP);
@@ -2581,6 +2645,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_geometry_map_to_plane",               (DL_FUNC) &_euclid_geometry_map_to_plane,               2},
     {"_euclid_geometry_match",                      (DL_FUNC) &_euclid_geometry_match,                      2},
     {"_euclid_geometry_normal",                     (DL_FUNC) &_euclid_geometry_normal,                     1},
+    {"_euclid_geometry_parallel",                   (DL_FUNC) &_euclid_geometry_parallel,                   2},
     {"_euclid_geometry_primitive_type",             (DL_FUNC) &_euclid_geometry_primitive_type,             1},
     {"_euclid_geometry_project_to_line",            (DL_FUNC) &_euclid_geometry_project_to_line,            2},
     {"_euclid_geometry_project_to_plane",           (DL_FUNC) &_euclid_geometry_project_to_plane,           2},
@@ -2613,6 +2678,13 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_point_3_sort",                        (DL_FUNC) &_euclid_point_3_sort,                        3},
     {"_euclid_point_3_sub_point",                   (DL_FUNC) &_euclid_point_3_sub_point,                   2},
     {"_euclid_point_3_sub_vector",                  (DL_FUNC) &_euclid_point_3_sub_vector,                  2},
+    {"_euclid_point_collinear",                     (DL_FUNC) &_euclid_point_collinear,                     3},
+    {"_euclid_point_coplanar",                      (DL_FUNC) &_euclid_point_coplanar,                      4},
+    {"_euclid_point_ordered",                       (DL_FUNC) &_euclid_point_ordered,                       3},
+    {"_euclid_point_ordered_along",                 (DL_FUNC) &_euclid_point_ordered_along,                 1},
+    {"_euclid_point_turns",                         (DL_FUNC) &_euclid_point_turns,                         1},
+    {"_euclid_point_turns_left",                    (DL_FUNC) &_euclid_point_turns_left,                    3},
+    {"_euclid_point_turns_right",                   (DL_FUNC) &_euclid_point_turns_right,                   3},
     {"_euclid_ray_2_negate",                        (DL_FUNC) &_euclid_ray_2_negate,                        1},
     {"_euclid_ray_3_negate",                        (DL_FUNC) &_euclid_ray_3_negate,                        1},
     {"_euclid_segment_2_negate",                    (DL_FUNC) &_euclid_segment_2_negate,                    1},

@@ -22,6 +22,17 @@ validate_constructor_input <- function(..., .convert_numerics = TRUE) {
   })
   inputs
 }
+check_geometry_input <- function(..., .name) {
+  input <- list(...)
+  input <- input[!vapply(input, is.null, logical(1))]
+  if (!all(vapply(input, is_geometry, logical(1)))) {
+    rlang::abort(paste0("`", .name, "` is only defined for geometries"))
+  }
+  if (length(unique(vapply(input, dim, integer(1)))) != 1) {
+    rlang::abort("Geometries must have the same dimensionality")
+  }
+  invisible(NULL)
+}
 
 get_ptr <- function(x) .subset2(x, 1L)
 

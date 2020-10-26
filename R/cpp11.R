@@ -484,6 +484,10 @@ geometry_constant_in <- function(geometries, coord) {
   .Call("_euclid_geometry_constant_in", geometries, coord, PACKAGE = "euclid")
 }
 
+geometry_parallel <- function(geo1, geo2) {
+  .Call("_euclid_geometry_parallel", geo1, geo2, PACKAGE = "euclid")
+}
+
 geometry_project_to_line <- function(geometries, lines) {
   .Call("_euclid_geometry_project_to_line", geometries, lines, PACKAGE = "euclid")
 }
@@ -810,6 +814,34 @@ point_3_cummin <- function(x) {
 
 point_3_cummax <- function(x) {
   .Call("_euclid_point_3_cummax", x, PACKAGE = "euclid")
+}
+
+point_collinear <- function(x, y, z) {
+  .Call("_euclid_point_collinear", x, y, z, PACKAGE = "euclid")
+}
+
+point_coplanar <- function(x, y, z, t) {
+  .Call("_euclid_point_coplanar", x, y, z, t, PACKAGE = "euclid")
+}
+
+point_ordered <- function(x, y, z) {
+  .Call("_euclid_point_ordered", x, y, z, PACKAGE = "euclid")
+}
+
+point_ordered_along <- function(x) {
+  .Call("_euclid_point_ordered_along", x, PACKAGE = "euclid")
+}
+
+point_turns_left <- function(x, y, z) {
+  .Call("_euclid_point_turns_left", x, y, z, PACKAGE = "euclid")
+}
+
+point_turns_right <- function(x, y, z) {
+  .Call("_euclid_point_turns_right", x, y, z, PACKAGE = "euclid")
+}
+
+point_turns <- function(x) {
+  .Call("_euclid_point_turns", x, PACKAGE = "euclid")
 }
 
 create_ray_2_empty <- function() {

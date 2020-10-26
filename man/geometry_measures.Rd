@@ -5,6 +5,7 @@
 \alias{approx_length}
 \alias{approx_area}
 \alias{approx_volume}
+\alias{approx_radius}
 \title{Approximate geometry measures}
 \usage{
 approx_length(x)
@@ -12,6 +13,8 @@ approx_length(x)
 approx_area(x)
 
 approx_volume(x)
+
+approx_radius(x)
 }
 \arguments{
 \item{x}{A geometry vector}

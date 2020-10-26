@@ -40,6 +40,17 @@ approx_volume <- function(x) {
   }
   geometry_approx_volume(get_ptr(x))
 }
+#' @rdname geometry_measures
+#' @export
+approx_radius <- function(x) {
+  if (!is_geometry(x)) {
+    rlang::abort("`approx_radius()` is only defined for geometries")
+  }
+  if (!is_circle(x) || !is_sphere(x)) {
+    rep(NA_real_, length(x))
+  }
+  sqrt(as.numeric(parameter(x, "r2")))
+}
 
 #' Calculate distances between geometries
 #'
