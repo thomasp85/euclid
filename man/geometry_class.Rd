@@ -5,6 +5,8 @@
 \alias{is_surface}
 \alias{is_volume}
 \alias{is_curve}
+\alias{is_arrow}
+\alias{is_location}
 \title{Query geometry class}
 \usage{
 is_surface(x)
@@ -12,6 +14,10 @@ is_surface(x)
 is_volume(x)
 
 is_curve(x)
+
+is_arrow(x)
+
+is_location(x)
 }
 \arguments{
 \item{x}{A geometry vector}
@@ -25,7 +31,8 @@ grouped based on their properties. Lines, rays, and segments are all curves
 in space, with rays and segments being the semi-finite and finite version of
 lines respectively. Circles, planes, triangles, and iso rectangles are all
 surfaces in the sense that they define an area but doesn't have a volume.
-Spheres and iso cubes are volumes. The class of geometry can be checked with
+Spheres and iso cubes are volumes. Vectors and directions are arrows. Points
+and weighted points are locations. The class of geometry can be checked with
 the given functions
 }
 \examples{

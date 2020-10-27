@@ -197,7 +197,8 @@ has_constant_z <- function(x) {
 #' in space, with rays and segments being the semi-finite and finite version of
 #' lines respectively. Circles, planes, triangles, and iso rectangles are all
 #' surfaces in the sense that they define an area but doesn't have a volume.
-#' Spheres and iso cubes are volumes. The class of geometry can be checked with
+#' Spheres and iso cubes are volumes. Vectors and directions are arrows. Points
+#' and weighted points are locations. The class of geometry can be checked with
 #' the given functions
 #'
 #' @param x A geometry vector
@@ -223,6 +224,12 @@ is_volume <- function(x) is_sphere(x) || is_tetrahedron(x) || is_iso_cube(x)
 #' @rdname geometry_class
 #' @export
 is_curve <- function(x) is_line(x) || is_ray(x) || is_segment(x)
+#' @rdname geometry_class
+#' @export
+is_arrow <- function(x) is_vec(x) || is_direction(x)
+#' @rdname geometry_class
+#' @export
+is_location <- function(x) is_point(x) || is_weighted_point(x)
 
 #' Check geometries for parallelity
 #'
