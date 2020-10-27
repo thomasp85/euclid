@@ -85,7 +85,7 @@ format.euclid_exact_numeric <- function(x, ...) {
 }
 #' @export
 print.euclid_exact_numeric <- function(x, ...) {
-  cat("<exact numerics [", length(x), "]>\n")
+  cat("<exact numerics [", length(x), "]>\n", sep = "")
   if (length(x) == 0) {
     cat("[empty]")
   } else {
