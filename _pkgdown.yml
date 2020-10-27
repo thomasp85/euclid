@@ -110,6 +110,7 @@ reference:
   contents:
   - approx_length
   - distance_squared
+  - approx_angle
 - title: Locations
   desc: >
     Single geometries or collections of them can define specific locations in

@@ -108,3 +108,45 @@ approx_distance_matrix <- function(x, y) {
   }
   geometry_distance_matrix(get_ptr(x), get_ptr(y))
 }
+
+#' Calculate angle between geometries
+#'
+#' Angles cannot be given exactly since vector angle relies on the vector length
+#' as well as [acos]. This function calculate the angle between two geometries.
+#' This is defined for surfaces, curves, and arrows. If a surface is supplied
+#' the angle will be calculated based on the surface normal and modified to
+#' match the original geometry.
+#'
+#' @param x,y Geometry vectors. Only surfaces, curves, and arrows are allowed
+#'
+#' @return A numeric vector given angular difference in radians
+#'
+#' @export
+#'
+#' @examples
+#' # Angle between two lines
+#' approx_angle(line(3, 7, -1), line(-5, 4, 2))
+#'
+#' # Angle between vector and plane
+#' approx_angle(plane(-4, 1, 19, -4), vec(5, -7, 2))
+#'
+approx_angle <- function(x, y) {
+  check_geometry_input(x, y, .name = "approx_angle()")
+  if (is_volume(x) || is_location(x) || is_volume(y) || is_location(y)) {
+    rlang::abort("`x` and `y` must be curves, surfaces, or arrows")
+  }
+  if (dim(x) != 2) {
+    mod <- 0
+    if (is_surface(x)) {
+      x <- normal(x)
+      mod <- pi/2
+    }
+    if (is_surface(y)) {
+      y <- normal(y)
+      if (mod != 0) mod <- pi/2
+    }
+  }
+  x <- as_vec(x)
+  y <- as_vec(y)
+  acos(as.numeric(x * y / (approx_length(x) * approx_length(y))))
+}
