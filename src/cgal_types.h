@@ -1,5 +1,7 @@
 #pragma once
 
+#include "cran.h"
+
 #include <CGAL/Exact_predicates_exact_constructions_kernel.h>
 #include <CGAL/Circle_2.h>
 #include <CGAL/Circle_3.h>
