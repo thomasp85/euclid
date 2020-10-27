@@ -80,7 +80,7 @@ approx_radius <- function(x) {
 #' distance_squared(l, r)
 #'
 #' # All distances
-#' distance_matrix(l, r)
+#' approx_distance_matrix(l, r)
 #'
 distance_squared <- function(x, y) {
   if (!is_geometry(x) || !is_geometry(y)) {
@@ -96,7 +96,7 @@ distance_squared <- function(x, y) {
 }
 #' @rdname distance_squared
 #' @export
-distance_matrix <- function(x, y) {
+approx_distance_matrix <- function(x, y) {
   if (!is_geometry(x) || !is_geometry(y)) {
     rlang::abort("distance can only be calculated between two geometries")
   }

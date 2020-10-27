@@ -2,12 +2,12 @@
 % Please edit documentation in R/geometry_measures.R
 \name{distance_squared}
 \alias{distance_squared}
-\alias{distance_matrix}
+\alias{approx_distance_matrix}
 \title{Calculate distances between geometries}
 \usage{
 distance_squared(x, y)
 
-distance_matrix(x, y)
+approx_distance_matrix(x, y)
 }
 \arguments{
 \item{x, y}{eometry vectors or bounding boxes}
@@ -36,6 +36,6 @@ r <- ray(p[11:15], p[16:20])
 distance_squared(l, r)
 
 # All distances
-distance_matrix(l, r)
+approx_distance_matrix(l, r)
 
 }
