@@ -69,15 +69,21 @@ vec <- function(..., default_dim = 2) {
 
   points <- inputs[vapply(inputs, is_point, logical(1))]
   numbers <- inputs[vapply(inputs, is_exact_numeric, logical(1))]
+  lines <- inputs[vapply(inputs, is_line, logical(1))]
   rays <- inputs[vapply(inputs, is_ray, logical(1))]
   segments <- inputs[vapply(inputs, is_segment, logical(1))]
+  directions <- inputs[vapply(inputs, is_direction, logical(1))]
 
   if (length(points) == 1) {
     new_vector_from_point(points[[1]])
+  } else if (length(lines) == 1) {
+    new_vector_from_line(lines[[1]])
   } else if (length(rays) == 1) {
     new_vector_from_ray(rays[[1]])
   } else if (length(segments) == 1) {
     new_vector_from_segment(segments[[1]])
+  } else if (length(directions) == 1) {
+    new_vector_from_direction(directions[[1]])
   } else if (length(numbers) == 2) {
     new_vector_from_xy(numbers[[1]], numbers[[2]])
   } else if (length(numbers) == 3) {
@@ -251,11 +257,25 @@ new_vector_from_ray <- function(r) {
     new_geometry_vector(create_vector_3_ray(get_ptr(r)))
   }
 }
+new_vector_from_line <- function(l) {
+  if (dim(l) == 2) {
+    new_geometry_vector(create_vector_2_line(get_ptr(l)))
+  } else {
+    new_geometry_vector(create_vector_3_line(get_ptr(l)))
+  }
+}
 new_vector_from_segment <- function(s) {
   if (dim(s) == 2) {
     new_geometry_vector(create_vector_2_segment(get_ptr(s)))
   } else {
     new_geometry_vector(create_vector_3_segment(get_ptr(s)))
+  }
+}
+new_vector_from_direction <- function(d) {
+  if (dim(d) == 2) {
+    new_geometry_vector(create_vector_2_direction(get_ptr(d)))
+  } else {
+    new_geometry_vector(create_vector_3_direction(get_ptr(d)))
   }
 }
 new_vector_from_xy <- function(x, y) {

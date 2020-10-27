@@ -1958,6 +1958,13 @@ extern "C" SEXP _euclid_create_vector_2_line(SEXP l) {
   END_CPP11
 }
 // vector.cpp
+vector2_p create_vector_2_direction(direction2_p d);
+extern "C" SEXP _euclid_create_vector_2_direction(SEXP d) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_vector_2_direction(cpp11::as_cpp<cpp11::decay_t<direction2_p>>(d)));
+  END_CPP11
+}
+// vector.cpp
 vector2_p create_vector_2_x_y(exact_numeric_p x, exact_numeric_p y);
 extern "C" SEXP _euclid_create_vector_2_x_y(SEXP x, SEXP y) {
   BEGIN_CPP11
@@ -2053,6 +2060,13 @@ vector3_p create_vector_3_line(line3_p l);
 extern "C" SEXP _euclid_create_vector_3_line(SEXP l) {
   BEGIN_CPP11
     return cpp11::as_sexp(create_vector_3_line(cpp11::as_cpp<cpp11::decay_t<line3_p>>(l)));
+  END_CPP11
+}
+// vector.cpp
+vector3_p create_vector_3_direction(direction3_p d);
+extern "C" SEXP _euclid_create_vector_3_direction(SEXP d) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_vector_3_direction(cpp11::as_cpp<cpp11::decay_t<direction3_p>>(d)));
   END_CPP11
 }
 // vector.cpp
@@ -2247,12 +2261,14 @@ extern SEXP _euclid_create_triangle_2_3points(SEXP, SEXP, SEXP);
 extern SEXP _euclid_create_triangle_2_empty();
 extern SEXP _euclid_create_triangle_3_3points(SEXP, SEXP, SEXP);
 extern SEXP _euclid_create_triangle_3_empty();
+extern SEXP _euclid_create_vector_2_direction(SEXP);
 extern SEXP _euclid_create_vector_2_empty();
 extern SEXP _euclid_create_vector_2_line(SEXP);
 extern SEXP _euclid_create_vector_2_point(SEXP);
 extern SEXP _euclid_create_vector_2_ray(SEXP);
 extern SEXP _euclid_create_vector_2_segment(SEXP);
 extern SEXP _euclid_create_vector_2_x_y(SEXP, SEXP);
+extern SEXP _euclid_create_vector_3_direction(SEXP);
 extern SEXP _euclid_create_vector_3_empty();
 extern SEXP _euclid_create_vector_3_line(SEXP);
 extern SEXP _euclid_create_vector_3_point(SEXP);
@@ -2551,12 +2567,14 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_create_triangle_2_empty",             (DL_FUNC) &_euclid_create_triangle_2_empty,             0},
     {"_euclid_create_triangle_3_3points",           (DL_FUNC) &_euclid_create_triangle_3_3points,           3},
     {"_euclid_create_triangle_3_empty",             (DL_FUNC) &_euclid_create_triangle_3_empty,             0},
+    {"_euclid_create_vector_2_direction",           (DL_FUNC) &_euclid_create_vector_2_direction,           1},
     {"_euclid_create_vector_2_empty",               (DL_FUNC) &_euclid_create_vector_2_empty,               0},
     {"_euclid_create_vector_2_line",                (DL_FUNC) &_euclid_create_vector_2_line,                1},
     {"_euclid_create_vector_2_point",               (DL_FUNC) &_euclid_create_vector_2_point,               1},
     {"_euclid_create_vector_2_ray",                 (DL_FUNC) &_euclid_create_vector_2_ray,                 1},
     {"_euclid_create_vector_2_segment",             (DL_FUNC) &_euclid_create_vector_2_segment,             1},
     {"_euclid_create_vector_2_x_y",                 (DL_FUNC) &_euclid_create_vector_2_x_y,                 2},
+    {"_euclid_create_vector_3_direction",           (DL_FUNC) &_euclid_create_vector_3_direction,           1},
     {"_euclid_create_vector_3_empty",               (DL_FUNC) &_euclid_create_vector_3_empty,               0},
     {"_euclid_create_vector_3_line",                (DL_FUNC) &_euclid_create_vector_3_line,                1},
     {"_euclid_create_vector_3_point",               (DL_FUNC) &_euclid_create_vector_3_point,               1},

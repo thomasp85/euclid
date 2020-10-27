@@ -3,6 +3,7 @@
 #include "ray.h"
 #include "segment.h"
 #include "line.h"
+#include "direction.h"
 #include "exact_numeric.h"
 
 #include <cpp11/external_pointer.hpp>
@@ -72,6 +73,22 @@ vector2_p create_vector_2_line(line2_p l) {
       continue;
     }
     vec.emplace_back((*l)[i]);
+  }
+  vector2 *result(new vector2(vec));
+
+  return {result};
+}
+
+[[cpp11::register]]
+vector2_p create_vector_2_direction(direction2_p d) {
+  std::vector<Vector_2> vec;
+  vec.reserve(d->size());
+  for (size_t i = 0; i < d->size(); ++i) {
+    if (!(*d)[i]) {
+      vec.push_back(Vector_2::NA_value());
+      continue;
+    }
+    vec.emplace_back((*d)[i].dx(), (*d)[i].dy());
   }
   vector2 *result(new vector2(vec));
 
@@ -223,6 +240,22 @@ vector3_p create_vector_3_line(line3_p l) {
       continue;
     }
     vec.emplace_back((*l)[i]);
+  }
+  vector3 *result(new vector3(vec));
+
+  return {result};
+}
+
+[[cpp11::register]]
+vector3_p create_vector_3_direction(direction3_p d) {
+  std::vector<Vector_3> vec;
+  vec.reserve(d->size());
+  for (size_t i = 0; i < d->size(); ++i) {
+    if (!(*d)[i]) {
+      vec.push_back(Vector_3::NA_value());
+      continue;
+    }
+    vec.emplace_back((*d)[i].dx(), (*d)[i].dy(), (*d)[i].dz());
   }
   vector3 *result(new vector3(vec));
 

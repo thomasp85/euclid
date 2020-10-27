@@ -1116,6 +1116,10 @@ create_vector_2_line <- function(l) {
   .Call("_euclid_create_vector_2_line", l, PACKAGE = "euclid")
 }
 
+create_vector_2_direction <- function(d) {
+  .Call("_euclid_create_vector_2_direction", d, PACKAGE = "euclid")
+}
+
 create_vector_2_x_y <- function(x, y) {
   .Call("_euclid_create_vector_2_x_y", x, y, PACKAGE = "euclid")
 }
@@ -1170,6 +1174,10 @@ create_vector_3_segment <- function(s) {
 
 create_vector_3_line <- function(l) {
   .Call("_euclid_create_vector_3_line", l, PACKAGE = "euclid")
+}
+
+create_vector_3_direction <- function(d) {
+  .Call("_euclid_create_vector_3_direction", d, PACKAGE = "euclid")
 }
 
 create_vector_3_x_y_z <- function(x, y, z) {
