@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the normal of a geometry — normal • euclid</title>
+<title>Calculate angle between geometries — approx_angle • euclid</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,13 +46,12 @@
 
 
 
-<meta property="og:title" content="Get the normal of a geometry — normal" />
-<meta property="og:description" content="A normal is a direction perpendicular to a geometry. Since normals doesn't
-have any magnitude they are returned as directions rather than vectors.
-Normals are not given for all geometries. In 2 dimensions they are defined
-for line-like geometries (directions, vectors, lines, rays, and segments),
-while in 3 dimensions they are given for plane-like geometries (circles,
-triangles, and planes)." />
+<meta property="og:title" content="Calculate angle between geometries — approx_angle" />
+<meta property="og:description" content="Angles cannot be given exactly since vector angle relies on the vector length
+as well as acos. This function calculate the angle between two geometries.
+This is defined for surfaces, curves, and arrows. If a surface is supplied
+the angle will be calculated based on the surface normal and modified to
+match the original geometry." />
 <meta property="og:image" content="https://r-euclid.com/reference/figures/card.png" />
 <meta property="og:image:alt" content="euclid: Exact compuational geometry in R" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -125,54 +124,41 @@ triangles, and planes)." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the normal of a geometry</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/geometry_projection.R'><code>R/geometry_projection.R</code></a></small>
-    <div class="hidden name"><code>normal.Rd</code></div>
+    <h1>Calculate angle between geometries</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/geometry_measures.R'><code>R/geometry_measures.R</code></a></small>
+    <div class="hidden name"><code>approx_angle.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>A normal is a direction perpendicular to a geometry. Since normals doesn't
-have any magnitude they are returned as directions rather than vectors.
-Normals are not given for all geometries. In 2 dimensions they are defined
-for line-like geometries (directions, vectors, lines, rays, and segments),
-while in 3 dimensions they are given for plane-like geometries (circles,
-triangles, and planes).</p>
+    <p>Angles cannot be given exactly since vector angle relies on the vector length
+as well as <a href='https://rdrr.io/r/base/Trig.html'>acos</a>. This function calculate the angle between two geometries.
+This is defined for surfaces, curves, and arrows. If a surface is supplied
+the angle will be calculated based on the surface normal and modified to
+match the original geometry.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>normal</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>approx_angle</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x, y</th>
-      <td><p>Geometry vectors. If <code>y</code> is given both <code>x</code> and <code>y</code> must be
-convertible to vectors and be in 3D</p></td>
+      <td><p>Geometry vectors. Only surfaces, curves, and arrows are allowed</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A vector of directions with the same dimensionality as the input</p>
+    <p>A numeric vector given angular difference in radians</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Get normals to a vector of directions</span>
-<span class='va'>d</span> <span class='op'>&lt;-</span> <span class='fu'><a href='direction.html'>direction</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>normal</span><span class='op'>(</span><span class='va'>d</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;2D directions [5]&gt;
-#&gt; [1] &lt;dx:-4, dy:5&gt;  &lt;dx:-9, dy:6&gt;  &lt;dx:-6, dy:10&gt; &lt;dx:-5, dy:3&gt;  &lt;dx:-8, dy:4&gt; </div><div class='input'>
-<span class='co'># Get the normal of a triangle</span>
-<span class='va'>t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='triangle.html'>triangle</a></span><span class='op'>(</span><span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>7</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>9</span>, <span class='fl'>2</span>, <span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>6</span>, <span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>normal</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;3D directions [1]&gt;
-#&gt; [1] &lt;dx:-35, dy:-35, dz:-20&gt;</div><div class='input'>
-<span class='co'># equivalent to the normal of the supporting plane</span>
-<span class='fu'>normal</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span> <span class='op'>==</span> <span class='fu'>normal</span><span class='op'>(</span><span class='fu'><a href='plane.html'>as_plane</a></span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] TRUE</div><div class='input'>
-<span class='co'># Get direction orthogonal to two vectors</span>
-<span class='fu'>normal</span><span class='op'>(</span><span class='fu'><a href='vec.html'>vec</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='fl'>2</span>, <span class='op'>-</span><span class='fl'>7</span><span class='op'>)</span>, <span class='fu'><a href='vec.html'>vec</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>, <span class='fl'>4</span>, <span class='fl'>9</span><span class='op'>)</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;3D directions [1]&gt;
-#&gt; [1] &lt;dx:46, dy:-38, dz:22&gt;</div><div class='input'>
+    <pre class="examples"><div class='input'><span class='co'># Angle between two lines</span>
+<span class='fu'>approx_angle</span><span class='op'>(</span><span class='fu'><a href='line.html'>line</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>7</span>, <span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>, <span class='fu'><a href='line.html'>line</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>5</span>, <span class='fl'>4</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.300947</div><div class='input'>
+<span class='co'># Angle between vector and plane</span>
+<span class='fu'>approx_angle</span><span class='op'>(</span><span class='fu'><a href='plane.html'>plane</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>4</span>, <span class='fl'>1</span>, <span class='fl'>19</span>, <span class='op'>-</span><span class='fl'>4</span><span class='op'>)</span>, <span class='fu'><a href='vec.html'>vec</a></span><span class='op'>(</span><span class='fl'>5</span>, <span class='op'>-</span><span class='fl'>7</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 1.506691</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

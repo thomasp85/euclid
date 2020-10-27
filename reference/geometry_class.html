@@ -52,7 +52,8 @@ grouped based on their properties. Lines, rays, and segments are all curves
 in space, with rays and segments being the semi-finite and finite version of
 lines respectively. Circles, planes, triangles, and iso rectangles are all
 surfaces in the sense that they define an area but doesn't have a volume.
-Spheres and iso cubes are volumes. The class of geometry can be checked with
+Spheres and iso cubes are volumes. Vectors and directions are arrows. Points
+and weighted points are locations. The class of geometry can be checked with
 the given functions" />
 <meta property="og:image" content="https://r-euclid.com/reference/figures/card.png" />
 <meta property="og:image:alt" content="euclid: Exact compuational geometry in R" />
@@ -137,7 +138,8 @@ grouped based on their properties. Lines, rays, and segments are all curves
 in space, with rays and segments being the semi-finite and finite version of
 lines respectively. Circles, planes, triangles, and iso rectangles are all
 surfaces in the sense that they define an area but doesn't have a volume.
-Spheres and iso cubes are volumes. The class of geometry can be checked with
+Spheres and iso cubes are volumes. Vectors and directions are arrows. Points
+and weighted points are locations. The class of geometry can be checked with
 the given functions</p>
     </div>
 
@@ -145,7 +147,11 @@ the given functions</p>
 
 <span class='fu'>is_volume</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
 
-<span class='fu'>is_curve</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
+<span class='fu'>is_curve</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>is_arrow</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='fu'>is_location</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
