@@ -91,7 +91,8 @@ map_to <- function(x, target) {
 #' while in 3 dimensions they are given for plane-like geometries (circles,
 #' triangles, and planes).
 #'
-#' @param x A geometry vector
+#' @param x,y Geometry vectors. If `y` is given both `x` and `y` must be
+#' convertible to vectors and be in 3D
 #'
 #' @return A vector of directions with the same dimensionality as the input
 #'
@@ -109,9 +110,19 @@ map_to <- function(x, target) {
 #' # equivalent to the normal of the supporting plane
 #' normal(t) == normal(as_plane(t))
 #'
-normal <- function(x) {
-  if (!is_geometry(x)) {
-    rlang::abort("The normal can only be derived from geometries")
+#' # Get direction orthogonal to two vectors
+#' normal(vec(5, 2, -7), vec(-1, 4, 9))
+#'
+normal <- function(x, y = NULL) {
+  check_geometry_input(x, y, .name = "normal()")
+  if (is.null(y)) {
+    new_geometry_vector(geometry_normal(get_ptr(x)))
+  } else {
+    if (dim(x) != 3) {
+      rlang::abort("unit normal is only defined for 3D geometries")
+    }
+    p1 <- as_point(as_vec(x))
+    p2 <- as_point(as_vec(y))
+    normal(plane(point(0, 0, 0), p1, p2))
   }
-  new_geometry_vector(geometry_normal(get_ptr(x)))
 }

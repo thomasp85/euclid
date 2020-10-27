@@ -4,10 +4,11 @@
 \alias{normal}
 \title{Get the normal of a geometry}
 \usage{
-normal(x)
+normal(x, y = NULL)
 }
 \arguments{
-\item{x}{A geometry vector}
+\item{x, y}{Geometry vectors. If \code{y} is given both \code{x} and \code{y} must be
+convertible to vectors and be in 3D}
 }
 \value{
 A vector of directions with the same dimensionality as the input
@@ -31,5 +32,8 @@ normal(t)
 
 # equivalent to the normal of the supporting plane
 normal(t) == normal(as_plane(t))
+
+# Get direction orthogonal to two vectors
+normal(vec(5, 2, -7), vec(-1, 4, 9))
 
 }
