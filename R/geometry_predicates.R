@@ -30,7 +30,7 @@
 #' is_degenerate(l)
 #'
 #' # A circle without radius
-#' circ <- circle(p(3, -1), 0)
+#' circ <- circle(point(3, -1), 0)
 #' is_degenerate(circ)
 #'
 is_degenerate <- function(x) {
