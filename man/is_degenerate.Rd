@@ -33,3 +33,13 @@ The following conditions are considered to produce degenerate geometries:
 \item A triangle with collinear vertices
 }
 }
+\examples{
+# A line without direction
+l <- line(point(0, 5), vec(0, 0))
+is_degenerate(l)
+
+# A circle without radius
+circ <- circle(p(3, -1), 0)
+is_degenerate(circ)
+
+}

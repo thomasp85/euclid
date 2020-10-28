@@ -38,4 +38,8 @@ turns_left(p[1:4], p[5:8], p[9:12])
 
 turn_along(p)
 
+plot(segment(p[-12], p[-1]))
+euclid_plot(p[-c(1, 12)][turn_along(p) == 1], pch = 16, col = "firebrick")
+euclid_plot(p[-c(1, 12)][turn_along(p) == -1], pch = 16, col = "steelblue")
+
 }

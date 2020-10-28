@@ -23,6 +23,16 @@
 #' @return A logical vector
 #'
 #' @export
+#'
+#' @examples
+#' # A line without direction
+#' l <- line(point(0, 5), vec(0, 0))
+#' is_degenerate(l)
+#'
+#' # A circle without radius
+#' circ <- circle(p(3, -1), 0)
+#' is_degenerate(circ)
+#'
 is_degenerate <- function(x) {
   if (!is_geometry(x)) {
     rlang::abort("`is_degenerate` is only defined for geometries")
@@ -63,6 +73,20 @@ is_degenerate <- function(x) {
 #'
 #' @rdname location_predicates
 #' @name location_predicates
+#'
+#' @examples
+#' p <- point(sample(10, 50, TRUE), sample(10, 50, TRUE))
+#' t <- triangle(point(1, 5), point(10, 10), point(5, 1))
+#'
+#' plot(t, col = "grey", border = NA)
+#' euclid_plot(p[p %is_on% t], pch = 16, col = "firebrick")
+#' euclid_plot(p[p %is_inside% t], pch = 16, col = "steelblue")
+#' euclid_plot(p[p %is_outside% t], pch = 16, col = "goldenrod")
+#'
+#' l <- line(-1, 1, 2)
+#' plot(l, xlim = c(1, 10), ylim = c(1, 10))
+#' euclid_plot(p[p %is_on_positive_side% l], pch = 16, col = "firebrick")
+#' euclid_plot(p[p %is_on_negative_side% l], pch = 16, col = "steelblue")
 NULL
 
 #' @rdname location_predicates
@@ -360,6 +384,10 @@ coplanar <- function(x, y, z = NULL, t = NULL) {
 #' turns_left(p[1:4], p[5:8], p[9:12])
 #'
 #' turn_along(p)
+#'
+#' plot(segment(p[-12], p[-1]))
+#' euclid_plot(p[-c(1, 12)][turn_along(p) == 1], pch = 16, col = "firebrick")
+#' euclid_plot(p[-c(1, 12)][turn_along(p) == -1], pch = 16, col = "steelblue")
 #'
 NULL
 #' @rdname geometry_turns

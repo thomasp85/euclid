@@ -29,10 +29,18 @@ orientation of the plane.
 }
 \examples{
 # Project a collection of segments to a line
-p <- point(sample(10), sample(10))
-s <- segment(p[1:5], p[6:10])
+p <- point(sample(100, 8), sample(100, 8))
+s <- segment(p[1:4], p[5:8])
 
 project(s, line(3, 1, -6))
+
+plot(line(3, 1, -6), xlim = c(-50, 100), ylim = c(-50, 100))
+euclid_plot(s, col = c("firebrick", "goldenrod", "steelblue", "forestgreen"))
+euclid_plot(
+  project(s, line(3, 1, -6)),
+  col = c("firebrick", "goldenrod", "steelblue", "forestgreen"),
+  lwd = seq(20, 3, length.out = 4)
+)
 
 # Project a line to the x plane
 project(line(point(3, 7, -3), point(-2, 6, 0)),

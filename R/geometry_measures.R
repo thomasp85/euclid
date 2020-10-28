@@ -14,6 +14,13 @@
 #'
 #' @rdname geometry_measures
 #' @name geometry_measures
+#'
+#' @examples
+#'
+#' approx_length(vec(point(1:4, 4:7)))
+#' approx_area(circle(point(0, 0), 5:9))
+#' approx_volume(sphere(point(0, 0, 0), 5:9))
+#'
 NULL
 
 #' @rdname geometry_measures

@@ -31,3 +31,10 @@ e.g. a direction is dimensionless, a line is without area, and a circle has
 no volume. Some geometries are infinite in some measures, e.g. a plane has an
 infinite area. The return value will reflect this.
 }
+\examples{
+
+approx_length(vec(point(1:4, 4:7)))
+approx_area(circle(point(0, 0), 5:9))
+approx_volume(sphere(point(0, 0, 0), 5:9))
+
+}

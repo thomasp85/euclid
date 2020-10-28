@@ -16,6 +16,13 @@
 #' @param gp A [gpar][grid::gpar] object giving the graphical parameters to use
 #' for rendering
 #' @param vp A [viewport][grid::viewport] or `NULL`
+#' @param y ignored
+#' @param xlim,ylim Limits of the plot scale. If not given they will be
+#' calculated from the bounding box of the input
+#' @param add Should a new plot be created or should the rendering be added to
+#' the existing plot?
+#' @param axes Should axes be drawn?
+#' @param frame.plot Should a box be drawn around the plotting region?
 #' @param ... Arguments passed along to the specific drawing method.
 #' - points (and weighted points) use [`points()`][graphics::points] and
 #'   [`pointsGrob()`][grid::pointsGrob]
@@ -34,6 +41,20 @@
 #' [grob][grid::grob]
 #'
 #' @export
+#'
+#' @examples
+#' # Example visualisation of radical points and lines
+#' c1 <- circle(point(3, 6), 12)
+#' c2 <- circle(point(-5, 0), 3)
+#' c3 <- circle(point(-3, 7), 1)
+#'
+#' plot(c(c1, c2, c3), bg = "grey", fg = NA)
+#' euclid_plot(c(
+#'   radical(c1, c2),
+#'   radical(c2, c3),
+#'   radical(c1, c3)
+#' ), col = "firebrick")
+#' euclid_plot(radical(c1, c2, c3), pch = 16, cex = 2, col = "steelblue")
 #'
 euclid_plot <- function(x, ..., mapping_plane = "z") {
   UseMethod("euclid_plot")

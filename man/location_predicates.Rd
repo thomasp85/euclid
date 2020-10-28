@@ -70,3 +70,17 @@ and is defined for all geometries that has a location. This means that e.g.
 directions and vectors do not define this predicate.
 }
 }
+\examples{
+p <- point(sample(10, 50, TRUE), sample(10, 50, TRUE))
+t <- triangle(point(1, 5), point(10, 10), point(5, 1))
+
+plot(t, col = "grey", border = NA)
+euclid_plot(p[p \%is_on\% t], pch = 16, col = "firebrick")
+euclid_plot(p[p \%is_inside\% t], pch = 16, col = "steelblue")
+euclid_plot(p[p \%is_outside\% t], pch = 16, col = "goldenrod")
+
+l <- line(-1, 1, 2)
+plot(l, xlim = c(1, 10), ylim = c(1, 10))
+euclid_plot(p[p \%is_on_positive_side\% l], pch = 16, col = "firebrick")
+euclid_plot(p[p \%is_on_negative_side\% l], pch = 16, col = "steelblue")
+}

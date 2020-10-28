@@ -59,6 +59,18 @@ euclid_grob(
 for rendering}
 
 \item{vp}{A \link[grid:viewport]{viewport} or \code{NULL}}
+
+\item{y}{ignored}
+
+\item{xlim, ylim}{Limits of the plot scale. If not given they will be
+calculated from the bounding box of the input}
+
+\item{add}{Should a new plot be created or should the rendering be added to
+the existing plot?}
+
+\item{axes}{Should axes be drawn?}
+
+\item{frame.plot}{Should a box be drawn around the plotting region?}
 }
 \value{
 \code{euclid_plot} is called for its side effects, \code{euclid_grob} returns a
@@ -73,4 +85,19 @@ the base \code{\link[=plot]{plot()}} method and set up a new plotting window bas
 given settings. \code{euclid_plot} will add to the existing plot and thus use the
 coordinate system currently in effect. \code{euclid_grob} will create a grob that
 can be rendered with \code{\link[grid:grid.draw]{grid.draw()}}.
+}
+\examples{
+# Example visualisation of radical points and lines
+c1 <- circle(point(3, 6), 12)
+c2 <- circle(point(-5, 0), 3)
+c3 <- circle(point(-3, 7), 1)
+
+plot(c(c1, c2, c3), bg = "grey", fg = NA)
+euclid_plot(c(
+  radical(c1, c2),
+  radical(c2, c3),
+  radical(c1, c3)
+), col = "firebrick")
+euclid_plot(radical(c1, c2, c3), pch = 16, cex = 2, col = "steelblue")
+
 }
