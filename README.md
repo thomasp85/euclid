@@ -103,25 +103,25 @@ random_num <- exact_numeric(rnorm(20))
 
 # Exact numbers behave much like R numerics (though not everything is possible)
 random_num[1:5]
-#> <Vector of exact numerics>
+#> <exact numerics [5]>
 #> [1] -0.89691455  0.18484918  1.58784533 -1.13037567 -0.08025176
 max(random_num)
-#> <Vector of exact numerics>
+#> <exact numerics [1]>
 #> [1] 1.984474
 random_num[2] * 10
-#> <Vector of exact numerics>
+#> <exact numerics [1]>
 #> [1] 1.848492
 random_num[5] + random_num[16]
-#> <Vector of exact numerics>
+#> <exact numerics [1]>
 #> [1] -2.391321
 sum(random_num)
-#> <Vector of exact numerics>
+#> <exact numerics [1]>
 #> [1] 3.909221
 
 # With exact numbers we can construct our geometries
 p <- point(random_num[1:10], random_num[11:20])
 p
-#> <Vector of points in 2 dimensions>
+#> <2D points [10]>
 #>  [1] <x:-0.897, y:0.418> <x:0.185, y:0.982>  <x:1.59, y:-0.393> 
 #>  [4] <x:-1.13, y:-1.04>  <x:-0.0803, y:1.78> <x:0.132, y:-2.31> 
 #>  [7] <x:0.708, y:0.879>  <x:-0.24, y:0.0358> <x:1.98, y:1.01>   
@@ -144,12 +144,22 @@ p1 %is_on% l
 # Construct a triangle from a random point to the extremes of the projected points
 t <- triangle(point(rnorm(1), rnorm(1)), min(p1), max(p1))
 t
-#> <Vector of triangles in 2 dimensions>
+#> <2D triangles [1]>
 #> [1] [<x:2.09, y:-1.2>, <x:-0.816, y:-1.9>, <x:0.675, y:1.57>]
 
 # Which points lies inside the triangle?
 p %is_inside% t
 #>  [1] FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+
+# Visualise result
+plot(p, pch = 16)
+euclid_plot(t)
+euclid_plot(p[p %is_inside% t], cex = 3)
+```
+
+<img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
+
+``` r
 
 # Area of t (cannot be given exact for all geometries so is returned as numerics)
 approx_area(t)

@@ -123,6 +123,11 @@ t
 # Which points lies inside the triangle?
 p %is_inside% t
 
+# Visualise result
+plot(p, pch = 16)
+euclid_plot(t)
+euclid_plot(p[p %is_inside% t], cex = 3)
+
 # Area of t (cannot be given exact for all geometries so is returned as numerics)
 approx_area(t)
 ```
