@@ -26,7 +26,10 @@ SystemRequirements:
     mpfr
 Imports: 
     rlang,
-    utils
+    utils,
+    grid,
+    graphics,
+    grDevices
 URL: https://r-euclid.com, https://github.com/thomasp85/euclid
 BugReports: https://github.com/thomasp85/euclid/issues
 Suggests: 
