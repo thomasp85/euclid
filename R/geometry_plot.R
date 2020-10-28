@@ -167,18 +167,18 @@ euclid_plot.euclid_direction <- function(x, sep = 0.1, ..., mapping_plane = "z")
   arrows(start[, 1], start[, 2], start[, 1] + x[, 1], start[, 2] + x[, 2], ...)
   invisible(NULL)
 }
-#' @export
-#' @importFrom grid unit
-euclid_grob.euclid_direction <- function(x, sep = 0.1, unit = "native", name = NULL, gp = gpar(), vp = NULL, ..., mapping_plane = "z") {
-  x <- ensure_2d(x, mapping_plane)
-  loc <- unit(seq(sep/2, 1 + sep, by = sep), units = "snpc")
-  start_x <- rep(rep(loc, length(loc)), each = length(x))
-  start_y <- rep(rep(loc, each = length(loc)), each = length(x))
-  x <- as_vec(x)
-  x <- x / approx_length(x)
-
-  warning("not implemented")
-}
+# #' @export
+# #' @importFrom grid unit
+# euclid_grob.euclid_direction <- function(x, sep = 0.1, unit = "native", name = NULL, gp = gpar(), vp = NULL, ..., mapping_plane = "z") {
+#   x <- ensure_2d(x, mapping_plane)
+#   loc <- unit(seq(sep/2, 1 + sep, by = sep), units = "snpc")
+#   start_x <- rep(rep(loc, length(loc)), each = length(x))
+#   start_y <- rep(rep(loc, each = length(loc)), each = length(x))
+#   x <- as_vec(x)
+#   x <- x / approx_length(x)
+#
+#   warning("not implemented")
+# }
 #' @export
 #' @importFrom graphics symbols
 euclid_plot.euclid_iso_rect <- function(x, ..., mapping_plane = "z") {
@@ -220,7 +220,8 @@ euclid_plot.euclid_line <- function(x, ..., mapping_plane = "z") {
 #' @export
 euclid_grob.euclid_line <- function(x, unit = "native", name = NULL, gp = gpar(), vp = NULL, ..., mapping_plane = "z") {
   x <- ensure_2d(x, mapping_plane)
-  warning("not implemented")
+  x <- intersection_segment(x, full_rect())
+  euclid_grob(x, unit = unit, name = name, gp = gp, vp = vp, ..., mapping_plane = mapping_plane)
 }
 #' @export
 euclid_plot.euclid_point_w <- function(x, ..., mapping_plane = "z") {
@@ -257,7 +258,8 @@ euclid_plot.euclid_ray <- function(x, ..., mapping_plane = "z") {
 #' @export
 euclid_grob.euclid_ray <- function(x, unit = "native", name = NULL, gp = gpar(), vp = NULL, ..., mapping_plane = "z") {
   x <- ensure_2d(x, mapping_plane)
-  warning("not implemented")
+  x <- intersection_segment(x, full_rect())
+  euclid_grob(x, unit = unit, name = name, gp = gp, vp = vp, ..., mapping_plane = mapping_plane)
 }
 #' @export
 #' @importFrom graphics segments
@@ -302,10 +304,11 @@ euclid_plot.euclid_vector <- function(x, ..., mapping_plane = "z") {
   invisible(NULL)
 }
 #' @export
-#' @importFrom graphics arrows
-euclid_grob.euclid_vector <- function(x, unit = "native", name = NULL, gp = gpar(), vp = NULL, ..., mapping_plane = "z") {
+#' @importFrom grid arrow
+euclid_grob.euclid_vector <- function(x, arrow = arrow(), unit = "native", name = NULL, gp = gpar(), vp = NULL, ..., mapping_plane = "z") {
   x <- ensure_2d(x, mapping_plane)
-  warning("not implemented")
+  x <- segment(point(0, 0), as_point(x))
+  euclid_grob(x, arrow = arrow, unit = unit, name = name, gp = gp, vp = vp, ..., mapping_plane = mapping_plane)
 }
 
 ensure_2d <- function(x, mapping_plane) {
@@ -332,4 +335,7 @@ expand_rect <- function(xmin, xmax, ymin, ymax, fac) {
     xmin = xmin - xexpand, xmax = xmax + xexpand,
     ymin = ymin - yexpand, ymax = ymax + yexpand
   )
+}
+full_rect <- function() {
+  iso_rect(.Machine$double.xmin, .Machine$double.xmin, .Machine$double.xmax, .Machine$double.xmax)
 }
