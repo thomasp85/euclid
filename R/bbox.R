@@ -12,6 +12,7 @@
 #' @param ... Either a vector of geometries or a range of numeric vectors (4 for
 #' 2D bounding boxes and 6 for 3D) interpreted in the order xmin, ymin, zmin,
 #' xmax, ymax, zmax.
+#' @param default_dim The dimensionality when constructing an empty vector
 #' @param x,y vectors of bounding boxes or geometries
 #'
 #' @return An `euclid_bbox` vector
@@ -47,7 +48,10 @@
 #' # Conversion
 #' as.matrix(boxes)
 #'
-bbox <- function(...) {
+bbox <- function(..., default_dim = 2) {
+  if (...length() == 0) {
+    return(new_bbox_empty(default_dim))
+  }
   if (is_geometry(..1)) {
     bboxes <- geometry_bbox(get_ptr(..1))
     if (dim(..1) == 2) {
