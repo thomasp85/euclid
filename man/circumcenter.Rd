@@ -29,4 +29,9 @@ circumcenter(point(1, 1), point(5, -2), point(6, 4))
 circ <- circle(point(1, 1), point(5, -2), point(6, 4))
 vertex(circ)
 
+plot(circ)
+euclid_plot(t, col = "grey", border = NA)
+euclid_plot(circumcenter(t), cex = 3, col = "firebrick", lwd = 2)
+euclid_plot(vertex(circ), cex = 1.5, col = "steelblue", lwd = 2)
+
 }

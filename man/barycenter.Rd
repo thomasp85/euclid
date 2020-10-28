@@ -20,10 +20,15 @@ same between the points the barycenter corresponds to the centroid (or
 midpoint in the case of two points).
 }
 \examples{
-barycenter(
-  weighted_point(4, 2, 20),
-  weighted_point(5, -4, 8),
-  weighted_point(-3, 7, 13)
+p <- weighted_point(
+  x = c(4, 0, -3),
+  y = c(2, -4, 7),
+  w = c(20, 8, 13)
 )
+bc <- barycenter(p[1], p[2], p[3])
+bc
+
+plot(p, cex = as.numeric(parameter(p, "w") / 8))
+euclid_plot(bc, pch = 16, col = "firebrick", cex = 3)
 
 }

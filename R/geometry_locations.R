@@ -22,6 +22,11 @@
 #' circ <- circle(point(1, 1), point(5, -2), point(6, 4))
 #' vertex(circ)
 #'
+#' plot(circ)
+#' euclid_plot(t, col = "grey", border = NA)
+#' euclid_plot(circumcenter(t), cex = 3, col = "firebrick", lwd = 2)
+#' euclid_plot(vertex(circ), cex = 1.5, col = "steelblue", lwd = 2)
+#'
 circumcenter <- function(...) {
   inputs <- validate_constructor_input(...)
 
@@ -72,11 +77,16 @@ circumcenter <- function(...) {
 #' @export
 #'
 #' @examples
-#' barycenter(
-#'   weighted_point(4, 2, 20),
-#'   weighted_point(5, -4, 8),
-#'   weighted_point(-3, 7, 13)
+#' p <- weighted_point(
+#'   x = c(4, 0, -3),
+#'   y = c(2, -4, 7),
+#'   w = c(20, 8, 13)
 #' )
+#' bc <- barycenter(p[1], p[2], p[3])
+#' bc
+#'
+#' plot(p, cex = as.numeric(parameter(p, "w") / 8))
+#' euclid_plot(bc, pch = 16, col = "firebrick", cex = 3)
 #'
 barycenter <- function(x, y, z = NULL, t = NULL) {
   if (!is_weighted_point(x) || !is_weighted_point(y) ||
@@ -107,7 +117,11 @@ barycenter <- function(x, y, z = NULL, t = NULL) {
 #' @export
 #'
 #' @examples
-#' bisector(point(4, -2), point(7, 5))
+#' b <- bisector(point(4, -2), point(7, 5))
+#' b
+#'
+#' plot(c(point(4, -2), point(7, 5)), pch = 16, cex = 2)
+#' euclid_plot(b, col = "firebrick")
 #'
 bisector <- function(x, y) {
   new_geometry_vector(geometry_bisector(get_ptr(x), get_ptr(y)))
@@ -127,12 +141,16 @@ bisector <- function(x, y) {
 #' @export
 #'
 #' @examples
+#' p <- point(c(1, 5, 6), c(1, -2, 4))
 #' # centroid of triangle
-#' t <- triangle(point(1, 1), point(5, -2), point(6, 4))
+#' t <- triangle(p[1], p[2], p[3])
 #' centroid(t)
 #'
+#' plot(t, col = "grey", border = NA)
+#' euclid_plot(centroid(t), pch = 16, cex = 2, col = "firebrick")
+#'
 #' # Same as providing the points directly
-#' centroid(point(1, 1), point(5, -2), point(6, 4))
+#' centroid(p[1], p[2], p[3])
 #'
 centroid <- function(x, y = NULL, z = NULL, t = NULL) {
   if (is.null(y)) {
@@ -213,11 +231,23 @@ equidistant_line <- function(x, y, z = NULL) {
 #' @export
 #'
 #' @examples
+#' c1 <- circle(point(3, 6), 12)
+#' c2 <- circle(point(-5, 0), 3)
+#' c3 <- circle(point(-3, 7), 1)
+#'
 #' # Radical line
-#' radical(
-#'   circle(point(3, 6), 12),
-#'   circle(point(-6, 2), 3)
-#' )
+#' radical(c1, c2)
+#'
+#' # radical point
+#' radical(c1, c2, c3)
+#'
+#' plot(c(c1, c2, c3), bg = "grey", fg = NA)
+#' euclid_plot(c(
+#'   radical(c1, c2),
+#'   radical(c2, c3),
+#'   radical(c1, c3)
+#' ), col = "firebrick")
+#' euclid_plot(radical(c1, c2, c3), pch = 16, cex = 2, col = "steelblue")
 #'
 #' # Radical plane
 #' radical(

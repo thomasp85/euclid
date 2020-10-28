@@ -34,6 +34,8 @@
 #' @examples
 #' # Constructions
 #' d <- direction(sample(10, 3), sample(10, 3))
+#' d
+#' plot(d, col = c("firebrick", "goldenrod", "steelblue"))
 #'
 #' # flipping the direction
 #' -d

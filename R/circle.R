@@ -46,7 +46,9 @@
 #' number <- exact_numeric(1:5)
 #'
 #' # Construction with center and radius
-#' circle(point1, number)
+#' circ <- circle(point1, number)
+#' circ
+#' plot(circ)
 #'
 #' # integers and numerics are converted automatically
 #' circle(point1, 1:5)
@@ -59,6 +61,9 @@
 #'
 #' # Construction with 3 points
 #' circle(point1, point2, point3)
+#'
+#' plot(circle(point1[1], point1[2], point1[3]))
+#' euclid_plot(point1[1:3], col = "firebrick", pch = 16, cex = 3)
 #'
 #' ## 3 Dimensions
 #'

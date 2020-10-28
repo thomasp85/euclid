@@ -19,6 +19,10 @@ a plane in 3D. Constructing a bisector from 2 geometries creates a split
 where the edge at any given point has equal length to the two geometries.
 }
 \examples{
-bisector(point(4, -2), point(7, 5))
+b <- bisector(point(4, -2), point(7, 5))
+b
+
+plot(c(point(4, -2), point(7, 5)), pch = 16, cex = 2)
+euclid_plot(b, col = "firebrick")
 
 }

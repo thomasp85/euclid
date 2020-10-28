@@ -20,11 +20,15 @@ The centroid is the geometric mean of the vertices in a geometry. euclid
 supports centroid calculations for triangles, tetrahedrons and 2-4 points
 }
 \examples{
+p <- point(c(1, 5, 6), c(1, -2, 4))
 # centroid of triangle
-t <- triangle(point(1, 1), point(5, -2), point(6, 4))
+t <- triangle(p[1], p[2], p[3])
 centroid(t)
 
+plot(t, col = "grey", border = NA)
+euclid_plot(centroid(t), pch = 16, cex = 2, col = "firebrick")
+
 # Same as providing the points directly
-centroid(point(1, 1), point(5, -2), point(6, 4))
+centroid(p[1], p[2], p[3])
 
 }

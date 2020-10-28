@@ -340,7 +340,7 @@ Ops.euclid_affine_transformation <- function(e1, e2) {
   res <- switch(.Generic,
     "*" = transform_multiply(get_ptr(e1), get_ptr(e2)),
     "==" = transform_is_equal(get_ptr(e1), get_ptr(e2)),
-    "!=" = transform_is_not_equal(get_ptr(e1), get_ptr(e2)),
+    "!=" = !transform_is_equal(get_ptr(e1), get_ptr(e2)),
   )
   if (.Generic %in% "*") {
     res <- restore_euclid_vector(res, e1)

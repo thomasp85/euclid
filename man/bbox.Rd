@@ -48,6 +48,9 @@ seg <- segment(point(sample(10, 4), sample(10, 4)),
 boxes <- bbox(seg)
 boxes
 
+plot(seg)
+euclid_plot(boxes, fg = "firebrick")
+
 # Comparison
 boxes[1] == boxes
 
@@ -57,6 +60,9 @@ boxes[1:2] \%overlaps\% boxes[3:4]
 boxes[1] + boxes[2]
 
 cumsum(boxes)
+
+plot(sum(boxes), bg = "grey", fg = NA)
+euclid_plot(boxes)
 
 # Conversion
 as.matrix(boxes)

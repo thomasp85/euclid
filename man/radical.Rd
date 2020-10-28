@@ -23,11 +23,23 @@ point is defined as the intersection point of the three radical lines of
 three circles, or three radical planes of three spheres.
 }
 \examples{
+c1 <- circle(point(3, 6), 12)
+c2 <- circle(point(-5, 0), 3)
+c3 <- circle(point(-3, 7), 1)
+
 # Radical line
-radical(
-  circle(point(3, 6), 12),
-  circle(point(-6, 2), 3)
-)
+radical(c1, c2)
+
+# radical point
+radical(c1, c2, c3)
+
+plot(c(c1, c2, c3), bg = "grey", fg = NA)
+euclid_plot(c(
+  radical(c1, c2),
+  radical(c2, c3),
+  radical(c1, c3)
+), col = "firebrick")
+euclid_plot(radical(c1, c2, c3), pch = 16, cex = 2, col = "steelblue")
 
 # Radical plane
 radical(

@@ -28,7 +28,14 @@
 #' # Example of the difference in output
 #' t <- triangle(point(0, 0), point(1, 1), point(0, 1))
 #' l <- line(1, -1, c(0, 1, 2))
-#' intersection(t, l)
+#' i <- intersection(t, l)
+#' i
+#'
+#' plot(t, col = "grey", border = NA, xlim= c(-0.5, 1), ylim = c(0, 1.5))
+#' euclid_plot(l)
+#' for (int in i) {
+#'   euclid_plot(int, col = "firebrick", pch = 16, cex = 2, lwd = 3)
+#' }
 #'
 #' # Input is symmetric
 #' intersection(l, t)
