@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Calculate the centroid of a geometry or a set of points — centroid • euclid</title>
+<title>Plotting functions for geometries — euclid_plot • euclid</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,9 +46,15 @@
 
 
 
-<meta property="og:title" content="Calculate the centroid of a geometry or a set of points — centroid" />
-<meta property="og:description" content="The centroid is the geometric mean of the vertices in a geometry. euclid
-supports centroid calculations for triangles, tetrahedrons and 2-4 points" />
+<meta property="og:title" content="Plotting functions for geometries — euclid_plot" />
+<meta property="og:description" content="euclid provide interfaces for both base and grid graphics that allows you to
+visualise the geometries you are working with. There is only functionality
+for 2D geometries so 3D geometries will be mapped to the plane given by the
+mapping_plane argument. The plot method for geometries will behave like
+the base plot() method and set up a new plotting window based on the
+given settings. euclid_plot will add to the existing plot and thus use the
+coordinate system currently in effect. euclid_grob will create a grob that
+can be rendered with grid.draw()." />
 <meta property="og:image" content="https://r-euclid.com/reference/figures/card.png" />
 <meta property="og:image:alt" content="euclid: Exact compuational geometry in R" />
 <meta name="twitter:card" content="summary_large_image" />
@@ -121,51 +127,99 @@ supports centroid calculations for triangles, tetrahedrons and 2-4 points" />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Calculate the centroid of a geometry or a set of points</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/geometry_locations.R'><code>R/geometry_locations.R</code></a></small>
-    <div class="hidden name"><code>centroid.Rd</code></div>
+    <h1>Plotting functions for geometries</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/euclid/blob/master/R/geometry_plot.R'><code>R/geometry_plot.R</code></a></small>
+    <div class="hidden name"><code>euclid_plot.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>The centroid is the geometric mean of the vertices in a geometry. euclid
-supports centroid calculations for triangles, tetrahedrons and 2-4 points</p>
+    <p>euclid provide interfaces for both base and grid graphics that allows you to
+visualise the geometries you are working with. There is only functionality
+for 2D geometries so 3D geometries will be mapped to the plane given by the
+<code>mapping_plane</code> argument. The <code>plot</code> method for geometries will behave like
+the base <code><a href='https://rdrr.io/r/graphics/plot.default.html'>plot()</a></code> method and set up a new plotting window based on the
+given settings. <code>euclid_plot</code> will add to the existing plot and thus use the
+coordinate system currently in effect. <code>euclid_grob</code> will create a grob that
+can be rendered with <code><a href='https://rdrr.io/r/grid/grid.draw.html'>grid.draw()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>centroid</span><span class='op'>(</span><span class='va'>x</span>, y <span class='op'>=</span> <span class='cn'>NULL</span>, z <span class='op'>=</span> <span class='cn'>NULL</span>, t <span class='op'>=</span> <span class='cn'>NULL</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>euclid_plot</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>...</span>, mapping_plane <span class='op'>=</span> <span class='st'>"z"</span><span class='op'>)</span>
+
+<span class='fu'>euclid_grob</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>...</span>,
+  unit <span class='op'>=</span> <span class='st'>"native"</span>,
+  name <span class='op'>=</span> <span class='cn'>NULL</span>,
+  gp <span class='op'>=</span> <span class='fu'>gpar</span><span class='op'>(</span><span class='op'>)</span>,
+  vp <span class='op'>=</span> <span class='cn'>NULL</span>,
+  mapping_plane <span class='op'>=</span> <span class='st'>"z"</span>
+<span class='op'>)</span>
+
+<span class='co'># S3 method for euclid_geometry</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>y</span>,
+  xlim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ylim <span class='op'>=</span> <span class='cn'>NULL</span>,
+  mapping_plane <span class='op'>=</span> <span class='st'>"z"</span>,
+  add <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  axes <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  frame.plot <span class='op'>=</span> <span class='va'>axes</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>x</th>
-      <td><p>A vector of triangles or tetrahedrons, or points if <code>y</code>, <code>z</code>, or <code>t</code>
-are provided</p></td>
+      <td><p>A geometry vector</p></td>
     </tr>
     <tr>
-      <th>y, z, t</th>
-      <td><p>Vector of points</p></td>
+      <th>...</th>
+      <td><p>Arguments passed along to the specific drawing method.</p><ul>
+<li><p>points (and weighted points) use <code><a href='https://rdrr.io/r/graphics/points.html'>points()</a></code> and
+<code><a href='https://rdrr.io/r/grid/grid.points.html'>pointsGrob()</a></code></p></li>
+<li><p>circles use <code><a href='https://rdrr.io/r/graphics/symbols.html'>symbols()</a></code> and
+<code><a href='https://rdrr.io/r/grid/grid.circle.html'>circleGrob()</a></code></p></li>
+<li><p>directions and vectors use <code><a href='https://rdrr.io/r/graphics/arrows.html'>arrows()</a></code> and
+<code><a href='https://rdrr.io/r/grid/grid.segments.html'>segmentsGrob()</a></code></p></li>
+<li><p>iso rectangles and bounding boxes use <code><a href='https://rdrr.io/r/graphics/symbols.html'>symbols()</a></code> and
+<code><a href='https://rdrr.io/r/grid/grid.rect.html'>rectGrob()</a></code></p></li>
+<li><p>lines, rays, and segments use <code><a href='https://rdrr.io/r/graphics/segments.html'>segments()</a></code> and
+<code><a href='https://rdrr.io/r/grid/grid.segments.html'>segmentsGrob()</a></code></p></li>
+<li><p>triangles use <a href='https://rdrr.io/r/graphics/polygon.html'>polygon()</a> and
+<code><a href='https://rdrr.io/r/grid/grid.polygon.html'>polygonGrob()</a></code></p></li>
+</ul></td>
+    </tr>
+    <tr>
+      <th>mapping_plane</th>
+      <td><p>either <code>"x"</code>, <code>"y"</code>, <code>"z"</code>, or a scalar plane geometry</p></td>
+    </tr>
+    <tr>
+      <th>unit</th>
+      <td><p>The <a href='https://rdrr.io/r/grid/unit.html'>unit</a> the values in the geometry corresponds to.</p></td>
+    </tr>
+    <tr>
+      <th>name</th>
+      <td><p>The name of the created grob</p></td>
+    </tr>
+    <tr>
+      <th>gp</th>
+      <td><p>A <a href='https://rdrr.io/r/grid/gpar.html'>gpar</a> object giving the graphical parameters to use
+for rendering</p></td>
+    </tr>
+    <tr>
+      <th>vp</th>
+      <td><p>A <a href='https://rdrr.io/r/grid/viewport.html'>viewport</a> or <code>NULL</code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a vector of points</p>
+    <p><code>euclid_plot</code> is called for its side effects, <code>euclid_grob</code> returns a
+<a href='https://rdrr.io/r/grid/grid-defunct.html'>grob</a></p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>5</span>, <span class='fl'>6</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='op'>-</span><span class='fl'>2</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
-<span class='co'># centroid of triangle</span>
-<span class='va'>t</span> <span class='op'>&lt;-</span> <span class='fu'><a href='triangle.html'>triangle</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span>
-<span class='fu'>centroid</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;2D points [1]&gt;
-#&gt; [1] &lt;x:4, y:1&gt;</div><div class='input'>
-<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>t</span>, col <span class='op'>=</span> <span class='st'>"grey"</span>, border <span class='op'>=</span> <span class='cn'>NA</span><span class='op'>)</span>
-</div><div class='input'><span class='fu'><a href='euclid_plot.html'>euclid_plot</a></span><span class='op'>(</span><span class='fu'>centroid</span><span class='op'>(</span><span class='va'>t</span><span class='op'>)</span>, pch <span class='op'>=</span> <span class='fl'>16</span>, cex <span class='op'>=</span> <span class='fl'>2</span>, col <span class='op'>=</span> <span class='st'>"firebrick"</span><span class='op'>)</span>
-</div><div class='img'><img src='centroid-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='co'># Same as providing the points directly</span>
-<span class='fu'>centroid</span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;2D points [1]&gt;
-#&gt; [1] &lt;x:4, y:1&gt;</div><div class='input'>
-</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

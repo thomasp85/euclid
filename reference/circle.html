@@ -200,11 +200,13 @@ intersect.</p></li>
 <span class='va'>number</span> <span class='op'>&lt;-</span> <span class='fu'><a href='exact_numeric.html'>exact_numeric</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
 
 <span class='co'># Construction with center and radius</span>
-<span class='fu'>circle</span><span class='op'>(</span><span class='va'>point1</span>, <span class='va'>number</span><span class='op'>)</span>
+<span class='va'>circ</span> <span class='op'>&lt;-</span> <span class='fu'>circle</span><span class='op'>(</span><span class='va'>point1</span>, <span class='va'>number</span><span class='op'>)</span>
+<span class='va'>circ</span>
 </div><div class='output co'>#&gt; &lt;2D circles [5]&gt;
 #&gt; [1] &lt;x:0.196, y:0.696, r2:1&gt;  &lt;x:0.981, y:0.689, r2:2&gt; 
 #&gt; [3] &lt;x:0.742, y:0.0312, r2:3&gt; &lt;x:0.0514, y:0.226, r2:4&gt;
-#&gt; [5] &lt;x:0.53, y:0.301, r2:5&gt;  </div><div class='input'>
+#&gt; [5] &lt;x:0.53, y:0.301, r2:5&gt;  </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>circ</span><span class='op'>)</span>
+</div><div class='img'><img src='circle-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># integers and numerics are converted automatically</span>
 <span class='fu'>circle</span><span class='op'>(</span><span class='va'>point1</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>5</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;2D circles [5]&gt;
@@ -229,6 +231,9 @@ intersect.</p></li>
 #&gt; [1] &lt;x:0.579, y:0.578, r2:0.161&gt; &lt;x:0.476, y:0.722, r2:0.256&gt;
 #&gt; [3] &lt;x:0.399, y:0.266, r2:0.173&gt; &lt;x:0.408, y:0.293, r2:0.132&gt;
 #&gt; [5] &lt;x:0.803, y:0.393, r2:0.083&gt;</div><div class='input'>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'>circle</span><span class='op'>(</span><span class='va'>point1</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='va'>point1</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>point1</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='input'><span class='fu'><a href='euclid_plot.html'>euclid_plot</a></span><span class='op'>(</span><span class='va'>point1</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>]</span>, col <span class='op'>=</span> <span class='st'>"firebrick"</span>, pch <span class='op'>=</span> <span class='fl'>16</span>, cex <span class='op'>=</span> <span class='fl'>3</span><span class='op'>)</span>
+</div><div class='img'><img src='circle-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'>## 3 Dimensions</span>
 
 <span class='va'>point1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
