@@ -179,22 +179,22 @@ with a squared radius set to the numeric</p></li>
 <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>8</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>8</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>8</span><span class='op'>)</span><span class='op'>)</span>
 <span class='fu'>sphere</span><span class='op'>(</span><span class='va'>p</span>, <span class='fl'>4</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;3D euclid_spheres [8]&gt;
-#&gt; [1] &lt;x:4, y:5, z:8, r2:4&gt; &lt;x:2, y:6, z:4, r2:4&gt; &lt;x:7, y:8, z:7, r2:4&gt;
-#&gt; [4] &lt;x:3, y:7, z:5, r2:4&gt; &lt;x:8, y:2, z:6, r2:4&gt; &lt;x:1, y:1, z:3, r2:4&gt;
-#&gt; [7] &lt;x:6, y:3, z:2, r2:4&gt; &lt;x:5, y:4, z:1, r2:4&gt;</div><div class='input'>
+#&gt; [1] &lt;x:8, y:7, z:7, r2:4&gt; &lt;x:5, y:1, z:5, r2:4&gt; &lt;x:3, y:5, z:2, r2:4&gt;
+#&gt; [4] &lt;x:4, y:2, z:1, r2:4&gt; &lt;x:2, y:8, z:8, r2:4&gt; &lt;x:6, y:3, z:4, r2:4&gt;
+#&gt; [7] &lt;x:7, y:4, z:6, r2:4&gt; &lt;x:1, y:6, z:3, r2:4&gt;</div><div class='input'>
 <span class='fu'>sphere</span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>5</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>7</span><span class='op'>:</span><span class='fl'>8</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;3D euclid_spheres [2]&gt;
-#&gt; [1] &lt;x:6.16, y:5.02, z:5.05, r2:13.4&gt; &lt;x:5.21, y:2.25, z:6.04, r2:28.5&gt;</div><div class='input'>
+#&gt; [1] &lt;x:4.51, y:6.96, z:5.1, r2:15.8&gt;  &lt;x:2.61, y:3.14, z:3.88, r2:11.5&gt;</div><div class='input'>
 <span class='fu'>sphere</span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>5</span><span class='op'>:</span><span class='fl'>6</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;3D euclid_spheres [2]&gt;
-#&gt; [1] &lt;x:6.89, y:4.86, z:6.75, r2:9.95&gt; &lt;x:4.62, y:2.25, z:6.62, r2:27.8&gt;</div><div class='input'>
+#&gt; [1] &lt;x:4.47, y:6.49, z:5.33, r2:15.5&gt; &lt;x:4.64, y:1.69, z:3.01, r2:4.55&gt;</div><div class='input'>
 <span class='fu'>sphere</span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>, <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;3D euclid_spheres [2]&gt;
-#&gt; [1] &lt;x:5.5, y:6.5, z:7.5, r2:4.75&gt; &lt;x:2.5, y:6.5, z:4.5, r2:0.75&gt;</div><div class='input'>
+#&gt; [1] &lt;x:5.5, y:6, z:4.5, r2:13.5&gt; &lt;x:4.5, y:1.5, z:3, r2:4.5&gt; </div><div class='input'>
 <span class='va'>circ</span> <span class='op'>&lt;-</span> <span class='fu'><a href='circle.html'>circle</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>, <span class='fu'><a href='vec.html'>as_vec</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span><span class='op'>)</span>, <span class='fl'>6</span><span class='op'>)</span>
 <span class='fu'>sphere</span><span class='op'>(</span><span class='va'>circ</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;3D euclid_spheres [1]&gt;
-#&gt; [1] &lt;x:4, y:5, z:8, r2:6&gt;</div><div class='input'>
+#&gt; [1] &lt;x:8, y:7, z:7, r2:6&gt;</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

@@ -173,9 +173,7 @@ you expect from normal R vectors. However, they are implemented as external
 pointers to the exact C representation meaning that they cannot be restored
 across sessions or saved to RData/RDS files. Despite being external pointers
 they mimick R's copy-on-modify semantics so you should not worry about side
-effects when changing a geometry vector. Further, since <a href='exact_numeric.html'>exact_numeric</a>
-vectors only supports finite values, geometry vectors do not have an <code>NA</code>
-value.</p>
+effects when changing a geometry vector.</p>
 <p>The following is a list of standard R methods defined for geometry
 vectors:</p><ul>
 <li><p><code><a href='https://rdrr.io/r/base/matrix.html'>as.matrix()</a></code> - converts the geometry to a standard R matrix of numerics</p></li>
@@ -203,8 +201,48 @@ vector</p></li>
 
 <p>Do note that since geometries with exact representation is not easily
 hashable, the implementation of <code><a href='https://rdrr.io/r/base/unique.html'>unique()</a></code> and <code><a href='https://rdrr.io/r/base/duplicated.html'>duplicated()</a></code> is not very
-efficient.</p>
+efficient (except for points since they can be sorted).</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>p</span>
+</div><div class='output co'>#&gt; &lt;2D points [4]&gt;
+#&gt; [1] &lt;x:9, y:5&gt; &lt;x:5, y:4&gt; &lt;x:3, y:3&gt; &lt;x:2, y:9&gt;</div><div class='input'><span class='va'>p</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>]</span>
+</div><div class='output co'>#&gt; &lt;2D points [1]&gt;
+#&gt; [1] &lt;x:5, y:4&gt;</div><div class='input'><span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span> <span class='op'>&lt;-</span> <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>14</span>, <span class='fl'>20</span><span class='op'>)</span>
+<span class='va'>p</span>
+</div><div class='output co'>#&gt; &lt;2D points [4]&gt;
+#&gt; [1] &lt;x:9, y:5&gt;   &lt;x:5, y:4&gt;   &lt;x:14, y:20&gt; &lt;x:2, y:9&gt;  </div><div class='input'><span class='va'>p2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>p</span>, <span class='va'>p</span><span class='op'>)</span>
+<span class='va'>p2</span>
+</div><div class='output co'>#&gt; &lt;2D points [8]&gt;
+#&gt; [1] &lt;x:9, y:5&gt;   &lt;x:5, y:4&gt;   &lt;x:14, y:20&gt; &lt;x:2, y:9&gt;   &lt;x:9, y:5&gt;  
+#&gt; [6] &lt;x:5, y:4&gt;   &lt;x:14, y:20&gt; &lt;x:2, y:9&gt;  </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>p2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;2D points [4]&gt;
+#&gt; [1] &lt;x:9, y:5&gt;   &lt;x:5, y:4&gt;   &lt;x:14, y:20&gt; &lt;x:2, y:9&gt;  </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;2D points [4]&gt;
+#&gt; [1] &lt;x:2, y:9&gt;   &lt;x:5, y:4&gt;   &lt;x:9, y:5&gt;   &lt;x:14, y:20&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='va'>p</span>, each <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;2D points [8]&gt;
+#&gt; [1] &lt;x:9, y:5&gt;   &lt;x:9, y:5&gt;   &lt;x:5, y:4&gt;   &lt;x:5, y:4&gt;   &lt;x:14, y:20&gt;
+#&gt; [6] &lt;x:14, y:20&gt; &lt;x:2, y:9&gt;   &lt;x:2, y:9&gt;  </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [[1]]
+#&gt; &lt;2D points [1]&gt;
+#&gt; [1] &lt;x:9, y:5&gt;
+#&gt; 
+#&gt; [[2]]
+#&gt; &lt;2D points [1]&gt;
+#&gt; [1] &lt;x:5, y:4&gt;
+#&gt; 
+#&gt; [[3]]
+#&gt; &lt;2D points [1]&gt;
+#&gt; [1] &lt;x:14, y:20&gt;
+#&gt; 
+#&gt; [[4]]
+#&gt; &lt;2D points [1]&gt;
+#&gt; [1] &lt;x:2, y:9&gt;
+#&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/transform.html'>transform</a></span><span class='op'>(</span><span class='va'>p</span>, <span class='fu'><a href='affine_transformation.html'>affine_rotate</a></span><span class='op'>(</span><span class='va'>pi</span><span class='op'>/</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;2D points [4]&gt;
+#&gt; [1] &lt;x:0.17, y:10.3&gt;   &lt;x:-0.964, y:6.33&gt; &lt;x:-10.3, y:22.1&gt;  &lt;x:-6.79, y:6.23&gt; </div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

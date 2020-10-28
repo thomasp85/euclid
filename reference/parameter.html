@@ -178,6 +178,28 @@ be <code><a href='https://rdrr.io/r/base/sum.html'>sum(cardinality(x))</a></code
 
     <p>An exact_numeric vector</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='co'># Get squared radius of circle</span>
+<span class='va'>circ</span> <span class='op'>&lt;-</span> <span class='fu'><a href='circle.html'>circle</a></span><span class='op'>(</span><span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>4</span>, <span class='fl'>7</span><span class='op'>)</span>, <span class='fl'>25</span><span class='op'>)</span>
+<span class='fu'>parameter</span><span class='op'>(</span><span class='va'>circ</span>, <span class='st'>"r2"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;exact numerics [1]&gt;
+#&gt; [1] 25</div><div class='input'>
+<span class='co'># Get all the x values from the source of segments</span>
+<span class='va'>s</span> <span class='op'>&lt;-</span> <span class='fu'><a href='segment.html'>segment</a></span><span class='op'>(</span><span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span>,
+             <span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>4</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>10</span>, <span class='fl'>4</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>parameter</span><span class='op'>(</span><span class='va'>s</span>, <span class='st'>"x"</span>, <span class='fl'>1L</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;exact numerics [4]&gt;
+#&gt; [1] 9 1 6 2</div><div class='input'>
+<span class='co'># Get y for all subelements</span>
+<span class='fu'>parameter</span><span class='op'>(</span><span class='va'>s</span>, <span class='st'>"y"</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;exact numerics [8]&gt;
+#&gt; [1]  2  1  8  2 10  3  9  9</div><div class='input'>
+<span class='co'># Extract cell values from transformation matrices</span>
+<span class='va'>m</span> <span class='op'>&lt;-</span> <span class='fu'><a href='affine_transformation.html'>affine_rotate</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>pi</span><span class='op'>/</span><span class='fl'>2</span>, <span class='va'>pi</span><span class='op'>/</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'>parameter</span><span class='op'>(</span><span class='va'>m</span>, <span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; &lt;exact numerics [2]&gt;
+#&gt; [1] -1.0000000 -0.8660254</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
