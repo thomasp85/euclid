@@ -71,61 +71,97 @@ int bbox_length(bbox_vector_base_p bboxes) {
 
 [[cpp11::register]]
 int bbox_dimension(bbox_vector_base_p bboxes) {
+  if (bboxes.get() == nullptr) {
+    return 0;
+  }
   return bboxes->dimensions();
 }
 
 [[cpp11::register]]
 bbox_vector_base_p bbox_subset(bbox_vector_base_p bboxes, cpp11::integers index) {
+  if (bboxes.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return bboxes->subset(index);
 }
 
 [[cpp11::register]]
 bbox_vector_base_p bbox_copy(bbox_vector_base_p bboxes) {
+  if (bboxes.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return bboxes->copy();
 }
 
 [[cpp11::register]]
 bbox_vector_base_p bbox_assign(bbox_vector_base_p bboxes, cpp11::integers index, bbox_vector_base_p value) {
+  if (bboxes.get() == nullptr || value.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return bboxes->assign(index, *value);
 }
 
 [[cpp11::register]]
 bbox_vector_base_p bbox_combine(bbox_vector_base_p bboxes, cpp11::list_of< bbox_vector_base_p > extra) {
+  if (bboxes.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return bboxes->combine(extra);
 }
 
 [[cpp11::register]]
 bbox_vector_base_p bbox_unique(bbox_vector_base_p bboxes) {
+  if (bboxes.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return bboxes->unique();
 }
 
 [[cpp11::register]]
 cpp11::writable::logicals bbox_duplicated(bbox_vector_base_p bboxes) {
+  if (bboxes.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return bboxes->duplicated();
 }
 
 [[cpp11::register]]
 cpp11::writable::integers bbox_any_duplicated(bbox_vector_base_p bboxes) {
+  if (bboxes.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return {bboxes->any_duplicated() + 1};
 }
 
 [[cpp11::register]]
 cpp11::writable::integers bbox_match(bbox_vector_base_p bboxes, bbox_vector_base_p table) {
+  if (bboxes.get() == nullptr || table.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return bboxes->match(*table);
 }
 
 [[cpp11::register]]
 cpp11::writable::logicals bbox_is_na(bbox_vector_base_p bboxes) {
+  if (bboxes.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return bboxes->is_na();
 }
 
 [[cpp11::register]]
 bool bbox_any_na(bbox_vector_base_p bboxes) {
+  if (bboxes.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return bboxes->any_na();
 }
 
 [[cpp11::register]]
 cpp11::writable::doubles_matrix bbox_to_matrix(bbox_vector_base_p bboxes) {
+  if (bboxes.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return bboxes->as_numeric();
 }
 
@@ -139,25 +175,40 @@ cpp11::writable::strings bbox_format(bbox_vector_base_p bboxes) {
 
 [[cpp11::register]]
 cpp11::writable::logicals bbox_is_equal(bbox_vector_base_p bboxes1, bbox_vector_base_p bboxes2) {
+  if (bboxes1.get() == nullptr || bboxes2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return (*bboxes1) == (*bboxes2);
 }
 
 [[cpp11::register]]
 bbox_vector_base_p bbox_plus(bbox_vector_base_p bboxes, bbox_vector_base_p other) {
+  if (bboxes.get() == nullptr || other.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return (*bboxes) + (*other);
 }
 
 [[cpp11::register]]
 bbox_vector_base_p bbox_sum(bbox_vector_base_p bboxes, bool na_rm) {
+  if (bboxes.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return bboxes->sum(na_rm);
 }
 
 [[cpp11::register]]
 bbox_vector_base_p bbox_cumsum(bbox_vector_base_p bboxes) {
+  if (bboxes.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return bboxes->cumsum();
 }
 
 [[cpp11::register]]
 cpp11::writable::logicals bbox_overlaps(bbox_vector_base_p bboxes1, bbox_vector_base_p bboxes2) {
+  if (bboxes1.get() == nullptr || bboxes2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return bboxes1->overlaps(*bboxes2);
 }

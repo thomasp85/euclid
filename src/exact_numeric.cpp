@@ -45,6 +45,9 @@ exact_numeric exact_numeric::subset(cpp11::integers index) const {
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_subset(exact_numeric_p ex_n, cpp11::integers index) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric(ex_n->subset(index)));
   return {new_ex};
 }
@@ -66,6 +69,9 @@ exact_numeric exact_numeric::assign(cpp11::integers index, const exact_numeric& 
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_assign(exact_numeric_p ex_n, cpp11::integers index, exact_numeric_p value) {
+  if (ex_n.get() == nullptr || value.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric(ex_n->assign(index, *value)));
   return {new_ex};
 }
@@ -83,6 +89,9 @@ exact_numeric exact_numeric::combine(cpp11::list_of< exact_numeric_p > extra) co
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_combine(exact_numeric_p ex_n, cpp11::list_of<exact_numeric_p> extra) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric(ex_n->combine(extra)));
   return {new_ex};
 }
@@ -99,6 +108,9 @@ cpp11::writable::logicals exact_numeric::is_na() const {
 }
 [[cpp11::register]]
 cpp11::writable::logicals exact_numeric_is_na(exact_numeric_p ex_n) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return ex_n->is_na();
 }
 
@@ -112,6 +124,9 @@ bool exact_numeric::any_na() const {
 }
 [[cpp11::register]]
 bool exact_numeric_any_na(exact_numeric_p ex_n) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return ex_n->any_na();
 }
 
@@ -130,6 +145,9 @@ cpp11::writable::doubles exact_numeric::as_numeric() const {
 }
 [[cpp11::register]]
 cpp11::writable::doubles exact_numeric_to_numeric(exact_numeric_p ex_n) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   if (ex_n.get() == nullptr) {
     return {};
   }
@@ -153,6 +171,9 @@ cpp11::writable::logicals exact_numeric::operator==(const exact_numeric& x) cons
 }
 [[cpp11::register]]
 cpp11::writable::logicals exact_numeric_is_equal(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
+  if (ex_n.get() == nullptr || ex_n2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return (*ex_n) == (*ex_n2);
 }
 
@@ -173,6 +194,9 @@ cpp11::writable::logicals exact_numeric::operator<(const exact_numeric& x) const
 }
 [[cpp11::register]]
 cpp11::writable::logicals exact_numeric_less(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
+  if (ex_n.get() == nullptr || ex_n2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return (*ex_n) < (*ex_n2);
 }
 
@@ -194,6 +218,9 @@ cpp11::writable::logicals exact_numeric::operator>(const exact_numeric& x) const
 }
 [[cpp11::register]]
 cpp11::writable::logicals exact_numeric_greater(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
+  if (ex_n.get() == nullptr || ex_n2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return (*ex_n) > (*ex_n2);
 }
 
@@ -219,6 +246,9 @@ exact_numeric exact_numeric::unique() const {
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_unique(exact_numeric_p ex_n) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric(ex_n->unique()));
   return {new_ex};
 }
@@ -248,6 +278,9 @@ cpp11::writable::logicals exact_numeric::duplicated() const {
 }
 [[cpp11::register]]
 cpp11::writable::logicals exact_numeric_duplicated(exact_numeric_p ex_n) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return ex_n->duplicated();
 }
 
@@ -276,6 +309,9 @@ int exact_numeric::any_duplicated() const {
 }
 [[cpp11::register]]
 int exact_numeric_any_duplicated(exact_numeric_p ex_n) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return ex_n->any_duplicated() + 1;
 }
 
@@ -306,6 +342,9 @@ cpp11::writable::integers exact_numeric::rank() const {
 }
 [[cpp11::register]]
 cpp11::writable::integers exact_numeric_rank(exact_numeric_p ex_n) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return ex_n->rank();
 }
 
@@ -314,6 +353,9 @@ cpp11::writable::integers exact_numeric::match(const exact_numeric& table) const
 }
 [[cpp11::register]]
 cpp11::writable::integers exact_numeric_match(exact_numeric_p ex_n, exact_numeric_p table) {
+  if (ex_n.get() == nullptr || table.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return ex_n->match(*table);
 }
 
@@ -335,6 +377,9 @@ exact_numeric exact_numeric::operator+(const exact_numeric& x) const {
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_plus(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
+  if (ex_n.get() == nullptr || ex_n2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric((*ex_n) + (*ex_n2)));
   return {new_ex};
 }
@@ -357,6 +402,9 @@ exact_numeric exact_numeric::operator-(const exact_numeric& x) const {
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_minus(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
+  if (ex_n.get() == nullptr || ex_n2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric((*ex_n) - (*ex_n2)));
   return {new_ex};
 }
@@ -377,6 +425,9 @@ exact_numeric exact_numeric::operator-() const {
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_uni_minus(exact_numeric_p ex_n) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric(-(*ex_n)));
   return {new_ex};
 }
@@ -399,6 +450,9 @@ exact_numeric exact_numeric::operator*(const exact_numeric& x) const {
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_times(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
+  if (ex_n.get() == nullptr || ex_n2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric((*ex_n) * (*ex_n2)));
   return {new_ex};
 }
@@ -421,6 +475,9 @@ exact_numeric exact_numeric::operator/(const exact_numeric& x) const {
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_divided(exact_numeric_p ex_n, exact_numeric_p ex_n2) {
+  if (ex_n.get() == nullptr || ex_n2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric((*ex_n) / (*ex_n2)));
   return {new_ex};
 }
@@ -441,6 +498,9 @@ exact_numeric exact_numeric::abs() const {
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_abs(exact_numeric_p ex_n) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric(ex_n->abs()));
   return {new_ex};
 }
@@ -466,6 +526,9 @@ cpp11::writable::integers exact_numeric::sign() const {
 }
 [[cpp11::register]]
 cpp11::writable::integers exact_numeric_sign(exact_numeric_p ex_n) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return ex_n->sign();
 }
 
@@ -491,6 +554,9 @@ exact_numeric exact_numeric::cumsum() const {
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_cumsum(exact_numeric_p ex_n) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric(ex_n->cumsum()));
   return {new_ex};
 }
@@ -517,6 +583,9 @@ exact_numeric exact_numeric::cumprod() const {
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_cumprod(exact_numeric_p ex_n) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric(ex_n->cumprod()));
   return {new_ex};
 }
@@ -544,6 +613,9 @@ exact_numeric exact_numeric::cummax() const {
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_cummax(exact_numeric_p ex_n) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric(ex_n->cummax()));
   return {new_ex};
 }
@@ -571,6 +643,9 @@ exact_numeric exact_numeric::cummin() const {
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_cummin(exact_numeric_p ex_n) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric(ex_n->cummin()));
   return {new_ex};
 }
@@ -593,6 +668,9 @@ exact_numeric exact_numeric::diff(int lag) const {
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_diff(exact_numeric_p ex_n, int lag) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric(ex_n->diff(lag)));
   return {new_ex};
 }
@@ -623,6 +701,9 @@ exact_numeric exact_numeric::sort(bool decreasing, cpp11::logicals na_last) cons
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_sort(exact_numeric_p ex_n, bool decreasing, cpp11::logicals na_last) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric(ex_n->sort(decreasing, na_last)));
   return {new_ex};
 }
@@ -647,6 +728,9 @@ exact_numeric exact_numeric::sum(bool na_rm) const {
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_sum(exact_numeric_p ex_n, bool na_rm) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric(ex_n->sum(na_rm)));
   return {new_ex};
 }
@@ -671,6 +755,9 @@ exact_numeric exact_numeric::prod(bool na_rm) const {
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_prod(exact_numeric_p ex_n, bool na_rm) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric(ex_n->prod(na_rm)));
   return {new_ex};
 }
@@ -701,6 +788,9 @@ exact_numeric exact_numeric::min(bool na_rm) const {
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_min(exact_numeric_p ex_n, bool na_rm) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric(ex_n->min(na_rm)));
   return {new_ex};
 }
@@ -730,6 +820,9 @@ exact_numeric exact_numeric::max(bool na_rm) const {
 }
 [[cpp11::register]]
 exact_numeric_p exact_numeric_max(exact_numeric_p ex_n, bool na_rm) {
+  if (ex_n.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* new_ex(new exact_numeric(ex_n->max(na_rm)));
   return {new_ex};
 }

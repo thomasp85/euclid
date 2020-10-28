@@ -201,42 +201,66 @@ int transform_length(transform_vector_base_p transforms) {
 
 [[cpp11::register]]
 int transform_dimension(transform_vector_base_p transforms) {
+  if (transforms.get() == nullptr) {
+    return 0;
+  }
   return transforms->dimensions();
 }
 
 [[cpp11::register]]
 exact_numeric_p transform_definition(transform_vector_base_p transforms, cpp11::integers i, cpp11::integers j) {
+  if (transforms.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   exact_numeric* vec(new exact_numeric(transforms->definition(i, j)));
   return {vec};
 }
 
 [[cpp11::register]]
 transform_vector_base_p transform_subset(transform_vector_base_p transforms, cpp11::integers index) {
+  if (transforms.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return transforms->subset(index);
 }
 
 [[cpp11::register]]
 transform_vector_base_p transform_copy(transform_vector_base_p transforms) {
+  if (transforms.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return transforms->copy();
 }
 
 [[cpp11::register]]
 transform_vector_base_p transform_assign(transform_vector_base_p transforms, cpp11::integers index, transform_vector_base_p value) {
+  if (transforms.get() == nullptr || value.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return transforms->assign(index, *value);
 }
 
 [[cpp11::register]]
 transform_vector_base_p transform_combine(transform_vector_base_p transforms, cpp11::list_of< transform_vector_base_p > extra) {
+  if (transforms.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return transforms->combine(extra);
 }
 
 [[cpp11::register]]
 transform_vector_base_p transform_unique(transform_vector_base_p transforms) {
+  if (transforms.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return transforms->unique();
 }
 
 [[cpp11::register]]
 cpp11::writable::logicals transform_duplicated(transform_vector_base_p transforms) {
+  if (transforms.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return transforms->duplicated();
 }
 
@@ -247,21 +271,33 @@ cpp11::writable::integers transform_any_duplicated(transform_vector_base_p trans
 
 [[cpp11::register]]
 cpp11::writable::integers transform_match(transform_vector_base_p transforms, transform_vector_base_p table) {
+  if (transforms.get() == nullptr || table.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return transforms->match(*table);
 }
 
 [[cpp11::register]]
 cpp11::writable::logicals transform_is_na(transform_vector_base_p transforms) {
+  if (transforms.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return transforms->is_na();
 }
 
 [[cpp11::register]]
 bool transform_any_na(transform_vector_base_p transforms) {
+  if (transforms.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return transforms->any_na();
 }
 
 [[cpp11::register]]
 cpp11::writable::doubles transform_to_array(transform_vector_base_p transforms) {
+  if (transforms.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return transforms->as_numeric();
 }
 
@@ -276,36 +312,48 @@ cpp11::writable::strings transform_format(transform_vector_base_p transforms) {
 [[cpp11::register]]
 cpp11::writable::logicals transform_is_equal(transform_vector_base_p transforms1,
                                             transform_vector_base_p transforms2) {
+  if (transforms1.get() == nullptr || transforms2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return (*transforms1) == (*transforms2);
 }
 
 [[cpp11::register]]
-cpp11::writable::logicals transform_is_not_equal(transform_vector_base_p transforms1,
-                                                transform_vector_base_p transforms2) {
-  return (*transforms1) != (*transforms2);
-}
-
-[[cpp11::register]]
 transform_vector_base_p transform_multiply(transform_vector_base_p transforms, transform_vector_base_p other) {
+  if (transforms.get() == nullptr || other.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return (*transforms) * (*other);
 }
 
 [[cpp11::register]]
 transform_vector_base_p transform_inverse(transform_vector_base_p transforms) {
+  if (transforms.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return transforms->inverse();
 }
 
 [[cpp11::register]]
 cpp11::writable::logicals transform_is_reflecting(transform_vector_base_p transforms) {
+  if (transforms.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return transforms->is_reflecting();
 }
 
 [[cpp11::register]]
 transform_vector_base_p transform_prod(transform_vector_base_p transforms, bool na_rm) {
+  if (transforms.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return transforms->prod(na_rm);
 }
 
 [[cpp11::register]]
 transform_vector_base_p transform_cumprod(transform_vector_base_p transforms) {
+  if (transforms.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return transforms->cumprod();
 }

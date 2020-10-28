@@ -64,7 +64,6 @@ public:
 
   // Equality
   virtual cpp11::writable::logicals operator==(const transform_vector_base& other) const = 0;
-  virtual cpp11::writable::logicals operator!=(const transform_vector_base& other) const = 0;
   virtual cpp11::external_pointer<transform_vector_base> operator*(const transform_vector_base& other) const = 0;
   virtual cpp11::external_pointer<transform_vector_base> inverse() const = 0;
 
@@ -216,30 +215,7 @@ public:
 
     return result;
   }
-  cpp11::writable::logicals operator!=(const transform_vector_base& other) const {
-    size_t output_length = std::max(size(), other.size());
 
-    cpp11::writable::logicals result(output_length);
-
-    if (typeid(*this) != typeid(other)) {
-      for (size_t i = 0; i < size(); ++i) {
-        result[i] = (Rboolean) true;
-        return result;
-      }
-    }
-
-    const transform_vector<T, dim>* other_recast = dynamic_cast< const transform_vector<T, dim>* >(&other);
-
-    for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !(*other_recast)[i % other_recast->size()]) {
-        result[i] = NA_LOGICAL;
-        continue;
-      }
-      result[i] = (Rboolean) !(_storage[i % size()] == (*other_recast)[i % other_recast->size()]);
-    }
-
-    return result;
-  }
   transform_vector_base_p operator*(const transform_vector_base& other) const {
     size_t output_length = std::max(size(), other.size());
 
