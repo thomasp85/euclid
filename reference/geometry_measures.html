@@ -162,6 +162,13 @@ infinite area. The return value will reflect this.</p>
 
     <p>A numeric vector</p>
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'>
+<span class='fu'>approx_length</span><span class='op'>(</span><span class='fu'><a href='vec.html'>vec</a></span><span class='op'>(</span><span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, <span class='fl'>4</span><span class='op'>:</span><span class='fl'>7</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 4.123106 5.385165 6.708204 8.062258</div><div class='input'><span class='fu'>approx_area</span><span class='op'>(</span><span class='fu'><a href='circle.html'>circle</a></span><span class='op'>(</span><span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>, <span class='fl'>5</span><span class='op'>:</span><span class='fl'>9</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 15.70796 18.84956 21.99115 25.13274 28.27433</div><div class='input'><span class='fu'>approx_volume</span><span class='op'>(</span><span class='fu'><a href='sphere.html'>sphere</a></span><span class='op'>(</span><span class='fu'><a href='point.html'>point</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>0</span>, <span class='fl'>0</span><span class='op'>)</span>, <span class='fl'>5</span><span class='op'>:</span><span class='fl'>9</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1]  46.83210  61.56239  77.57748  94.78150 113.09734</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -197,46 +197,46 @@ locations without weights.</p></li>
 <span class='va'>p</span> <span class='op'>&lt;-</span> <span class='fu'>point</span><span class='op'>(</span><span class='va'>num1</span>, <span class='va'>num2</span><span class='op'>)</span>
 <span class='va'>p</span>
 </div><div class='output co'>#&gt; &lt;2D points [5]&gt;
-#&gt; [1] &lt;x:0.942, y:0.784&gt; &lt;x:0.124, y:0.49&gt;  &lt;x:0.115, y:0.102&gt; &lt;x:0.367, y:0.943&gt;
-#&gt; [5] &lt;x:0.471, y:0.706&gt;</div><div class='input'>
+#&gt; [1] &lt;x:0.156, y:0.843&gt;  &lt;x:0.043, y:0.0649&gt; &lt;x:0.685, y:0.762&gt; 
+#&gt; [4] &lt;x:0.514, y:0.0784&gt; &lt;x:0.946, y:0.134&gt; </div><div class='input'>
 <span class='co'># 3 dimensions</span>
 <span class='fu'>point</span><span class='op'>(</span><span class='va'>num1</span>, <span class='va'>num2</span>, <span class='va'>num3</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;3D points [5]&gt;
-#&gt; [1] &lt;x:0.942, y:0.784, z:0.502&gt; &lt;x:0.124, y:0.49, z:0.53&gt;  
-#&gt; [3] &lt;x:0.115, y:0.102, z:0.258&gt; &lt;x:0.367, y:0.943, z:0.712&gt;
-#&gt; [5] &lt;x:0.471, y:0.706, z:0.968&gt;</div><div class='input'>
+#&gt; [1] &lt;x:0.156, y:0.843, z:0.81&gt;   &lt;x:0.043, y:0.0649, z:0.559&gt;
+#&gt; [3] &lt;x:0.685, y:0.762, z:0.734&gt;  &lt;x:0.514, y:0.0784, z:0.35&gt; 
+#&gt; [5] &lt;x:0.946, y:0.134, z:0.983&gt; </div><div class='input'>
 <span class='co'># Standard R vectors are automatically converted to exact_numeric vectors</span>
 <span class='fu'>point</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;2D points [5]&gt;
-#&gt; [1] &lt;x:0.661, y:0.726&gt;  &lt;x:0.796, y:0.367&gt;  &lt;x:0.0732, y:0.523&gt;
-#&gt; [4] &lt;x:0.885, y:0.47&gt;   &lt;x:0.827, y:0.0986&gt;</div><div class='input'>
+#&gt; [1] &lt;x:0.409, y:0.859&gt; &lt;x:0.361, y:0.839&gt; &lt;x:0.653, y:0.881&gt; &lt;x:0.144, y:0.238&gt;
+#&gt; [5] &lt;x:0.681, y:0.579&gt;</div><div class='input'>
 <span class='co'># Convert points to vectors</span>
 <span class='fu'><a href='vec.html'>as_vec</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;2D vectors [5]&gt;
-#&gt; [1] &lt;x:0.942, y:0.784&gt; &lt;x:0.124, y:0.49&gt;  &lt;x:0.115, y:0.102&gt; &lt;x:0.367, y:0.943&gt;
-#&gt; [5] &lt;x:0.471, y:0.706&gt;</div><div class='input'>
+#&gt; [1] &lt;x:0.156, y:0.843&gt;  &lt;x:0.043, y:0.0649&gt; &lt;x:0.685, y:0.762&gt; 
+#&gt; [4] &lt;x:0.514, y:0.0784&gt; &lt;x:0.946, y:0.134&gt; </div><div class='input'>
 <span class='co'># Arithmetic</span>
 <span class='co'># Translate by adding vector</span>
 <span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='vec.html'>vec</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>7</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;2D points [5]&gt;
-#&gt; [1] &lt;x:3.94, y:7.78&gt; &lt;x:3.12, y:7.49&gt; &lt;x:3.12, y:7.1&gt;  &lt;x:3.37, y:7.94&gt;
-#&gt; [5] &lt;x:3.47, y:7.71&gt;</div><div class='input'>
+#&gt; [1] &lt;x:3.16, y:7.84&gt; &lt;x:3.04, y:7.06&gt; &lt;x:3.68, y:7.76&gt; &lt;x:3.51, y:7.08&gt;
+#&gt; [5] &lt;x:3.95, y:7.13&gt;</div><div class='input'>
 <span class='co'># Create vector by subtracting points</span>
 <span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>-</span> <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
 </div><div class='output co'>#&gt; &lt;2D vectors [2]&gt;
-#&gt; [1] &lt;x:0.827, y:0.682&gt;   &lt;x:-0.242, y:-0.453&gt;</div><div class='input'>
+#&gt; [1] &lt;x:-0.528, y:0.081&gt;   &lt;x:-0.471, y:-0.0135&gt;</div><div class='input'>
 <span class='co'># Sorting etc.</span>
 <span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;2D points [5]&gt;
-#&gt; [1] &lt;x:0.115, y:0.102&gt; &lt;x:0.124, y:0.49&gt;  &lt;x:0.367, y:0.943&gt; &lt;x:0.471, y:0.706&gt;
-#&gt; [5] &lt;x:0.942, y:0.784&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
+#&gt; [1] &lt;x:0.043, y:0.0649&gt; &lt;x:0.156, y:0.843&gt;  &lt;x:0.514, y:0.0784&gt;
+#&gt; [4] &lt;x:0.685, y:0.762&gt;  &lt;x:0.946, y:0.134&gt; </div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>min</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;2D points [1]&gt;
-#&gt; [1] &lt;x:0.115, y:0.102&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cummax</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
+#&gt; [1] &lt;x:0.043, y:0.0649&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cummax</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;2D points [5]&gt;
-#&gt; [1] &lt;x:0.942, y:0.784&gt; &lt;x:0.124, y:0.49&gt;  &lt;x:0.115, y:0.102&gt; &lt;x:0.115, y:0.102&gt;
-#&gt; [5] &lt;x:0.115, y:0.102&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/rank.html'>rank</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 5 2 1 3 4</div><div class='input'><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;</span> <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; [1] FALSE  TRUE</div><div class='input'>
+#&gt; [1] &lt;x:0.156, y:0.843&gt;  &lt;x:0.043, y:0.0649&gt; &lt;x:0.043, y:0.0649&gt;
+#&gt; [4] &lt;x:0.043, y:0.0649&gt; &lt;x:0.043, y:0.0649&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/rank.html'>rank</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] 2 1 4 3 5</div><div class='input'><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;</span> <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
+</div><div class='output co'>#&gt; [1] TRUE TRUE</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
