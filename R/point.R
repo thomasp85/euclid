@@ -41,6 +41,8 @@
 #' p <- point(num1, num2)
 #' p
 #'
+#' plot(p)
+#'
 #' # 3 dimensions
 #' point(num1, num2, num3)
 #'

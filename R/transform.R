@@ -33,6 +33,23 @@
 #'
 #' @rdname affine_transformation
 #' @name affine_transformation
+#'
+#' @examples
+#' # Rotate triangle around its centroid and then around the center
+#' p <- point(sample(10, 3), sample(10, 3))
+#' t <- triangle(p[1], p[2], p[3])
+#'
+#' ct <- centroid(t)
+#' # Assemble transformation (remember reverse order)
+#' trans <- affine_rotate(pi/4) *
+#'   affine_translate(vec(ct)) *
+#'   affine_rotate(2*pi/5) *
+#'   affine_translate(-vec(ct))
+#'
+#' t2 <- transform(t, trans)
+#'
+#' plot(c(t, t2), col = c("grey", "firebrick"), border = NA)
+#'
 NULL
 
 #' @rdname affine_transformation

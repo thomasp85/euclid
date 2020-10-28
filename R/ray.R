@@ -28,9 +28,11 @@
 #'
 #' @examples
 #' # Construction
-#' p <- point(sample(10, 2), sample(10, 2))
-#' r <- ray(p[1], p[2])
+#' p <- point(sample(10, 3), sample(10, 3))
+#' r <- ray(p[1], p[2:3])
 #' r
+#' plot(p, pch = c(16, 17, 17))
+#' euclid_plot(r)
 #'
 #' ray(p, -as_vec(p))
 #'

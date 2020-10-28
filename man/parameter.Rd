@@ -37,3 +37,21 @@ in a vector. As such they return the same information as calling
 exact numeric and that you can extract from single elements if the
 cardinality of the geometry exceeds 1.
 }
+\examples{
+# Get squared radius of circle
+circ <- circle(point(4, 7), 25)
+parameter(circ, "r2")
+
+# Get all the x values from the source of segments
+s <- segment(point(sample(10, 4), sample(10, 4)),
+             point(sample(10, 4), sample(10, 4)))
+parameter(s, "x", 1L)
+
+# Get y for all subelements
+parameter(s, "y")
+
+# Extract cell values from transformation matrices
+m <- affine_rotate(c(pi/2, pi/3))
+parameter(m, 1, 2)
+
+}

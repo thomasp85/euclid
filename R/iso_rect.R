@@ -26,9 +26,18 @@
 #' @examples
 #' # Construction
 #' p <- point(sample(10, 2), sample(10, 2))
-#' iso_rect(p[1], p[2])
+#' r <- iso_rect(p[1], p[2])
+#' r
 #'
-#' iso_rect(4, 10, 7, 16)
+#' plot(r)
+#' euclid_plot(p, pch = 16)
+#'
+#' r <- iso_rect(4, 10, 7, 16)
+#' plot(r, bg = "grey", fg = NA)
+#' abline(v = 4, lty = 2)
+#' abline(v = 7, lty = 2)
+#' abline(h = 10, lty = 2)
+#' abline(h = 16, lty = 2)
 #'
 #' circ <- circle(point(5, 9), 13)
 #' iso_rect(bbox(circ))

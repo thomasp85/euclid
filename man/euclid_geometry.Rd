@@ -38,9 +38,7 @@ you expect from normal R vectors. However, they are implemented as external
 pointers to the exact C representation meaning that they cannot be restored
 across sessions or saved to RData/RDS files. Despite being external pointers
 they mimick R's copy-on-modify semantics so you should not worry about side
-effects when changing a geometry vector. Further, since \link{exact_numeric}
-vectors only supports finite values, geometry vectors do not have an \code{NA}
-value.
+effects when changing a geometry vector.
 
 The following is a list of standard R methods defined for geometry
 vectors:
@@ -70,6 +68,21 @@ vector
 
 Do note that since geometries with exact representation is not easily
 hashable, the implementation of \code{unique()} and \code{duplicated()} is not very
-efficient.
+efficient (except for points since they can be sorted).
 }
 
+\examples{
+p <- point(sample(10, 4), sample(10, 4))
+p
+p[2]
+p[3] <- point(14, 20)
+p
+p2 <- c(p, p)
+p2
+unique(p2)
+sort(p)
+rep(p, each = 2)
+as.list(p)
+transform(p, affine_rotate(pi/3))
+
+}

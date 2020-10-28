@@ -25,6 +25,8 @@
 #' s <- segment(p[1:2], p[3:4])
 #' s
 #'
+#' plot(s)
+#'
 #' segment(p[1:2], as_vec(p[3:4]))
 #'
 #' # Flip segments
@@ -36,6 +38,8 @@
 #' as_direction(s)
 #'
 #' as_line(s)
+#' plot(s)
+#' euclid_plot(as_line(s), lty = 2)
 #'
 segment <- function(..., default_dim = 2) {
   inputs <- validate_constructor_input(...)

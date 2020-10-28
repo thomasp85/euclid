@@ -20,6 +20,23 @@
 #'
 #' @export
 #'
+#' @examples
+#' # Get squared radius of circle
+#' circ <- circle(point(4, 7), 25)
+#' parameter(circ, "r2")
+#'
+#' # Get all the x values from the source of segments
+#' s <- segment(point(sample(10, 4), sample(10, 4)),
+#'              point(sample(10, 4), sample(10, 4)))
+#' parameter(s, "x", 1L)
+#'
+#' # Get y for all subelements
+#' parameter(s, "y")
+#'
+#' # Extract cell values from transformation matrices
+#' m <- affine_rotate(c(pi/2, pi/3))
+#' parameter(m, 1, 2)
+#'
 parameter <- function(x, ...) {
   UseMethod("parameter")
 }
@@ -68,5 +85,5 @@ parameter.euclid_affine_transformation <- function(x, i, j, ...) {
   if (length(x) != length(i) || length(x) != length(j)) {
     rlang::abort("`x`, `i`, and `j` must be either scalars or of the same length")
   }
-  new_exact_numeric(transform_definition(get_ptr(x), as.integer(i), as.integer(j)))
+  new_exact_numeric(transform_definition(get_ptr(x), as.integer(i) - 1L, as.integer(j) - 1L))
 }

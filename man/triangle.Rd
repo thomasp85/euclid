@@ -41,7 +41,9 @@ given.
 \examples{
 # Construction
 p <- point(sample(6), sample(6))
-triangle(p[1:2], p[3:4], p[5:6])
+t <- triangle(p[1:2], p[3:4], p[5:6])
+t
+plot(t)
 
 # 3D triangles can be converted to planes
 p <- point(sample(6), sample(6), sample(6))
