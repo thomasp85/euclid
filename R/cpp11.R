@@ -672,6 +672,30 @@ create_plane_triangle <- function(triangle) {
   .Call("_euclid_create_plane_triangle", triangle, PACKAGE = "euclid")
 }
 
+create_point_w_2_empty <- function() {
+  .Call("_euclid_create_point_w_2_empty", PACKAGE = "euclid")
+}
+
+create_point_w_2_x_y_w <- function(x, y, w) {
+  .Call("_euclid_create_point_w_2_x_y_w", x, y, w, PACKAGE = "euclid")
+}
+
+create_point_w_2_p_w <- function(p, w) {
+  .Call("_euclid_create_point_w_2_p_w", p, w, PACKAGE = "euclid")
+}
+
+create_point_w_3_empty <- function() {
+  .Call("_euclid_create_point_w_3_empty", PACKAGE = "euclid")
+}
+
+create_point_w_3_x_y_z_w <- function(x, y, z, w) {
+  .Call("_euclid_create_point_w_3_x_y_z_w", x, y, z, w, PACKAGE = "euclid")
+}
+
+create_point_w_3_p_w <- function(p, w) {
+  .Call("_euclid_create_point_w_3_p_w", p, w, PACKAGE = "euclid")
+}
+
 create_point_2_empty <- function() {
   .Call("_euclid_create_point_2_empty", PACKAGE = "euclid")
 }
@@ -818,30 +842,6 @@ point_turns_right <- function(x, y, z) {
 
 point_turns <- function(x) {
   .Call("_euclid_point_turns", x, PACKAGE = "euclid")
-}
-
-create_point_w_2_empty <- function() {
-  .Call("_euclid_create_point_w_2_empty", PACKAGE = "euclid")
-}
-
-create_point_w_2_x_y_w <- function(x, y, w) {
-  .Call("_euclid_create_point_w_2_x_y_w", x, y, w, PACKAGE = "euclid")
-}
-
-create_point_w_2_p_w <- function(p, w) {
-  .Call("_euclid_create_point_w_2_p_w", p, w, PACKAGE = "euclid")
-}
-
-create_point_w_3_empty <- function() {
-  .Call("_euclid_create_point_w_3_empty", PACKAGE = "euclid")
-}
-
-create_point_w_3_x_y_z_w <- function(x, y, z, w) {
-  .Call("_euclid_create_point_w_3_x_y_z_w", x, y, z, w, PACKAGE = "euclid")
-}
-
-create_point_w_3_p_w <- function(p, w) {
-  .Call("_euclid_create_point_w_3_p_w", p, w, PACKAGE = "euclid")
 }
 
 create_ray_2_empty <- function() {
