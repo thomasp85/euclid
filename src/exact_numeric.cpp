@@ -155,6 +155,9 @@ cpp11::writable::doubles exact_numeric_to_numeric(exact_numeric_p ex_n) {
 }
 
 cpp11::writable::logicals exact_numeric::operator==(const exact_numeric& x) const {
+  if (size() == 0 || x.size() == 0) {
+    return {};
+  }
   size_t output_length = std::max(size(), x.size());
 
   cpp11::writable::logicals result(output_length);
@@ -178,6 +181,9 @@ cpp11::writable::logicals exact_numeric_is_equal(exact_numeric_p ex_n, exact_num
 }
 
 cpp11::writable::logicals exact_numeric::operator<(const exact_numeric& x) const {
+  if (size() == 0 || x.size() == 0) {
+    return {};
+  }
   size_t output_length = std::max(size(), x.size());
 
   cpp11::writable::logicals result(output_length);
@@ -202,6 +208,9 @@ cpp11::writable::logicals exact_numeric_less(exact_numeric_p ex_n, exact_numeric
 
 
 cpp11::writable::logicals exact_numeric::operator>(const exact_numeric& x) const {
+  if (size() == 0 || x.size() == 0) {
+    return {};
+  }
   size_t output_length = std::max(size(), x.size());
 
   cpp11::writable::logicals result(output_length);
@@ -360,6 +369,9 @@ cpp11::writable::integers exact_numeric_match(exact_numeric_p ex_n, exact_numeri
 }
 
 exact_numeric exact_numeric::operator+(const exact_numeric& x) const {
+  if (size() == 0 || x.size() == 0) {
+    return {};
+  }
   size_t output_length = std::max(size(), x.size());
 
   std::vector<Exact_number> result;
@@ -385,6 +397,9 @@ exact_numeric_p exact_numeric_plus(exact_numeric_p ex_n, exact_numeric_p ex_n2) 
 }
 
 exact_numeric exact_numeric::operator-(const exact_numeric& x) const {
+  if (size() == 0 || x.size() == 0) {
+    return {};
+  }
   size_t output_length = std::max(size(), x.size());
 
   std::vector<Exact_number> result;
@@ -433,6 +448,9 @@ exact_numeric_p exact_numeric_uni_minus(exact_numeric_p ex_n) {
 }
 
 exact_numeric exact_numeric::operator*(const exact_numeric& x) const {
+  if (size() == 0 || x.size() == 0) {
+    return {};
+  }
   size_t output_length = std::max(size(), x.size());
 
   std::vector<Exact_number> result;
@@ -458,6 +476,9 @@ exact_numeric_p exact_numeric_times(exact_numeric_p ex_n, exact_numeric_p ex_n2)
 }
 
 exact_numeric exact_numeric::operator/(const exact_numeric& x) const {
+  if (size() == 0 || x.size() == 0) {
+    return {};
+  }
   size_t output_length = std::max(size(), x.size());
 
   std::vector<Exact_number> result;

@@ -8,7 +8,7 @@ inline bool is_degenerate_impl(const T& geo) {
 }
 template<>
 inline bool is_degenerate_impl<Circle_3>(const Circle_3& geo) {
-  return geo.squared_radius() == 0.0;
+  return geo.squared_radius() == 0.0 || geo.supporting_plane().is_degenerate();
 }
 template<>
 inline bool is_degenerate_impl<Point_2>(const Point_2& geo) {
@@ -41,4 +41,9 @@ inline bool is_degenerate_impl<Weighted_point_2>(const Weighted_point_2& geo) {
 template<>
 inline bool is_degenerate_impl<Weighted_point_3>(const Weighted_point_3& geo) {
   return false;
+}
+
+template<typename T>
+inline bool invalid_geo(const T& geo) {
+  return !geo.is_valid() || is_degenerate_impl(geo);
 }

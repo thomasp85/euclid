@@ -2,6 +2,7 @@
 
 #include "cgal_types.h"
 #include "geometry_vector.h"
+#include "is_degenerate.h"
 #include <cpp11/list.hpp>
 #include <CGAL/intersections.h>
 #include <boost/variant/apply_visitor.hpp>
@@ -64,11 +65,14 @@ struct Intersection_visitor {
 
 template<typename T, typename U>
 inline cpp11::writable::list intersection_impl(const std::vector<T>& geo1, const std::vector<U>& geo2) {
+  if (geo1.size() == 0 || geo2.size() == 0) {
+    return {};
+  }
   size_t output_size = std::max(geo1.size(), geo2.size());
   cpp11::writable::list result;
   result.reserve(output_size);
   for (size_t i = 0; i < output_size; ++i) {
-    if (!geo1[i % geo1.size()] || !geo2[i % geo2.size()]) {
+    if (invalid_geo(geo1[i % geo1.size()]) || invalid_geo(geo2[i % geo2.size()])) {
       result.push_back(R_NilValue);
       continue;
     }
@@ -84,11 +88,14 @@ inline cpp11::writable::list intersection_impl(const std::vector<T>& geo1, const
 
 template<typename T, typename U>
 inline cpp11::writable::logicals do_intersect_impl(const std::vector<T>& geo1, const std::vector<U>& geo2) {
+  if (geo1.size() == 0 || geo2.size() == 0) {
+    return {};
+  }
   size_t output_size = std::max(geo1.size(), geo2.size());
   cpp11::writable::logicals result;
   result.reserve(output_size);
   for (size_t i = 0; i < output_size; ++i) {
-    if (!geo1[i % geo1.size()] || !geo2[i % geo2.size()]) {
+    if (invalid_geo(geo1[i % geo1.size()]) || invalid_geo(geo2[i % geo2.size()])) {
       result.push_back(NA_LOGICAL);
       continue;
     }

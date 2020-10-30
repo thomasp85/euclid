@@ -73,6 +73,9 @@ public:
   }
 
   cpp11::writable::logicals operator<(const std::vector<Direction_2>& other) const {
+    if (size() == 0 || other.size() == 0) {
+      return {};
+    }
     size_t final_size = std::max(size(), other.size());
     cpp11::writable::logicals result;
     result.reserve(final_size);
@@ -86,6 +89,9 @@ public:
     return result;
   }
   cpp11::writable::logicals operator>(const std::vector<Direction_2>& other) const {
+    if (size() == 0 || other.size() == 0) {
+      return {};
+    }
     size_t final_size = std::max(size(), other.size());
     cpp11::writable::logicals result;
     result.reserve(final_size);
@@ -236,6 +242,9 @@ public:
     return {result};
   }
   cpp11::writable::logicals between(const direction2& d1, const direction2& d2) const {
+    if (size() == 0 || d1.size() == 0 || d2.size() == 0) {
+      return {};
+    }
     size_t final_size = std::max(std::max(size(), d1.size()), d2.size());
     cpp11::writable::logicals result;
     result.reserve(final_size);

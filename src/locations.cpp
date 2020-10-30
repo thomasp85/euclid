@@ -9,6 +9,9 @@ geometry_vector_base_p geometry_barycenter_2(geometry_vector_base_p p1, geometry
     auto vec2 = get_vector_of_geo<Weighted_point_2>(*p2);
     size_t output_size = std::max(vec1.size(), vec2.size());
     std::vector<Point_2> result;
+    if (vec1.size() == 0 || vec2.size() == 0) {
+      return create_geometry_vector(result);
+    }
     result.reserve(output_size);
     for (size_t i = 0; i < output_size; ++i) {
       Weighted_point_2 wp1 = vec1[i % vec1.size()];
@@ -25,6 +28,9 @@ geometry_vector_base_p geometry_barycenter_2(geometry_vector_base_p p1, geometry
     auto vec2 = get_vector_of_geo<Weighted_point_3>(*p2);
     size_t output_size = std::max(vec1.size(), vec2.size());
     std::vector<Point_3> result;
+    if (vec1.size() == 0 || vec2.size() == 0) {
+      return create_geometry_vector(result);
+    }
     result.reserve(output_size);
     for (size_t i = 0; i < output_size; ++i) {
       Weighted_point_3 wp1 = vec1[i % vec1.size()];
@@ -47,6 +53,9 @@ geometry_vector_base_p geometry_barycenter_3(geometry_vector_base_p p1, geometry
     auto vec3 = get_vector_of_geo<Weighted_point_2>(*p3);
     size_t output_size = std::max(std::max(vec1.size(), vec2.size()), vec3.size());
     std::vector<Point_2> result;
+    if (vec1.size() == 0 || vec2.size() == 0 || vec3.size() == 0) {
+      return create_geometry_vector(result);
+    }
     result.reserve(output_size);
     for (size_t i = 0; i < output_size; ++i) {
       Weighted_point_2 wp1 = vec1[i % vec1.size()];
@@ -65,6 +74,9 @@ geometry_vector_base_p geometry_barycenter_3(geometry_vector_base_p p1, geometry
     auto vec3 = get_vector_of_geo<Weighted_point_3>(*p3);
     size_t output_size = std::max(std::max(vec1.size(), vec2.size()), vec3.size());
     std::vector<Point_3> result;
+    if (vec1.size() == 0 || vec2.size() == 0 || vec3.size() == 0) {
+      return create_geometry_vector(result);
+    }
     result.reserve(output_size);
     for (size_t i = 0; i < output_size; ++i) {
       Weighted_point_3 wp1 = vec1[i % vec1.size()];
@@ -89,6 +101,9 @@ geometry_vector_base_p geometry_barycenter_4(geometry_vector_base_p p1, geometry
     auto vec4 = get_vector_of_geo<Weighted_point_2>(*p4);
     size_t output_size = std::max(std::max(std::max(vec1.size(), vec2.size()), vec3.size()), vec4.size());
     std::vector<Point_2> result;
+    if (vec1.size() == 0 || vec2.size() == 0 || vec3.size() == 0 || vec4.size() == 0 {
+      return create_geometry_vector(result);
+    }
     result.reserve(output_size);
     for (size_t i = 0; i < output_size; ++i) {
       Weighted_point_2 wp1 = vec1[i % vec1.size()];
@@ -109,6 +124,9 @@ geometry_vector_base_p geometry_barycenter_4(geometry_vector_base_p p1, geometry
     auto vec4 = get_vector_of_geo<Weighted_point_3>(*p4);
     size_t output_size = std::max(std::max(std::max(vec1.size(), vec2.size()), vec3.size()), vec4.size());
     std::vector<Point_3> result;
+    if (vec1.size() == 0 || vec2.size() == 0 || vec3.size() == 0 || vec4.size() == 0 {
+      return create_geometry_vector(result);
+    }
     result.reserve(output_size);
     for (size_t i = 0; i < output_size; ++i) {
       Weighted_point_3 wp1 = vec1[i % vec1.size()];
@@ -130,6 +148,9 @@ geometry_vector_base_p geometry_bisector(geometry_vector_base_p geo1, geometry_v
   size_t output_size = std::max(geo1->size(), geo2->size());
   if (geo1->dimensions() == 2) {
     std::vector<Line_2> result;
+    if (geo1->size() == 0 || geo2->size() == 0) {
+      return create_geometry_vector(result);
+    }
     result.reserve(output_size);
     switch (geo1->geometry_type()) {
     case POINT: {
@@ -160,6 +181,9 @@ geometry_vector_base_p geometry_bisector(geometry_vector_base_p geo1, geometry_v
     return create_geometry_vector(result);
   } else {
     std::vector<Plane> result;
+    if (geo1->size() == 0 || geo2->size() == 0) {
+      return create_geometry_vector(result);
+    }
     result.reserve(output_size);
     switch (geo1->geometry_type()) {
     case POINT: {
@@ -246,6 +270,9 @@ geometry_vector_base_p geometry_centroid_3(geometry_vector_base_p p1, geometry_v
     auto vec3 = get_vector_of_geo<Point_2>(*p3);
     size_t output_size = std::max(std::max(vec1.size(), vec2.size()), vec3.size());
     std::vector<Point_2> result;
+    if (vec1.size() == 0 || vec2.size() == 0 || vec3.size() == 0) {
+      return create_geometry_vector(result);
+    }
     result.reserve(output_size);
     for (size_t i = 0; i < output_size; ++i) {
       Point_2 wp1 = vec1[i % vec1.size()];
@@ -264,6 +291,9 @@ geometry_vector_base_p geometry_centroid_3(geometry_vector_base_p p1, geometry_v
     auto vec3 = get_vector_of_geo<Point_3>(*p3);
     size_t output_size = std::max(std::max(vec1.size(), vec2.size()), vec3.size());
     std::vector<Point_3> result;
+    if (vec1.size() == 0 || vec2.size() == 0 || vec3.size() == 0) {
+      return create_geometry_vector(result);
+    }
     result.reserve(output_size);
     for (size_t i = 0; i < output_size; ++i) {
       Point_3 wp1 = vec1[i % vec1.size()];
@@ -288,6 +318,9 @@ geometry_vector_base_p geometry_centroid_4(geometry_vector_base_p p1, geometry_v
     auto vec4 = get_vector_of_geo<Point_2>(*p4);
     size_t output_size = std::max(std::max(std::max(vec1.size(), vec2.size()), vec3.size()), vec4.size());
     std::vector<Point_2> result;
+    if (vec1.size() == 0 || vec2.size() == 0 || vec3.size() == 0 || vec4.size() == 0) {
+      return create_geometry_vector(result);
+    }
     result.reserve(output_size);
     for (size_t i = 0; i < output_size; ++i) {
       Point_2 wp1 = vec1[i % vec1.size()];
@@ -308,6 +341,9 @@ geometry_vector_base_p geometry_centroid_4(geometry_vector_base_p p1, geometry_v
     auto vec4 = get_vector_of_geo<Point_3>(*p4);
     size_t output_size = std::max(std::max(std::max(vec1.size(), vec2.size()), vec3.size()), vec4.size());
     std::vector<Point_3> result;
+    if (vec1.size() == 0 || vec2.size() == 0 || vec3.size() == 0 || vec4.size() == 0) {
+      return create_geometry_vector(result);
+    }
     result.reserve(output_size);
     for (size_t i = 0; i < output_size; ++i) {
       Point_3 wp1 = vec1[i % vec1.size()];
@@ -328,6 +364,9 @@ geometry_vector_base_p geometry_centroid_4(geometry_vector_base_p p1, geometry_v
 geometry_vector_base_p geometry_equidistant_line(point3_p p1, point3_p p2, point3_p p3) {
   size_t output_size = std::max(std::max(p1->size(), p2->size()), p3->size());
   std::vector<Line_3> result;
+  if (p1->size() == 0 || p2->size() == 0 || p3->size() == 0) {
+    return create_geometry_vector(result);
+  }
   result.reserve(output_size);
   for (size_t i = 0; i < output_size; ++i) {
     if (!(*p1)[i % p1->size()] || !(*p2)[i % p2->size()] || !(*p3)[i % p3->size()] ||
@@ -347,6 +386,9 @@ geometry_vector_base_p geometry_radical_geometry(geometry_vector_base_p geo1, ge
     auto s1 = get_vector_of_geo<Sphere>(*geo1);
     auto s2 = get_vector_of_geo<Sphere>(*geo2);
     std::vector<Plane> result;
+    if (s1.size() == 0 || s2.size() == 0) {
+      return create_geometry_vector(result);
+    }
     result.reserve(output_size);
     for (size_t i = 0; i < output_size; ++i) {
       if (!s1[i % s1.size()] || !s2[i % s2.size()] ||
@@ -361,6 +403,9 @@ geometry_vector_base_p geometry_radical_geometry(geometry_vector_base_p geo1, ge
     auto c1 = get_vector_of_geo<Circle_2>(*geo1);
     auto c2 = get_vector_of_geo<Circle_2>(*geo2);
     std::vector<Line_2> result;
+    if (c1.size() == 0 || c2.size() == 0) {
+      return create_geometry_vector(result);
+    }
     result.reserve(output_size);
     for (size_t i = 0; i < output_size; ++i) {
       if (!c1[i % c1.size()] || !c2[i % c2.size()] ||

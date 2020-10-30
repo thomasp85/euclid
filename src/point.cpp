@@ -267,6 +267,9 @@ point3_p point_3_cummax(point3_p x) {
 
 [[cpp11::register]]
 cpp11::writable::logicals point_collinear(geometry_vector_base_p x, geometry_vector_base_p y, geometry_vector_base_p z) {
+  if (x->size() == 0 || y->size() == 0 || z->size() == 0) {
+    return {};
+  }
   size_t output_size = std::max(std::max(x->size(), y->size()), z->size());
   cpp11::writable::logicals result;
   result.reserve(output_size);
@@ -298,6 +301,9 @@ cpp11::writable::logicals point_collinear(geometry_vector_base_p x, geometry_vec
 
 [[cpp11::register]]
 cpp11::writable::logicals point_coplanar(point3_p x, point3_p y, point3_p z, point3_p t) {
+  if (x->size() == 0 || y->size() == 0 || z->size() == 0 || t->size() == 0) {
+    return {};
+  }
   size_t output_size = std::max(std::max(std::max(x->size(), y->size()), z->size()), t->size());
   cpp11::writable::logicals result;
   result.reserve(output_size);
@@ -313,6 +319,9 @@ cpp11::writable::logicals point_coplanar(point3_p x, point3_p y, point3_p z, poi
 
 [[cpp11::register]]
 cpp11::writable::logicals point_ordered(geometry_vector_base_p x, geometry_vector_base_p y, geometry_vector_base_p z) {
+  if (x->size() == 0 || y->size() == 0 || z->size() == 0) {
+    return {};
+  }
   size_t output_size = std::max(std::max(x->size(), y->size()), z->size());
   cpp11::writable::logicals result;
   result.reserve(output_size);
@@ -344,6 +353,9 @@ cpp11::writable::logicals point_ordered(geometry_vector_base_p x, geometry_vecto
 
 [[cpp11::register]]
 cpp11::writable::logicals point_ordered_along(geometry_vector_base_p x) {
+  if (x->size() < 3) {
+    return {};
+  }
   cpp11::writable::logicals result;
   result.reserve(x->size() - 2);
   if (x->dimensions() == 2) {
@@ -376,6 +388,9 @@ cpp11::writable::logicals point_ordered_along(geometry_vector_base_p x) {
 
 [[cpp11::register]]
 cpp11::writable::logicals point_turns_left(point2_p x, point2_p y, point2_p z) {
+  if (x->size() == 0 || y->size() == 0 || z->size() == 0) {
+    return {};
+  }
   size_t output_size = std::max(std::max(x->size(), y->size()), z->size());
   cpp11::writable::logicals result;
   result.reserve(output_size);
@@ -391,6 +406,9 @@ cpp11::writable::logicals point_turns_left(point2_p x, point2_p y, point2_p z) {
 
 [[cpp11::register]]
 cpp11::writable::logicals point_turns_right(point2_p x, point2_p y, point2_p z) {
+  if (x->size() == 0 || y->size() == 0 || z->size() == 0) {
+    return {};
+  }
   size_t output_size = std::max(std::max(x->size(), y->size()), z->size());
   cpp11::writable::logicals result;
   result.reserve(output_size);
@@ -406,6 +424,9 @@ cpp11::writable::logicals point_turns_right(point2_p x, point2_p y, point2_p z) 
 
 [[cpp11::register]]
 cpp11::writable::integers point_turns(point2_p x) {
+  if (x->size() < 3) {
+    return {};
+  }
   cpp11::writable::integers result;
   result.reserve(x->size() - 2);
   for (size_t i = 0; i < x->size() - 2; ++i) {

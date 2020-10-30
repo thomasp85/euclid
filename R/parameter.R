@@ -66,6 +66,8 @@ parameter.euclid_geometry <- function(x, which, element = NA, ...) {
     if (any(element > cardinality(x))) {
       rlang::abort("Trying to use an element index larger than the geometry cardinality")
     }
+  } else {
+    element <- NA_integer_
   }
   new_exact_numeric(geometry_definition(get_ptr(x), index - 1L, element - 1L))
 }

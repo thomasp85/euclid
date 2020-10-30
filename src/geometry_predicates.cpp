@@ -1,4 +1,5 @@
 #include "geometry_vector.h"
+#include "is_degenerate.h"
 
 #include <cpp11/integers.hpp>
 #include <cpp11/logicals.hpp>
@@ -40,6 +41,9 @@ cpp11::writable::logicals geometry_constant_in(geometry_vector_base_p geometries
 
 [[cpp11::register]]
 cpp11::writable::logicals geometry_parallel(geometry_vector_base_p geo1, geometry_vector_base_p geo2) {
+  if (geo1->size() == 0 || geo2->size() == 0) {
+    return {};
+  }
   size_t output_size = std::max(geo1->size(), geo2->size());
   cpp11::writable::logicals result;
   result.reserve(output_size);
@@ -49,7 +53,7 @@ cpp11::writable::logicals geometry_parallel(geometry_vector_base_p geo1, geometr
       auto l1 = get_vector_of_geo<Line_2>(*geo1);
       auto l2 = get_vector_of_geo<Line_2>(*geo2);
       for (size_t i = 0; i < output_size; ++i) {
-        if (!l1[i % l1.size()] || !l2[i % l2.size()]) {
+        if (invalid_geo(l1[i % l1.size()]) || invalid_geo(l2[i % l2.size()])) {
           result.push_back(NA_LOGICAL);
           continue;
         }
@@ -61,7 +65,7 @@ cpp11::writable::logicals geometry_parallel(geometry_vector_base_p geo1, geometr
       auto l1 = get_vector_of_geo<Ray_2>(*geo1);
       auto l2 = get_vector_of_geo<Ray_2>(*geo2);
       for (size_t i = 0; i < output_size; ++i) {
-        if (!l1[i % l1.size()] || !l2[i % l2.size()]) {
+        if (invalid_geo(l1[i % l1.size()]) || invalid_geo(l2[i % l2.size()])) {
           result.push_back(NA_LOGICAL);
           continue;
         }
@@ -73,7 +77,7 @@ cpp11::writable::logicals geometry_parallel(geometry_vector_base_p geo1, geometr
       auto l1 = get_vector_of_geo<Segment_2>(*geo1);
       auto l2 = get_vector_of_geo<Segment_2>(*geo2);
       for (size_t i = 0; i < output_size; ++i) {
-        if (!l1[i % l1.size()] || !l2[i % l2.size()]) {
+        if (invalid_geo(l1[i % l1.size()]) || invalid_geo(l2[i % l2.size()])) {
           result.push_back(NA_LOGICAL);
           continue;
         }
@@ -89,7 +93,7 @@ cpp11::writable::logicals geometry_parallel(geometry_vector_base_p geo1, geometr
       auto l1 = get_vector_of_geo<Line_3>(*geo1);
       auto l2 = get_vector_of_geo<Line_3>(*geo2);
       for (size_t i = 0; i < output_size; ++i) {
-        if (!l1[i % l1.size()] || !l2[i % l2.size()]) {
+        if (invalid_geo(l1[i % l1.size()]) || invalid_geo(l2[i % l2.size()])) {
           result.push_back(NA_LOGICAL);
           continue;
         }
@@ -101,7 +105,7 @@ cpp11::writable::logicals geometry_parallel(geometry_vector_base_p geo1, geometr
       auto l1 = get_vector_of_geo<Plane>(*geo1);
       auto l2 = get_vector_of_geo<Plane>(*geo2);
       for (size_t i = 0; i < output_size; ++i) {
-        if (!l1[i % l1.size()] || !l2[i % l2.size()]) {
+        if (invalid_geo(l1[i % l1.size()]) || invalid_geo(l2[i % l2.size()])) {
           result.push_back(NA_LOGICAL);
           continue;
         }
@@ -113,7 +117,7 @@ cpp11::writable::logicals geometry_parallel(geometry_vector_base_p geo1, geometr
       auto l1 = get_vector_of_geo<Ray_3>(*geo1);
       auto l2 = get_vector_of_geo<Ray_3>(*geo2);
       for (size_t i = 0; i < output_size; ++i) {
-        if (!l1[i % l1.size()] || !l2[i % l2.size()]) {
+        if (invalid_geo(l1[i % l1.size()]) || invalid_geo(l2[i % l2.size()])) {
           result.push_back(NA_LOGICAL);
           continue;
         }
@@ -125,7 +129,7 @@ cpp11::writable::logicals geometry_parallel(geometry_vector_base_p geo1, geometr
       auto l1 = get_vector_of_geo<Segment_3>(*geo1);
       auto l2 = get_vector_of_geo<Segment_3>(*geo2);
       for (size_t i = 0; i < output_size; ++i) {
-        if (!l1[i % l1.size()] || !l2[i % l2.size()]) {
+        if (invalid_geo(l1[i % l1.size()]) || invalid_geo(l2[i % l2.size()])) {
           result.push_back(NA_LOGICAL);
           continue;
         }

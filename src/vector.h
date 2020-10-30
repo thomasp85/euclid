@@ -62,6 +62,9 @@ public:
   std::vector<Vector_2> operator+(const std::vector<Vector_2>& other) const {
     size_t final_size = std::max(size(), other.size());
     std::vector<Vector_2> result;
+    if (size() == 0 || other.size() == 0) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
@@ -75,6 +78,9 @@ public:
   std::vector<Vector_2> operator-(const std::vector<Vector_2>& other) const {
     size_t final_size = std::max(size(), other.size());
     std::vector<Vector_2> result;
+    if (size() == 0 || other.size() == 0) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
@@ -100,6 +106,9 @@ public:
   std::vector<Exact_number> operator*(const std::vector<Vector_2>& other) const {
     size_t final_size = std::max(size(), other.size());
     std::vector<Exact_number> result;
+    if (size() == 0 || other.size() == 0) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
@@ -113,6 +122,9 @@ public:
   std::vector<Vector_2> operator*(const std::vector<Exact_number>& other) const {
     size_t final_size = std::max(size(), other.size());
     std::vector<Vector_2> result;
+    if (size() == 0 || other.size() == 0) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
@@ -126,6 +138,9 @@ public:
   std::vector<Vector_2> operator/(const std::vector<Exact_number>& other) const {
     size_t final_size = std::max(size(), other.size());
     std::vector<Vector_2> result;
+    if (size() == 0 || other.size() == 0) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()] || other[i % other.size()] == 0.0) {
@@ -240,6 +255,9 @@ public:
   std::vector<Vector_3> operator+(const std::vector<Vector_3>& other) const {
     size_t final_size = std::max(size(), other.size());
     std::vector<Vector_3> result;
+    if (size() == 0 || other.size() == 0) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
@@ -253,6 +271,9 @@ public:
   std::vector<Vector_3> operator-(const std::vector<Vector_3>& other) const {
     size_t final_size = std::max(size(), other.size());
     std::vector<Vector_3> result;
+    if (size() == 0 || other.size() == 0) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
@@ -278,6 +299,9 @@ public:
   std::vector<Exact_number> operator*(const std::vector<Vector_3>& other) const {
     size_t final_size = std::max(size(), other.size());
     std::vector<Exact_number> result;
+    if (size() == 0 || other.size() == 0) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
@@ -291,6 +315,9 @@ public:
   std::vector<Vector_3> operator*(const std::vector<Exact_number>& other) const {
     size_t final_size = std::max(size(), (size_t) other.size());
     std::vector<Vector_3> result;
+    if (size() == 0 || other.size() == 0) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
@@ -304,6 +331,9 @@ public:
   std::vector<Vector_3> operator/(const std::vector<Exact_number>& other) const {
     size_t final_size = std::max(size(), (size_t) other.size());
     std::vector<Vector_3> result;
+    if (size() == 0 || other.size() == 0) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()] || other[i % other.size()] == 0.0) {

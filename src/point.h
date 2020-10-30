@@ -98,6 +98,9 @@ public:
   std::vector<Point_2> operator+(const std::vector<Vector_2>& other) const {
     size_t final_size = std::max(size(), other.size());
     std::vector<Point_2> result;
+    if (size() == 0 || other.size()) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
@@ -111,6 +114,9 @@ public:
   std::vector<Point_2> operator-(const std::vector<Vector_2>& other) const {
     size_t final_size = std::max(size(), other.size());
     std::vector<Point_2> result;
+    if (size() == 0 || other.size()) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
@@ -124,6 +130,9 @@ public:
   std::vector<Vector_2> operator-(const std::vector<Point_2>& other) const {
     size_t final_size = std::max(size(), other.size());
     std::vector<Vector_2> result;
+    if (size() == 0 || other.size()) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
@@ -137,6 +146,9 @@ public:
   cpp11::writable::logicals operator<(const std::vector<Point_2>& other) const {
     size_t final_size = std::max(size(), other.size());
     cpp11::writable::logicals result;
+    if (size() == 0 || other.size()) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
@@ -150,6 +162,9 @@ public:
   cpp11::writable::logicals operator>(const std::vector<Point_2>& other) const {
     size_t final_size = std::max(size(), other.size());
     cpp11::writable::logicals result;
+    if (size() == 0 || other.size()) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
@@ -399,6 +414,9 @@ public:
   std::vector<Point_3> operator+(const std::vector<Vector_3>& other) const {
     size_t final_size = std::max(size(), other.size());
     std::vector<Point_3> result;
+    if (size() == 0 || other.size()) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
@@ -412,6 +430,9 @@ public:
   std::vector<Point_3> operator-(const std::vector<Vector_3>& other) const {
     size_t final_size = std::max(size(), other.size());
     std::vector<Point_3> result;
+    if (size() == 0 || other.size()) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
@@ -425,6 +446,9 @@ public:
   std::vector<Vector_3> operator-(const std::vector<Point_3>& other) const {
     size_t final_size = std::max(size(), other.size());
     std::vector<Vector_3> result;
+    if (size() == 0 || other.size()) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
@@ -438,6 +462,9 @@ public:
   cpp11::writable::logicals operator<(const std::vector<Point_3>& other) const {
     size_t final_size = std::max(size(), other.size());
     cpp11::writable::logicals result;
+    if (size() == 0 || other.size()) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {
@@ -451,6 +478,9 @@ public:
   cpp11::writable::logicals operator>(const std::vector<Point_3>& other) const {
     size_t final_size = std::max(size(), other.size());
     cpp11::writable::logicals result;
+    if (size() == 0 || other.size()) {
+      return result;
+    }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
       if (!_storage[i % size()] || !other[i % other.size()]) {

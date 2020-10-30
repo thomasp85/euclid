@@ -1,6 +1,7 @@
 #pragma once
 
 #include "cgal_types.h"
+#include "is_degenerate.h"
 
 #include <CGAL/squared_distance_2.h>
 #include <CGAL/squared_distance_3.h>
@@ -9,11 +10,14 @@
 
 template<typename T, typename U>
 inline std::vector<Exact_number> squared_distance_impl(const std::vector<T>& geo1, const std::vector<U>& geo2) {
+  if (geo1.size() == 0 || geo2.size() == 0) {
+    return {};
+  }
   size_t output_size = std::max(geo1.size(), geo2.size());
   std::vector<Exact_number> res;
   res.reserve(output_size);
   for (size_t i = 0; i < output_size; ++i) {
-    if (!geo1[i % geo1.size()] || !geo2[i % geo2.size()]) {
+    if (invalid_geo(geo1[i % geo1.size()]) || invalid_geo(geo2[i % geo2.size()])) {
       res.push_back(Exact_number::NA_value());
       continue;
     }
@@ -37,7 +41,7 @@ inline cpp11::writable::doubles_matrix distance_matrix_impl(const std::vector<T>
   cpp11::writable::doubles_matrix res(geo1.size(), geo2.size());
   for (size_t i = 0; i < geo1.size(); ++i) {
     for (size_t j = 0; j < geo2.size(); ++j) {
-      if (!geo1[i] || !geo2[j]) {
+      if (invalid_geo(geo1[i]) || invalid_geo(geo2[j])) {
         res(i, j) = R_NaReal;
         continue;
       }

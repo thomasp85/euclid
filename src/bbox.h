@@ -185,6 +185,9 @@ public:
 
   // Equality
   cpp11::writable::logicals operator==(const bbox_vector_base& other) const {
+    if (size() == 0 || other.size() == 0) {
+      return {};
+    }
     size_t output_length = std::max(size(), other.size());
 
     cpp11::writable::logicals result(output_length);
@@ -216,6 +219,9 @@ public:
     }
 
     std::vector<T> result;
+    if (size() == 0 || other.size() == 0) {
+      return create_bbox_vector(result);
+    }
     result.reserve(output_length);
 
     const bbox_vector<T, dim>* other_recast = dynamic_cast< const bbox_vector<T, dim>* >(&other);
@@ -243,7 +249,7 @@ public:
   // Subsetting, assignment, combining etc
   bbox_vector_base_p subset(cpp11::integers index) const {
     std::vector<T> new_storage;
-    new_storage.reserve(size());
+    new_storage.reserve(index.size());
     for (R_xlen_t i = 0; i < index.size(); ++i) {
       if (index[i] == R_NaInt) {
         new_storage.push_back(T::NA_value());
@@ -363,10 +369,10 @@ public:
     return anyone;
   }
   cpp11::writable::integers match(const bbox_vector_base& table) const {
-    cpp11::writable::integers results;
-    results.reserve(size());
-
     if (typeid(*this) != typeid(table)) {
+      cpp11::writable::integers results;
+      results.reserve(size());
+
       for (size_t i = 0; i < size(); ++i) {
         results.push_back(R_NaInt);
       }
@@ -398,6 +404,9 @@ public:
 
   // Misc
   cpp11::writable::logicals overlaps(const bbox_vector_base& other) const {
+    if (size() == 0 || other.size() == 0) {
+      return {};
+    }
     size_t output_length = std::max(size(), other.size());
 
     cpp11::writable::logicals result(output_length);

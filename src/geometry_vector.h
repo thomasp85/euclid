@@ -332,6 +332,9 @@ public:
   cpp11::external_pointer<geometry_vector_base> vertex(cpp11::integers which) const {
     std::vector<Point> vertices;
     size_t max_size = std::max(size(), (size_t) which.size());
+    if (size() == 0 || which.size() == 0) {
+      return create_geometry_vector(vertices);
+    }
     vertices.reserve(max_size);
     for (size_t i = 0; i < max_size; ++i) {
       if (!_storage[i % size()] || which[i % which.size()] == R_NaInt) {
@@ -344,6 +347,9 @@ public:
 
   // Equality
   cpp11::writable::logicals operator==(const geometry_vector_base& other) const {
+    if (size() == 0 || other.size() == 0) {
+      return {};
+    }
     size_t output_length = std::max(size(), other.size());
 
     cpp11::writable::logicals result(output_length);
@@ -382,7 +388,7 @@ public:
   // Subsetting, assignment, combining etc
   geometry_vector_base_p subset(cpp11::integers index) const {
     std::vector<T> new_storage;
-    new_storage.reserve(size());
+    new_storage.reserve(index.size());
     for (R_xlen_t i = 0; i < index.size(); ++i) {
       if (index[i] == R_NaInt) {
         new_storage.push_back(T::NA_value());
@@ -501,10 +507,9 @@ public:
     return anyone;
   }
   cpp11::writable::integers match(const geometry_vector_base& table) const {
-    cpp11::writable::integers results;
-    results.reserve(size());
-
     if (typeid(*this) != typeid(table)) {
+      cpp11::writable::integers results;
+      results.reserve(size());
       for (size_t i = 0; i < size(); ++i) {
         results.push_back(R_NaInt);
       }
@@ -548,6 +553,9 @@ public:
     return result;
   }
   cpp11::writable::logicals has_inside(const geometry_vector_base& points) const {
+    if (size() == 0 || points.size() == 0) {
+      return {};
+    }
     if (dim != points.dimensions()) {
       cpp11::stop("points must match dimensionality of geometry");
     }
@@ -556,7 +564,7 @@ public:
     result.reserve(output_length);
     auto points_vec = get_vector_of_geo<Point>(points);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !points_vec[i % points_vec.size()]) {
+      if (invalid_geo(_storage[i % size()]) || !points_vec[i % points_vec.size()]) {
         result.push_back(NA_LOGICAL);
         continue;
       }
@@ -565,6 +573,9 @@ public:
     return result;
   }
   cpp11::writable::logicals has_on(const geometry_vector_base& points) const {
+    if (size() == 0 || points.size() == 0) {
+      return {};
+    }
     if (dim != points.dimensions()) {
       cpp11::stop("points must match dimensionality of geometry");
     }
@@ -573,7 +584,7 @@ public:
     result.reserve(output_length);
     auto points_vec = get_vector_of_geo<Point>(points);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !points_vec[i % points_vec.size()]) {
+      if (invalid_geo(_storage[i % size()]) || !points_vec[i % points_vec.size()]) {
         result.push_back(NA_LOGICAL);
         continue;
       }
@@ -582,6 +593,9 @@ public:
     return result;
   }
   cpp11::writable::logicals has_outside(const geometry_vector_base& points) const {
+    if (size() == 0 || points.size() == 0) {
+      return {};
+    }
     if (dim != points.dimensions()) {
       cpp11::stop("points must match dimensionality of geometry");
     }
@@ -590,7 +604,7 @@ public:
     result.reserve(output_length);
     auto points_vec = get_vector_of_geo<Point>(points);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !points_vec[i % points_vec.size()]) {
+      if (invalid_geo(_storage[i % size()]) || !points_vec[i % points_vec.size()]) {
         result.push_back(NA_LOGICAL);
         continue;
       }
@@ -599,6 +613,9 @@ public:
     return result;
   }
   cpp11::writable::logicals has_on_positive(const geometry_vector_base& points) const {
+    if (size() == 0 || points.size() == 0) {
+      return {};
+    }
     if (dim != points.dimensions()) {
       cpp11::stop("points must match dimensionality of geometry");
     }
@@ -607,7 +624,7 @@ public:
     result.reserve(output_length);
     auto points_vec = get_vector_of_geo<Point>(points);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !points_vec[i % points_vec.size()]) {
+      if (invalid_geo(_storage[i % size()]) || !points_vec[i % points_vec.size()]) {
         result.push_back(NA_LOGICAL);
         continue;
       }
@@ -616,6 +633,9 @@ public:
     return result;
   }
   cpp11::writable::logicals has_on_negative(const geometry_vector_base& points) const {
+    if (size() == 0 || points.size() == 0) {
+      return {};
+    }
     if (dim != points.dimensions()) {
       cpp11::stop("points must match dimensionality of geometry");
     }
@@ -624,7 +644,7 @@ public:
     result.reserve(output_length);
     auto points_vec = get_vector_of_geo<Point>(points);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !points_vec[i % points_vec.size()]) {
+      if (invalid_geo(_storage[i % size()]) || !points_vec[i % points_vec.size()]) {
         result.push_back(NA_LOGICAL);
         continue;
       }
@@ -633,11 +653,14 @@ public:
     return result;
   }
   cpp11::writable::logicals constant_in(cpp11::integers coord) const {
+    if (size() == 0 || coord.size() == 0) {
+      return {};
+    }
     size_t output_length = std::max(size(), (size_t) coord.size());
     cpp11::writable::logicals result;
     result.reserve(output_length);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || coord[i % coord.size()] == R_NaInt) {
+      if (invalid_geo(_storage[i % size()]) || coord[i % coord.size()] == R_NaInt) {
         result.push_back(NA_LOGICAL);
         continue;
       }
@@ -652,7 +675,7 @@ public:
     result.reserve(size());
 
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (invalid_geo(_storage[i])) {
         result.push_back(R_NaReal);
         continue;
       }
@@ -666,7 +689,7 @@ public:
     result.reserve(size());
 
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (invalid_geo(_storage[i])) {
         result.push_back(R_NaReal);
         continue;
       }
@@ -680,7 +703,7 @@ public:
     result.reserve(size());
 
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (invalid_geo(_storage[i])) {
         result.push_back(R_NaReal);
         continue;
       }
@@ -692,12 +715,17 @@ public:
 
   // Common
   geometry_vector_base_p transform(const transform_vector_base& affine) const {
+    std::vector<T> result;
+
+    if (size() == 0 || affine.size() == 0) {
+      return create_geometry_vector(result);
+    }
+
     if (dim != affine.dimensions()) {
       cpp11::stop("Transform matrix must match dimensionality of geometry");
     }
     size_t output_length = std::max(size(), affine.size());
 
-    std::vector<T> result;
     result.reserve(output_length);
 
     const transform_vector<Aff, dim>* affine_recast = dynamic_cast< const transform_vector<Aff, dim>* >(&affine);
@@ -731,17 +759,22 @@ public:
 
   // Projections
   geometry_vector_base_p project_to_line(const geometry_vector_base& lines) const {
+    std::vector<T> result;
+
+    if (size() == 0 || lines.size() == 0) {
+      return create_geometry_vector(result);
+    }
+
     if (dim != lines.dimensions()) {
       cpp11::stop("Projection target must match dimensionality of geometry");
     }
     size_t output_length = std::max(size(), lines.size());
 
-    std::vector<T> result;
     result.reserve(output_length);
 
     auto lines_vec = get_vector_of_geo<Line>(lines);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !lines_vec[i % lines_vec.size()]) {
+      if (invalid_geo(_storage[i % size()]) || invalid_geo(lines_vec[i % lines_vec.size()])) {
         result.push_back(T::NA_value());
         continue;
       }
@@ -751,17 +784,22 @@ public:
     return create_geometry_vector(result);
   }
   geometry_vector_base_p project_to_plane(const geometry_vector_base& planes) const {
+    std::vector<T> result;
+
+    if (size() == 0 || planes.size() == 0) {
+      return create_geometry_vector(result);
+    }
+
     if (dim != 3) {
       cpp11::stop("Only 3 dimensional geometries can be projected to plane");
     }
     size_t output_length = std::max(size(), planes.size());
 
-    std::vector<T> result;
     result.reserve(output_length);
 
     auto planes_vec = get_vector_of_geo<Plane>(planes);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !planes_vec[i % planes_vec.size()]) {
+      if (invalid_geo(_storage[i % size()]) || invalid_geo(planes_vec[i % planes_vec.size()])) {
         result.push_back(T::NA_value());
         continue;
       }
@@ -771,17 +809,22 @@ public:
     return create_geometry_vector(result);
   }
   geometry_vector_base_p map_to_plane(const geometry_vector_base& planes) const {
+    std::vector<U> result;
+
+    if (size() == 0 || planes.size() == 0) {
+      return create_geometry_vector(result);
+    }
+
     if (dim != 3) {
       cpp11::stop("Only 3 dimensional geometries can be mapped to plane");
     }
     size_t output_length = std::max(size(), planes.size());
 
-    std::vector<U> result;
     result.reserve(output_length);
 
     auto planes_vec = get_vector_of_geo<Plane>(planes);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !planes_vec[i % planes_vec.size()]) {
+      if (invalid_geo(_storage[i % size()]) || invalid_geo(planes_vec[i % planes_vec.size()])) {
         result.push_back(U::NA_value());
         continue;
       }
