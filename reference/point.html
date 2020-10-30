@@ -220,13 +220,12 @@ locations without weights.</p></li>
 <span class='co'># Arithmetic</span>
 <span class='co'># Translate by adding vector</span>
 <span class='va'>p</span> <span class='op'>+</span> <span class='fu'><a href='vec.html'>vec</a></span><span class='op'>(</span><span class='fl'>3</span>, <span class='fl'>7</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; &lt;2D points [5]&gt;
-#&gt; [1] &lt;x:3.74, y:7.65&gt; &lt;x:3.55, y:7.53&gt; &lt;x:3.63, y:7.23&gt; &lt;x:3.14, y:7.98&gt;
-#&gt; [5] &lt;x:3.93, y:7.11&gt;</div><div class='input'>
+</div><div class='output co'>#&gt; &lt;2D points [0]&gt;
+#&gt; [empty]</div><div class='input'>
 <span class='co'># Create vector by subtracting points</span>
 <span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>-</span> <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; &lt;2D vectors [2]&gt;
-#&gt; [1] &lt;x:0.108, y:0.426&gt;  &lt;x:0.413, y:-0.455&gt;</div><div class='input'>
+</div><div class='output co'>#&gt; &lt;2D vectors [0]&gt;
+#&gt; [empty]</div><div class='input'>
 <span class='co'># Sorting etc.</span>
 <span class='fu'><a href='https://rdrr.io/r/base/sort.html'>sort</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
 </div><div class='output co'>#&gt; &lt;2D points [5]&gt;
@@ -237,8 +236,8 @@ locations without weights.</p></li>
 </div><div class='output co'>#&gt; &lt;2D points [5]&gt;
 #&gt; [1] &lt;x:0.742, y:0.651&gt; &lt;x:0.549, y:0.529&gt; &lt;x:0.549, y:0.529&gt; &lt;x:0.137, y:0.983&gt;
 #&gt; [5] &lt;x:0.137, y:0.983&gt;</div><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/rank.html'>rank</a></span><span class='op'>(</span><span class='va'>p</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; [1] 4 2 3 1 5</div><div class='input'><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;</span> <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
-</div><div class='output co'>#&gt; [1] FALSE FALSE</div><div class='input'>
+</div><div class='output co'>#&gt; <span class='error'>Error in if (xi &gt; xj) 1L else -1L: argument is of length zero</span></div><div class='input'><span class='va'>p</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span> <span class='op'>&lt;</span> <span class='va'>p</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>:</span><span class='fl'>4</span><span class='op'>]</span>
+</div><div class='output co'>#&gt; NULL</div><div class='input'>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
