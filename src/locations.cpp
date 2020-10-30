@@ -101,7 +101,7 @@ geometry_vector_base_p geometry_barycenter_4(geometry_vector_base_p p1, geometry
     auto vec4 = get_vector_of_geo<Weighted_point_2>(*p4);
     size_t output_size = std::max(std::max(std::max(vec1.size(), vec2.size()), vec3.size()), vec4.size());
     std::vector<Point_2> result;
-    if (vec1.size() == 0 || vec2.size() == 0 || vec3.size() == 0 || vec4.size() == 0 {
+    if (vec1.size() == 0 || vec2.size() == 0 || vec3.size() == 0 || vec4.size() == 0) {
       return create_geometry_vector(result);
     }
     result.reserve(output_size);
@@ -124,7 +124,7 @@ geometry_vector_base_p geometry_barycenter_4(geometry_vector_base_p p1, geometry
     auto vec4 = get_vector_of_geo<Weighted_point_3>(*p4);
     size_t output_size = std::max(std::max(std::max(vec1.size(), vec2.size()), vec3.size()), vec4.size());
     std::vector<Point_3> result;
-    if (vec1.size() == 0 || vec2.size() == 0 || vec3.size() == 0 || vec4.size() == 0 {
+    if (vec1.size() == 0 || vec2.size() == 0 || vec3.size() == 0 || vec4.size() == 0) {
       return create_geometry_vector(result);
     }
     result.reserve(output_size);
